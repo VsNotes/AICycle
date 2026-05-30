@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LLMs | AICycle</title><link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--bg:#fef9e7;--hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;--green:#10b981;--py:#2563eb;--net:#7c3aed;--teal:#0d9488;--orange:#f59e0b;--border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px);font-family:var(--fb);font-size:16px;color:#1e293b;min-height:100vh;}
+.page{max-width:1100px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+.hero{background:var(--ink);padding:2rem;text-align:center;position:relative;overflow:hidden;border-bottom:5px solid var(--hot);margin-bottom:2rem;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(247,37,133,.08) 1px,transparent 1px);background-size:20px 20px;}
+.hero h1{font-family:var(--ft);font-size:3rem;color:#fff;letter-spacing:3px;line-height:1.05;position:relative;}
+.hero h1 em{color:var(--hot);font-style:normal;}
+.hero p{color:#ccc;font-size:1rem;max-width:680px;margin:.6rem auto 0;line-height:1.75;position:relative;}
+.hero .badge{display:inline-block;background:var(--hot);color:#fff;font-family:var(--ft);font-size:.9rem;letter-spacing:2px;padding:.2rem 1rem;border-radius:20px;border:2px solid #fff;margin-bottom:.6rem;}
+.hw{display:grid;grid-template-columns:1fr 240px;gap:2rem;align-items:start;}
+.hm{display:flex;flex-direction:column;gap:1.8rem;}
+.hs{display:flex;flex-direction:column;gap:1.2rem;}
+.stitle{font-family:var(--ft);font-size:1.6rem;letter-spacing:2px;padding:.35rem .9rem;border:var(--border);display:inline-block;box-shadow:var(--sh);border-radius:6px;margin-bottom:.9rem;}
+.cstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem;}
+.cp{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1.1rem;position:relative;}
+.cpn{position:absolute;top:-13px;left:10px;background:var(--hot);color:#fff;font-family:var(--ft);font-size:1rem;width:28px;height:28px;border-radius:50%;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;}
+.cp h3{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;margin:.5rem 0 .3rem;}
+.cp p{font-size:.93rem;line-height:1.65;color:#1e293b;}
+.cp .tag{font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);display:inline-block;margin-top:.4rem;}
+.cpi{font-size:2rem;margin-bottom:.2rem;}
+.dbox{background:var(--ink);border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.4rem;position:relative;overflow:hidden;}
+.dbox::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:10px 10px;pointer-events:none;}
+.dbt{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.9rem;text-align:center;}
+.ibox{background:#fff;border:var(--border);border-left:6px solid var(--hot);border-radius:8px;box-shadow:4px 4px 0 var(--ink);padding:1.1rem 1.2rem;}
+.ibox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:var(--hot);margin-bottom:.5rem;}
+.ibox p,.ibox ul{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.ibox ul{padding-left:1.2rem;}.ibox ul li{margin-bottom:.3rem;}
+.ibox.green{border-left-color:var(--green);}.ibox.green h4{color:var(--green);}
+.ibox.blue{border-left-color:var(--py);}.ibox.blue h4{color:var(--py);}
+.ibox.teal{border-left-color:var(--teal);}.ibox.teal h4{color:var(--teal);}
+.ibox.orange{border-left-color:var(--orange);}.ibox.orange h4{color:var(--orange);}
+.ibox.net{border-left-color:var(--net);}.ibox.net h4{color:var(--net);}
+.bubble{background:#fffde7;border:var(--border);border-radius:16px;padding:.9rem 1.1rem;box-shadow:4px 4px 0 var(--ink);position:relative;}
+.bubble::after{content:'';position:absolute;bottom:-18px;left:24px;border-width:10px 8px 0;border-style:solid;border-color:var(--ink) transparent transparent;}
+.bubble::before{content:'';position:absolute;bottom:-14px;left:26px;border-width:9px 7px 0;border-style:solid;border-color:#fffde7 transparent transparent;z-index:1;}
+.bubble p{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.bwho{font-family:var(--ft);font-size:.95rem;color:var(--hot);margin-bottom:.25rem;display:flex;align-items:center;gap:.5rem;}
+.cb{background:#1e1e2e;border:3px solid var(--ink);border-radius:10px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin:.3rem 0;}
+.cbh{padding:.5rem 1rem;background:linear-gradient(90deg,#1e3a8a,#2563eb);color:#93c5fd;font-family:var(--fb);font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:.5rem;border-bottom:2px solid #313244;}
+.cbh.net{background:linear-gradient(90deg,#4c1d95,#7c3aed);color:#c4b5fd;}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.cbody{display:grid;grid-template-columns:40px 1fr;overflow-x:auto;}
+.lnums{background:#181825;color:#45475a;font-family:var(--fc);font-size:.8rem;line-height:1.8;padding:.8rem 0;text-align:right;padding-right:.6rem;user-select:none;border-right:1px solid #313244;}
+.lnums div{height:1.8em;}
+.code-content{padding:.8rem 1rem;font-family:var(--fc);color:#cdd6f4;font-size:.85rem;line-height:1.8;white-space:pre;overflow-x:auto;}
+.pk{color:#cba6f7;}.ps{color:#a6e3a1;}.pc{color:#6c7086;font-style:italic;}.pf{color:#89b4fa;}.pn{color:#f38ba8;}.pcl{color:#fab387;}.pat{color:#f5c2e7;}
+.tbl{width:100%;border-collapse:collapse;font-size:.93rem;background:#fff;border:var(--border);box-shadow:var(--sh);border-radius:8px;overflow:hidden;}
+.tbl th{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.95rem;letter-spacing:1px;padding:.55rem .9rem;text-align:left;}
+.tbl td{padding:.5rem .9rem;border-bottom:1.5px solid #eee;color:#1e293b;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:#f8faff;}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.fc{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;transition:transform .15s,box-shadow .15s;}
+.fc:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.fch{padding:.8rem 1rem;font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;display:flex;align-items:center;gap:.5rem;color:#1e293b;}
+.fcb{padding:0 1rem 1rem;font-size:.93rem;line-height:1.65;color:#1e293b;}
+.ftags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem;}
+.ftag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);}
+.steps{border:var(--border);border-radius:8px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.srow{display:grid;grid-template-columns:44px 1fr;}
+.snum{background:var(--hot);color:#fff;font-family:var(--ft);font-size:1.1rem;display:flex;align-items:center;justify-content:center;border-right:2.5px solid var(--ink);}
+.snum.blue{background:var(--py);}.snum.green{background:var(--green);}.snum.teal{background:var(--teal);}.snum.net{background:var(--net);}.snum.orange{background:var(--orange);}.snum.yellow{background:var(--yellow);color:var(--ink);}
+.scont{padding:.75rem 1rem;border-bottom:1.5px solid #eee;background:#fff;}
+.srow:last-child .scont{border-bottom:none;}
+.sl{font-family:var(--ft);font-size:.98rem;letter-spacing:1px;}
+.sd{font-size:.93rem;color:#334155;line-height:1.6;margin-top:.2rem;}
+.flow{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.3rem;overflow:hidden;position:relative;}
+.flow::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.flow-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.fn{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:.55rem .8rem;text-align:center;min-width:80px;}
+.fn .fi{font-size:1.3rem;display:block;margin-bottom:.15rem;}
+.fn .fl{font-family:var(--ft);font-size:.8rem;letter-spacing:1px;color:#fff;display:block;}
+.fn .fs{font-size:.68rem;color:rgba(255,255,255,.55);display:block;}
+.fn.hi{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.fn.bi{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.fn.gi{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.5);}
+.fn.yi{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.5);}
+.fn.ni{background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.6);}
+.fa{color:var(--yellow);font-size:1.2rem;font-weight:900;}
+.floop{border:2px dashed rgba(251,191,36,.3);border-radius:10px;padding:.5rem .9rem;text-align:center;font-size:.8rem;color:rgba(255,255,255,.55);margin-top:.3rem;}
+.tip{background:#ecfdf5;border:2px solid var(--green);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#065f46;font-weight:600;margin:.3rem 0;}
+.warn{background:#fffbeb;border:2px solid var(--yellow);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#92400e;font-weight:600;margin:.3rem 0;}
+.wow{background:#f0fdfa;border:2px solid var(--teal);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#0f766e;font-weight:600;margin:.3rem 0;}
+.fact{background:linear-gradient(135deg,var(--ink),#252540);border:var(--border);border-radius:10px;padding:1.2rem;box-shadow:var(--sh);text-align:center;color:#fff;}
+.fact .fi2{font-size:2rem;margin-bottom:.4rem;}
+.fact h4{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.4rem;}
+.fact p{font-size:.93rem;color:#ccc;line-height:1.65;}
+.mtr{display:flex;flex-direction:column;gap:.5rem;}
+.mtr-row{display:grid;grid-template-columns:160px 1fr 120px;gap:.5rem;align-items:center;font-size:.88rem;}
+.mtr-label{font-weight:700;color:#1e293b;}
+.mtr-bar-wrap{background:#eee;border-radius:20px;height:10px;overflow:hidden;}
+.mtr-bar{height:100%;border-radius:20px;}
+.mtr-note{font-size:.78rem;color:#64748b;}
+.sbox{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1rem;}
+.sbox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;margin-bottom:.6rem;}
+.sbox ul{font-size:.93rem;line-height:1.8;padding-left:1.1rem;color:#1e293b;}
+.sdark{background:var(--ink);border:var(--border);border-radius:8px;padding:1.1rem;}
+.sdark h4{font-family:var(--ft);font-size:1.05rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.6rem;}
+.sdark ul{font-size:.93rem;line-height:1.8;padding-left:1.1rem;color:#ccc;}
+.sdark dl div{margin-bottom:.5rem;}
+.sdark dt{color:var(--cyan);font-weight:700;font-size:.93rem;}
+.sdark dd{color:#ccc;font-size:.88rem;line-height:1.5;margin-left:.5rem;}
+.timeline{display:flex;flex-direction:column;gap:.8rem;}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:.8rem;align-items:start;}
+.tl-year{font-family:var(--ft);font-size:1.1rem;color:var(--hot);text-align:center;padding:.3rem;border:2px solid var(--hot);border-radius:6px;background:#fce7f3;}
+.tl-body h4{font-family:var(--ft);font-size:1rem;letter-spacing:1px;margin-bottom:.2rem;}
+.tl-body p{font-size:.93rem;line-height:1.6;color:#334155;}
+.sal-wrap{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;}
+.sal-row{display:grid;grid-template-columns:1fr 90px 90px 100px 80px;gap:.3rem;padding:.5rem .7rem;border-bottom:1.5px solid #eee;align-items:center;font-size:.85rem;}
+.sal-row.hdr{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.82rem;letter-spacing:1px;}
+.sal-row:last-child{border-bottom:none;}
+.sal-row:nth-child(even):not(.hdr){background:#f8faff;}
+.next-btn{display:inline-block;font-family:var(--ft);font-size:1rem;letter-spacing:2px;padding:.5rem 1.5rem;background:var(--hot);color:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);text-decoration:none;transition:all .15s;cursor:pointer;margin-top:.5rem;}
+.next-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.toc{display:flex;flex-direction:column;gap:.25rem;margin:.5rem 0;}
+.toc a{font-size:.88rem;color:var(--py);text-decoration:none;padding:.2rem 0;border-bottom:1px dashed #ddd;font-weight:600;}
+.toc a:hover{color:var(--hot);}
+#rbar{position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--hot),var(--yellow),var(--cyan));z-index:9999;transition:width .1s;}
+@media(max-width:900px){.hw{grid-template-columns:1fr;}.hero h1{font-size:2rem;}.sal-row{grid-template-columns:1fr 70px 70px;}.sal-row span:nth-child(4),.sal-row span:nth-child(5){display:none;}}
+</style></head><body>
+<div id="rbar"></div>
+<div class="hero" style="border-bottom-color:var(--cyan)">
+  <div class="badge" style="background:var(--cyan);color:var(--ink)">💬 Chapter 4 · Intermediate</div>
+  <h1>LARGE LANGUAGE<br><em style="color:var(--cyan)">MODELS</em></h1>
+  <p>How GPT, Claude, and Gemini work — tokenization, embeddings, attention, prompting, and the era of foundation models.</p>
+</div>
+<div class="page"><div class="hw"><div class="hm">
+
+<div class="ibox teal"><h4>💬 What is an LLM?</h4>
+<p>A <strong>Large Language Model (LLM)</strong> is a deep learning model trained on massive amounts of text (trillions of tokens) to predict the next most likely word/token. The emergent result is a system that can write, reason, code, translate, and converse at near-human level.<br><br>
+<strong>🎯 Core Insight:</strong><br>
+A model trained to predict text with enough data and compute also learns <em>world knowledge, reasoning, math, code, and logic</em> as byproducts. Intelligence emerges from prediction at scale.</p></div>
+
+<div><div class="stitle" style="background:var(--cyan);color:var(--ink)">🔤 STEP 1: TOKENIZATION</div>
+<div class="bubble"><div class="bwho">🔤 Tokenizer says:</div>
+<p>LLMs don't read words — they read <strong>tokens</strong>. Tokens are chunks of text (subwords, words, or characters) mapped to IDs. GPT-4 uses ~100K tokens; the average word is ~1.3 tokens.<br><br>
+<strong>How "Hello World!" is tokenized:</strong><br>
+"Hello" &rarr; 9906 &nbsp;&nbsp; "World" &rarr; 3146 &nbsp;&nbsp; "!" &rarr; 0<br><br>
+Each token ID maps to a row in the model's embedding matrix (a lookup table of vectors).</p></div></div>
+
+<div><div class="stitle" style="background:var(--ink);color:#fff">⚙️ HOW LLMS GENERATE TEXT</div>
+<div class="steps">
+  <div class="srow"><div class="snum" style="background:var(--cyan);color:var(--ink)">1</div><div class="scont"><div class="sl" style="color:var(--teal)">Tokenize</div><div class="sd">Input text split into tokens and converted to integer IDs. "Hello World!" becomes [9906, 3146, 0].</div></div></div>
+  <div class="srow"><div class="snum blue">2</div><div class="scont"><div class="sl" style="color:var(--py)">Embed</div><div class="sd">Each token ID maps to a high-dimensional vector (e.g. 4096-dim for GPT-4) via embedding lookup table.</div></div></div>
+  <div class="srow"><div class="snum net">3</div><div class="scont"><div class="sl" style="color:var(--net)">Attention</div><div class="sd">Self-attention layers relate each token to all others, building rich contextual representations of meaning.</div></div></div>
+  <div class="srow"><div class="snum">4</div><div class="scont"><div class="sl">Transform</div><div class="sd">Many stacked Transformer blocks process the representations. GPT-4 has ~120 layers, each refining understanding.</div></div></div>
+  <div class="srow"><div class="snum orange">5</div><div class="scont"><div class="sl" style="color:var(--orange)">Sample</div><div class="sd">Final layer outputs probability distribution over all ~100K tokens. Sample next token using temperature setting.</div></div></div>
+  <div class="srow"><div class="snum green">6</div><div class="scont"><div class="sl" style="color:var(--green)">Repeat</div><div class="sd">Add sampled token to context and repeat until end-of-sequence token is generated. This is "autoregressive" generation.</div></div></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--hot);color:#fff">🏆 MAJOR LLMS COMPARED</div>
+<table class="tbl">
+  <thead><tr><th>Model</th><th>Creator</th><th>Context Window</th><th>Strength</th></tr></thead>
+  <tbody>
+    <tr><td>💚 GPT-4o</td><td>OpenAI</td><td>128K tokens</td><td>General reasoning, multimodal, coding</td></tr>
+    <tr><td>🟠 Claude 3.5 Sonnet</td><td>Anthropic</td><td>200K tokens</td><td>Long context, safety, nuanced writing</td></tr>
+    <tr><td>💎 Gemini 1.5 Pro</td><td>Google</td><td>1M tokens</td><td>Massive context, multimodal, search integration</td></tr>
+    <tr><td>🦙 Llama 3.3</td><td>Meta</td><td>128K tokens</td><td>Open source, self-hosted, fine-tunable</td></tr>
+    <tr><td>🔮 Mistral Large</td><td>Mistral AI</td><td>32K tokens</td><td>Efficient, European, strong reasoning</td></tr>
+    <tr><td>🌐 Qwen 2.5</td><td>Alibaba</td><td>128K tokens</td><td>Multilingual, code, math, open weights</td></tr>
+  </tbody>
+</table></div>
+
+<div><div class="stitle" style="background:var(--py);color:#fff">✍️ PROMPT ENGINEERING</div>
+<div class="ibox blue"><h4>💡 The Art of Talking to LLMs</h4>
+<p>The art of crafting inputs to get the best outputs from LLMs. Key techniques: <strong>Zero-shot</strong> (direct question), <strong>Few-shot</strong> (give examples), <strong>Chain-of-Thought</strong> ("think step by step"), <strong>Role assignment</strong> ("you are an expert in..."), <strong>Output formatting</strong> (JSON, table, list).</p></div>
+<br>
+<div class="cb"><div class="cbh "><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span> 🐍 prompt_patterns.py</div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div></div><div class="code-content"><span class="pc"># Zero-Shot — direct question, no examples</span>
+result = llm.invoke(<span class="ps">"Write a function to reverse a linked list."</span>)
+
+<span class="pc"># Few-Shot — provide 2-3 examples first</span>
+few_shot_prompt = <span class="ps">"Classify sentiment (Positive/Negative):\n"</span>
+few_shot_prompt += <span class="ps">"\"Great product!\" -> Positive\n"</span>
+few_shot_prompt += <span class="ps">"\"Terrible service\" -> Negative\n"</span>
+few_shot_prompt += <span class="ps">"\"It was okay\" -> ?\n"</span>
+
+<span class="pc"># Chain-of-Thought — ask it to think step by step</span>
+cot_prompt = <span class="ps">"Think step by step:\n"</span>
+cot_prompt += <span class="ps">"A bat and ball cost $1.10 total.\n"</span>
+cot_prompt += <span class="ps">"The bat costs $1 more than the ball.\n"</span>
+cot_prompt += <span class="ps">"What does the ball cost?\n"</span>
+
+<span class="pc"># temperature=0 for deterministic, factual answers</span>
+llm = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>, temperature=<span class="pn">0</span>)
+result = llm.invoke(cot_prompt)
+print(result.content)  <span class="pc"># Ball costs $0.05</span></div></div></div></div>
+
+<div class="ibox green"><h4>🎯 Top Prompt Engineering Tips</h4>
+<ul>
+  <li><strong>Be specific</strong> — vague prompts get vague answers</li>
+  <li><strong>Give examples (few-shot)</strong> for complex output formats</li>
+  <li><strong>Ask it to think step-by-step</strong> (Chain-of-Thought) for reasoning tasks</li>
+  <li><strong>Assign a role:</strong> "You are an expert Python developer..."</li>
+  <li><strong>Specify output format:</strong> "Respond in JSON with keys: name, score, reason"</li>
+  <li><strong>Use temperature=0</strong> for deterministic, factual answers</li>
+  <li><strong>Provide context:</strong> paste in relevant docs/code alongside the question</li>
+</ul></div>
+
+<a class="next-btn" style="background:var(--teal)" href="#">🔍 Next: RAG &rarr;</a>
+
+</div><!-- hm -->
+<div class="hs">
+  <div class="sbox"><h4 style="color:var(--cyan)">📋 ON THIS PAGE</h4>
+    <div class="toc">
+      <a href="#">💬 What is an LLM?</a>
+      <a href="#">🔤 Tokenization</a>
+      <a href="#">⚙️ How LLMs Generate</a>
+      <a href="#">🏆 Models Compared</a>
+      <a href="#">✍️ Prompt Engineering</a>
+    </div>
+  </div>
+  <div class="sdark"><h4>💡 KEY TERMS</h4>
+    <dl>
+      <div><dt>Token</dt><dd>Text chunk; ~0.75 words on average</dd></div>
+      <div><dt>Context Window</dt><dd>Max tokens the model can process at once</dd></div>
+      <div><dt>Temperature</dt><dd>0=deterministic, 1=creative/random</dd></div>
+      <div><dt>RLHF</dt><dd>Reinforcement Learning from Human Feedback — how LLMs are aligned to be helpful and safe</dd></div>
+      <div><dt>Hallucination</dt><dd>When an LLM confidently states false information</dd></div>
+    </dl>
+  </div>
+</div>
+</div></div>
+<script src="analytics.js"></script>
+<script src="widgets.js"></script>
+<script>window.addEventListener('scroll',()=>{const b=document.getElementById('rbar');if(b){const p=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;b.style.width=Math.min(100,p)+'%';}});</script></body></html>

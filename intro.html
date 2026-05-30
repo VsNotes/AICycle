@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to AI | AICycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a2e;--bg:#fef9e7;
+  --hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;
+  --green:#10b981;--py:#2563eb;--net:#7c3aed;
+  --teal:#0d9488;--orange:#f59e0b;
+  --border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;
+  --ft:'Bangers',cursive;--fb:'Nunito',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px);
+  font-family:var(--fb);font-size:16px;color:#334155;min-height:100vh;
+}
+#rbar{position:fixed;top:0;left:0;width:0%;height:4px;background:linear-gradient(90deg,var(--hot),var(--yellow),var(--cyan),var(--green));z-index:9999;transition:width .1s;}
+.page{max-width:1100px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+
+/* HERO */
+.hero{background:var(--ink);padding:2.2rem 2rem;text-align:center;position:relative;overflow:hidden;border-bottom:5px solid var(--yellow);margin-bottom:2rem;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(251,191,36,.07) 1px,transparent 1px);background-size:20px 20px;}
+.hero-badge{display:inline-block;background:var(--yellow);color:var(--ink);font-family:var(--ft);font-size:.95rem;letter-spacing:2px;padding:.25rem 1.1rem;border-radius:20px;border:2px solid var(--ink);margin-bottom:.7rem;position:relative;}
+.hero h1{font-family:var(--ft);font-size:3.2rem;color:#fff;letter-spacing:3px;line-height:1.05;position:relative;}
+.hero h1 em{color:var(--yellow);font-style:normal;}
+.hero p{color:#e2e8f0;font-size:1rem;max-width:640px;margin:.7rem auto 0;line-height:1.75;position:relative;}
+.hero-pills{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:.9rem;position:relative;}
+.hpill{display:flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:.28rem .85rem;font-size:.85rem;color:#f1f5f9;font-weight:600;}
+
+/* LAYOUT */
+.hw{display:grid;grid-template-columns:1fr 230px;gap:2rem;align-items:start;}
+.hm{display:flex;flex-direction:column;gap:2rem;}
+.hs{display:flex;flex-direction:column;gap:1.2rem;}
+
+/* SECTION TITLE */
+.stitle{font-family:var(--ft);font-size:1.7rem;letter-spacing:2px;padding:.35rem 1rem;border:var(--border);display:inline-block;box-shadow:var(--sh);border-radius:6px;margin-bottom:1rem;}
+
+/* INFO BOX */
+.ibox{background:#fff;border:var(--border);border-left:6px solid var(--hot);border-radius:8px;box-shadow:4px 4px 0 var(--ink);padding:1.2rem 1.3rem;}
+.ibox h4{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;color:var(--hot);margin-bottom:.5rem;}
+.ibox p{font-size:1rem;line-height:1.8;color:#334155;}
+.ibox strong{color:var(--hot);}
+.ibox.yellow{border-left-color:var(--yellow);}.ibox.yellow h4{color:#b45309;}
+.ibox.green{border-left-color:var(--green);}.ibox.green h4{color:var(--green);}
+.ibox.teal{border-left-color:var(--teal);}.ibox.teal h4{color:var(--teal);}
+.ibox.blue{border-left-color:var(--py);}.ibox.blue h4{color:var(--py);}
+
+/* SPEECH BUBBLE */
+.bubble{background:#fffde7;border:var(--border);border-radius:16px;padding:1rem 1.2rem;box-shadow:4px 4px 0 var(--ink);position:relative;}
+.bubble::after{content:'';position:absolute;bottom:-18px;left:24px;border-width:10px 8px 0;border-style:solid;border-color:var(--ink) transparent transparent;}
+.bubble::before{content:'';position:absolute;bottom:-14px;left:26px;border-width:9px 7px 0;border-style:solid;border-color:#fffde7 transparent transparent;z-index:1;}
+.bubble p{font-size:1rem;line-height:1.8;color:#334155;}
+.bubble strong{color:var(--hot);}
+.bwho{font-family:var(--ft);font-size:1rem;color:var(--hot);margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;}
+
+/* TIMELINE */
+.tl{display:flex;flex-direction:column;gap:.1rem;}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:0;align-items:stretch;}
+.tl-left{display:flex;flex-direction:column;align-items:center;}
+.tl-yr{font-family:var(--ft);font-size:1rem;color:#fff;padding:.3rem .4rem;border-radius:7px;border:2.5px solid var(--ink);text-align:center;width:66px;box-shadow:3px 3px 0 var(--ink);flex-shrink:0;}
+.tl-line{flex:1;width:3px;background:rgba(247,37,133,.2);margin:4px auto 0;}
+.tl-item:last-child .tl-line{display:none;}
+.tl-body{background:#fff;border:2.5px solid #e2e8f0;border-radius:10px;padding:.9rem 1rem;margin:0 0 .8rem .75rem;box-shadow:3px 3px 0 #cbd5e1;transition:transform .15s,box-shadow .15s;}
+.tl-body:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);border-color:var(--ink);}
+.tl-body h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:var(--ink);margin-bottom:.35rem;}
+.tl-body p{font-size:.95rem;line-height:1.7;color:#475569;}
+.tl-body strong{color:var(--hot);}
+
+/* TYPES GRID */
+.types{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem;}
+.tc{background:#fff;border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.1rem;transition:transform .15s,box-shadow .15s;}
+.tc:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.tc .ti{font-size:2.2rem;margin-bottom:.3rem;}
+.tc h3{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:var(--ink);margin-bottom:.35rem;}
+.tc p{font-size:.93rem;line-height:1.65;color:#475569;}
+.tc .eg{font-size:.82rem;color:#64748b;margin-top:.3rem;font-style:italic;}
+.tc .status{display:inline-block;font-size:.65rem;font-weight:800;padding:2px 9px;border-radius:20px;border:2px solid var(--ink);margin-top:.4rem;}
+
+/* FAMILY TREE */
+.ftree{background:var(--ink);border:var(--border);border-radius:14px;box-shadow:var(--sh);padding:1.5rem;position:relative;overflow:hidden;}
+.ftree::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;}
+.ft-title{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:1.3rem;}
+.ft-center{display:flex;flex-direction:column;align-items:center;}
+.ft-node{display:inline-flex;flex-direction:column;align-items:center;gap:.2rem;border:2.5px solid rgba(255,255,255,.2);border-radius:12px;padding:.65rem 1.1rem;min-width:115px;text-align:center;transition:transform .15s;}
+.ft-node:hover{transform:translateY(-2px);}
+.ft-node .fn-icon{font-size:1.5rem;}
+.ft-node .fn-label{font-family:var(--ft);font-size:.88rem;letter-spacing:1.5px;color:#fff;}
+.ft-node .fn-desc{font-size:.7rem;color:rgba(255,255,255,.5);line-height:1.3;}
+.ft-node .fn-ch{font-size:.58rem;font-weight:800;padding:1px 6px;border-radius:10px;background:rgba(251,191,36,.2);color:var(--yellow);margin-top:.15rem;font-family:var(--fb);}
+.ft-node.n-root{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.5);}
+.ft-node.n-ml{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.ft-node.n-dl{background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.6);}
+.ft-node.n-llm{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.ft-node.n-rag{background:rgba(6,182,212,.15);border-color:rgba(6,182,212,.5);}
+.ft-node.n-agent{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.6);box-shadow:0 0 18px rgba(16,185,129,.2);}
+.ft-vline{width:2px;height:18px;background:rgba(255,255,255,.15);margin:.1rem auto;}
+.ft-branch-row{display:flex;justify-content:center;gap:1rem;position:relative;}
+.ft-branch-row::before{content:'';position:absolute;top:0;left:18%;right:18%;height:2px;background:rgba(255,255,255,.12);}
+.ft-branch{display:flex;flex-direction:column;align-items:center;}
+.ft-stub{width:2px;height:14px;background:rgba(255,255,255,.12);}
+.ft-loop{border:2px dashed rgba(251,191,36,.3);border-radius:10px;padding:.55rem 1rem;text-align:center;font-size:.82rem;color:rgba(255,255,255,.55);margin-top:.9rem;line-height:1.5;}
+
+/* MYTHS */
+.myths{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.myth{background:#fff;border:var(--border);border-radius:10px;box-shadow:4px 4px 0 var(--ink);padding:1rem 1.1rem;}
+.myth.bad{border-left:6px solid #ef4444;}.myth.good{border-left:6px solid var(--green);}
+.myth h4{font-family:var(--ft);font-size:1rem;letter-spacing:1px;margin-bottom:.4rem;}
+.myth.bad h4{color:#dc2626;}.myth.good h4{color:var(--green);}
+.myth p{font-size:.95rem;line-height:1.7;color:#475569;}
+
+/* CAPABILITY TABLE */
+.cap{background:#fff;border:var(--border);border-radius:10px;box-shadow:var(--sh);overflow:hidden;}
+.cap-hdr{background:var(--ink);display:grid;grid-template-columns:185px 1fr 160px;padding:.6rem 1rem;gap:.5rem;}
+.cap-hdr span{font-family:var(--ft);font-size:.88rem;letter-spacing:1px;color:var(--yellow);}
+.cap-row{display:grid;grid-template-columns:185px 1fr 160px;padding:.6rem 1rem;gap:.5rem;border-bottom:1.5px solid #f1f5f9;align-items:center;}
+.cap-row:last-child{border-bottom:none;}
+.cap-row:nth-child(even){background:#f8faff;}
+.cap-label{font-size:.95rem;font-weight:700;color:#334155;}
+.cap-bar-w{background:#f1f5f9;border-radius:20px;height:11px;overflow:hidden;border:1.5px solid #e2e8f0;}
+.cap-bar{height:100%;border-radius:20px;transition:width 1.2s ease;}
+.cap-note{font-size:.82rem;color:#64748b;}
+
+/* FACT */
+.fact{background:linear-gradient(135deg,var(--ink),#252548);border:var(--border);border-radius:12px;padding:1.4rem;box-shadow:var(--sh);text-align:center;position:relative;overflow:hidden;}
+.fact::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(251,191,36,.06) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.fact .fi{font-size:2.5rem;margin-bottom:.4rem;}
+.fact h4{font-family:var(--ft);font-size:1.3rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.5rem;position:relative;}
+.fact p{font-size:.97rem;color:#e2e8f0;line-height:1.8;position:relative;}
+.fact strong{color:var(--yellow);}
+
+/* TIP / WARN */
+.tip{background:#ecfdf5;border:2px solid var(--green);border-radius:8px;padding:.65rem 1rem;font-size:.95rem;color:#065f46;font-weight:600;margin:.4rem 0;}
+.warn{background:#fffbeb;border:2px solid var(--yellow);border-radius:8px;padding:.65rem 1rem;font-size:.95rem;color:#92400e;font-weight:600;margin:.4rem 0;}
+
+/* NEXT BUTTON */
+.next-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--ft);font-size:1.05rem;letter-spacing:2px;padding:.55rem 1.5rem;border:var(--border);border-radius:8px;box-shadow:var(--sh);text-decoration:none;transition:all .15s;cursor:pointer;}
+.next-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+
+/* SIDEBAR */
+.sbox{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1rem;}
+.sbox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;margin-bottom:.65rem;}
+.toc a{display:flex;align-items:center;gap:.4rem;font-size:.92rem;color:var(--py);text-decoration:none;padding:.25rem .4rem;border-radius:5px;font-weight:600;transition:all .15s;}
+.toc a:hover{background:#eff6ff;color:var(--hot);}
+.sdark{background:var(--ink);border:var(--border);border-radius:8px;padding:1rem;}
+.sdark h4{font-family:var(--ft);font-size:1.05rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.65rem;}
+.sdark dl div{margin-bottom:.5rem;}
+.sdark dt{color:var(--cyan);font-weight:700;font-size:.95rem;}
+.sdark dd{color:#cbd5e1;font-size:.9rem;line-height:1.5;margin-left:.3rem;}
+.next-box{background:linear-gradient(135deg,var(--py),#1e40af);border:var(--border);border-radius:8px;padding:1rem;box-shadow:var(--sh);}
+.next-box h4{font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.4rem;}
+.next-box p{font-size:.88rem;color:rgba(255,255,255,.85);line-height:1.6;margin-bottom:.6rem;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hw{grid-template-columns:1fr;}
+  .hero h1{font-size:2.4rem;}
+  .myths{grid-template-columns:1fr;}
+  .types{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));}
+  .cap-hdr,.cap-row{grid-template-columns:150px 1fr;}
+  .cap-hdr span:last-child,.cap-note{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="rbar"></div>
+
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">📖 Chapter 1 · Beginner Friendly</div>
+  <h1>WHAT IS<br><em>ARTIFICIAL</em><br>INTELLIGENCE?</h1>
+  <p>From Turing's dream to ChatGPT — the full story of how machines learned to think. Start here if you're brand new to AI.</p>
+  <div class="hero-pills">
+    <div class="hpill">🕐 20 min read</div>
+    <div class="hpill">🎯 All Roles</div>
+    <div class="hpill">📖 No Code Needed</div>
+    <div class="hpill">🔗 Connects to all chapters</div>
+  </div>
+</div>
+
+<div class="page"><div class="hw"><div class="hm">
+
+<!-- WHAT IS AI -->
+<div>
+<div class="stitle" style="background:var(--yellow);color:var(--ink)">🤖 WHAT IS AI?</div>
+<div class="bubble">
+  <div class="bwho">🤖 AI Mascot says:</div>
+  <p>It's not robots taking over — it's <strong>math making decisions!</strong><br><br>
+  <strong>Artificial Intelligence (AI)</strong> is the science of building systems that can perform tasks that normally require human intelligence — like understanding language, recognizing images, making decisions, and solving problems.<br><br>
+  At its core, AI is just <strong>pattern recognition at scale</strong>. Give a system enough examples and the right algorithm, and it can learn to generalize — seeing patterns in new data it has never encountered before.</p>
+</div>
+<div style="height:18px"></div>
+<div class="ibox yellow">
+  <h4>🎯 Simple Definition</h4>
+  <p>AI = Programs that <strong>learn from data</strong> to make predictions or decisions, instead of following hand-coded rules written by humans.<br><br>
+  <strong>❌ Traditional programming:</strong> Data + Rules → Answers (you write every rule)<br>
+  <strong>✅ Machine Learning / AI:</strong> Data + Answers → Rules (the machine finds them itself!)</p>
+</div>
+</div>
+
+<!-- TIMELINE -->
+<div>
+<div class="stitle" style="background:var(--hot);color:#fff">📅 AI HISTORY TIMELINE</div>
+<div class="tl">
+  <div class="tl-item">
+    <div class="tl-left"><div class="tl-yr" style="background:var(--hot)">1950</div><div class="tl-line"></div></div>
+    <div class="tl-body">
+      <h4>⚙️ Alan Turing — The Turing Test</h4>
+      <p>Turing proposes: if a machine can converse indistinguishably from a human, it is "intelligent." The foundation of all AI thinking. His paper "Computing Machinery and Intelligence" asks: <strong>"Can machines think?"</strong></p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-left"><div class="tl-yr" style="background:var(--orange)">1956</div><div class="tl-line" style="background:rgba(245,158,11,.2)"></div></div>
+    <div class="tl-body">
+      <h4>🎓 Dartmouth Conference — AI is Born</h4>
+      <p>John McCarthy coins the term "Artificial Intelligence." The field is officially born. Researchers are wildly optimistic: <strong>"human-level AI in 20 years!"</strong> — it took a bit longer.</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-left"><div class="tl-yr" style="background:var(--teal)">1980s</div><div class="tl-line" style="background:rgba(13,148,136,.2)"></div></div>
+    <div class="tl-body">
+      <h4>📋 Expert Systems Dominate</h4>
+      <p>Rule-based AI systems encode human knowledge as if-then rules. Effective but brittle — can't handle anything outside their rulebook. The "AI winter" hits when optimism crashes into reality.</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-left"><div class="tl-yr" style="background:var(--net)">1997</div><div class="tl-line" style="background:rgba(124,58,237,.2)"></div></div>
+    <div class="tl-body">
+      <h4>♟️ Deep Blue Beats Kasparov</h4>
+      <p>IBM's Deep Blue defeats world chess champion Garry Kasparov. A landmark moment — but Deep Blue uses <strong>brute force search, not learning</strong>. It evaluates 200 million positions per second.</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-left"><div class="tl-yr" style="background:var(--py)">2012</div><div class="tl-line" style="background:rgba(37,99,235,.2)"></div></div>
+    <div class="tl-body">
+      <h4>🧠 AlexNet — The Deep Learning Revolution</h4>
+      <p>Hinton's team wins ImageNet with a GPU-powered deep neural network (AlexNet). <strong>Error rate drops from 26% to 15.3%</strong> — a jaw-dropping leap. GPU-powered deep learning crushes previous methods. The AI renaissance truly begins.</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-left"><div class="tl-yr" style="background:var(--green)">2017</div><div class="tl-line" style="background:rgba(16,185,129,.2)"></div></div>
+    <div class="tl-body">
+      <h4>🔄 Transformers — "Attention is All You Need"</h4>
+      <p>Google researchers publish the Transformer architecture. Self-attention lets models understand full context simultaneously. This becomes the <strong>foundation of ALL modern LLMs</strong>: BERT, GPT, Claude, Gemini, Llama.</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-left"><div class="tl-yr" style="background:var(--hot)">2022</div><div class="tl-line" style="background:rgba(247,37,133,.2)"></div></div>
+    <div class="tl-body">
+      <h4>💬 ChatGPT Goes Viral</h4>
+      <p>OpenAI's ChatGPT reaches <strong>100 million users in just 2 months</strong> — the fastest-growing app in history. TikTok took 9 months. Instagram took 2.5 years. AI enters everyday life for billions. Nothing is the same again.</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-left"><div class="tl-yr" style="background:linear-gradient(135deg,var(--hot),var(--net))">2024+</div></div>
+    <div class="tl-body" style="border-color:var(--hot);box-shadow:4px 4px 0 var(--hot)">
+      <h4>⚡ The Agentic AI Era — Right Now!</h4>
+      <p>AI moves from answering questions to <strong>taking autonomous actions</strong>. Agents browse the web, write and run code, use tools, and orchestrate complex multi-step tasks. <strong>This is where we are now — and what this site is all about!</strong></p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TYPES OF AI -->
+<div>
+<div class="stitle" style="background:var(--py);color:#fff">🗂️ TYPES OF AI</div>
+<div class="types">
+  <div class="tc" style="border-color:var(--green)">
+    <div class="ti">🌱</div><h3>Narrow AI (ANI)</h3>
+    <p>Designed for <strong>one specific task</strong>. The <em>only type that exists today</em>. Incredibly good at its job but completely useless outside it.</p>
+    <div class="eg">Face recognition, spam filter, chess engines, ChatGPT</div>
+    <span class="status" style="background:#d1fae5;color:#065f46">✅ EXISTS TODAY</span>
+  </div>
+  <div class="tc" style="border-color:var(--orange)">
+    <div class="ti">🧠</div><h3>General AI (AGI)</h3>
+    <p>Can do <strong>any intellectual task a human can</strong>. Understands context, transfers knowledge across domains, reasons like a person.</p>
+    <div class="eg">Status: Active research. Timeline: 5 years to "never"</div>
+    <span class="status" style="background:#fef3c7;color:#92400e">⏳ DOES NOT EXIST YET</span>
+  </div>
+  <div class="tc" style="border-color:var(--hot)">
+    <div class="ti">🚀</div><h3>Super AI (ASI)</h3>
+    <p>Surpasses human intelligence in <strong>every domain</strong>. Hypothetical. Subject of significant safety research and philosophical debate.</p>
+    <div class="eg">Status: Theoretical. The "singularity" scenario.</div>
+    <span class="status" style="background:#fce7f3;color:#9d174d">🔮 THEORETICAL</span>
+  </div>
+  <div class="tc">
+    <div class="ti">📜</div><h3>Rule-Based AI</h3>
+    <p>Follows hand-coded if-then rules. Predictable and explainable but can't learn or handle edge cases. Dominant in the 1980s.</p>
+    <div class="eg">Tax calculators, chess rules, IFTTT automations</div>
+    <span class="status" style="background:#e0e7ff;color:#3730a3">📋 1980s ERA</span>
+  </div>
+  <div class="tc" style="border-color:var(--py)">
+    <div class="ti">📊</div><h3>Machine Learning AI</h3>
+    <p>Learns <strong>patterns from data</strong>. Improves with more examples. Can generalize to new situations within its trained domain.</p>
+    <div class="eg">Fraud detection, price prediction, spam filtering</div>
+    <span class="status" style="background:#dbeafe;color:#1e40af">🔵 CORE TODAY</span>
+  </div>
+  <div class="tc" style="border-color:var(--net)">
+    <div class="ti">🎨</div><h3>Generative AI</h3>
+    <p>Creates new content — <strong>text, images, audio, video, code</strong>. Powered by large foundation models trained on massive datasets.</p>
+    <div class="eg">ChatGPT, Claude, Midjourney, Sora, Copilot</div>
+    <span class="status" style="background:#ede9fe;color:#4c1d95">🔥 HOTTEST RIGHT NOW</span>
+  </div>
+</div>
+</div>
+
+<!-- FAMILY TREE -->
+<div>
+<div class="stitle" style="background:var(--ink);color:#fff">🗺️ THE AI FAMILY TREE</div>
+<div class="ftree">
+  <div class="ft-title">🤖 FROM AI TO AGENTIC — THE FULL EVOLUTION</div>
+  <div class="ft-center">
+    <div class="ft-node n-root"><span class="fn-icon">🤖</span><span class="fn-label">ARTIFICIAL INTELLIGENCE</span><span class="fn-desc">The broad field of making machines intelligent</span><span class="fn-ch">Est. 1956</span></div>
+    <div class="ft-vline"></div>
+    <div class="ft-node n-ml"><span class="fn-icon">📊</span><span class="fn-label">MACHINE LEARNING</span><span class="fn-desc">Learning from data rather than explicit rules</span><span class="fn-ch">→ Chapter 2: ML</span></div>
+    <div class="ft-vline"></div>
+    <div class="ft-node n-dl"><span class="fn-icon">🧠</span><span class="fn-label">DEEP LEARNING</span><span class="fn-desc">Neural networks with many layers</span><span class="fn-ch">→ Chapter 3: Deep Learning</span></div>
+    <div class="ft-vline"></div>
+    <div class="ft-branch-row">
+      <div class="ft-branch">
+        <div class="ft-stub"></div>
+        <div class="ft-node n-llm"><span class="fn-icon">💬</span><span class="fn-label">LLMs</span><span class="fn-desc">Transformers at massive scale</span><span class="fn-ch">→ Chapter 4: LLMs</span></div>
+      </div>
+      <div class="ft-branch">
+        <div class="ft-stub"></div>
+        <div class="ft-node n-rag"><span class="fn-icon">🔍</span><span class="fn-label">RAG</span><span class="fn-desc">LLMs + private data</span><span class="fn-ch">→ Chapter 5: RAG</span></div>
+      </div>
+    </div>
+    <div class="ft-vline"></div>
+    <div class="ft-node n-agent"><span class="fn-icon">⚡</span><span class="fn-label">AGENTIC AI</span><span class="fn-desc">LLMs + tools + memory + planning = autonomous action</span><span class="fn-ch">→ Chapter 6: Agentic AI ← YOU ARE HERE!</span></div>
+  </div>
+  <div class="ft-loop">🔗 Each layer builds on the one below. Understanding this tree = understanding all of AI!<br><span style="color:var(--yellow);font-family:var(--ft);letter-spacing:1px">Follow the tabs in order above for the clearest learning path.</span></div>
+</div>
+</div>
+
+<!-- MYTHS VS REALITY -->
+<div>
+<div class="stitle" style="background:var(--hot);color:#fff">🔍 MYTHS vs REALITY</div>
+<div class="myths">
+  <div class="myth bad"><h4>❌ Myth: AI is magic</h4><p>AI feels like magic but it's all math — matrix multiplications, probability distributions, and optimization algorithms running on GPUs.</p></div>
+  <div class="myth good"><h4>✅ Reality: Statistics + Data</h4><p>AI is advanced pattern matching. Given enough data and compute, it finds correlations that are impossible for humans to spot manually.</p></div>
+  <div class="myth bad"><h4>❌ Myth: AI understands like humans</h4><p>Current AI doesn't "understand" — it predicts the most likely next token/output based on training patterns. Nothing more.</p></div>
+  <div class="myth good"><h4>✅ Reality: Sophisticated prediction</h4><p>LLMs predict text statistically. The emergent behavior from that at massive scale can seem remarkably "intelligent."</p></div>
+  <div class="myth bad"><h4>❌ Myth: AI will replace all jobs</h4><p>AI automates tasks, not jobs. Most jobs are bundles of tasks — AI shifts which tasks humans do, not whether humans work.</p></div>
+  <div class="myth good"><h4>✅ Reality: Tool amplification</h4><p>AI amplifies skilled workers. Those who learn to use AI tools effectively will outcompete those who don't — in every field.</p></div>
+</div>
+</div>
+
+<!-- CAPABILITY METER -->
+<div>
+<div class="stitle" style="background:var(--teal);color:#fff">📊 WHAT CAN AI DO TODAY?</div>
+<div class="cap">
+  <div class="cap-hdr"><span>Capability</span><span>Skill Level (2025)</span><span>Notes</span></div>
+  <div class="cap-row"><span class="cap-label">🗣️ Language Understanding</span><div class="cap-bar-w"><div class="cap-bar" style="width:93%;background:linear-gradient(90deg,var(--green),var(--teal))"></div></div><span class="cap-note">Near-human in many tasks</span></div>
+  <div class="cap-row"><span class="cap-label">💻 Code Generation</span><div class="cap-bar-w"><div class="cap-bar" style="width:88%;background:linear-gradient(90deg,var(--py),var(--cyan))"></div></div><span class="cap-note">Excellent at standard patterns</span></div>
+  <div class="cap-row"><span class="cap-label">🎨 Image Generation</span><div class="cap-bar-w"><div class="cap-bar" style="width:91%;background:linear-gradient(90deg,var(--hot),var(--orange))"></div></div><span class="cap-note">Photorealistic, creative</span></div>
+  <div class="cap-row"><span class="cap-label">🧮 Complex Math</span><div class="cap-bar-w"><div class="cap-bar" style="width:76%;background:linear-gradient(90deg,var(--orange),var(--yellow))"></div></div><span class="cap-note">Improving fast with o1/o3</span></div>
+  <div class="cap-row"><span class="cap-label">🎯 Long-term Planning</span><div class="cap-bar-w"><div class="cap-bar" style="width:57%;background:linear-gradient(90deg,var(--yellow),#a3e635)"></div></div><span class="cap-note">Active research — Agentic AI!</span></div>
+  <div class="cap-row"><span class="cap-label">💡 True Reasoning</span><div class="cap-bar-w"><div class="cap-bar" style="width:50%;background:linear-gradient(90deg,#94a3b8,var(--cyan))"></div></div><span class="cap-note">Debated — surface vs deep</span></div>
+  <div class="cap-row"><span class="cap-label">😊 Emotional Intelligence</span><div class="cap-bar-w"><div class="cap-bar" style="width:28%;background:linear-gradient(90deg,#cbd5e1,#94a3b8)"></div></div><span class="cap-note">Simulated, not genuine</span></div>
+</div>
+</div>
+
+<!-- MIND BLOWING FACT -->
+<div class="fact">
+  <div class="fi">🤯</div>
+  <h4>MIND-BLOWING AI FACT</h4>
+  <p>The word <strong>"Artificial Intelligence"</strong> was coined in <strong>1956</strong>. But the data that powers modern AI — the internet — didn't exist until the 1990s. The technology was waiting for the data all along.<br><br>
+  GPT-4 was trained on an estimated <strong>13 trillion tokens</strong> — roughly <strong>65,000× all the books ever written.</strong></p>
+</div>
+
+<!-- NEXT BUTTONS -->
+<div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.5rem;">
+  <a class="next-btn" style="background:var(--py);color:#fff">📊 Next: Machine Learning →</a>
+  <a class="next-btn" style="background:var(--hot);color:#fff">⚡ Jump to Agentic AI →</a>
+</div>
+
+</div><!-- hm -->
+
+<!-- SIDEBAR -->
+<div class="hs">
+  <div class="sbox">
+    <h4 style="color:var(--hot)">📋 ON THIS PAGE</h4>
+    <div class="toc">
+      <a href="#">🤖 What is AI?</a>
+      <a href="#">📅 History Timeline</a>
+      <a href="#">🗂️ Types of AI</a>
+      <a href="#">🗺️ AI Family Tree</a>
+      <a href="#">🔍 Myths vs Reality</a>
+      <a href="#">📊 Capability Meter</a>
+      <a href="#">🤯 Mind-Blowing Fact</a>
+    </div>
+  </div>
+  <div class="sdark">
+    <h4>💡 KEY TERMS</h4>
+    <dl>
+      <div><dt>Algorithm</dt><dd>Step-by-step instructions for solving a problem</dd></div>
+      <div><dt>Training Data</dt><dd>Examples the AI learns from to find patterns</dd></div>
+      <div><dt>Model</dt><dd>The learned mathematical function — the AI's brain</dd></div>
+      <div><dt>Inference</dt><dd>Using a trained model to make predictions on new data</dd></div>
+      <div><dt>Parameters</dt><dd>The knobs tuned during training. GPT-4 has ~1.76 trillion!</dd></div>
+    </dl>
+  </div>
+  <div class="next-box">
+    <h4>👉 NEXT UP</h4>
+    <p>Ready to go deeper? Machine Learning is where AI starts getting practical — real algorithms, real Python code!</p>
+    <a class="next-btn" style="background:var(--yellow);color:var(--ink);font-size:.88rem;padding:.45rem 1rem">📊 Machine Learning →</a>
+  </div>
+</div>
+
+</div></div><!-- hw / page -->
+
+<script src="analytics.js"></script>
+<script src="widgets.js"></script>
+<script>
+window.addEventListener('scroll',()=>{
+  const b=document.getElementById('rbar');
+  if(b){const p=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;b.style.width=Math.min(100,p)+'%';}
+});
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting){
+    x.target.querySelectorAll('.cap-bar').forEach(b=>{const w=b.style.width;b.style.width='0%';setTimeout(()=>{b.style.width=w;},200);});
+    obs.unobserve(x.target);
+  }});
+},{threshold:0.3});
+const cap=document.querySelector('.cap');if(cap)obs.observe(cap);
+</script>
+</body>
+</html>

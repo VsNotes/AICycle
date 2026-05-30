@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI – Autonomous AI Systems | AI Cycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --panel-bg: #fffef5;
+    --accent1: #f72585;
+    --accent2: #7209b7;
+    --accent3: #4cc9f0;
+    --accent4: #ffe66d;
+    --border: 3px solid #1a1a2e;
+    --shadow: 5px 5px 0 #1a1a2e;
+    --font-title: 'Bangers', cursive;
+    --font-comic: 'Comic Neue', cursive;
+    --font-body: 'Space Grotesk', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #fef9e7;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #e8e0c0 39px, #e8e0c0 40px),
+                      repeating-linear-gradient(90deg, transparent, transparent 39px, #e8e0c0 39px, #e8e0c0 40px);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+  nav {
+    background: var(--ink);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--accent1);
+  }
+  .nav-logo { font-family: var(--font-title); font-size: 2rem; color: var(--accent4); letter-spacing: 2px; padding: 0.5rem 0; }
+  .nav-logo span { color: var(--accent3); }
+  .nav-links { display: flex; gap: 0.25rem; flex-wrap: wrap; padding: 0.5rem 0; }
+  .nav-links a {
+    color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 600;
+    padding: 0.3rem 0.7rem; border-radius: 20px; border: 2px solid transparent;
+    transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .nav-links a:hover, .nav-links a.active { background: var(--accent1); color: #fff; border-color: var(--accent1); }
+  .nav-links a.new-badge::after { content: 'NEW'; background: var(--accent3); color: var(--ink); font-size: 0.55rem; padding: 1px 4px; border-radius: 3px; margin-left: 4px; vertical-align: top; }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(247,37,133,0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .page-hero h1 { font-family: var(--font-title); font-size: 4rem; color: #fff; letter-spacing: 3px; position: relative; }
+  .page-hero h1 em { color: var(--accent1); font-style: normal; -webkit-text-stroke: 1px #fff; }
+  .page-hero .sub { color: #ccc; font-size: 1rem; max-width: 600px; margin: 0.8rem auto 0; position: relative; }
+  .page-hero .hero-badge {
+    display: inline-block;
+    background: var(--accent1);
+    color: #fff;
+    font-family: var(--font-title);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    padding: 0.3rem 1.2rem;
+    border-radius: 20px;
+    border: 2px solid #fff;
+    margin-bottom: 0.8rem;
+  }
+
+  /* LAYOUT */
+  .content-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .main-col { display: flex; flex-direction: column; gap: 2rem; }
+  .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .section-title {
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    padding: 0.4rem 1rem;
+    border: var(--border);
+    display: inline-block;
+    box-shadow: var(--shadow);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  /* COMIC PANELS */
+  .comic-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .panel {
+    background: var(--panel-bg);
+    border: var(--border);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    padding: 1.2rem;
+    position: relative;
+  }
+  .panel-number {
+    position: absolute;
+    top: -12px; left: 12px;
+    background: var(--accent1);
+    color: #fff;
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .panel h3 { font-family: var(--font-title); font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 0.5rem; margin-top: 0.3rem; }
+  .panel p { font-size: 0.78rem; line-height: 1.6; color: #444; }
+  .panel .panel-emoji { font-size: 2rem; margin-bottom: 0.3rem; }
+
+  /* AGENT ANATOMY */
+  .anatomy-grid {
+    background: var(--ink);
+    border-radius: 4px;
+    border: var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .anatomy-grid::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(76,201,240,0.08) 1px, transparent 1px);
+    background-size: 10px 10px;
+  }
+  .anatomy-title { font-family: var(--font-title); font-size: 1.5rem; color: var(--accent4); letter-spacing: 2px; margin-bottom: 1rem; position: relative; text-align: center; }
+  .anatomy-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; position: relative; }
+  .anatomy-box {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+  .anatomy-box .a-icon { font-size: 1.8rem; }
+  .anatomy-box .a-label { color: var(--accent3); font-family: var(--font-title); font-size: 0.9rem; letter-spacing: 1px; margin: 0.3rem 0 0.2rem; }
+  .anatomy-box .a-desc { color: rgba(255,255,255,0.65); font-size: 0.7rem; line-height: 1.4; }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1.5rem;
+    background: var(--panel-bg);
+    border: var(--border);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+  }
+  .flow-step {
+    background: #fff;
+    border: 2.5px solid var(--ink);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 3px 3px 0 var(--ink);
+    min-width: 90px;
+  }
+  .flow-arrow {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent1);
+  }
+  .flow-step.highlight { background: var(--accent1); color: #fff; }
+  .flow-step.highlight2 { background: var(--accent3); color: var(--ink); }
+  .flow-step.highlight3 { background: var(--accent4); color: var(--ink); }
+
+  /* FRAMEWORK CARDS */
+  .fw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
+  }
+  .fw-card {
+    background: var(--panel-bg);
+    border: var(--border);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .fw-card:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 var(--ink); }
+  .fw-header {
+    padding: 1rem;
+    font-family: var(--font-title);
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .fw-body { padding: 0 1rem 1rem; font-size: 0.78rem; line-height: 1.6; color: #444; }
+  .fw-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+  .fw-tag {
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1.5px solid var(--ink);
+    text-transform: uppercase;
+  }
+
+  /* CODE SNIPPET */
+  .code-box {
+    background: #0d1117;
+    border: var(--border);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+  .code-header {
+    background: var(--ink);
+    color: var(--accent4);
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .code-header .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .code-body { padding: 1rem 1.2rem; font-family: 'Courier New', monospace; color: #e6edf3; }
+  .code-body .kw { color: #ff7b72; }
+  .code-body .str { color: #a5d6ff; }
+  .code-body .cm { color: #6e7681; font-style: italic; }
+  .code-body .fn { color: #d2a8ff; }
+  .code-body .cl { color: #ffa657; }
+  .code-body .var { color: #79c0ff; }
+
+  /* COMPARISON TABLE */
+  table.compare {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    background: var(--panel-bg);
+    border: var(--border);
+    box-shadow: var(--shadow);
+  }
+  table.compare th {
+    background: var(--ink);
+    color: var(--accent4);
+    font-family: var(--font-title);
+    font-size: 1rem;
+    letter-spacing: 1px;
+    padding: 0.7rem 1rem;
+    text-align: left;
+  }
+  table.compare td { padding: 0.6rem 1rem; border-bottom: 1.5px solid #ddd; }
+  table.compare tr:last-child td { border-bottom: none; }
+  table.compare tr:nth-child(even) td { background: #fff8f0; }
+  table.compare .check { color: #06d6a0; font-size: 1.1rem; }
+  table.compare .cross { color: #e63946; font-size: 1.1rem; }
+
+  /* SPEECH BUBBLE */
+  .speech {
+    background: #fff;
+    border: 2.5px solid var(--ink);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    font-family: var(--font-comic);
+    font-size: 0.9rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    box-shadow: 3px 3px 0 var(--ink);
+    margin: 0.5rem 0 1rem;
+  }
+  .speech::after {
+    content: '';
+    position: absolute;
+    bottom: -16px; left: 20px;
+    border: 8px solid transparent;
+    border-top-color: var(--ink);
+  }
+  .speech::before {
+    content: '';
+    position: absolute;
+    bottom: -12px; left: 21px;
+    border: 7px solid transparent;
+    border-top-color: #fff;
+    z-index: 1;
+  }
+
+  /* AD */
+  .ad-banner {
+    background: #fff8e1; border: 2px dashed #ccc; border-radius: 4px;
+    text-align: center; padding: 1rem; color: #999; font-size: 0.8rem;
+    position: relative;
+  }
+  .ad-banner::before { content: 'Advertisement'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #fff8e1; padding: 0 6px; font-size: 0.7rem; color: #bbb; }
+  .ad-banner .ad-inner { min-height: 90px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; }
+  .ad-sidebar { background: #fff8e1; border: 2px dashed #ccc; border-radius: 4px; text-align: center; padding: 1rem 0.5rem; color: #999; font-size: 0.75rem; min-height: 250px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; position: relative; }
+  .ad-sidebar::before { content: 'Ad'; position: absolute; top: 6px; right: 8px; font-size: 0.6rem; color: #ccc; }
+
+  footer { background: var(--ink); color: #ccc; text-align: center; padding: 1.5rem; font-size: 0.8rem; margin-top: 3rem; }
+  footer span { color: var(--accent4); font-family: var(--font-title); font-size: 1rem; letter-spacing: 1px; }
+  .zigzag { height: 20px; background: linear-gradient(135deg, var(--ink) 25%, transparent 25%) -10px 0, linear-gradient(225deg, var(--ink) 25%, transparent 25%) -10px 0, linear-gradient(315deg, var(--ink) 25%, transparent 25%), linear-gradient(45deg, var(--ink) 25%, transparent 25%); background-size: 20px 20px; background-color: var(--accent1); margin: 1rem 0; }
+
+  @media(max-width:768px) { .content-grid { grid-template-columns: 1fr; } .page-hero h1 { font-size: 2.5rem; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">AI<span>Cycle</span></div>
+<div style="font-size:0.62rem;color:#aaa;font-family:var(--font-body);letter-spacing:0.3px;line-height:1.4;">
+      Built with 🧠 by <strong style="color:#ddd;">Ashish Sinha</strong> · AI Developer<br>
+      <a href="mailto:startvsnotes@gmail.com" style="color:var(--accent3);text-decoration:none;">✉️ startvsnotes@gmail.com</a><br>
+      <span style="color:#777;">Educational content · All rights reserved · 2025-30</span>
+    </div>
+  <div class="nav-links">
+    <a href="index.html">🏠 Home</a>
+    <a href="intro.html">Intro</a>
+    <a href="ml.html">ML</a>
+    <a href="deeplearning.html">Deep Learning</a>
+    <a href="llms.html">LLMs</a>
+    <a href="rag.html">RAG</a>
+    <a href="agentic.html" class="active">Agentic AI</a>
+    <a href="python-rag.html" class="new-badge">Python RAG</a>
+    <a href="dotnet-rag.html" class="new-badge">.NET RAG</a>
+    <a href="tools.html">AI Tools</a>
+    <a href="career.html">Career</a>
+  </div>
+</nav>
+
+<!-- TOP AD -->
+<div style="max-width:1100px;margin:1rem auto;padding:0 2rem;">
+  <div class="ad-banner"><div class="ad-inner"><div>📢 Google Ad Banner 728×90 — Replace with AdSense code</div></div></div>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-badge">⚡ Chapter 6 · NEW</div>
+  <h1>AGENTIC <em>AI</em></h1>
+  <p class="sub">Where AI stops answering questions and starts <strong style="color:var(--accent3);">taking action</strong>. Autonomous agents, tool use, memory, planning, and multi-agent systems — all explained.</p>
+</div>
+
+<div class="zigzag"></div>
+
+<div class="content-grid">
+<div class="main-col">
+
+<!-- WHAT IS AGENTIC AI -->
+<div>
+  <div class="section-title" style="background:var(--accent1);color:#fff;">🤖 What is Agentic AI?</div>
+  <div class="speech">An AI that doesn't just CHAT — it DOES things!</div>
+  <div style="background:var(--panel-bg);border:var(--border);border-radius:4px;box-shadow:var(--shadow);padding:1.5rem;margin-bottom:1rem;">
+    <p style="font-size:0.9rem;line-height:1.8;margin-bottom:1rem;">
+      <strong>Agentic AI</strong> refers to AI systems that can act <em>autonomously</em> to accomplish complex, multi-step goals. Unlike a chatbot that simply responds to your message, an Agentic AI:
+    </p>
+    <div class="comic-strip">
+      <div class="panel">
+        <div class="panel-number">1</div>
+        <div class="panel-emoji">🎯</div>
+        <h3>Sets Goals</h3>
+        <p>Understands a high-level objective and breaks it into subtasks automatically.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-number">2</div>
+        <div class="panel-emoji">🗺️</div>
+        <h3>Plans Steps</h3>
+        <p>Creates a sequence of actions to reach the goal, just like a human project manager.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-number">3</div>
+        <div class="panel-emoji">🔧</div>
+        <h3>Uses Tools</h3>
+        <p>Calls web search, code executors, APIs, databases — any tool it needs.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-number">4</div>
+        <div class="panel-emoji">💾</div>
+        <h3>Has Memory</h3>
+        <p>Remembers context across steps: short-term (scratchpad) and long-term (vector DB).</p>
+      </div>
+      <div class="panel">
+        <div class="panel-number">5</div>
+        <div class="panel-emoji">🔄</div>
+        <h3>Reflects & Adapts</h3>
+        <p>Evaluates its own output, detects errors, and self-corrects on the fly.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-number">6</div>
+        <div class="panel-emoji">✅</div>
+        <h3>Delivers Results</h3>
+        <p>Returns completed work — not just an answer, but actual done tasks.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANATOMY OF AN AGENT -->
+<div>
+  <div class="section-title" style="background:var(--accent2);color:#fff;">🧬 Anatomy of an AI Agent</div>
+  <div class="anatomy-grid">
+    <div class="anatomy-title">🤖 THE AI AGENT BRAIN</div>
+    <div class="anatomy-row">
+      <div class="anatomy-box">
+        <div class="a-icon">🧠</div>
+        <div class="a-label">LLM Core</div>
+        <div class="a-desc">The reasoning engine (GPT-4, Claude, Gemini). Understands goals, generates plans, interprets tool results.</div>
+      </div>
+      <div class="anatomy-box">
+        <div class="a-icon">📋</div>
+        <div class="a-label">Planning</div>
+        <div class="a-desc">ReAct, CoT, Tree-of-Thought — strategies for breaking goals into steps.</div>
+      </div>
+      <div class="anatomy-box">
+        <div class="a-icon">💾</div>
+        <div class="a-label">Memory</div>
+        <div class="a-desc">Short-term (context window), Long-term (vector DB like Pinecone/Chroma), Entity memory.</div>
+      </div>
+      <div class="anatomy-box">
+        <div class="a-icon">🔧</div>
+        <div class="a-label">Tools</div>
+        <div class="a-desc">Web search, code execution, APIs, file I/O, databases, email — anything the agent can call.</div>
+      </div>
+      <div class="anatomy-box">
+        <div class="a-icon">🌐</div>
+        <div class="a-label">Environment</div>
+        <div class="a-desc">The world the agent operates in — web browser, filesystem, external services.</div>
+      </div>
+      <div class="anatomy-box">
+        <div class="a-icon">👁️</div>
+        <div class="a-label">Perception</div>
+        <div class="a-desc">Processes text, images, code, structured data — multi-modal input handling.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REACT LOOP -->
+<div>
+  <div class="section-title" style="background:var(--accent3);color:var(--ink);">♻️ The ReAct Loop</div>
+  <p style="margin-bottom:1rem;font-size:0.88rem;line-height:1.6;">The <strong>ReAct</strong> (Reasoning + Acting) pattern is the core loop most agents follow. It alternates between thinking and doing:</p>
+  <div class="flow">
+    <div class="flow-step highlight">💭 Think<br><small style="font-weight:400;font-size:0.65rem;">Reason about goal</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step highlight2">🎬 Act<br><small style="font-weight:400;font-size:0.65rem;">Call a tool</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step highlight3">👀 Observe<br><small style="font-weight:400;font-size:0.65rem;">Get tool result</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step" style="background:#e0f7fa;">🔁 Repeat<br><small style="font-weight:400;font-size:0.65rem;">Until done</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step" style="background:#e8f5e9;">✅ Answer<br><small style="font-weight:400;font-size:0.65rem;">Final output</small></div>
+  </div>
+  <div style="margin-top:1rem;padding:1rem;background:var(--panel-bg);border:var(--border);border-radius:4px;box-shadow:var(--shadow);">
+    <strong style="font-family:var(--font-title);font-size:1rem;letter-spacing:1px;">🧩 Example: "Research the latest AI chip and summarize findings"</strong>
+    <ol style="margin-top:0.8rem;font-size:0.8rem;line-height:2;padding-left:1.2rem;">
+      <li><strong>Think:</strong> I need to search for recent AI chip news.</li>
+      <li><strong>Act:</strong> Call <code>web_search("latest AI chip 2025")</code></li>
+      <li><strong>Observe:</strong> Results return NVIDIA Blackwell, Apple M4 articles.</li>
+      <li><strong>Think:</strong> I should also check benchmark comparisons.</li>
+      <li><strong>Act:</strong> Call <code>web_search("NVIDIA Blackwell vs Apple M4 benchmarks")</code></li>
+      <li><strong>Observe:</strong> Benchmark data retrieved.</li>
+      <li><strong>Answer:</strong> Write comprehensive summary with citations.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- AD MID -->
+<div class="ad-banner"><div class="ad-inner"><div>📢 Google Ad — 468×60 — Replace with AdSense code</div></div></div>
+
+<!-- AGENT TYPES -->
+<div>
+  <div class="section-title" style="background:var(--accent4);color:var(--ink);">🗂️ Types of AI Agents</div>
+  <div class="comic-strip">
+    <div class="panel" style="border-top:5px solid var(--accent1);">
+      <div class="panel-emoji">🎯</div>
+      <h3>Goal-Based Agent</h3>
+      <p>Has a specific objective. Plans actions to reach it. Stops when goal is achieved. <em>Example: Research assistant agent.</em></p>
+    </div>
+    <div class="panel" style="border-top:5px solid var(--accent2);">
+      <div class="panel-emoji">🔁</div>
+      <h3>Reflexive Agent</h3>
+      <p>Reacts to current input using if-then rules. No memory of past actions. Fast, simple. <em>Example: Rule-based chatbot.</em></p>
+    </div>
+    <div class="panel" style="border-top:5px solid var(--accent3);">
+      <div class="panel-emoji">🌍</div>
+      <h3>Model-Based Agent</h3>
+      <p>Maintains internal world model. Uses it to reason about unseen states. <em>Example: Autonomous vehicle planner.</em></p>
+    </div>
+    <div class="panel" style="border-top:5px solid #06d6a0;">
+      <div class="panel-emoji">💰</div>
+      <h3>Utility-Based Agent</h3>
+      <p>Maximizes a utility/reward function. Picks the action with the best expected outcome. <em>Example: Trading bot.</em></p>
+    </div>
+    <div class="panel" style="border-top:5px solid #fb8500;" >
+      <div class="panel-emoji">📚</div>
+      <h3>Learning Agent</h3>
+      <p>Improves from experience. Uses reinforcement learning or RLHF to get better over time. <em>Example: Game-playing AI.</em></p>
+    </div>
+    <div class="panel" style="border-top:5px solid #f72585;">
+      <div class="panel-emoji">🤝</div>
+      <h3>Multi-Agent System</h3>
+      <p>Multiple agents collaborate, debate, or specialize. One orchestrator routes tasks to specialist subagents. <em>Example: AutoGen crews.</em></p>
+    </div>
+  </div>
+</div>
+
+<!-- MULTI-AGENT SYSTEMS -->
+<div>
+  <div class="section-title" style="background:var(--accent2);color:#fff;">🤝 Multi-Agent Systems</div>
+  <div style="background:var(--panel-bg);border:var(--border);border-radius:4px;box-shadow:var(--shadow);padding:1.5rem;">
+    <p style="font-size:0.88rem;line-height:1.7;margin-bottom:1rem;">In a <strong>Multi-Agent System (MAS)</strong>, specialized agents collaborate to solve complex problems. Think of it as an AI company: CEO agent delegates to researcher agents, coder agents, and reviewer agents.</p>
+    <div style="background:var(--ink);border-radius:4px;padding:1.2rem;color:#fff;font-size:0.8rem;font-family:'Courier New',monospace;line-height:2;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(76,201,240,0.06) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;"></div>
+      <div style="position:relative;">
+        <span style="color:var(--accent3);">🏢 ORCHESTRATOR AGENT</span> (GPT-4 / Claude)<br>
+        &nbsp;&nbsp;├── <span style="color:var(--accent4);">🔍 Researcher Agent</span> → searches the web<br>
+        &nbsp;&nbsp;├── <span style="color:#a8ff78);">💻 Coder Agent</span> → writes & runs code<br>
+        &nbsp;&nbsp;├── <span style="color:#ffa657;">📝 Writer Agent</span> → generates reports<br>
+        &nbsp;&nbsp;├── <span style="color:#ff7b72;">🔍 Critic Agent</span> → reviews & fact-checks<br>
+        &nbsp;&nbsp;└── <span style="color:#f5a623;">📧 Action Agent</span> → sends emails, files tickets
+      </div>
+    </div>
+    <p style="font-size:0.8rem;color:#555;margin-top:1rem;">Frameworks: <strong>AutoGen</strong>, <strong>CrewAI</strong>, <strong>LangGraph</strong>, <strong>Semantic Kernel</strong>, <strong>Microsoft Copilot Studio</strong></p>
+  </div>
+</div>
+
+<!-- FRAMEWORKS -->
+<div>
+  <div class="section-title" style="background:#06d6a0;color:var(--ink);">🛠️ Agentic AI Frameworks</div>
+  <div class="fw-grid">
+    <div class="fw-card">
+      <div class="fw-header" style="background:#fff3cd;">🦜 LangChain</div>
+      <div class="fw-body">
+        The most popular Python framework for building LLM-powered apps. Features: chains, agents, tools, memory, and document loaders.
+        <div class="fw-tags">
+          <span class="fw-tag" style="background:#fff3cd;">Python</span>
+          <span class="fw-tag" style="background:#d4edda;">RAG</span>
+          <span class="fw-tag" style="background:#d1ecf1;">Agents</span>
+        </div>
+      </div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-header" style="background:#fde8ef;">🧠 LangGraph</div>
+      <div class="fw-body">
+        LangChain's graph-based extension for stateful multi-agent workflows. Build complex loops, branching, and state machines.
+        <div class="fw-tags">
+          <span class="fw-tag" style="background:#fde8ef;">Stateful</span>
+          <span class="fw-tag" style="background:#e8d5f0;">Multi-Agent</span>
+        </div>
+      </div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-header" style="background:#d4f0fd;">🤖 AutoGen</div>
+      <div class="fw-body">
+        Microsoft's framework for multi-agent conversation. Agents talk to each other to solve tasks. Great for code generation workflows.
+        <div class="fw-tags">
+          <span class="fw-tag" style="background:#d4f0fd;">Microsoft</span>
+          <span class="fw-tag" style="background:#d4edda;">Conversation</span>
+        </div>
+      </div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-header" style="background:#ffe8d6;">⚓ CrewAI</div>
+      <div class="fw-body">
+        Role-based agent framework. Define crews of agents with specific roles, goals, and backstories. Simple YAML-driven setup.
+        <div class="fw-tags">
+          <span class="fw-tag" style="background:#ffe8d6;">Roles</span>
+          <span class="fw-tag" style="background:#ffeeba;">Simple</span>
+        </div>
+      </div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-header" style="background:#e8d5f0;">🔮 Semantic Kernel</div>
+      <div class="fw-body">
+        Microsoft's SDK for .NET, Python, and Java. Integrates LLMs with plugins/skills. Best for enterprise C#/.NET applications.
+        <div class="fw-tags">
+          <span class="fw-tag" style="background:#e8d5f0;">.NET</span>
+          <span class="fw-tag" style="background:#d4f0fd;">Enterprise</span>
+          <span class="fw-tag" style="background:#d4edda;">Python</span>
+        </div>
+      </div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-header" style="background:#d4edda;">🕵️ OpenAI Agents SDK</div>
+      <div class="fw-body">
+        OpenAI's official agent framework (formerly Swarm). Lightweight, production-ready, with handoffs between specialized agents.
+        <div class="fw-tags">
+          <span class="fw-tag" style="background:#d4edda;">Official</span>
+          <span class="fw-tag" style="background:#fff3cd;">Handoffs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div>
+  <div class="section-title" style="background:var(--accent4);color:var(--ink);">⚖️ Agent vs Chatbot vs RAG</div>
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>💬 Chatbot</th>
+        <th>🔍 RAG System</th>
+        <th>⚡ Agentic AI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Answers questions</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+      <tr><td>Uses external knowledge</td><td class="cross">✗</td><td class="check">✔</td><td class="check">✔</td></tr>
+      <tr><td>Takes multi-step actions</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✔</td></tr>
+      <tr><td>Calls external tools/APIs</td><td class="cross">✗</td><td>Limited</td><td class="check">✔</td></tr>
+      <tr><td>Has persistent memory</td><td class="cross">✗</td><td>Limited</td><td class="check">✔</td></tr>
+      <tr><td>Self-corrects mistakes</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✔</td></tr>
+      <tr><td>Works autonomously</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✔</td></tr>
+      <tr><td>Complexity</td><td>Low</td><td>Medium</td><td>High</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- QUICK CODE PREVIEW -->
+<div>
+  <div class="section-title" style="background:var(--ink);color:var(--accent4);">💻 Quick Code Taste</div>
+  <p style="margin-bottom:1rem;font-size:0.85rem;">Here's a tiny Python agent using <strong>LangChain</strong>. For the full step-by-step tutorial → <a href="python-rag.html" style="color:var(--accent1);font-weight:700;">Python RAG + Agentic AI Guide</a></p>
+  <div class="code-box">
+    <div class="code-header">
+      <div class="dot" style="background:#ff5f57;"></div>
+      <div class="dot" style="background:#febc2e;"></div>
+      <div class="dot" style="background:#28c840;"></div>
+      &nbsp;agent_example.py
+    </div>
+    <div class="code-body">
+<span class="kw">from</span> <span class="cl">langchain_openai</span> <span class="kw">import</span> <span class="fn">ChatOpenAI</span><br>
+<span class="kw">from</span> <span class="cl">langchain.agents</span> <span class="kw">import</span> <span class="fn">create_react_agent</span>, <span class="fn">AgentExecutor</span><br>
+<span class="kw">from</span> <span class="cl">langchain_community.tools</span> <span class="kw">import</span> <span class="fn">DuckDuckGoSearchRun</span><br>
+<br>
+<span class="cm"># 1. Define tools the agent can use</span><br>
+<span class="var">tools</span> = [<span class="fn">DuckDuckGoSearchRun</span>()]<br>
+<br>
+<span class="cm"># 2. Create the LLM brain</span><br>
+<span class="var">llm</span> = <span class="fn">ChatOpenAI</span>(model=<span class="str">"gpt-4o"</span>, temperature=<span class="str">0</span>)<br>
+<br>
+<span class="cm"># 3. Build the agent with ReAct reasoning</span><br>
+<span class="var">agent</span> = <span class="fn">create_react_agent</span>(<span class="var">llm</span>, <span class="var">tools</span>, <span class="var">prompt</span>)<br>
+<span class="var">executor</span> = <span class="fn">AgentExecutor</span>(<span class="var">agent</span>=<span class="var">agent</span>, <span class="var">tools</span>=<span class="var">tools</span>, verbose=<span class="kw">True</span>)<br>
+<br>
+<span class="cm"># 4. Run it!</span><br>
+<span class="var">result</span> = <span class="var">executor</span>.<span class="fn">invoke</span>({<span class="str">"input"</span>: <span class="str">"What is the latest news about AI agents?"</span>})<br>
+<span class="fn">print</span>(<span class="var">result</span>[<span class="str">"output"</span>])
+    </div>
+  </div>
+  <p style="margin-top:0.8rem;font-size:0.82rem;color:#555;">→ <a href="python-rag.html" style="color:var(--accent1);font-weight:700;">Full Python Tutorial: RAG + Agentic AI from scratch</a></p>
+  <p style="font-size:0.82rem;color:#555;">→ <a href="dotnet-rag.html" style="color:#fb8500;font-weight:700;">Full .NET Tutorial: Semantic Kernel + NuGet packages</a></p>
+</div>
+
+<!-- BOTTOM AD -->
+<div class="ad-banner"><div class="ad-inner"><div>📢 Google Ad — 728×90 Leaderboard — Replace with AdSense code</div></div></div>
+
+</div><!-- end main-col -->
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="ad-sidebar"><div style="font-size:1.5rem;">📢</div><div>Google Ad<br>300×250<br>AdSense</div></div>
+
+  <div style="background:var(--panel-bg);border:var(--border);border-radius:4px;box-shadow:var(--shadow);padding:1rem;">
+    <div style="font-family:var(--font-title);font-size:1.1rem;letter-spacing:1px;margin-bottom:0.8rem;color:var(--accent1);">⚡ On This Page</div>
+    <ul style="list-style:none;font-size:0.8rem;display:flex;flex-direction:column;gap:0.5rem;">
+      <li>🤖 What is Agentic AI?</li>
+      <li>🧬 Agent Anatomy</li>
+      <li>♻️ ReAct Loop</li>
+      <li>🗂️ Types of Agents</li>
+      <li>🤝 Multi-Agent Systems</li>
+      <li>🛠️ Frameworks</li>
+      <li>⚖️ Agent vs RAG vs Chatbot</li>
+      <li>💻 Code Preview</li>
+    </ul>
+  </div>
+
+  <div style="background:var(--ink);color:#fff;border-radius:4px;border:var(--border);padding:1.2rem;">
+    <div style="font-family:var(--font-title);font-size:1.1rem;color:var(--accent3);letter-spacing:1px;margin-bottom:0.5rem;">💡 Key Terms</div>
+    <dl style="font-size:0.75rem;display:flex;flex-direction:column;gap:0.6rem;">
+      <div><dt style="color:var(--accent4);font-weight:700;">ReAct</dt><dd style="color:#ccc;">Reason+Act loop pattern for agents</dd></div>
+      <div><dt style="color:var(--accent4);font-weight:700;">Tool Calling</dt><dd style="color:#ccc;">Agent invokes external functions/APIs</dd></div>
+      <div><dt style="color:var(--accent4);font-weight:700;">Orchestrator</dt><dd style="color:#ccc;">Master agent that delegates to sub-agents</dd></div>
+      <div><dt style="color:var(--accent4);font-weight:700;">Grounding</dt><dd style="color:#ccc;">Connecting LLM to real-world data via RAG</dd></div>
+      <div><dt style="color:var(--accent4);font-weight:700;">Hallucination</dt><dd style="color:#ccc;">When AI confidently states wrong facts</dd></div>
+    </dl>
+  </div>
+
+  <div style="background:var(--panel-bg);border:var(--border);border-radius:4px;box-shadow:var(--shadow);padding:1rem;">
+    <div style="font-family:var(--font-title);font-size:1rem;letter-spacing:1px;margin-bottom:0.5rem;color:var(--accent2);">🗂️ Next Up</div>
+    <a href="python-rag.html" style="display:block;font-size:0.82rem;color:var(--accent2);font-weight:700;margin-bottom:0.4rem;">🐍 Build it in Python →</a>
+    <a href="dotnet-rag.html" style="display:block;font-size:0.82rem;color:#fb8500;font-weight:700;">🟣 Build it in .NET →</a>
+  </div>
+
+  <div class="ad-sidebar" style="min-height:400px;"><div style="font-size:1.5rem;">📢</div><div>Google Ad<br>160×600<br>Skyscraper</div></div>
+</div>
+</div>
+
+<div class="zigzag" style="background:var(--accent2);"></div>
+<footer>
+  <span>AI Cycle</span> · Built with ❤️ by Ashish Sinha · AI Developer<br>
+  <span style="font-size:0.7rem;color:#888;font-family:var(--font-body);">Educational content · All rights reserved · 2025</span>
+</footer>
+</body>
+</html>

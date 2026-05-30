@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Machine Learning | AICycle</title><link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--bg:#fef9e7;--hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;--green:#10b981;--py:#2563eb;--net:#7c3aed;--teal:#0d9488;--orange:#f59e0b;--border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px);font-family:var(--fb);font-size:16px;color:#1e293b;min-height:100vh;}
+.page{max-width:1100px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+.hero{background:var(--ink);padding:2rem;text-align:center;position:relative;overflow:hidden;border-bottom:5px solid var(--hot);margin-bottom:2rem;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(247,37,133,.08) 1px,transparent 1px);background-size:20px 20px;}
+.hero h1{font-family:var(--ft);font-size:3rem;color:#fff;letter-spacing:3px;line-height:1.05;position:relative;}
+.hero h1 em{color:var(--hot);font-style:normal;}
+.hero p{color:#ccc;font-size:1rem;max-width:680px;margin:.6rem auto 0;line-height:1.75;position:relative;}
+.hero .badge{display:inline-block;background:var(--hot);color:#fff;font-family:var(--ft);font-size:.9rem;letter-spacing:2px;padding:.2rem 1rem;border-radius:20px;border:2px solid #fff;margin-bottom:.6rem;}
+.hw{display:grid;grid-template-columns:1fr 240px;gap:2rem;align-items:start;}
+.hm{display:flex;flex-direction:column;gap:1.8rem;}
+.hs{display:flex;flex-direction:column;gap:1.2rem;}
+.stitle{font-family:var(--ft);font-size:1.6rem;letter-spacing:2px;padding:.35rem .9rem;border:var(--border);display:inline-block;box-shadow:var(--sh);border-radius:6px;margin-bottom:.9rem;}
+.cstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem;}
+.cp{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1.1rem;position:relative;}
+.cpn{position:absolute;top:-13px;left:10px;background:var(--hot);color:#fff;font-family:var(--ft);font-size:1rem;width:28px;height:28px;border-radius:50%;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;}
+.cp h3{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;margin:.5rem 0 .3rem;}
+.cp p{font-size:.93rem;line-height:1.65;color:#1e293b;}
+.cp .tag{font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);display:inline-block;margin-top:.4rem;}
+.cpi{font-size:2rem;margin-bottom:.2rem;}
+.dbox{background:var(--ink);border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.4rem;position:relative;overflow:hidden;}
+.dbox::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:10px 10px;pointer-events:none;}
+.dbt{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.9rem;text-align:center;}
+.ibox{background:#fff;border:var(--border);border-left:6px solid var(--hot);border-radius:8px;box-shadow:4px 4px 0 var(--ink);padding:1.1rem 1.2rem;}
+.ibox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:var(--hot);margin-bottom:.5rem;}
+.ibox p,.ibox ul{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.ibox ul{padding-left:1.2rem;}.ibox ul li{margin-bottom:.3rem;}
+.ibox.green{border-left-color:var(--green);}.ibox.green h4{color:var(--green);}
+.ibox.blue{border-left-color:var(--py);}.ibox.blue h4{color:var(--py);}
+.ibox.teal{border-left-color:var(--teal);}.ibox.teal h4{color:var(--teal);}
+.ibox.orange{border-left-color:var(--orange);}.ibox.orange h4{color:var(--orange);}
+.ibox.net{border-left-color:var(--net);}.ibox.net h4{color:var(--net);}
+.bubble{background:#fffde7;border:var(--border);border-radius:16px;padding:.9rem 1.1rem;box-shadow:4px 4px 0 var(--ink);position:relative;}
+.bubble::after{content:'';position:absolute;bottom:-18px;left:24px;border-width:10px 8px 0;border-style:solid;border-color:var(--ink) transparent transparent;}
+.bubble::before{content:'';position:absolute;bottom:-14px;left:26px;border-width:9px 7px 0;border-style:solid;border-color:#fffde7 transparent transparent;z-index:1;}
+.bubble p{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.bwho{font-family:var(--ft);font-size:.95rem;color:var(--hot);margin-bottom:.25rem;display:flex;align-items:center;gap:.5rem;}
+.cb{background:#1e1e2e;border:3px solid var(--ink);border-radius:10px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin:.3rem 0;}
+.cbh{padding:.5rem 1rem;background:linear-gradient(90deg,#1e3a8a,#2563eb);color:#93c5fd;font-family:var(--fb);font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:.5rem;border-bottom:2px solid #313244;}
+.cbh.net{background:linear-gradient(90deg,#4c1d95,#7c3aed);color:#c4b5fd;}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.cbody{display:grid;grid-template-columns:40px 1fr;overflow-x:auto;}
+.lnums{background:#181825;color:#45475a;font-family:var(--fc);font-size:.8rem;line-height:1.8;padding:.8rem 0;text-align:right;padding-right:.6rem;user-select:none;border-right:1px solid #313244;}
+.lnums div{height:1.8em;}
+.code-content{padding:.8rem 1rem;font-family:var(--fc);color:#cdd6f4;font-size:.85rem;line-height:1.8;white-space:pre;overflow-x:auto;}
+.pk{color:#cba6f7;}.ps{color:#a6e3a1;}.pc{color:#6c7086;font-style:italic;}.pf{color:#89b4fa;}.pn{color:#f38ba8;}.pcl{color:#fab387;}.pat{color:#f5c2e7;}
+.tbl{width:100%;border-collapse:collapse;font-size:.93rem;background:#fff;border:var(--border);box-shadow:var(--sh);border-radius:8px;overflow:hidden;}
+.tbl th{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.95rem;letter-spacing:1px;padding:.55rem .9rem;text-align:left;}
+.tbl td{padding:.5rem .9rem;border-bottom:1.5px solid #eee;color:#1e293b;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:#f8faff;}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.fc{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;transition:transform .15s,box-shadow .15s;}
+.fc:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.fch{padding:.8rem 1rem;font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;display:flex;align-items:center;gap:.5rem;color:#1e293b;}
+.fcb{padding:0 1rem 1rem;font-size:.93rem;line-height:1.65;color:#1e293b;}
+.ftags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem;}
+.ftag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);}
+.steps{border:var(--border);border-radius:8px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.srow{display:grid;grid-template-columns:44px 1fr;}
+.snum{background:var(--hot);color:#fff;font-family:var(--ft);font-size:1.1rem;display:flex;align-items:center;justify-content:center;border-right:2.5px solid var(--ink);}
+.snum.blue{background:var(--py);}.snum.green{background:var(--green);}.snum.teal{background:var(--teal);}.snum.net{background:var(--net);}.snum.orange{background:var(--orange);}.snum.yellow{background:var(--yellow);color:var(--ink);}
+.scont{padding:.75rem 1rem;border-bottom:1.5px solid #eee;background:#fff;}
+.srow:last-child .scont{border-bottom:none;}
+.sl{font-family:var(--ft);font-size:.98rem;letter-spacing:1px;}
+.sd{font-size:.93rem;color:#334155;line-height:1.6;margin-top:.2rem;}
+.flow{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.3rem;overflow:hidden;position:relative;}
+.flow::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.flow-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.fn{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:.55rem .8rem;text-align:center;min-width:80px;}
+.fn .fi{font-size:1.3rem;display:block;margin-bottom:.15rem;}
+.fn .fl{font-family:var(--ft);font-size:.8rem;letter-spacing:1px;color:#fff;display:block;}
+.fn .fs{font-size:.68rem;color:rgba(255,255,255,.55);display:block;}
+.fn.hi{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.fn.bi{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.fn.gi{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.5);}
+.fn.yi{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.5);}
+.fn.ni{background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.6);}
+.fa{color:var(--yellow);font-size:1.2rem;font-weight:900;}
+.floop{border:2px dashed rgba(251,191,36,.3);border-radius:10px;padding:.5rem .9rem;text-align:center;font-size:.8rem;color:rgba(255,255,255,.55);margin-top:.3rem;}
+.tip{background:#ecfdf5;border:2px solid var(--green);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#065f46;font-weight:600;margin:.3rem 0;}
+.warn{background:#fffbeb;border:2px solid var(--yellow);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#92400e;font-weight:600;margin:.3rem 0;}
+.wow{background:#f0fdfa;border:2px solid var(--teal);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#0f766e;font-weight:600;margin:.3rem 0;}
+.fact{background:linear-gradient(135deg,var(--ink),#252540);border:var(--border);border-radius:10px;padding:1.2rem;box-shadow:var(--sh);text-align:center;color:#fff;}
+.fact .fi2{font-size:2rem;margin-bottom:.4rem;}
+.fact h4{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.4rem;}
+.fact p{font-size:.93rem;color:#ccc;line-height:1.65;}
+.mtr{display:flex;flex-direction:column;gap:.5rem;}
+.mtr-row{display:grid;grid-template-columns:160px 1fr 120px;gap:.5rem;align-items:center;font-size:.88rem;}
+.mtr-label{font-weight:700;color:#1e293b;}
+.mtr-bar-wrap{background:#eee;border-radius:20px;height:10px;overflow:hidden;}
+.mtr-bar{height:100%;border-radius:20px;}
+.mtr-note{font-size:.78rem;color:#64748b;}
+.sbox{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1rem;}
+.sbox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;margin-bottom:.6rem;}
+.sbox ul{font-size:.93rem;line-height:1.8;padding-left:1.1rem;color:#1e293b;}
+.sdark{background:var(--ink);border:var(--border);border-radius:8px;padding:1.1rem;}
+.sdark h4{font-family:var(--ft);font-size:1.05rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.6rem;}
+.sdark ul{font-size:.93rem;line-height:1.8;padding-left:1.1rem;color:#ccc;}
+.sdark dl div{margin-bottom:.5rem;}
+.sdark dt{color:var(--cyan);font-weight:700;font-size:.93rem;}
+.sdark dd{color:#ccc;font-size:.88rem;line-height:1.5;margin-left:.5rem;}
+.timeline{display:flex;flex-direction:column;gap:.8rem;}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:.8rem;align-items:start;}
+.tl-year{font-family:var(--ft);font-size:1.1rem;color:var(--hot);text-align:center;padding:.3rem;border:2px solid var(--hot);border-radius:6px;background:#fce7f3;}
+.tl-body h4{font-family:var(--ft);font-size:1rem;letter-spacing:1px;margin-bottom:.2rem;}
+.tl-body p{font-size:.93rem;line-height:1.6;color:#334155;}
+.sal-wrap{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;}
+.sal-row{display:grid;grid-template-columns:1fr 90px 90px 100px 80px;gap:.3rem;padding:.5rem .7rem;border-bottom:1.5px solid #eee;align-items:center;font-size:.85rem;}
+.sal-row.hdr{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.82rem;letter-spacing:1px;}
+.sal-row:last-child{border-bottom:none;}
+.sal-row:nth-child(even):not(.hdr){background:#f8faff;}
+.next-btn{display:inline-block;font-family:var(--ft);font-size:1rem;letter-spacing:2px;padding:.5rem 1.5rem;background:var(--hot);color:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);text-decoration:none;transition:all .15s;cursor:pointer;margin-top:.5rem;}
+.next-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.toc{display:flex;flex-direction:column;gap:.25rem;margin:.5rem 0;}
+.toc a{font-size:.88rem;color:var(--py);text-decoration:none;padding:.2rem 0;border-bottom:1px dashed #ddd;font-weight:600;}
+.toc a:hover{color:var(--hot);}
+#rbar{position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--hot),var(--yellow),var(--cyan));z-index:9999;transition:width .1s;}
+@media(max-width:900px){.hw{grid-template-columns:1fr;}.hero h1{font-size:2rem;}.sal-row{grid-template-columns:1fr 70px 70px;}.sal-row span:nth-child(4),.sal-row span:nth-child(5){display:none;}}
+</style></head><body>
+<div id="rbar"></div>
+<div class="hero" style="border-bottom-color:var(--py)">
+  <div class="badge" style="background:var(--py)">📊 Chapter 2 · Beginner to Intermediate</div>
+  <h1>MACHINE<br><em style="color:#93c5fd">LEARNING</em></h1>
+  <p>How machines learn from data — supervised, unsupervised, reinforcement learning, key algorithms, the ML pipeline, and Python code examples.</p>
+</div>
+<div class="page"><div class="hw"><div class="hm">
+
+<div class="ibox blue"><h4>📊 What is Machine Learning?</h4>
+<p>Machine Learning is a subset of AI where programs <strong>learn from data</strong> instead of being explicitly programmed. Rather than writing rules, you show the machine examples and it figures out the rules itself.<br><br>
+<strong>❌ Traditional Programming:</strong> Data + Rules → Answers (you write every rule by hand)<br>
+<strong>✅ Machine Learning:</strong> Data + Answers → Rules (the machine finds the rules itself!)</p></div>
+
+<div><div class="stitle" style="background:var(--py);color:#fff">🗂️ 3 TYPES OF MACHINE LEARNING</div>
+<div class="cstrip">
+  <div class="cp" style="border-color:var(--py)"><div class="cpi">🏷️</div><h3>Supervised Learning</h3><p><strong>Labeled data.</strong> You give the model input+answer pairs. It learns to predict answers for new inputs.<br><br><em>Like a student with an answer key.</em><br><br><strong>Uses:</strong> Email spam, price prediction, image classification, medical diagnosis.</p></div>
+  <div class="cp" style="border-color:var(--teal)"><div class="cpi">🔍</div><h3>Unsupervised Learning</h3><p><strong>No labels.</strong> The model finds hidden structure and patterns in raw data on its own.<br><br><em>Like a student exploring without a teacher.</em><br><br><strong>Uses:</strong> Customer segmentation, anomaly detection, recommendation systems, topic modeling.</p></div>
+  <div class="cp" style="border-color:var(--hot)"><div class="cpi">🎮</div><h3>Reinforcement Learning</h3><p><strong>Trial and error.</strong> An agent takes actions, gets rewards or penalties, and learns what to do.<br><br><em>Like training a dog with treats.</em><br><br><strong>Uses:</strong> Game playing (AlphaGo), robotics, trading bots, self-driving cars.</p></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--ink);color:#fff">⚙️ KEY ML ALGORITHMS</div>
+<div class="fgrid">
+  <div class="fc"><div class="fch" style="background:#eff6ff">📉 Linear Regression</div><div class="fcb">Fits a straight line through data to predict continuous values. Simple but powerful for many real-world problems.<br><br><strong>Use:</strong> House price prediction, sales forecasting<div class="ftags"><span class="ftag" style="background:#dbeafe">Regression</span><span class="ftag" style="background:#d1fae5">Beginner</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#ecfdf5">🔀 Logistic Regression</div><div class="fcb">Despite the name, it's for <strong>classification!</strong> Outputs probability (0-1) of a category. Fast and interpretable.<br><br><strong>Use:</strong> Spam detection, disease diagnosis (yes/no)<div class="ftags"><span class="ftag" style="background:#d1fae5">Classification</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fef9ee">🌳 Decision Tree</div><div class="fcb">Splits data using yes/no questions, like 20 questions. Highly interpretable — you can visualize every decision.<br><br><strong>Use:</strong> Loan approval, fraud rules, customer churn<div class="ftags"><span class="ftag" style="background:#fef3c7">Interpretable</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f0fdf4">🌲 Random Forest</div><div class="fcb">An ensemble of many decision trees. Each tree votes, and the majority wins. Much more robust than a single tree.<br><br><strong>Use:</strong> Credit scoring, feature importance analysis<div class="ftags"><span class="ftag" style="background:#bbf7d0">Ensemble</span><span class="ftag" style="background:#dbeafe">Powerful</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fce7f3">🚀 Gradient Boosting (XGBoost)</div><div class="fcb">Builds trees sequentially, each one fixing the errors of the last. Often wins Kaggle competitions.<br><br><strong>Use:</strong> Ranking, search relevance, structured data<div class="ftags"><span class="ftag" style="background:#fce7f3">Boosting</span><span class="ftag" style="background:#fef3c7">Kaggle</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#ede9fe">📍 K-Nearest Neighbors</div><div class="fcb">"You are who your neighbors are." Classifies by finding the K most similar examples in training data.<br><br><strong>Use:</strong> Recommendation, anomaly detection<div class="ftags"><span class="ftag" style="background:#ede9fe">Instance-based</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fef9ee">⚔️ SVM</div><div class="fcb">Support Vector Machine finds the best boundary (hyperplane) between classes, maximizing margin.<br><br><strong>Use:</strong> Text classification, bioinformatics, face detection<div class="ftags"><span class="ftag" style="background:#fef3c7">Classification</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f0fdfa">🎯 K-Means Clustering</div><div class="fcb">Unsupervised. Groups data into K clusters by minimizing distance to cluster centers. Iterates until stable.<br><br><strong>Use:</strong> Customer segmentation, image compression<div class="ftags"><span class="ftag" style="background:#ccfbf1">Unsupervised</span></div></div></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--green);color:#fff">🔄 THE ML PIPELINE</div>
+<div class="steps">
+  <div class="srow"><div class="snum blue">1</div><div class="scont"><div class="sl" style="color:var(--py)">Data Collection</div><div class="sd">Gather raw data from sources — databases, APIs, web scraping, IoT sensors. Quality of data determines quality of model.</div></div></div>
+  <div class="srow"><div class="snum teal">2</div><div class="scont"><div class="sl" style="color:var(--teal)">Data Cleaning</div><div class="sd">Handle missing values (impute or drop), remove duplicates, fix outliers, standardize formats. Most of ML work!</div></div></div>
+  <div class="srow"><div class="snum orange">3</div><div class="scont"><div class="sl" style="color:var(--orange)">Feature Engineering</div><div class="sd">Create meaningful input features from raw data. Normalize, encode categoricals, create interaction terms. The art of ML.</div></div></div>
+  <div class="srow"><div class="snum">4</div><div class="scont"><div class="sl">Model Training</div><div class="sd">Fit the chosen algorithm on training data. The algorithm minimizes error/loss to find the best parameters.</div></div></div>
+  <div class="srow"><div class="snum green">5</div><div class="scont"><div class="sl" style="color:var(--green)">Evaluation</div><div class="sd">Measure performance on held-out test data using Accuracy, F1, AUC, RMSE. Always evaluate on unseen data!</div></div></div>
+  <div class="srow"><div class="snum net">6</div><div class="scont"><div class="sl" style="color:var(--net)">Deploy</div><div class="sd">Serve predictions via REST API, batch processing, or edge devices. Monitor for data drift and model degradation.</div></div></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--hot);color:#fff">⚠️ OVERFITTING vs UNDERFITTING</div>
+<div class="cstrip">
+  <div class="cp" style="border-color:var(--orange)"><div class="cpi">😰</div><h3>Underfitting</h3><p>Model is too simple. Fails to capture the pattern even in training data. <strong>High bias, low variance.</strong><br><br><em>Fix: More complex model, more features, less regularization.</em></p></div>
+  <div class="cp" style="border-color:var(--green)"><div class="cpi">😊</div><h3>Just Right</h3><p>Model captures the true pattern. Generalizes well to new data. <strong>Good balance of bias and variance.</strong><br><br><em>Goal: Cross-validation, proper train/val/test split.</em></p></div>
+  <div class="cp" style="border-color:var(--hot)"><div class="cpi">😵</div><h3>Overfitting</h3><p>Model memorizes training data including noise. Works great on training, fails on new data. <strong>High variance.</strong><br><br><em>Fix: Regularization (L1/L2), dropout, more data, simpler model.</em></p></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--py);color:#fff">🐍 PYTHON: ML IN 10 LINES</div>
+<div class="cb"><div class="cbh "><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span> 🐍 sklearn_example.py</div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div></div><div class="code-content"><span class="pk">from</span> sklearn.datasets <span class="pk">import</span> load_iris
+<span class="pk">from</span> sklearn.model_selection <span class="pk">import</span> train_test_split
+<span class="pk">from</span> sklearn.ensemble <span class="pk">import</span> RandomForestClassifier
+<span class="pk">from</span> sklearn.metrics <span class="pk">import</span> accuracy_score
+
+<span class="pc"># 1. Load data</span>
+X, y = load_iris(return_X_y=<span class="pk">True</span>)
+
+<span class="pc"># 2. Split into train/test</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="pn">0.2</span>, random_state=<span class="pn">42</span>)
+
+<span class="pc"># 3. Train model</span>
+model = RandomForestClassifier(n_estimators=<span class="pn">100</span>, random_state=<span class="pn">42</span>)
+model.fit(X_train, y_train)
+
+<span class="pc"># 4. Evaluate</span>
+preds = model.predict(X_test)
+print(<span class="ps">f"Accuracy: {accuracy_score(y_test, preds):.2%}"</span>)  <span class="pc"># Typically ~97%</span>
+print(<span class="ps">f"Feature importances: {model.feature_importances_}"</span>)</div></div></div></div>
+
+<a class="next-btn" style="background:var(--py)" href="#">🕸️ Next: Deep Learning &rarr;</a>
+
+</div><!-- hm -->
+<div class="hs">
+  <div class="sbox"><h4 style="color:var(--py)">📋 ON THIS PAGE</h4>
+    <div class="toc">
+      <a href="#">📊 What is ML?</a>
+      <a href="#">🗂️ 3 Types of ML</a>
+      <a href="#">⚙️ Key Algorithms</a>
+      <a href="#">🔄 ML Pipeline</a>
+      <a href="#">⚠️ Overfitting</a>
+      <a href="#">🐍 Python Example</a>
+    </div>
+  </div>
+  <div class="sdark"><h4>💡 ML METRICS</h4>
+    <dl>
+      <div><dt>Accuracy</dt><dd>% of correct predictions</dd></div>
+      <div><dt>Precision</dt><dd>True positives / all positives predicted</dd></div>
+      <div><dt>Recall</dt><dd>True positives / all actual positives</dd></div>
+      <div><dt>F1 Score</dt><dd>Harmonic mean of precision &amp; recall</dd></div>
+      <div><dt>AUC-ROC</dt><dd>Area under the classifier curve</dd></div>
+    </dl>
+  </div>
+</div>
+</div></div>
+<script src="analytics.js"></script>
+<script src="widgets.js"></script>
+<script>window.addEventListener('scroll',()=>{const b=document.getElementById('rbar');if(b){const p=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;b.style.width=Math.min(100,p)+'%';}});</script></body></html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Learning (DL)</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Architects+Daughter&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --panel-bg: #000000;
+    --page-bg: #000000;
+    --ink-black: #9e9e9e;
+    --ai-blue: #4da3ff;
+    --dl-purple: #bb86fc;
+    --border-width: 3px;
+}
+
+body {
+    background-color: var(--page-bg);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18px;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+}
+
+.comic-canvas {
+    max-width: 100%;
+    margin: 0;
+    background: var(--panel-bg);
+    padding: 40px;
+}
+
+.branch-title {
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+    background: #111;
+    color: #fff;
+    display: inline-block;
+    padding: 5px 20px;
+    transform: rotate(-1deg);
+    margin-bottom: 15px;
+}
+
+.content-block {
+    background: #000;
+    border: 1px solid var(--ink-black);
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 5px 5px 0px #444;
+    white-space: pre-wrap;
+}
+
+.tree-line {
+    border-left: 2px dotted var(--ink-black);
+    margin-left: 20px;
+    padding-left: 30px;
+    margin-top: 20px;
+}
+
+strong { color: #ff6b6b; }
+b { color: var(--ai-blue); }
+</style>
+</head>
+
+<body>
+<div class="comic-canvas">
+
+<div class="branch-title">◆ Deep Learning (DL) [2010s]</div>
+<div class="content-block">
+Deep Learning is a powerful form of Machine Learning
+that uses multi‑layer neural networks
+to learn directly from raw data.
+
+<b>Core idea:</b>
+→ Let the system discover features by itself.
+
+<b>In simple terms:</b>
+Earlier, humans explained "what to look for".
+Now, the system figures it out on its own.
+
+<b>Real‑world meaning:</b>
+• Face recognition
+• Speech assistants
+• Language translation
+• Self‑driving perception
+</div>
+
+<div class="tree-line">
+
+<div class="branch-title">◇ Why Machine Learning Was Not Enough</div>
+<div class="content-block">
+Machine Learning worked well — but only till a point.
+
+<b>The problem:</b>
+ML depended heavily on humans telling:
+• What features to extract
+• What patterns matter
+
+<b>Example:</b>
+Face recognition before DL:
+Engineers manually designed:
+• Edges
+• Shapes
+• Texture rules
+
+Small change in lighting or angle →
+System failed.
+
+<b>Human feeling:</b>
+😤 Engineer: “Why does it break so easily?”
+🤖 ML Model: “You didn’t teach me everything.”
+
+That limitation created the need for Deep Learning.
+</div>
+
+<div class="branch-title">◇ What Deep Learning Changed</div>
+<div class="content-block">
+Deep Learning removed manual feature learning.
+
+Instead of:
+Human → Feature → Model  
+It became:
+Model → Learns Features → Improves Itself
+
+<b>Simple analogy:</b>
+Earlier:
+Teacher explains every rule.
+
+Now:
+Teacher shows many examples —
+student understands patterns naturally.
+
+That “student” is a deep neural network.
+</div>
+
+<div class="branch-title">◇ Tokens, Tokenizer & Vocabulary</div>
+<div class="content-block">
+Before understanding language,
+a system must break it into pieces.
+
+<b>Tokenizer:</b>
+Breaks text into smaller units.
+
+<b>Token:</b>
+The smallest piece the system understands.
+
+<b>Vocabulary:</b>
+The full list of tokens the system knows.
+
+<b>Example:</b>
+Sentence:
+“I love AI”
+
+Tokenizer breaks it into:
+[I] [love] [AI]
+
+Each part becomes a token number.
+
+<b>Human feeling:</b>
+📝 Human: “Why break words?”
+🤖 DL Model: “I think in numbers, not letters.”
+</div>
+
+<div class="branch-title">◇ What Is an Embedding</div>
+<div class="content-block">
+An embedding converts tokens into vectors (numbers).
+
+<b>Why needed?</b>
+Numbers help the system understand:
+• Meaning
+• Similarity
+• Relationships
+
+<b>Example:</b>
+“King” and “Queen” →
+Vectors are close.
+
+“Apple” and “Car” →
+Vectors are far.
+
+<b>Simple analogy:</b>
+Words live on a map.
+Similar words live nearby.
+
+That map is the embedding space.
+</div>
+
+<div class="branch-title">◇ What Are Layers in Deep Learning</div>
+<div class="content-block">
+A deep network has multiple layers.
+
+Each layer learns something different.
+
+<b>Example: Image</b>
+Layer 1 → Edges  
+Layer 2 → Shapes  
+Layer 3 → Objects  
+Layer 4 → Meaning  
+
+<b>Example: Language</b>
+Layer 1 → Tokens  
+Layer 2 → Grammar  
+Layer 3 → Context  
+Layer 4 → Meaning  
+
+<b>Human feeling:</b>
+👀 Human: “Why so many layers?”
+🤖 DL Model: “Understanding is built step‑by‑step.”
+</div>
+
+<div class="branch-title">◇ Where Is the Knowledge Stored</div>
+<div class="content-block">
+All learned knowledge is stored as:
+<b>Weights</b>
+
+Weights are numbers inside the network
+that represent experience.
+
+<b>Example:</b>
+After seeing millions of sentences,
+the system adjusts weights to remember:
+• What usually follows what
+• What makes sense
+• What does not
+
+There is no memory like humans —
+only numbers that encode patterns.
+</div>
+
+<div class="branch-title">◇ Backpropagation (The Learning Secret)</div>
+<div class="content-block">
+Backpropagation is how a network learns.
+
+<b>Process:</b>
+
+• Make a prediction  
+  (Take a guess like a student answering a question)
+
+• Measure error  
+  (Check how wrong or right that guess was)
+
+• Send error backward  
+  (Tell the earlier steps: “You caused this mistake”)
+
+• Adjust weights slightly  
+  (Tiny self‑correction: “Next time, do a little better”)
+
+<b>Funny example:</b>
+🎯 Kid throws ball → misses  
+Coach says: “Too left”  
+Next throw adjusts slightly
+
+Miss → adjust  
+Miss less → adjust  
+Hit → remember
+
+That repeated correction is backpropagation.
+</div>
+
+<div class="branch-title">◇ Output: What Does DL Actually Produce?</div>
+<div class="content-block">
+Deep Learning outputs probabilities.
+
+<b>Examples:</b>
+• 98% cat, 2% dog
+• Next likely word
+• Most similar meaning
+• Best possible action
+
+The system does not say “certain”.
+It says “most likely”.
+
+<b>Human feeling:</b>
+🤔 Human: “Are you sure?”
+🤖 DL Model: “This is my best guess — based on experience.”
+</div>
+
+<div class="branch-title">◇ One‑Line Takeaway</div>
+<div class="content-block">
+<b>
+Deep Learning allowed machines to learn features,
+language, vision, and meaning directly from raw data.
+</b>
+
+<b>
+It removed human micromanagement
+and unlocked modern AI systems.
+</b>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

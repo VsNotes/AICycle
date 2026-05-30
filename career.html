@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Career Guide | AICycle</title><link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--bg:#fef9e7;--hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;--green:#10b981;--py:#2563eb;--net:#7c3aed;--teal:#0d9488;--orange:#f59e0b;--border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px);font-family:var(--fb);font-size:16px;color:#1e293b;min-height:100vh;}
+.page{max-width:1100px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+.hero{background:var(--ink);padding:2rem;text-align:center;position:relative;overflow:hidden;border-bottom:5px solid var(--hot);margin-bottom:2rem;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(247,37,133,.08) 1px,transparent 1px);background-size:20px 20px;}
+.hero h1{font-family:var(--ft);font-size:3rem;color:#fff;letter-spacing:3px;line-height:1.05;position:relative;}
+.hero h1 em{color:var(--hot);font-style:normal;}
+.hero p{color:#ccc;font-size:1rem;max-width:680px;margin:.6rem auto 0;line-height:1.75;position:relative;}
+.hero .badge{display:inline-block;background:var(--hot);color:#fff;font-family:var(--ft);font-size:.9rem;letter-spacing:2px;padding:.2rem 1rem;border-radius:20px;border:2px solid #fff;margin-bottom:.6rem;}
+.hw{display:grid;grid-template-columns:1fr 240px;gap:2rem;align-items:start;}
+.hm{display:flex;flex-direction:column;gap:1.8rem;}
+.hs{display:flex;flex-direction:column;gap:1.2rem;}
+.stitle{font-family:var(--ft);font-size:1.6rem;letter-spacing:2px;padding:.35rem .9rem;border:var(--border);display:inline-block;box-shadow:var(--sh);border-radius:6px;margin-bottom:.9rem;}
+.cstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem;}
+.cp{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1.1rem;position:relative;}
+.cpn{position:absolute;top:-13px;left:10px;background:var(--hot);color:#fff;font-family:var(--ft);font-size:1rem;width:28px;height:28px;border-radius:50%;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;}
+.cp h3{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;margin:.5rem 0 .3rem;}
+.cp p{font-size:.93rem;line-height:1.65;color:#1e293b;}
+.cp .tag{font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);display:inline-block;margin-top:.4rem;}
+.cpi{font-size:2rem;margin-bottom:.2rem;}
+.dbox{background:var(--ink);border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.4rem;position:relative;overflow:hidden;}
+.dbox::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:10px 10px;pointer-events:none;}
+.dbt{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.9rem;text-align:center;}
+.ibox{background:#fff;border:var(--border);border-left:6px solid var(--hot);border-radius:8px;box-shadow:4px 4px 0 var(--ink);padding:1.1rem 1.2rem;}
+.ibox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:var(--hot);margin-bottom:.5rem;}
+.ibox p,.ibox ul{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.ibox ul{padding-left:1.2rem;}.ibox ul li{margin-bottom:.3rem;}
+.ibox.green{border-left-color:var(--green);}.ibox.green h4{color:var(--green);}
+.ibox.blue{border-left-color:var(--py);}.ibox.blue h4{color:var(--py);}
+.ibox.teal{border-left-color:var(--teal);}.ibox.teal h4{color:var(--teal);}
+.ibox.orange{border-left-color:var(--orange);}.ibox.orange h4{color:var(--orange);}
+.ibox.net{border-left-color:var(--net);}.ibox.net h4{color:var(--net);}
+.bubble{background:#fffde7;border:var(--border);border-radius:16px;padding:.9rem 1.1rem;box-shadow:4px 4px 0 var(--ink);position:relative;}
+.bubble::after{content:'';position:absolute;bottom:-18px;left:24px;border-width:10px 8px 0;border-style:solid;border-color:var(--ink) transparent transparent;}
+.bubble::before{content:'';position:absolute;bottom:-14px;left:26px;border-width:9px 7px 0;border-style:solid;border-color:#fffde7 transparent transparent;z-index:1;}
+.bubble p{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.bwho{font-family:var(--ft);font-size:.95rem;color:var(--hot);margin-bottom:.25rem;display:flex;align-items:center;gap:.5rem;}
+.cb{background:#1e1e2e;border:3px solid var(--ink);border-radius:10px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin:.3rem 0;}
+.cbh{padding:.5rem 1rem;background:linear-gradient(90deg,#1e3a8a,#2563eb);color:#93c5fd;font-family:var(--fb);font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:.5rem;border-bottom:2px solid #313244;}
+.cbh.net{background:linear-gradient(90deg,#4c1d95,#7c3aed);color:#c4b5fd;}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.cbody{display:grid;grid-template-columns:40px 1fr;overflow-x:auto;}
+.lnums{background:#181825;color:#45475a;font-family:var(--fc);font-size:.8rem;line-height:1.8;padding:.8rem 0;text-align:right;padding-right:.6rem;user-select:none;border-right:1px solid #313244;}
+.lnums div{height:1.8em;}
+.code-content{padding:.8rem 1rem;font-family:var(--fc);color:#cdd6f4;font-size:.85rem;line-height:1.8;white-space:pre;overflow-x:auto;}
+.pk{color:#cba6f7;}.ps{color:#a6e3a1;}.pc{color:#6c7086;font-style:italic;}.pf{color:#89b4fa;}.pn{color:#f38ba8;}.pcl{color:#fab387;}.pat{color:#f5c2e7;}
+.tbl{width:100%;border-collapse:collapse;font-size:.93rem;background:#fff;border:var(--border);box-shadow:var(--sh);border-radius:8px;overflow:hidden;}
+.tbl th{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.95rem;letter-spacing:1px;padding:.55rem .9rem;text-align:left;}
+.tbl td{padding:.5rem .9rem;border-bottom:1.5px solid #eee;color:#1e293b;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:#f8faff;}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.fc{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;transition:transform .15s,box-shadow .15s;}
+.fc:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.fch{padding:.8rem 1rem;font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;display:flex;align-items:center;gap:.5rem;color:#1e293b;}
+.fcb{padding:0 1rem 1rem;font-size:.93rem;line-height:1.65;color:#1e293b;}
+.ftags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem;}
+.ftag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);}
+.steps{border:var(--border);border-radius:8px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.srow{display:grid;grid-template-columns:44px 1fr;}
+.snum{background:var(--hot);color:#fff;font-family:var(--ft);font-size:1.1rem;display:flex;align-items:center;justify-content:center;border-right:2.5px solid var(--ink);}
+.snum.blue{background:var(--py);}.snum.green{background:var(--green);}.snum.teal{background:var(--teal);}.snum.net{background:var(--net);}.snum.orange{background:var(--orange);}.snum.yellow{background:var(--yellow);color:var(--ink);}
+.scont{padding:.75rem 1rem;border-bottom:1.5px solid #eee;background:#fff;}
+.srow:last-child .scont{border-bottom:none;}
+.sl{font-family:var(--ft);font-size:.98rem;letter-spacing:1px;}
+.sd{font-size:.93rem;color:#334155;line-height:1.6;margin-top:.2rem;}
+.flow{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.3rem;overflow:hidden;position:relative;}
+.flow::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.flow-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.fn{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:.55rem .8rem;text-align:center;min-width:80px;}
+.fn .fi{font-size:1.3rem;display:block;margin-bottom:.15rem;}
+.fn .fl{font-family:var(--ft);font-size:.8rem;letter-spacing:1px;color:#fff;display:block;}
+.fn .fs{font-size:.68rem;color:rgba(255,255,255,.55);display:block;}
+.fn.hi{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.fn.bi{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.fn.gi{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.5);}
+.fn.yi{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.5);}
+.fn.ni{background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.6);}
+.fa{color:var(--yellow);font-size:1.2rem;font-weight:900;}
+.floop{border:2px dashed rgba(251,191,36,.3);border-radius:10px;padding:.5rem .9rem;text-align:center;font-size:.8rem;color:rgba(255,255,255,.55);margin-top:.3rem;}
+.tip{background:#ecfdf5;border:2px solid var(--green);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#065f46;font-weight:600;margin:.3rem 0;}
+.warn{background:#fffbeb;border:2px solid var(--yellow);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#92400e;font-weight:600;margin:.3rem 0;}
+.wow{background:#f0fdfa;border:2px solid var(--teal);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#0f766e;font-weight:600;margin:.3rem 0;}
+.fact{background:linear-gradient(135deg,var(--ink),#252540);border:var(--border);border-radius:10px;padding:1.2rem;box-shadow:var(--sh);text-align:center;color:#fff;}
+.fact .fi2{font-size:2rem;margin-bottom:.4rem;}
+.fact h4{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.4rem;}
+.fact p{font-size:.93rem;color:#ccc;line-height:1.65;}
+.mtr{display:flex;flex-direction:column;gap:.5rem;}
+.mtr-row{display:grid;grid-template-columns:160px 1fr 120px;gap:.5rem;align-items:center;font-size:.88rem;}
+.mtr-label{font-weight:700;color:#1e293b;}
+.mtr-bar-wrap{background:#eee;border-radius:20px;height:10px;overflow:hidden;}
+.mtr-bar{height:100%;border-radius:20px;}
+.mtr-note{font-size:.78rem;color:#64748b;}
+.sbox{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1rem;}
+.sbox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;margin-bottom:.6rem;}
+.sbox ul{font-size:.93rem;line-height:1.8;padding-left:1.1rem;color:#1e293b;}
+.sdark{background:var(--ink);border:var(--border);border-radius:8px;padding:1.1rem;}
+.sdark h4{font-family:var(--ft);font-size:1.05rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.6rem;}
+.sdark ul{font-size:.93rem;line-height:1.8;padding-left:1.1rem;color:#ccc;}
+.sdark dl div{margin-bottom:.5rem;}
+.sdark dt{color:var(--cyan);font-weight:700;font-size:.93rem;}
+.sdark dd{color:#ccc;font-size:.88rem;line-height:1.5;margin-left:.5rem;}
+.timeline{display:flex;flex-direction:column;gap:.8rem;}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:.8rem;align-items:start;}
+.tl-year{font-family:var(--ft);font-size:1.1rem;color:var(--hot);text-align:center;padding:.3rem;border:2px solid var(--hot);border-radius:6px;background:#fce7f3;}
+.tl-body h4{font-family:var(--ft);font-size:1rem;letter-spacing:1px;margin-bottom:.2rem;}
+.tl-body p{font-size:.93rem;line-height:1.6;color:#334155;}
+.sal-wrap{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;}
+.sal-row{display:grid;grid-template-columns:1fr 90px 90px 100px 80px;gap:.3rem;padding:.5rem .7rem;border-bottom:1.5px solid #eee;align-items:center;font-size:.85rem;}
+.sal-row.hdr{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.82rem;letter-spacing:1px;}
+.sal-row:last-child{border-bottom:none;}
+.sal-row:nth-child(even):not(.hdr){background:#f8faff;}
+.next-btn{display:inline-block;font-family:var(--ft);font-size:1rem;letter-spacing:2px;padding:.5rem 1.5rem;background:var(--hot);color:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);text-decoration:none;transition:all .15s;cursor:pointer;margin-top:.5rem;}
+.next-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.toc{display:flex;flex-direction:column;gap:.25rem;margin:.5rem 0;}
+.toc a{font-size:.88rem;color:var(--py);text-decoration:none;padding:.2rem 0;border-bottom:1px dashed #ddd;font-weight:600;}
+.toc a:hover{color:var(--hot);}
+#rbar{position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--hot),var(--yellow),var(--cyan));z-index:9999;transition:width .1s;}
+@media(max-width:900px){.hw{grid-template-columns:1fr;}.hero h1{font-size:2rem;}.sal-row{grid-template-columns:1fr 70px 70px;}.sal-row span:nth-child(4),.sal-row span:nth-child(5){display:none;}}
+</style></head><body>
+<div id="rbar"></div>
+<div class="hero" style="border-bottom-color:var(--green)">
+  <div class="badge" style="background:var(--green)">🎯 Chapter 9 · Career Guide</div>
+  <h1>LAND YOUR<br><em style="color:#6ee7b7">AI CAREER</em></h1>
+  <p>Every AI job role explained, salary ranges, required skills, certifications, and your step-by-step roadmap to break into the most in-demand field of the decade.</p>
+</div>
+<div class="page"><div class="hw"><div class="hm">
+
+<div><div class="stitle" style="background:var(--hot);color:#fff">💼 AI JOB ROLES IN 2025</div>
+<div class="fgrid">
+  <div class="fc" style="border-color:var(--hot)"><div class="fch" style="background:#fce7f3">💬 AI/LLM Engineer<span style="display:inline-block;background:var(--hot);color:#fff;font-size:.55rem;font-weight:800;padding:1px 5px;border-radius:8px;margin-left:4px;font-family:var(--fb)">🔥🔥 HOTTEST</span></div><div class="fcb"><strong>$130K–$280K/yr</strong><br>The hottest role right now. Build RAG systems, fine-tune LLMs, create agents and workflows using LangChain, Semantic Kernel, or custom solutions.<div class="ftags"><span class="ftag" style="background:#fce7f3">LangChain</span><span class="ftag" style="background:#ede9fe">RAG</span><span class="ftag" style="background:#dbeafe">Agents</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#eff6ff">🧠 ML Engineer</div><div class="fcb"><strong>$120K–$250K/yr</strong><br>Build and deploy machine learning models in production. Bridge between data science and software engineering. Design ML pipelines, optimize model inference, monitor production systems.<div class="ftags"><span class="ftag" style="background:#dbeafe">Python</span><span class="ftag" style="background:#bbf7d0">PyTorch</span><span class="ftag" style="background:#fef3c7">MLOps</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f0fdf4">📊 Data Scientist</div><div class="fcb"><strong>$100K–$200K/yr</strong><br>Analyze data to extract business insights, build predictive models, conduct A/B tests, create dashboards. Heavy on statistics and storytelling with data.<div class="ftags"><span class="ftag" style="background:#bbf7d0">Python</span><span class="ftag" style="background:#d1fae5">SQL</span><span class="ftag" style="background:#fef3c7">Statistics</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fef9ee">🔬 AI Research Scientist</div><div class="fcb"><strong>$150K–$400K/yr</strong><br>Push the frontiers of AI — new architectures, training methods, alignment research. Typically at FAANG, AI labs, or top universities. Requires PhD or equivalent.<div class="ftags"><span class="ftag" style="background:#fef3c7">PhD often needed</span><span class="ftag" style="background:#dbeafe">Research</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f5f3ff">🛠️ MLOps Engineer</div><div class="fcb"><strong>$110K–$210K/yr</strong><br>DevOps for ML — build CI/CD for models, monitor drift, manage infrastructure (Kubernetes, cloud). Ensure ML models stay healthy in production.<div class="ftags"><span class="ftag" style="background:#ede9fe">Kubernetes</span><span class="ftag" style="background:#fef3c7">MLflow</span><span class="ftag" style="background:#dbeafe">AWS/GCP</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#ecfdf5">✍️ Prompt Engineer</div><div class="fcb"><strong>$80K–$175K/yr</strong><br>Design and optimize prompts for LLM-powered applications. Part art, part science. Strong writing + technical understanding required. Entry point for non-coders.<div class="ftags"><span class="ftag" style="background:#d1fae5">Entry-friendly</span><span class="ftag" style="background:#bbf7d0">LLMs</span></div></div></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--ink);color:#fff">💰 AI SALARY GUIDE (GLOBAL)</div>
+<div class="sal-wrap">
+  <div class="sal-row hdr"><span>Role</span><span>India (LPA)</span><span>UK (£/yr)</span><span>USA ($/yr)</span><span>Experience</span></div>
+  <div class="sal-row"><span><strong>LLM / AI Engineer</strong></span><span>₹18–45L</span><span>£70–140K</span><span>$130–280K</span><span>2–5 yrs</span></div>
+  <div class="sal-row"><span>ML Engineer</span><span>₹15–40L</span><span>£65–130K</span><span>$120–250K</span><span>2–5 yrs</span></div>
+  <div class="sal-row"><span>Data Scientist</span><span>₹10–25L</span><span>£55–110K</span><span>$100–200K</span><span>1–4 yrs</span></div>
+  <div class="sal-row"><span>AI Research Scientist</span><span>₹25–80L</span><span>£90–200K</span><span>$150–400K</span><span>PhD + 3 yrs</span></div>
+  <div class="sal-row"><span>MLOps Engineer</span><span>₹12–30L</span><span>£60–120K</span><span>$110–210K</span><span>2–4 yrs</span></div>
+  <div class="sal-row"><span>Prompt Engineer</span><span>₹8–18L</span><span>£45–80K</span><span>$80–175K</span><span>0–2 yrs</span></div>
+  <div class="sal-row"><span>Data Engineer</span><span>₹10–22L</span><span>£55–100K</span><span>$95–180K</span><span>2–4 yrs</span></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--py);color:#fff">🧰 SKILLS YOU NEED</div>
+<div class="cstrip">
+  <div class="cp" style="border-color:var(--py)"><div class="cpi">💻</div><h3>Technical Skills</h3>
+  <ul style="list-style:none;padding:0;font-size:.9rem;line-height:1.8;color:#1e293b">
+    <li>🐍 Python (must-have)</li><li>📊 Machine Learning</li><li>🧠 Deep Learning / PyTorch</li><li>💬 LLMs / Prompt Eng.</li><li>🔍 RAG / Vector DBs</li><li>🗄️ SQL &amp; Data Wrangling</li><li>☁️ Cloud (AWS/Azure/GCP)</li><li>🐳 Git &amp; Docker</li>
+  </ul></div>
+  <div class="cp" style="border-color:var(--teal)"><div class="cpi">🧠</div><h3>Soft Skills</h3>
+  <ul style="list-style:none;padding:0;font-size:.9rem;line-height:1.8;color:#1e293b">
+    <li>🔎 Problem Solving</li><li>📢 Communication</li><li>🧐 Critical Thinking</li><li>🤔 Curiosity / Self-Learning</li><li>🧪 Experimentation Mindset</li><li>💼 Business Understanding</li><li>📈 Storytelling with Data</li><li>⚖️ Ethics Awareness</li>
+  </ul></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--green);color:#fff">🗺️ 12-MONTH AI CAREER ROADMAP</div>
+<div class="steps">
+  <div class="srow"><div class="snum blue">1</div><div class="scont"><div class="sl" style="color:var(--py)">Month 1–2: Python Fundamentals</div><div class="sd">Variables, functions, OOP, Pandas, NumPy. Use freeCodeCamp, Python.org, or CS50P. Build small scripts every day.</div></div></div>
+  <div class="srow"><div class="snum">2</div><div class="scont"><div class="sl">Month 2–4: Machine Learning</div><div class="sd">Scikit-learn, supervised/unsupervised learning, model evaluation. Andrew Ng's ML Specialization on Coursera is the gold standard.</div></div></div>
+  <div class="srow"><div class="snum net">3</div><div class="scont"><div class="sl" style="color:var(--net)">Month 3–5: Deep Learning &amp; Neural Nets</div><div class="sd">PyTorch, CNNs, RNNs, Transformers. Deep Learning Specialization by Andrew Ng, or Fast.ai's practical approach.</div></div></div>
+  <div class="srow"><div class="snum" style="background:var(--cyan);color:var(--ink)">4</div><div class="scont"><div class="sl" style="color:var(--teal)">Month 4–6: LLMs &amp; Prompt Engineering</div><div class="sd">OpenAI API, Anthropic API, prompt patterns, fine-tuning basics, tokenization deep dive. Build a chatbot project.</div></div></div>
+  <div class="srow"><div class="snum teal">5</div><div class="scont"><div class="sl" style="color:var(--teal)">Month 5–7: Build RAG Systems</div><div class="sd">LangChain or Semantic Kernel, FAISS/Chroma, build a document Q&amp;A app. Follow the Python RAG or .NET RAG tutorials on this site!</div></div></div>
+  <div class="srow"><div class="snum" style="background:var(--hot)">6</div><div class="scont"><div class="sl" style="color:var(--hot)">Month 6–8: Agentic AI Projects</div><div class="sd">Build agents with LangGraph or AutoGen. Tool-calling, multi-step reasoning, memory systems. See the Agentic AI course!</div></div></div>
+  <div class="srow"><div class="snum green">7</div><div class="scont"><div class="sl" style="color:var(--green)">Month 7–10: Build a Portfolio (3 Projects)</div><div class="sd">RAG chatbot, ML web app, Agentic AI tool. Deploy on HuggingFace Spaces, Streamlit Cloud, or Vercel. GitHub is your CV!</div></div></div>
+  <div class="srow"><div class="snum orange">8</div><div class="scont"><div class="sl" style="color:var(--orange)">Month 8–11: Get Certified</div><div class="sd">AWS ML Specialty, Google Cloud Professional ML Engineer, or DeepLearning.AI certificates. Microsoft AI-102 for .NET developers.</div></div></div>
+  <div class="srow"><div class="snum yellow">9</div><div class="scont"><div class="sl" style="color:#92400e">Month 10–12: Apply, Network, Land the Job</div><div class="sd">Optimize LinkedIn, contribute to open-source (LangChain, HuggingFace), write technical blogs, reach out to recruiters.</div></div></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--net);color:#fff">📜 TOP AI CERTIFICATIONS</div>
+<div class="fgrid">
+  <div class="fc"><div class="fch" style="background:#eff6ff">🤖 DeepLearning.AI</div><div class="fcb">Andrew Ng's courses on Coursera. ML, DL, LLMOps, MLOps specializations. Most recommended for beginners to intermediate.<div class="ftags"><span class="ftag" style="background:#dbeafe">Beginner→Advanced</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fff7ed">☁️ AWS ML Specialty</div><div class="fcb">Amazon's ML certification. Covers SageMaker, ML services, deployment. Highly valued by cloud and enterprise employers.<div class="ftags"><span class="ftag" style="background:#ffedd5">Intermediate</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f0fdf4">🔷 Google Cloud ML Engineer</div><div class="fcb">Professional-level certification for Google Cloud AI services, Vertex AI, BigQuery ML. Strong for GCP-heavy organizations.<div class="ftags"><span class="ftag" style="background:#bbf7d0">Advanced</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f5f3ff">🟣 Microsoft AI-102</div><div class="fcb">Azure AI services, Cognitive Services, Azure OpenAI, Bot Framework. Best for .NET developers and Microsoft shop environments.<div class="ftags"><span class="ftag" style="background:#ede9fe">Intermediate</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fef9ee">🤗 HuggingFace Certs</div><div class="fcb">Free and paid courses on Transformers, Diffusion, NLP, and Agents directly from the team behind the most-used AI library.<div class="ftags"><span class="ftag" style="background:#fef3c7">Free</span><span class="ftag" style="background:#d1fae5">All levels</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#ecfdf5">🔥 Fast.ai Practical DL</div><div class="fcb">Free, top-down practical approach to deep learning. Used by many practitioners who prefer hands-on learning over theory.<div class="ftags"><span class="ftag" style="background:#d1fae5">Free</span><span class="ftag" style="background:#bbf7d0">Practical</span></div></div></div>
+</div></div>
+
+<div class="ibox green"><h4>💡 CAREER PRO TIPS</h4>
+<ul>
+  <li><strong>Build in public.</strong> Share your projects on GitHub and LinkedIn. AI hiring is highly portfolio-driven.</li>
+  <li><strong>Start with LLM Engineering.</strong> It's the fastest-growing, highest-paying entry point in 2025 — no PhD needed.</li>
+  <li><strong>Contribute to open-source.</strong> LangChain, HuggingFace, Ollama — even small PRs build credibility.</li>
+  <li><strong>Write about what you learn.</strong> A blog post explaining RAG gets you more interviews than a certificate.</li>
+  <li><strong>Learn the business side.</strong> AI engineers who understand why a model matters to the business are 10x more valuable.</li>
+  <li><strong>Network at AI meetups.</strong> Most jobs are still filled through connections. Attend local and virtual AI events.</li>
+  <li><strong>Don't wait until you're "ready."</strong> Start applying when you have 2–3 solid projects. You'll learn more on the job.</li>
+</ul></div>
+
+</div><!-- hm -->
+<div class="hs">
+  <div class="sbox"><h4 style="color:var(--green)">📋 ON THIS PAGE</h4>
+    <div class="toc">
+      <a href="#">💼 AI Job Roles</a>
+      <a href="#">💰 Salary Guide</a>
+      <a href="#">🧰 Skills Map</a>
+      <a href="#">🗺️ 12-Month Roadmap</a>
+      <a href="#">📜 Certifications</a>
+      <a href="#">💡 Pro Tips</a>
+    </div>
+  </div>
+  <div class="sdark"><h4>🔥 HOTTEST SKILLS 2025</h4>
+    <ul>
+      <li>⚡ LLM Engineering</li>
+      <li>🔍 RAG + Vector DBs</li>
+      <li>🤖 Agentic AI (LangGraph)</li>
+      <li>☁️ Azure / AWS AI Services</li>
+      <li>🐍 Python + PyTorch</li>
+      <li>📊 Data + SQL</li>
+    </ul>
+  </div>
+  <div class="sbox"><h4 style="color:var(--hot)">📚 LEARN MORE</h4>
+    <ul>
+      <li>🐍 Python RAG Tutorial</li>
+      <li>🟣 .NET RAG Tutorial</li>
+      <li>⚡ Agentic AI Course</li>
+      <li>🎤 Interview Q&amp;A</li>
+    </ul>
+  </div>
+</div>
+</div></div>
+<script src="analytics.js"></script>
+<script src="widgets.js"></script>
+<script>window.addEventListener('scroll',()=>{const b=document.getElementById('rbar');if(b){const p=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;b.style.width=Math.min(100,p)+'%';}});</script></body></html>

@@ -1,0 +1,1259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI - Learn and Build | AICycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   AICYCLE QA AUTOMATION — CLEAN CSS
+   RULE 1: Dark background → WHITE text
+   RULE 2: Light background → DARK #1e293b text
+   RULE 3: No exceptions!
+   ═══════════════════════════════════════════════════ */
+:root{
+  --ink:#1a1a2e;--bg:#fef9e7;
+  --hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;
+  --green:#10b981;--py:#2563eb;--net:#7c3aed;
+  --teal:#0d9488;--orange:#f59e0b;
+  --border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;
+  --ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+
+/* BODY — light notebook bg, DARK text */
+body{
+  background:var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px);
+  font-family:var(--fb);font-size:16px;color:#1e293b;min-height:100vh;
+}
+
+/* HERO — dark bg, WHITE text */
+.hero{background:var(--ink);padding:2rem;text-align:center;position:relative;overflow:hidden;border-bottom:5px solid var(--hot);}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(13,148,136,.08) 1px,transparent 1px);background-size:20px 20px;}
+.hbadge{display:inline-block;background:var(--teal);color:#fff;font-family:var(--ft);font-size:.95rem;letter-spacing:2px;padding:.22rem 1rem;border-radius:20px;border:2px solid rgba(255,255,255,.5);margin-bottom:.7rem;position:relative;}
+.hero h1{font-family:var(--ft);font-size:3.2rem;color:#fff;letter-spacing:3px;line-height:1.05;position:relative;}
+.hero h1 em{color:var(--teal);font-style:normal;}
+.hero p{color:#e2e8f0;font-size:1rem;max-width:660px;margin:.6rem auto 0;line-height:1.75;position:relative;}
+.hpills{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:.9rem;position:relative;}
+.hpill{display:flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:.28rem .85rem;font-size:.85rem;color:#f1f5f9;font-weight:600;}
+
+/* MAIN TABS — toggle between Home and Course */
+.mt-bar{background:linear-gradient(180deg,#0a0a18,#1a1a2e);border-bottom:3px solid rgba(255,255,255,.08);display:flex;padding:.4rem 1rem 0;gap:.3rem;}
+.mt{font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;padding:.45rem 1.4rem .6rem;border:2.5px solid rgba(255,255,255,.1);border-bottom:none;border-radius:10px 10px 0 0;cursor:pointer;color:#777;background:rgba(255,255,255,.04);transition:all .18s;white-space:nowrap;position:relative;top:4px;outline:none;}
+.mt:hover{background:rgba(255,255,255,.1);color:#bbb;top:2px;}
+.mt.act{background:var(--teal);color:#fff;top:0;border-color:var(--teal);box-shadow:0 -3px 0 var(--teal),3px 0 0 var(--teal),-3px 0 0 var(--teal),inset 0 2px 0 rgba(255,255,255,.3);transform:scale(1.05);}
+
+/* HOME/COURSE PANELS */
+#th{display:block;}
+#tp{display:none;flex-direction:column;}
+
+/* LAYOUT — home tab */
+.pg{max-width:1100px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+.hw{display:grid;grid-template-columns:1fr 230px;gap:2rem;align-items:start;}
+.hm{display:flex;flex-direction:column;gap:1.8rem;}
+.hs{display:flex;flex-direction:column;gap:1.2rem;}
+
+/* SECTION TITLE */
+.stitle{font-family:var(--ft);font-size:1.6rem;letter-spacing:2px;padding:.35rem .9rem;border:var(--border);display:inline-block;box-shadow:var(--sh);border-radius:6px;margin-bottom:.9rem;color:#fff;}
+
+/* PERSONA STRIP — white bg, DARK text */
+.persona-strip{border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1rem;background:linear-gradient(135deg,#f0fdfa,#fff);}
+.ps-title{font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;color:#1e293b;margin-bottom:.7rem;}
+.ps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.7rem;}
+.ps-card{background:#fff;border:2px solid #e2e8f0;border-radius:8px;padding:.75rem;display:flex;flex-direction:column;gap:.25rem;transition:all .15s;}
+.ps-card:hover{border-color:var(--teal);box-shadow:3px 3px 0 var(--teal);transform:translate(-1px,-1px);}
+.ps-emoji{font-size:1.4rem;}
+.ps-card strong{font-size:.9rem;color:#1e293b;font-family:var(--ft);letter-spacing:.5px;}
+.ps-card .ps-tag{font-size:.65rem;font-weight:800;padding:2px 7px;border-radius:10px;width:fit-content;border:1.5px solid rgba(0,0,0,.12);}
+.ps-card p{font-size:.83rem;color:#475569;line-height:1.5;}
+
+/* SPEECH BUBBLE — yellow bg, DARK text */
+.bubble{background:#fffde7;border:var(--border);border-radius:16px;padding:1rem 1.2rem;box-shadow:4px 4px 0 var(--ink);position:relative;margin-bottom:.5rem;}
+.bubble::after{content:'';position:absolute;bottom:-18px;left:24px;border-width:10px 8px 0;border-style:solid;border-color:var(--ink) transparent transparent;}
+.bubble::before{content:'';position:absolute;bottom:-14px;left:26px;border-width:9px 7px 0;border-style:solid;border-color:#fffde7 transparent transparent;z-index:1;}
+.bubble p{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.bubble strong{color:var(--hot);}
+.bubble em{color:var(--py);font-style:italic;}
+.bubble-who{font-family:var(--ft);font-size:1rem;color:var(--hot);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem;}
+.bicon{font-size:1.2rem;}
+
+/* STAGE CARDS — white bg, DARK text */
+.cstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem;}
+.cp{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1.2rem;position:relative;transition:transform .15s,box-shadow .15s;}
+.cp:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.cpn{position:absolute;top:-13px;left:10px;color:#fff;font-family:var(--ft);font-size:1rem;width:28px;height:28px;border-radius:50%;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;}
+.cp h3{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;color:#1e293b;margin:.4rem 0 .35rem;}
+.cp p{font-size:.93rem;line-height:1.65;color:#475569;}
+.cpi{font-size:1.9rem;margin-bottom:.2rem;}
+
+/* FLOW DIAGRAM — dark bg, WHITE text */
+.flowdiag{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.4rem;position:relative;overflow:hidden;}
+.flowdiag::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.fd-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.fd-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem;}
+.fd-node{border:2px solid rgba(255,255,255,.25);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;background:rgba(255,255,255,.07);}
+.fd-node .fd-icon{font-size:1.4rem;display:block;margin-bottom:.2rem;}
+.fd-node .fd-label{font-family:var(--ft);font-size:.82rem;letter-spacing:1px;color:#fff;display:block;}
+.fd-node .fd-sub{font-size:.68rem;color:rgba(255,255,255,.65);display:block;margin-top:.1rem;line-height:1.3;}
+.fd-arrow{color:var(--yellow);font-size:1.3rem;font-weight:900;}
+.fd-loop{border:2px dashed rgba(251,191,36,.3);border-radius:10px;padding:.5rem .9rem;text-align:center;font-size:.82rem;color:rgba(255,255,255,.65);margin-top:.5rem;line-height:1.5;}
+.shared-node{background:rgba(255,255,255,.1);}
+.py-node{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.qa-node{background:rgba(13,148,136,.2);border-color:rgba(45,212,191,.6);}
+.hot-node{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+
+/* TOOLS GRID — white bg, DARK text */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;}
+.fc{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;transition:transform .15s,box-shadow .15s;}
+.fc:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.fch{padding:.85rem 1rem;font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;display:flex;align-items:center;gap:.5rem;color:#1e293b;}
+.fcb{padding:0 1rem 1rem;font-size:.93rem;line-height:1.65;color:#334155;}
+.ftags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem;}
+.ftag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);color:#1e293b;}
+
+/* TABLE — white bg, DARK text */
+.tbl{width:100%;border-collapse:collapse;font-size:.93rem;background:#fff;border:var(--border);box-shadow:var(--sh);border-radius:8px;overflow:hidden;}
+.tbl th{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.9rem;letter-spacing:1px;padding:.55rem .9rem;text-align:left;}
+.tbl td{padding:.5rem .9rem;border-bottom:1.5px solid #eee;color:#1e293b;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:#f8faff;}
+
+/* CTA — dark bg, WHITE text */
+.cta{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.5rem;text-align:center;position:relative;overflow:hidden;}
+.cta::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.cta-title{font-family:var(--ft);font-size:1.4rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.5rem;position:relative;}
+.cta p{color:#e2e8f0;font-size:1rem;margin-bottom:1rem;position:relative;}
+.cta-btn{font-family:var(--ft);font-size:1.1rem;letter-spacing:2px;padding:.6rem 1.8rem;background:var(--hot);color:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);cursor:pointer;transition:all .15s;position:relative;}
+.cta-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+
+/* SIDEBAR */
+.sbox{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1rem;}
+.sbox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:#1e293b;margin-bottom:.6rem;}
+.sbox ul{list-style:none;padding:0;font-size:.93rem;color:#334155;line-height:1.9;}
+.sdark{background:var(--ink);border:var(--border);border-radius:8px;padding:1rem;}
+.sdark h4{font-family:var(--ft);font-size:1.05rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.6rem;}
+.sdark dl div{margin-bottom:.5rem;}
+.sdark dt{color:var(--cyan);font-weight:700;font-size:.92rem;}
+.sdark dd{color:#cbd5e1;font-size:.87rem;line-height:1.5;margin-left:.3rem;}
+
+/* CHAPTER NAV — dark bg tabs */
+#qanav{background:linear-gradient(180deg,#0a0a18,#1a1a2e);border-bottom:4px solid var(--yellow);display:none;align-items:flex-end;padding:.5rem 1rem 0;gap:.25rem;overflow-x:auto;flex-shrink:0;scrollbar-width:thin;scrollbar-color:var(--hot) #111;}
+#qanav::-webkit-scrollbar{height:4px;}
+#qanav::-webkit-scrollbar-thumb{background:var(--hot);}
+.cnb{font-family:var(--ft);font-size:.85rem;letter-spacing:1.5px;padding:.42rem 1rem .58rem;border:2.5px solid rgba(255,255,255,.1);border-bottom:none;border-radius:10px 10px 0 0;cursor:pointer;color:#666;background:rgba(255,255,255,.04);transition:all .18s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;position:relative;top:4px;outline:none;}
+.cnb:hover{background:rgba(255,255,255,.1);color:#bbb;top:2px;}
+.cnb.act-ch{background:var(--yellow);color:var(--ink);top:0;border-color:var(--yellow);box-shadow:0 -3px 0 var(--yellow),3px 0 0 var(--yellow),-3px 0 0 var(--yellow),inset 0 2px 0 rgba(255,255,255,.4);transform:scale(1.06);}
+
+/* COURSE SPLIT VIEW */
+.cwrap{display:flex;flex-direction:column;height:calc(100vh - 170px);min-height:600px;}
+.sv{display:flex;flex:1;overflow:hidden;}
+.sp{flex:1;overflow-y:auto;padding:1.4rem;display:flex;flex-direction:column;gap:1.4rem;min-width:0;scrollbar-width:thin;}
+/* Python panel — light blue notebook */
+.pyp{background:#f0f6ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#c3d9f7 31px,#c3d9f7 32px);}
+/* .NET/QA panel — light teal notebook */
+.qatp_unused{background:#f0fdfa;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#99f6e4 31px,#99f6e4 32px);}
+/* Splitter */
+.spl{width:12px;background:linear-gradient(180deg,#252540,#1a1a2e);cursor:col-resize;flex-shrink:0;display:flex;align-items:center;justify-content:center;user-select:none;transition:all .2s;}
+.spl:hover{background:linear-gradient(180deg,var(--teal),var(--green));box-shadow:0 0 16px rgba(13,148,136,.5);}
+.spl::after{content:'⋮⋮';color:rgba(255,255,255,.3);font-size:1rem;letter-spacing:-4px;}
+
+/* LANGUAGE BADGE — dark gradient, WHITE text */
+.lbadge{display:flex;align-items:center;gap:.8rem;padding:.7rem 1.1rem;border-radius:10px;border:var(--border);box-shadow:var(--sh);margin-bottom:.8rem;}
+.lbadge.pyb{background:linear-gradient(135deg,#1e40af,#2563eb);}
+.lbadge.qab{background:linear-gradient(135deg,#0f766e,#0d9488);}
+.lbi{font-size:1.7rem;}
+.lbt{font-family:var(--ft);font-size:1.2rem;letter-spacing:1px;color:#fff;}
+.lbs{font-size:.83rem;color:rgba(255,255,255,.88);}
+
+/* CHAPTER CONTENT */
+.cc{display:none;flex-direction:column;gap:1.3rem;}
+.cc.act{display:flex;}
+
+/* CHAPTER HERO — dark gradient, WHITE text */
+.chero{border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.2rem 1.3rem;position:relative;overflow:hidden;}
+.chero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.pyh{background:linear-gradient(135deg,#1e3a8a,#2563eb);}
+.qah{background:linear-gradient(135deg,#134e4a,#0d9488);}
+.chn{font-size:.8rem;font-weight:800;color:rgba(255,255,255,.72);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.25rem;position:relative;}
+.cht{font-family:var(--ft);font-size:1.6rem;letter-spacing:2px;color:#fff;margin-bottom:.3rem;position:relative;}
+.chd{font-size:.93rem;color:rgba(255,255,255,.9);line-height:1.65;position:relative;}
+
+/* CHAPTER SUMMARY — dark ink, WHITE text */
+.csum{background:var(--ink);border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.2rem;position:relative;overflow:hidden;}
+.csum::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.pys{border-color:var(--py);box-shadow:5px 5px 0 var(--py);}
+.qas{border-color:var(--teal);box-shadow:5px 5px 0 var(--teal);}
+.cst{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.6rem;position:relative;}
+.csum ul{padding-left:1.2rem;position:relative;}
+.csum ul li{font-size:.93rem;color:rgba(255,255,255,.95);line-height:1.8;margin-bottom:.2rem;}
+.nxtch{margin-top:.8rem;font-family:var(--ft);font-size:.95rem;letter-spacing:2px;padding:.45rem 1.3rem;color:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);cursor:pointer;transition:all .15s;position:relative;display:inline-block;}
+.pyh .nxtch,.nxtch.pyn{background:var(--py);}
+.qah .nxtch,.nxtch.qan{background:var(--teal);}
+.nxtch{background:var(--teal);}
+.nxtch:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+
+/* TIP BOX — light bg, DARK text */
+.tip-box{border-radius:8px;padding:.8rem 1rem;margin:.3rem 0;}
+.tip-box.tip{background:#ecfdf5;border:2px solid var(--green);}
+.tip-box.warn{background:#fffbeb;border:2px solid var(--yellow);}
+.tip-box.info{background:#eff6ff;border:2px solid var(--py);}
+.tip-title{font-family:var(--ft);font-size:.95rem;letter-spacing:1px;margin-bottom:.3rem;color:#065f46;}
+.tip-box.warn .tip-title{color:#92400e;}
+.tip-box.info .tip-title{color:#1e40af;}
+.tip-box p{font-size:.93rem;line-height:1.7;color:#1e293b;}
+
+/* CONCEPT BOX — white bg, DARK text */
+.con{background:#fff;border:var(--border);border-radius:8px;box-shadow:4px 4px 0 var(--ink);padding:1rem 1.1rem;}
+.con h4{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:#1e293b;margin-bottom:.4rem;}
+.con p{font-size:.95rem;line-height:1.75;color:#1e293b;}
+.con ul{padding-left:1.2rem;font-size:.93rem;line-height:1.8;color:#1e293b;}
+.con strong{color:var(--hot);}
+
+/* FW DETAIL CARD — white bg, DARK text */
+.fwd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;}
+.fwd-card{background:#fff;border:2.5px solid #e2e8f0;border-radius:12px;padding:.9rem;display:flex;flex-direction:column;gap:.3rem;transition:all .15s;}
+.fwd-card:hover{border-color:var(--teal);box-shadow:3px 3px 0 var(--teal);transform:translate(-1px,-1px);}
+.fwd-icon{font-size:1.8rem;}
+.fwd-name{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:#1e293b;}
+.fwd-desc{font-size:.88rem;line-height:1.6;color:#334155;}
+.fwd-use{font-size:.75rem;color:#64748b;margin-top:.2rem;}
+
+/* TREE DIAGRAM — ALWAYS DARK bg, ALWAYS WHITE text
+   This is a dark card regardless of which panel it's inside */
+.tree-wrap{
+  background:var(--ink) !important;
+  border:var(--border);border-radius:12px;
+  box-shadow:var(--sh);padding:1.3rem;
+  position:relative;overflow:hidden;
+}
+.tree-wrap::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;}
+.tree-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow) !important;letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.tr-root{display:flex;justify-content:center;margin-bottom:0;}
+.tr-node{display:inline-flex;flex-direction:column;align-items:center;gap:.22rem;background:rgba(255,255,255,.07);border:2.5px solid rgba(255,255,255,.25);border-radius:12px;padding:.65rem 1rem;min-width:110px;text-align:center;position:relative;transition:transform .15s;}
+.tr-node:hover{transform:translateY(-2px);}
+.tn-icon{font-size:1.55rem;}
+.tn-label{font-family:var(--ft);font-size:.9rem;letter-spacing:1.5px;color:#ffffff !important;}
+.tn-sub{font-size:.72rem;color:rgba(255,255,255,.75) !important;line-height:1.3;}
+.tn-ch{font-size:.58rem;font-weight:800;padding:1px 7px;border-radius:10px;background:rgba(251,191,36,.2);color:var(--yellow) !important;margin-top:.15rem;display:inline-block;font-family:var(--fb);}
+.tr-vline{width:2px;height:22px;background:rgba(255,255,255,.2);margin:0 auto;}
+.tr-children{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative;}
+.tr-children::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:rgba(255,255,255,.15);}
+.tr-branch{display:flex;flex-direction:column;align-items:center;}
+.tr-stub{width:2px;height:16px;background:rgba(255,255,255,.15);}
+.tr-loop{margin-top:1rem;border:2px dashed rgba(251,191,36,.35);border-radius:10px;padding:.5rem 1rem;text-align:center;font-size:.82rem;color:rgba(255,255,255,.65) !important;line-height:1.5;}
+/* Node colour variants — all on dark bg, all have white text via parent rule */
+.tn-root{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.55);}
+.tn-net{background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.6);}
+.tn-py{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.tn-hot{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.tn-green{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.55);}
+.tn-cyan{background:rgba(6,182,212,.15);border-color:rgba(6,182,212,.5);}
+.tn-qa{background:rgba(13,148,136,.2);border-color:rgba(45,212,191,.7);}
+
+/* VS CODE CODE BLOCK */
+.cb{background:#1e1e2e;border:3px solid var(--ink);border-radius:10px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin:.3rem 0;}
+.ch2{padding:.5rem 1rem;display:flex;align-items:center;gap:.5rem;border-bottom:2px solid #313244;}
+.pyh2{background:linear-gradient(90deg,#1e3a8a,#2563eb);}
+.qah2{background:linear-gradient(90deg,#134e4a,#0d9488);}
+.nethc{background:linear-gradient(90deg,#4c1d95,#7c3aed);}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.vsc-tab{font-family:var(--fb);font-size:.88rem;font-weight:700;color:#93c5fd;}
+.nethc .vsc-tab{color:#c4b5fd;}
+.qah2 .vsc-tab{color:#5eead4;}
+.cbody{display:grid;grid-template-columns:40px 1fr;overflow-x:auto;}
+.lnums{background:#181825;color:#45475a;font-family:var(--fc);font-size:.8rem;line-height:1.8;padding:.8rem 0;text-align:right;padding-right:.6rem;user-select:none;border-right:1px solid #313244;}
+.lnums div{height:1.8em;}
+.code-content{padding:.8rem 1rem;font-family:var(--fc);color:#cdd6f4;font-size:.85rem;line-height:1.8;white-space:pre;overflow-x:auto;}
+.pk{color:#cba6f7;}.ps{color:#a6e3a1;}.pc{color:#6c7086;font-style:italic;}
+.pf{color:#89b4fa;}.pn{color:#f38ba8;}.pcl{color:#fab387;}.pv{color:#cdd6f4;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hw{grid-template-columns:1fr;}
+  .hero h1{font-size:2.3rem;}
+  .sv{flex-direction:column;}
+  .spl{width:100%;height:10px;cursor:row-resize;}
+  .cwrap{height:auto;min-height:0;}
+  .sp{min-height:400px;}
+}
+
+.netp{background:#f5f0ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#ddd6fe 31px,#ddd6fe 32px);}
+.nxtch.pyn{background:var(--py) !important;}.nxtch.netn{background:var(--net) !important;}
+.lbadge.netb{background:linear-gradient(135deg,#4c1d95,#7c3aed);}
+.neth{background:linear-gradient(135deg,#4c1d95,#7c3aed);}
+.nets{border-color:var(--net);box-shadow:5px 5px 0 var(--net);}
+/* ── AGENTIC FONT RULES ── */
+body{color:#1e293b;}
+.tree-wrap,.tree-wrap *{color:#fff !important;}
+.tree-wrap .tn-sub{color:rgba(255,255,255,.75) !important;}
+.tree-wrap .tn-ch{color:var(--yellow) !important;}
+.tree-wrap .tree-title{color:var(--yellow) !important;}
+.tree-wrap .tr-loop{color:rgba(255,255,255,.7) !important;}
+.chero *{color:#fff !important;}
+.chero .chn{color:rgba(255,255,255,.72) !important;}
+.chero .chd{color:rgba(255,255,255,.9) !important;}
+.csum *{color:#fff !important;}
+.csum .cst{color:var(--yellow) !important;}
+.lbadge .lbt,.lbadge .lbs{color:#fff !important;}
+.bubble p{color:#1e293b !important;}
+.bubble strong{color:var(--hot) !important;}
+.con p,.con ul,.con li{color:#1e293b !important;}
+.con strong{color:var(--hot) !important;}
+.tip-box p{color:#1e293b !important;}
+.netp p,.netp li,.netp h3,.netp h4,.netp span:not(.tn-label):not(.tn-sub):not(.tn-ch){color:#1e293b !important;}
+.pyp p,.pyp li,.pyp h3,.pyp h4,.pyp span:not(.tn-label):not(.tn-sub):not(.tn-ch){color:#1e293b !important;}
+.netp .tree-wrap *,.pyp .tree-wrap *{color:#fff !important;}
+.netp .tree-wrap .tn-sub,.pyp .tree-wrap .tn-sub{color:rgba(255,255,255,.75) !important;}
+.netp .chero *,.pyp .chero *{color:#fff !important;}
+.netp .csum *,.pyp .csum *{color:#fff !important;}
+.netp .csum .cst,.pyp .csum .cst{color:var(--yellow) !important;}
+.netp .lbadge *,.pyp .lbadge *{color:#fff !important;}
+.netp .nxtch,.pyp .nxtch{color:#fff !important;}
+
+/* ── STORY BOX ── */
+.story-box{background:#fff;border:var(--border);border-radius:10px;box-shadow:var(--sh);overflow:hidden;}
+.story-head{background:var(--ink);padding:.6rem 1rem;font-family:var(--ft);font-size:.85rem;letter-spacing:2px;color:var(--yellow);}
+.story-body{padding:1rem 1.1rem;font-size:.97rem;line-height:1.8;color:#1e293b;}
+.story-body strong{color:var(--hot);}
+
+/* ── REACT LOOP BOX ── */
+.react-box{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.3rem;position:relative;overflow:hidden;}
+.react-box::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.rt{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:.5rem;}
+.rs{font-size:.85rem;color:rgba(255,255,255,.65);text-align:center;margin-bottom:1rem;line-height:1.5;}
+.rl-row{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;}
+.rn{border:2px solid rgba(255,255,255,.25);border-radius:10px;padding:.7rem .9rem;text-align:center;min-width:88px;background:rgba(255,255,255,.07);}
+.rni{font-size:1.4rem;display:block;margin-bottom:.2rem;}
+.rnl{font-family:var(--ft);font-size:.85rem;letter-spacing:1px;color:#fff;display:block;}
+.rns{font-size:.7rem;color:rgba(255,255,255,.6);display:block;margin-top:.1rem;}
+.ra{color:var(--yellow);font-size:1.3rem;font-weight:900;}
+.rdone{margin-top:.8rem;text-align:center;font-size:.85rem;color:rgba(255,255,255,.65);border-top:1px solid rgba(255,255,255,.1);padding-top:.6rem;}
+.rn.think{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.rn.act{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.rn.obs{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.5);}
+.rn.loop{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.5);}
+
+/* ── ARCH BOX ── */
+.arch-box{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.3rem;position:relative;overflow:hidden;}
+.arch-box::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.arch-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.arch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.6rem;}
+.an{border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:.7rem .8rem;text-align:center;}
+.ani{font-size:1.4rem;margin-bottom:.25rem;}
+.anl{font-family:var(--ft);font-size:.85rem;letter-spacing:1px;color:#fff;}
+.ans{font-size:.7rem;color:rgba(255,255,255,.6);line-height:1.3;margin-top:.1rem;}
+.an1{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.an2{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.an3{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.5);}
+.an4{background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.6);}
+.an5{background:rgba(6,182,212,.15);border-color:rgba(6,182,212,.5);}
+.an6{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.5);}
+
+/* ── USE CASE CARDS ── */
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;}
+.uc-card{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;transition:all .15s;}
+.uc-card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.uc-head{padding:.8rem 1rem;font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;display:flex;align-items:center;gap:.5rem;color:#1e293b;}
+.uc-body{padding:0 1rem .9rem;font-size:.92rem;line-height:1.65;color:#334155;}
+.uc-tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.4rem;}
+.uc-tag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);color:#1e293b;}
+
+/* ── EXTRA CHAPTER CLASSES ── */
+.neth{background:linear-gradient(135deg,#4c1d95,#7c3aed);}
+.nets{border-color:var(--net);box-shadow:5px 5px 0 var(--net);}
+.lbadge.netb{background:linear-gradient(135deg,#4c1d95,#7c3aed);}
+.netp{background:#f5f0ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#ddd6fe 31px,#ddd6fe 32px);}
+.tip-box.netb2{background:#f5f0ff;border:2px solid var(--net);}
+.tip-box.netb2 .tip-title{color:#5b21b6;}
+.nxtch.pyn{background:var(--py);}
+.nxtch.netn{background:var(--net);}
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hbadge">&#9889; Chapter 6 &middot; Agentic AI</div>
+  <h1>AGENTIC <em>AI</em><br>LEARN &amp; BUILD</h1>
+  <p>Where AI stops just answering and starts <strong style="color:var(--yellow)">thinking, planning &amp; acting</strong>. For developers, managers, QA, architects &mdash; anyone curious about the future of software.</p>
+  <div class="hpills">
+    <div class="hpill">&#129302; Autonomous Agents</div>
+    <div class="hpill">&#128295; Tool Calling</div>
+    <div class="hpill">&#128190; Memory</div>
+    <div class="hpill">&#129309; Multi-Agent</div>
+    <div class="hpill">&#128013; Python LangChain</div>
+    <div class="hpill">&#128011; .NET Semantic Kernel</div>
+  </div>
+</div>
+
+<div class="mt-bar">
+  <button class="mt act" id="btn-th" onclick="switchMain('h',this)">&#127968; WHAT IS AGENTIC AI?</button>
+  <button class="mt" id="btn-tp" onclick="switchMain('p',this)">&#128218; COURSE &nbsp;<span style="font-size:.6rem;background:var(--yellow);color:var(--ink);padding:1px 6px;border-radius:8px">10 CH</span></button>
+</div>
+
+<div id="th">
+<div class="pg"><div class="hw"><div class="hm">
+
+<div>
+<div class="stitle" style="background:var(--yellow);color:var(--ink)">&#128101; WHO IS THIS FOR?</div>
+<div class="ps-grid">
+  <div class="ps-card" style="border-color:var(--py)"><div class="ps-emoji">&#128104;&#8205;&#128187;</div><strong>Developer</strong><span class="ps-tag" style="background:#dbeafe;color:#1e40af">Build It</span><p>"I want to build AI systems that actually <em>do</em> things!"</p></div>
+  <div class="ps-card" style="border-color:var(--teal)"><div class="ps-emoji">&#129514;</div><strong>QA Engineer</strong><span class="ps-tag" style="background:#ccfbf1;color:#0f766e">Test It</span><p>"How do agents change how we test software?"</p></div>
+  <div class="ps-card" style="border-color:var(--net)"><div class="ps-emoji">&#128208;</div><strong>Architect</strong><span class="ps-tag" style="background:#ede9fe;color:#4c1d95">Design It</span><p>"What's the right pattern for my system?"</p></div>
+  <div class="ps-card" style="border-color:var(--orange)"><div class="ps-emoji">&#128202;</div><strong>Manager / PM</strong><span class="ps-tag" style="background:#fef3c7;color:#92400e">Understand It</span><p>"What can agents actually automate for my team?"</p></div>
+  <div class="ps-card" style="border-color:var(--green)"><div class="ps-emoji">&#127891;</div><strong>Student</strong><span class="ps-tag" style="background:#d1fae5;color:#065f46">Learn It</span><p>"I'm learning AI &mdash; where does Agentic fit in?"</p></div>
+</div>
+</div>
+
+<div>
+<div class="stitle" style="background:var(--hot);color:#fff">&#128544; THE PROBLEM &mdash; WHY OLD AI WASN'T ENOUGH</div>
+<div class="story-box">
+  <div class="story-head">&#128240; A REAL STORY FROM 2023...</div>
+  <div class="story-body">
+    <p>Imagine you're a developer at a company. You open ChatGPT and ask:<br>
+    <strong>"Research our competitors, write a report, and email it to my team."</strong><br><br>
+    ChatGPT says: <em>"Sure! Here's a draft report... [but I can't actually search the web, can't access your company email, and I forgot everything from 5 minutes ago]"</em><br><br>
+    &#128544; <strong>The old problem:</strong> LLMs were stuck in a box. They could TALK but not DO. Like hiring a genius who can only answer questions but can't pick up a phone, open a browser, or remember who you are.<br><br>
+    <strong>&#10024; Before agents, developers had to:</strong><br>
+    &bull; Manually copy-paste between ChatGPT and their tools<br>
+    &bull; Write custom code for every API integration<br>
+    &bull; Re-explain context every single conversation<br>
+    &bull; Babysit every step of a multi-step task<br><br>
+    &#9889; <strong>The Agentic AI solution:</strong> Give the LLM TOOLS (web search, email API, file access), MEMORY (remember past conversations), and a LOOP (keep trying until the job is done). Now it's not just talking &mdash; it's actually working!</p>
+  </div>
+</div>
+</div>
+
+<div>
+<div class="stitle" style="background:var(--ink);color:#fff">&#129300; WHAT IS AGENTIC AI?</div>
+<div class="bubble">
+  <div class="bubble-who"><span>&#129302;</span><span>The Agent says:</span></div>
+  <p><strong>"Don't just answer me &mdash; go figure it out!"</strong><br><br>
+  A normal chatbot waits for you to give it all the info. An Agentic AI <strong>takes initiative</strong> &mdash; it searches the web, reads files, runs code, calls APIs, remembers past conversations, and loops until the job is done.<br><br>
+  Think of it like the difference between a <strong>calculator</strong> (gives answer instantly) vs a <strong>junior developer</strong> (goes off, investigates, tries things, comes back with a solution).</p>
+</div>
+<div style="height:18px"></div>
+<div class="cstrip">
+  <div class="cp"><div class="cpn" style="background:#64748b">1</div><div class="cpi">&#128172;</div><h3>Chatbot</h3><p>You ask &rarr; It answers. One shot. No memory. No actions. Think: basic FAQ bot.</p></div>
+  <div class="cp"><div class="cpn" style="background:var(--teal)">2</div><div class="cpi">&#128218;</div><h3>RAG</h3><p>You ask &rarr; It searches your docs &rarr; Answers. Smarter but still reactive. No loops.</p></div>
+  <div class="cp" style="border-color:var(--hot);box-shadow:5px 5px 0 var(--hot)"><div class="cpn" style="background:var(--hot)">3</div><div class="cpi">&#9889;</div><h3>Agent</h3><p>You ask &rarr; It <strong>plans</strong> &rarr; Uses tools &rarr; Observes &rarr; Loops &rarr; Gets it done!</p></div>
+  <div class="cp" style="border-color:var(--net)"><div class="cpn" style="background:var(--net)">&#9733;</div><div class="cpi">&#129309;</div><h3>Multi-Agent</h3><p>Teams of specialists. One researches, one writes, one reviews. Like a real dev team!</p></div>
+</div>
+</div>
+
+<div>
+<div class="stitle" style="background:var(--hot);color:#fff">&#128260; THE ReAct LOOP &mdash; AGENT'S BRAIN</div>
+<div class="react-box">
+  <div class="rt">&#128161; ReAct = Reasoning + Acting</div>
+  <div class="rs">The brain of every agent. Think, pick a tool, run it, see the result, think again, repeat until done. No human needed!</div>
+  <div class="rl-row">
+    <div class="rn think"><span class="rni">&#128161;</span><span class="rnl">THINK</span><span class="rns">What should I do?</span></div>
+    <span class="ra">&rarr;</span>
+    <div class="rn act"><span class="rni">&#128295;</span><span class="rnl">ACT</span><span class="rns">Call a tool / API</span></div>
+    <span class="ra">&rarr;</span>
+    <div class="rn obs"><span class="rni">&#128065;&#65039;</span><span class="rnl">OBSERVE</span><span class="rns">See the result</span></div>
+    <span class="ra">&rarr;</span>
+    <div class="rn loop"><span class="rni">&#128257;</span><span class="rnl">REPEAT</span><span class="rns">Loop or finish</span></div>
+  </div>
+  <div class="rdone">&#127937; <strong style="color:var(--yellow)">DONE WHEN:</strong> <span style="color:rgba(255,255,255,.75)">Agent decides "I have enough to answer!"</span></div>
+</div>
+</div>
+
+<div>
+<div class="stitle" style="background:var(--net);color:#fff">&#127959;&#65039; FULL ARCHITECTURE</div>
+<div class="arch-box">
+  <div class="arch-title">&#127758; AGENTIC AI &mdash; HOW ALL PIECES FIT</div>
+  <div class="arch-grid">
+    <div class="an an1"><div class="ani">&#129504;</div><div class="anl">LLM BRAIN</div><div class="ans">GPT-4o, Claude &mdash; reasoning engine</div></div>
+    <div class="an an2"><div class="ani">&#128295;</div><div class="anl">TOOLS</div><div class="ans">Web search, code exec, APIs, DB</div></div>
+    <div class="an an3"><div class="ani">&#128190;</div><div class="anl">MEMORY</div><div class="ans">Short-term (chat) + Long-term (vectors)</div></div>
+    <div class="an an4"><div class="ani">&#128203;</div><div class="anl">PLANNER</div><div class="ans">Breaks big goals into steps</div></div>
+    <div class="an an5"><div class="ani">&#129309;</div><div class="anl">ORCHESTRATOR</div><div class="ans">Manages multiple agents</div></div>
+    <div class="an an6"><div class="ani">&#127758;</div><div class="anl">API LAYER</div><div class="ans">FastAPI / ASP.NET serving the agent</div></div>
+  </div>
+</div>
+</div>
+
+<div>
+<div class="stitle" style="background:var(--py);color:#fff">&#9876;&#65039; PYTHON vs .NET</div>
+<table class="tbl">
+  <thead><tr><th>Feature</th><th>&#128013; Python</th><th>&#128aces; .NET C#</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Main Framework</strong></td><td>LangChain + LangGraph</td><td>Semantic Kernel</td></tr>
+    <tr><td><strong>LLM Connection</strong></td><td>ChatOpenAI, Anthropic SDK</td><td>AzureOpenAI / OpenAI</td></tr>
+    <tr><td><strong>Tool Definition</strong></td><td>@tool decorator</td><td>[KernelFunction] attribute</td></tr>
+    <tr><td><strong>Vector Store</strong></td><td>FAISS, ChromaDB, Qdrant</td><td>Qdrant, Azure AI Search</td></tr>
+    <tr><td><strong>Agent Loop</strong></td><td>create_react_agent()</td><td>FunctionCallingStepwisePlanner</td></tr>
+    <tr><td><strong>Multi-Agent</strong></td><td>LangGraph StateGraph</td><td>AgentGroupChat</td></tr>
+    <tr><td><strong>API Serving</strong></td><td>FastAPI + Uvicorn</td><td>ASP.NET Core Web API</td></tr>
+    <tr><td><strong>Best For</strong></td><td>Fast prototyping, ML ecosystem</td><td>Enterprise, Azure-native apps</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div>
+<div class="stitle" style="background:var(--green);color:#fff">&#127758; REAL WORLD USE CASES</div>
+<div class="uc-grid">
+  <div class="uc-card"><div class="uc-head" style="background:#f0fdfa">&#129514; QA Automation</div><div class="uc-body">Agent reads requirements, writes tests, runs them, detects failures, files bug reports &mdash; all automatically!<div class="uc-tags"><span class="uc-tag" style="background:#ccfbf1">testing</span><span class="uc-tag" style="background:#dbeafe">playwright</span></div></div></div>
+  <div class="uc-card"><div class="uc-head" style="background:#fce7f3">&#128188; Sales Assistant</div><div class="uc-body">Researches leads, drafts personalised emails, logs CRM entries, schedules follow-ups without human intervention.<div class="uc-tags"><span class="uc-tag" style="background:#fce7f3">crm</span><span class="uc-tag" style="background:#fef3c7">outreach</span></div></div></div>
+  <div class="uc-card"><div class="uc-head" style="background:#eff6ff">&#128269; Code Reviewer</div><div class="uc-body">Reads PR diffs, checks for bugs, security issues, coding standards, and posts review comments in GitHub.<div class="uc-tags"><span class="uc-tag" style="background:#dbeafe">devops</span><span class="uc-tag" style="background:#d1fae5">github</span></div></div></div>
+  <div class="uc-card"><div class="uc-head" style="background:#fffbeb">&#128202; Data Analyst</div><div class="uc-body">Downloads data, runs Python analysis, generates charts, writes executive summary &mdash; in one command.<div class="uc-tags"><span class="uc-tag" style="background:#fef3c7">analytics</span><span class="uc-tag" style="background:#d1fae5">reporting</span></div></div></div>
+</div>
+</div>
+
+<div class="cta">
+  <div class="cta-title">&#128640; READY TO BUILD?</div>
+  <p>10 chapters. Both Python and .NET. Side by side. Start Chapter 1 now!</p>
+  <button class="cta-btn" onclick="switchMain('p',document.getElementById('btn-tp'))">&#128218; Open Course &rarr; Chapter 1</button>
+</div>
+
+</div>
+<div class="hs">
+  <div class="sbox">
+    <h4 style="color:var(--hot)">&#128203; ON THIS PAGE</h4>
+    <ul><li>&#128101; Who is this for?</li><li>&#128544; The Problem</li><li>&#129300; What is Agentic AI?</li><li>&#128260; The ReAct Loop</li><li>&#127959;&#65039; Full Architecture</li><li>&#9876;&#65039; Python vs .NET</li><li>&#127758; Use Cases</li></ul>
+  </div>
+  <div class="sdark">
+    <h4>&#128273; KEY TERMS</h4>
+    <dl>
+      <div><dt>ReAct</dt><dd>Think + Act loop. Core pattern behind all agents.</dd></div>
+      <div><dt>Tool Calling</dt><dd>LLM picks &amp; runs a function like search, calculator, DB.</dd></div>
+      <div><dt>Vector Store</dt><dd>Database for semantic memory (FAISS, Qdrant).</dd></div>
+      <div><dt>Planner</dt><dd>Breaks complex goals into a sequence of steps.</dd></div>
+      <div><dt>Checkpointer</dt><dd>Saves agent state so it can resume later.</dd></div>
+    </dl>
+  </div>
+  <div class="sbox">
+    <h4 style="color:var(--teal)">&#128260; ALSO CHECK OUT</h4>
+    <ul><li>&#129514; <a href="#" style="color:var(--teal);font-weight:700">QA Automation Course &rarr;</a></li></ul>
+    <p style="font-size:.82rem;color:#475569;margin-top:.3rem">Playwright &middot; Selenium &middot; AI-driven testing</p>
+  </div>
+</div>
+</div></div>
+</div>
+
+</div><!-- end th -->
+
+<div id="qanav">
+  <button class="cnb act-ch" onclick="showCh(0,this)">&#127807; CH1 FOUNDATIONS</button>
+  <button class="cnb" onclick="showCh(1,this)">&#9881;&#65039; CH2 SETUP</button>
+  <button class="cnb" onclick="showCh(2,this)">&#129504; CH3 LLM</button>
+  <button class="cnb" onclick="showCh(3,this)">&#128295; CH4 TOOLS</button>
+  <button class="cnb" onclick="showCh(4,this)">&#128190; CH5 MEMORY</button>
+  <button class="cnb" onclick="showCh(5,this)">&#128269; CH6 RAG</button>
+  <button class="cnb" onclick="showCh(6,this)">&#9851;&#65039; CH7 AGENT</button>
+  <button class="cnb" onclick="showCh(7,this)">&#129309; CH8 MULTI</button>
+  <button class="cnb" onclick="showCh(8,this)">&#127758; CH9 API</button>
+  <button class="cnb" onclick="showCh(9,this)">&#128640; CH10 DEPLOY</button>
+</div>
+
+<div id="tp"><div class="cwrap"><div class="sv">
+
+<div class="sp pyp" id="pyleft">
+<div class="lbadge pyb"><div class="lbi">&#128013;</div><div><div class="lbt">Python</div><div class="lbs">LangChain &middot; LangGraph &middot; OpenAI &middot; FAISS &middot; FastAPI</div></div></div>
+
+<div class="cc act" id="pyc0">
+<div class="chero pyh"><div class="chn">CH 1 &middot; PYTHON</div><div class="cht">&#127807; FOUNDATIONS &amp; FLOW</div><div class="chd">Understand what agents are, how data flows through each layer, and which Python library does what.</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128013;</span><span>Python Mascot says:</span></div><p>Think of building a robot &#129302;<br><strong>LangChain</strong> = the nervous system (connects everything)<br><strong>GPT-4o</strong> = the brain (makes decisions)<br><strong>Tools</strong> = the hands (does things in the world)<br><strong>FAISS</strong> = the long-term memory (remembers documents)<br><strong>LangGraph</strong> = the heartbeat (keeps the loop running!)<br><br><em>Without LangGraph your agent answers once and forgets everything. With it, keeps going until done! &#127919;</em></p></div>
+<div class="tree-wrap">
+  <div class="tree-title">&#128013; PYTHON AGENTIC AI &mdash; FULL STACK TREE</div>
+  <div class="tr-root"><div class="tr-node tn-root"><span class="tn-icon">&#128172;</span><span class="tn-label">USER INPUT</span><span class="tn-sub">Question / Task</span></div></div>
+  <div class="tr-vline"></div>
+  <div class="tr-children">
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-py"><span class="tn-icon">&#128060;</span><span class="tn-label">LANGCHAIN</span><span class="tn-sub">Orchestration &amp; chaining</span><span class="tn-ch">Ch 2&ndash;4</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-hot"><span class="tn-icon">&#129504;</span><span class="tn-label">GPT-4o</span><span class="tn-sub">OpenAI reasoning engine</span><span class="tn-ch">Ch 3</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-green"><span class="tn-icon">&#128376;&#65039;</span><span class="tn-label">LANGGRAPH</span><span class="tn-sub">ReAct loop state machine</span><span class="tn-ch">Ch 7&ndash;8</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-cyan"><span class="tn-icon">&#128295;</span><span class="tn-label">TOOLS</span><span class="tn-sub">Search &middot; Calc &middot; APIs &middot; DB</span><span class="tn-ch">Ch 4</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-qa"><span class="tn-icon">&#128190;</span><span class="tn-label">MEMORY</span><span class="tn-sub">FAISS &middot; MemorySaver</span><span class="tn-ch">Ch 5</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-py"><span class="tn-icon">&#128218;</span><span class="tn-label">RAG</span><span class="tn-sub">ChromaDB &middot; Embeddings</span><span class="tn-ch">Ch 6</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-hot"><span class="tn-icon">&#127758;</span><span class="tn-label">FASTAPI</span><span class="tn-sub">REST API gateway</span><span class="tn-ch">Ch 9</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-root"><span class="tn-icon">&#9989;</span><span class="tn-label">RESPONSE</span><span class="tn-sub">Final answer to user</span></div></div>
+  </div>
+  <div class="tr-loop">&#128257; LangGraph ReAct Loop &mdash; Think &rarr; Pick Tool &rarr; Execute &rarr; Observe &rarr; Think again &rarr; until done</div>
+</div>
+<div class="con"><h4>&#128230; What Each Library Does (Plain English!)</h4><ul>
+  <li><strong>LangChain</strong> &mdash; builds prompts, chains LLM calls, defines tools. The "scaffolding".</li>
+  <li><strong>LangGraph</strong> &mdash; runs the stateful ReAct loop. Decides when to loop, when to stop.</li>
+  <li><strong>OpenAI SDK</strong> &mdash; talks to GPT-4o. LangChain wraps this automatically.</li>
+  <li><strong>FAISS</strong> &mdash; stores text as vectors. Semantic "remember" for documents.</li>
+  <li><strong>FastAPI</strong> &mdash; wraps the agent as a web API so anyone can call it.</li>
+</ul></div>
+<div class="csum pys"><div class="cst">&#9989; CH 1 DONE &mdash; You understand the WHY!</div><ul>
+  <li>Agent = LLM + Tools + Memory + Loop (managed by LangGraph)</li>
+  <li>LangChain builds the chains; LangGraph runs the state machine</li>
+  <li>Every chapter adds one layer to the full architecture</li>
+</ul><button class="nxtch pyn" onclick="showCh(1,document.querySelectorAll('#qanav .cnb')[1])">Next: Ch 2 &mdash; Setup &rarr;</button></div>
+</div>
+<div class="cc" id="pyc1">
+<div class="chero pyh"><div class="chn">CH 2 &middot; PYTHON</div><div class="cht">&#9881;&#65039; DEV SETUP</div><div class="chd">Python 3.11+, virtual environment, install all packages, set API keys safely using .env files.</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128230;</span><span>Package Bot says:</span></div><p>We use a <strong>virtual environment</strong> so packages don't mess up other projects. Like a <strong>clean lunchbox just for this project</strong>! &#127857;<br><br><em>Without venv: "Why does Django have LangChain??" &#128561;<br>With venv: Each project has its own space! &#127881;</em></p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#9889; VS Code Terminal</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div></div><div class="code-content"><span class="pc"># Create project &amp; virtual environment</span>
+mkdir agent-py &amp;&amp; cd agent-py
+python -m venv venv &amp;&amp; source venv/bin/activate
+
+<span class="pc"># Install all packages for all 10 chapters</span>
+pip install langchain langchain-openai langgraph
+pip install langchain-community faiss-cpu chromadb
+pip install pypdf python-dotenv duckduckgo-search
+pip install fastapi uvicorn streamlit</div></div></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128273; .env</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div></div><div class="code-content">OPENAI_API_KEY=sk-your-key-here
+OPENAI_MODEL=gpt-4o
+EMBED_MODEL=text-embedding-3-small</div></div></div>
+<div class="tip-box warn"><div class="tip-title">&#9888;&#65039; NEVER put API keys in your code!</div><p>Add <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">.env</code> to <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">.gitignore</code> immediately! One push to GitHub = key stolen in minutes!</p></div>
+<div class="csum pys"><div class="cst">&#9989; CH 2 DONE</div><ul>
+  <li>venv = clean, isolated Python environment (no more conflicts!)</li>
+  <li>.env + python-dotenv = API keys safe and out of code</li>
+  <li>All 10 chapters dependencies installed in one go</li>
+</ul><button class="nxtch pyn" onclick="showCh(2,document.querySelectorAll('#qanav .cnb')[2])">Next: Ch 3 &mdash; Connect LLM &rarr;</button></div>
+</div>
+<div class="cc" id="pyc2">
+<div class="chero pyh"><div class="chn">CH 3 &middot; PYTHON</div><div class="cht">&#129504; CONNECT TO LLM</div><div class="chd">ChatOpenAI, streaming, system prompts &mdash; talking to GPT-4o the right way!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#129504;</span><span>LLM Layer says:</span></div><p>LangChain's <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">ChatOpenAI</code> wraps the OpenAI API &mdash; just call <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">llm.invoke()</code>!<br><br><em>Old way: 50 lines of HTTP requests... &#128557;</em><br><em>LangChain way: 3 lines and talking to GPT-4o! &#128640;</em></p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128013; llm.py</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+<div>15</div>
+<div>16</div></div><div class="code-content"><span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI
+<span class="pk">from</span> langchain_core.messages <span class="pk">import</span> HumanMessage, SystemMessage
+
+llm = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>, temperature=<span class="pn">0</span>)
+
+<span class="pc"># Simple call</span>
+print(llm.invoke(<span class="ps">"What is an AI agent?"</span>).content)
+
+<span class="pc"># Multi-turn with persona</span>
+msgs = [SystemMessage(<span class="ps">"You are a helpful coding assistant."</span>),
+        HumanMessage(<span class="ps">"Explain LangGraph in simple words."</span>)]
+print(llm.invoke(msgs).content)
+
+<span class="pc"># Streaming &mdash; see tokens appear one by one!</span>
+<span class="pk">for</span> chunk <span class="pk">in</span> llm.stream(<span class="ps">"Explain tool calling in 3 bullets"</span>):
+    print(chunk.content, end=<span class="ps">""</span>, flush=<span class="pk">True</span>)</div></div></div>
+<div class="tip-box info"><div class="tip-title">&#129300; Why temperature=0?</div><p><strong>0 = deterministic</strong> (same question &rarr; same answer every time). Perfect for agents needing reliable tool decisions. Use 0.7&ndash;1.0 for creative writing!</p></div>
+<div class="csum pys"><div class="cst">&#9989; CH 3 DONE</div><ul>
+  <li>ChatOpenAI wraps GPT-4o &mdash; just call .invoke() or .stream()</li>
+  <li>SystemMessage = give the LLM a persona/instructions</li>
+  <li>temperature=0 for reliable agent decisions</li>
+</ul><button class="nxtch pyn" onclick="showCh(3,document.querySelectorAll('#qanav .cnb')[3])">Next: Ch 4 &mdash; Tools &rarr;</button></div>
+</div>
+<div class="cc" id="pyc3">
+<div class="chero pyh"><div class="chn">CH 4 &middot; PYTHON</div><div class="cht">&#128295; TOOLS &amp; FUNCTION CALLING</div><div class="chd">Give the agent hands! @tool decorator, web search, custom tools &mdash; now it can DO things!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128295;</span><span>Tools Bot says:</span></div><p>Without tools, the agent is just a chatbot stuck with training data. Tools are like giving it a <strong>phone, calculator, and library card</strong> &#128218;<br><br><em>Agent without tools: "I think the weather is probably sunny?" &#129300;</em><br><em>Agent with weather tool: "It's 22&deg;C and sunny right now!" &#9989;</em></p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128013; tools.py</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+<div>15</div>
+<div>16</div></div><div class="code-content"><span class="pk">from</span> langchain_core.tools <span class="pk">import</span> tool
+<span class="pk">from</span> langchain_community.tools <span class="pk">import</span> DuckDuckGoSearchRun
+
+<span class="pf">@tool</span>  <span class="pc"># This decorator tells LangChain "this is an agent tool!"</span>
+<span class="pk">def</span> <span class="pf">get_weather</span>(city: str) -&gt; str:
+    <span class="ps">"""Get current weather for a city. Use when user asks about weather."""</span>
+    <span class="pk">return</span> <span class="ps">f"Weather in {city}: 22C, Sunny (mock data)"</span>
+
+<span class="pf">@tool</span>
+<span class="pk">def</span> <span class="pf">calculate</span>(expression: str) -&gt; str:
+    <span class="ps">"""Safely evaluate a math expression like '42*17' or '100/4'."""</span>
+    <span class="pk">try</span>: <span class="pk">return</span> str(eval(expression))
+    <span class="pk">except</span>: <span class="pk">return</span> <span class="ps">"Error: invalid expression"</span>
+
+search = DuckDuckGoSearchRun()  <span class="pc"># Free web search, no API key!</span>
+tools = [get_weather, calculate, search]</div></div></div>
+<div class="tip-box tip"><div class="tip-title">&#128161; The docstring IS the tool description!</div><p>The LLM reads your docstring to decide WHEN to call the tool. "Get current weather for a city" tells it exactly when to use it.</p></div>
+<div class="csum pys"><div class="cst">&#9989; CH 4 DONE</div><ul>
+  <li>@tool + docstring = AI-callable Python function (that's it!)</li>
+  <li>The LLM reads the docstring to know when to call each tool</li>
+  <li>DuckDuckGoSearchRun = free web search, zero setup needed</li>
+</ul><button class="nxtch pyn" onclick="showCh(4,document.querySelectorAll('#qanav .cnb')[4])">Next: Ch 5 &mdash; Memory &rarr;</button></div>
+</div>
+<div class="cc" id="pyc4">
+<div class="chero pyh"><div class="chn">CH 5 &middot; PYTHON</div><div class="cht">&#128190; MEMORY SYSTEMS</div><div class="chd">FAISS vector store for semantic memory + MemorySaver for conversation history. Never forget again!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128190;</span><span>Memory Bot says:</span></div><p>Without memory, every message is a fresh start &mdash; like texting someone with <strong>amnesia</strong>! &#129504;<br><br>Two types: <strong>Short-term</strong> = MemorySaver and <strong>Long-term</strong> = FAISS.<br><br><em>Mind-bending: "How do I get my money back?" matches "Our refund policy is 30 days." &mdash; even though NO words are the same! &#129327;</em></p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128013; memory.py</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div></div><div class="code-content"><span class="pk">from</span> langchain_openai <span class="pk">import</span> OpenAIEmbeddings
+<span class="pk">from</span> langchain_community.vectorstores <span class="pk">import</span> FAISS
+<span class="pk">from</span> langgraph.checkpoint.memory <span class="pk">import</span> MemorySaver
+
+emb = OpenAIEmbeddings(model=<span class="ps">"text-embedding-3-small"</span>)
+vs  = FAISS.from_texts([<span class="ps">"Our refund policy is 30 days."</span>,
+                         <span class="ps">"Support: help@company.com"</span>], emb)
+
+<span class="pc"># Semantic search &mdash; finds text even with different words!</span>
+docs = vs.similarity_search(<span class="ps">"How do I get my money back?"</span>, k=<span class="pn">2</span>)
+print(docs[<span class="pn">0</span>].page_content)  <span class="pc"># "Our refund policy is 30 days."</span>
+
+memory = MemorySaver()  <span class="pc"># pass to create_react_agent(..., checkpointer=memory)</span></div></div></div>
+<div class="csum pys"><div class="cst">&#9989; CH 5 DONE</div><ul>
+  <li>FAISS = lightning-fast local vector store (no cloud needed!)</li>
+  <li>OpenAIEmbeddings converts text to 1536-dimension vectors</li>
+  <li>MemorySaver = per-user conversation memory using thread_id</li>
+</ul><button class="nxtch pyn" onclick="showCh(5,document.querySelectorAll('#qanav .cnb')[5])">Next: Ch 6 &mdash; RAG &rarr;</button></div>
+</div>
+<div class="cc" id="pyc5">
+<div class="chero pyh"><div class="chn">CH 6 &middot; PYTHON</div><div class="cht">&#128269; RAG INTEGRATION</div><div class="chd">Load PDFs, chunk text, embed into FAISS, wrap as agent tool. Private knowledge base!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128196;</span><span>RAG Bot says:</span></div><p>Instead of fine-tuning (costs $$$!), give the LLM a <strong>searchable knowledge base</strong> at query time.<br><br><em>Fine-tuning: Retrain the model. Expensive, slow, gets stale.</em><br><em>RAG: Load PDFs &rarr; chunk &rarr; embed &rarr; search on demand. Cheap, fast, fresh! &#9989;</em></p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128013; rag.py</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div></div><div class="code-content"><span class="pk">from</span> langchain_community.document_loaders <span class="pk">import</span> PyPDFLoader
+<span class="pk">from</span> langchain_text_splitters <span class="pk">import</span> RecursiveCharacterTextSplitter
+<span class="pk">from</span> langchain.tools.retriever <span class="pk">import</span> create_retriever_tool
+
+docs     = PyPDFLoader(<span class="ps">"company-docs.pdf"</span>).load()
+chunks   = RecursiveCharacterTextSplitter(
+    chunk_size=<span class="pn">512</span>, chunk_overlap=<span class="pn">64</span>).split_documents(docs)
+
+vs        = FAISS.from_documents(chunks, OpenAIEmbeddings())
+retriever = vs.as_retriever(search_kwargs={<span class="ps">"k"</span>:<span class="pn">4</span>})
+
+rag_tool = create_retriever_tool(retriever, name=<span class="ps">"search_docs"</span>,
+    description=<span class="ps">"Search internal company documents for policies, FAQs."</span>)
+tools = [rag_tool, search, get_weather, calculate]</div></div></div>
+<div class="csum pys"><div class="cst">&#9989; CH 6 DONE</div><ul>
+  <li>PDF &rarr; chunks &rarr; FAISS is the standard RAG pipeline</li>
+  <li>create_retriever_tool wraps it as an agent tool</li>
+  <li>Agent auto-picks: search_docs vs web_search vs calculate</li>
+</ul><button class="nxtch pyn" onclick="showCh(6,document.querySelectorAll('#qanav .cnb')[6])">Next: Ch 7 &mdash; Full Agent &rarr;</button></div>
+</div>
+<div class="cc" id="pyc6">
+<div class="chero pyh"><div class="chn">CH 7 &middot; PYTHON</div><div class="cht">&#9851;&#65039; FULL ReAct AGENT</div><div class="chd">Wire everything together with create_react_agent &mdash; ONE function call creates the full loop!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#127881;</span><span>Big Moment Bot says:</span></div><p>This is where it ALL clicks! LLM (Ch3) + tools (Ch4) + memory (Ch5+6) &rarr; ONE function call creates the full autonomous loop!<br><br><em>Like assembling LEGO &mdash; each chapter was a brick, now we build the rocket! &#128640;</em></p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128013; agent.py</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+<div>15</div></div><div class="code-content"><span class="pk">from</span> langgraph.prebuilt <span class="pk">import</span> create_react_agent
+<span class="pk">from</span> langchain_core.messages <span class="pk">import</span> HumanMessage
+
+<span class="pc"># Wire it all &mdash; LLM + All Tools + Memory</span>
+agent = create_react_agent(
+    llm,                                               <span class="pc"># brain (Ch3)</span>
+    tools=[rag_tool, search, get_weather, calculate],  <span class="pc"># hands (Ch4+6)</span>
+    checkpointer=memory                                <span class="pc"># memory (Ch5)</span>
+)
+
+config = {<span class="ps">"configurable"</span>: {<span class="ps">"thread_id"</span>: <span class="ps">"user-1"</span>}}
+resp = agent.invoke(
+    {<span class="ps">"messages"</span>: [HumanMessage(<span class="ps">"What does our refund policy say?"</span>)]}, config)
+print(resp[<span class="ps">"messages"</span>][-<span class="pn">1</span>].content)
+<span class="pc"># Think&rarr;search_docs("refund")&rarr;Observe&rarr;Think&rarr;Answer</span></div></div></div>
+<div class="csum pys"><div class="cst">&#9989; CH 7 DONE &mdash; Full Agent Built! &#127881;</div><ul>
+  <li>create_react_agent = complete ReAct loop in ONE function call</li>
+  <li>Everything from Ch1&ndash;6 plugs in as arguments</li>
+  <li>thread_id isolates each user's conversation history</li>
+</ul><button class="nxtch pyn" onclick="showCh(7,document.querySelectorAll('#qanav .cnb')[7])">Next: Ch 8 &mdash; Multi-Agent &rarr;</button></div>
+</div>
+<div class="cc" id="pyc7">
+<div class="chero pyh"><div class="chn">CH 8 &middot; PYTHON</div><div class="cht">&#129309; MULTI-AGENT SYSTEM</div><div class="chd">LangGraph StateGraph: Researcher &rarr; Writer &rarr; Critic. A full AI dev team that never argues!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#129309;</span><span>Team Leader Bot says:</span></div><p>One agent doing everything gets confused on complex tasks &mdash; like asking one person to be doctor, chef, AND accountant! &#128517;<br><br>Multi-agent = <strong>specialist workers</strong>! Researcher searches, Writer drafts, Critic reviews. Fully automated and they <em>never argue!</em> &#128516;</p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128013; crew.py</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+<div>15</div>
+<div>16</div>
+<div>17</div>
+<div>18</div>
+<div>19</div></div><div class="code-content"><span class="pk">from</span> langgraph.graph <span class="pk">import</span> StateGraph, END
+<span class="pk">from</span> typing <span class="pk">import</span> TypedDict
+
+<span class="pk">class</span> <span class="pcl">State</span>(TypedDict):
+    messages: list  <span class="pc"># shared state passed between agents</span>
+
+researcher = create_react_agent(llm, [search, rag_tool])
+writer     = create_react_agent(llm, [])
+critic     = create_react_agent(llm, [])
+
+g = StateGraph(State)
+g.add_node(<span class="ps">"researcher"</span>, <span class="pk">lambda</span> s: researcher.invoke(s))
+g.add_node(<span class="ps">"writer"</span>,     <span class="pk">lambda</span> s: writer.invoke(s))
+g.add_node(<span class="ps">"critic"</span>,     <span class="pk">lambda</span> s: critic.invoke(s))
+g.add_edge(<span class="ps">"researcher"</span>, <span class="ps">"writer"</span>)
+g.add_edge(<span class="ps">"writer"</span>, <span class="ps">"critic"</span>)
+g.add_edge(<span class="ps">"critic"</span>, END)
+g.set_entry_point(<span class="ps">"researcher"</span>)
+crew = g.compile()</div></div></div>
+<div class="csum pys"><div class="cst">&#9989; CH 8 DONE</div><ul>
+  <li>StateGraph = typed state passed between specialist agents</li>
+  <li>Each node is a full ReAct agent with its own tools</li>
+  <li>Edges define the pipeline: who passes work to whom</li>
+</ul><button class="nxtch pyn" onclick="showCh(8,document.querySelectorAll('#qanav .cnb')[8])">Next: Ch 9 &mdash; API &rarr;</button></div>
+</div>
+<div class="cc" id="pyc8">
+<div class="chero pyh"><div class="chn">CH 9 &middot; PYTHON</div><div class="cht">&#127758; FASTAPI SERVER</div><div class="chd">Wrap the agent as a REST API &mdash; any frontend, mobile app, or Slack bot can call it!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#127758;</span><span>API Bot says:</span></div><p><em>Without API: "Our agent only works on your laptop" &#128517;</em><br><em>With FastAPI: "Anyone can use it from anywhere!" &#127758;</em><br><br><strong>Bonus:</strong> Swagger docs auto-generated &mdash; test in browser! &#127881;</p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128013; api.py</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+<div>15</div>
+<div>16</div></div><div class="code-content"><span class="pk">from</span> fastapi <span class="pk">import</span> FastAPI
+<span class="pk">from</span> pydantic <span class="pk">import</span> BaseModel
+<span class="pk">from</span> langchain_core.messages <span class="pk">import</span> HumanMessage
+
+app = FastAPI(title=<span class="ps">"Agentic AI API"</span>)
+
+<span class="pk">class</span> <span class="pcl">Query</span>(BaseModel):
+    question: str
+    session: str = <span class="ps">"default"</span>
+
+<span class="pf">@app.post</span>(<span class="ps">"/ask"</span>)
+<span class="pk">async def</span> <span class="pf">ask</span>(q: Query):
+    cfg = {<span class="ps">"configurable"</span>: {<span class="ps">"thread_id"</span>: q.session}}
+    r   = agent.invoke({<span class="ps">"messages"</span>: [HumanMessage(q.question)]}, cfg)
+    <span class="pk">return</span> {<span class="ps">"answer"</span>: r[<span class="ps">"messages"</span>][-<span class="pn">1</span>].content}
+<span class="pc"># uvicorn api:app --reload &rarr; test at http://localhost:8000/docs</span></div></div></div>
+<div class="csum pys"><div class="cst">&#9989; CH 9 DONE</div><ul>
+  <li>FastAPI wraps the agent as a POST /ask endpoint</li>
+  <li>session maps to LangGraph thread_id for user isolation</li>
+  <li>Swagger UI auto-generated at /docs &mdash; test instantly!</li>
+</ul><button class="nxtch pyn" onclick="showCh(9,document.querySelectorAll('#qanav .cnb')[9])">Next: Ch 10 &mdash; Deploy &rarr;</button></div>
+</div>
+<div class="cc" id="pyc9">
+<div class="chero pyh"><div class="chn">CH 10 &middot; PYTHON</div><div class="cht">&#128640; DEPLOY TO CLOUD</div><div class="chd">Docker container &rarr; Railway / Azure / Render &mdash; go live in minutes! Real production!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128051;</span><span>Docker Bot says:</span></div><p><em>"It works on my machine!" &#128517;</em><br><em>"Ship your machine then!" &#128051;</em><br><br>That's literally what Docker does! Build once, run anywhere. &#127758;</p></div>
+<div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128051; Dockerfile</span></div><div class="cbody"><div class="lnums"><div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div></div><div class="code-content">FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt --no-cache-dir
+COPY . .
+EXPOSE 8000
+CMD ["uvicorn","api:app","--host","0.0.0.0","--port","8000"]</div></div></div>
+<div class="tip-box tip"><div class="tip-title">&#9729;&#65039; Which cloud? Pick your adventure!</div><p>&#128994; <strong>Railway</strong> &mdash; easiest! Connect GitHub, one click, free tier!<br>&#128309; <strong>Render</strong> &mdash; also easy, free tier, great for side projects.<br>&#128311; <strong>Azure App Service</strong> &mdash; enterprise-grade, best for Azure teams.</p></div>
+<div class="csum pys"><div class="cst">&#127891; PYTHON COURSE COMPLETE! YOU DID IT! &#127881;</div><ul>
+  <li>&#9989; Full ReAct agent: LLM + Tools + Memory + RAG</li>
+  <li>&#9989; Multi-agent crew with LangGraph StateGraph</li>
+  <li>&#9989; FastAPI REST endpoint + Docker containerised</li>
+  <li>&#9989; Deployed to cloud &mdash; production-ready! &#128640;</li>
+</ul></div>
+</div>
+
+</div>
+<div class="spl" id="spl"></div>
+
+<div class="sp netp" id="netright">
+<div class="lbadge netb"><div class="lbi">&#128011;</div><div><div class="lbt">.NET C#</div><div class="lbs">Semantic Kernel &middot; Azure OpenAI &middot; Qdrant &middot; ASP.NET Core</div></div></div>
+
+<div class="cc act" id="netc0">
+<div class="chero neth"><div class="chn">CH 1 &middot; .NET</div><div class="cht">&#127807; FOUNDATIONS &amp; FLOW</div><div class="chd">The .NET agent architecture, Semantic Kernel layers, and how C# maps to every Python concept.</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128011;</span><span>.NET Mascot says:</span></div><p>C# developers &mdash; <strong>great news!</strong> Semantic Kernel mirrors every Python concept!<br><strong>LangChain</strong> &rarr; <strong>Semantic Kernel</strong><br><strong>@tool</strong> &rarr; <strong>[KernelFunction]</strong><br><strong>create_react_agent</strong> &rarr; <strong>FunctionCallingStepwisePlanner</strong><br><strong>FAISS</strong> &rarr; <strong>Qdrant</strong><br><br><em>Already know C#? You're 80% of the way there! &#128170;</em></p></div>
+<div class="tree-wrap">
+  <div class="tree-title">&#128011; .NET AGENTIC AI &mdash; FULL STACK TREE</div>
+  <div class="tr-root"><div class="tr-node tn-root"><span class="tn-icon">&#128172;</span><span class="tn-label">USER INPUT</span><span class="tn-sub">HTTP request / UI</span></div></div>
+  <div class="tr-vline"></div>
+  <div class="tr-children">
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-net"><span class="tn-icon">&#9881;&#65039;</span><span class="tn-label">SEMANTIC KERNEL</span><span class="tn-sub">Core orchestration SDK</span><span class="tn-ch">Ch 2&ndash;4</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-hot"><span class="tn-icon">&#129504;</span><span class="tn-label">GPT-4o / AZURE OAI</span><span class="tn-sub">Reasoning engine</span><span class="tn-ch">Ch 3</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-green"><span class="tn-icon">&#129517;</span><span class="tn-label">SK PLANNER</span><span class="tn-sub">FunctionCallingStepwisePlanner</span><span class="tn-ch">Ch 7&ndash;8</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-cyan"><span class="tn-icon">&#128268;</span><span class="tn-label">PLUGINS</span><span class="tn-sub">[KernelFunction] tools</span><span class="tn-ch">Ch 4</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-qa"><span class="tn-icon">&#128451;&#65039;</span><span class="tn-label">QDRANT</span><span class="tn-sub">Vector memory store</span><span class="tn-ch">Ch 5</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-py"><span class="tn-icon">&#128218;</span><span class="tn-label">RAG</span><span class="tn-sub">Azure AI Search &middot; Embeds</span><span class="tn-ch">Ch 6</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-hot"><span class="tn-icon">&#127758;</span><span class="tn-label">ASP.NET CORE</span><span class="tn-sub">Web API endpoint</span><span class="tn-ch">Ch 9</span></div></div>
+    <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-root"><span class="tn-icon">&#9989;</span><span class="tn-label">RESPONSE</span><span class="tn-sub">Final answer to user</span></div></div>
+  </div>
+  <div class="tr-loop">&#128257; SK Planner Loop &mdash; Decompose Goal &rarr; Call Plugin &rarr; Observe &rarr; Next Step &rarr; until complete</div>
+</div>
+<div class="con"><h4>&#128230; .NET Library Map (compare with Python)</h4><ul><li><strong>Semantic Kernel (SK)</strong> &mdash; the 'LangChain' for .NET. Orchestrates everything.</li><li><strong>KernelPlugin</strong> &mdash; groups of [KernelFunction] tools. Equivalent to @tool functions.</li><li><strong>FunctionCallingStepwisePlanner</strong> &mdash; the ReAct loop equivalent.</li><li><strong>Qdrant / Azure AI Search</strong> &mdash; vector stores (equivalent to FAISS).</li><li><strong>ASP.NET Core Web API</strong> &mdash; the FastAPI equivalent. Enterprise-hardened!</li></ul></div>
+<div class="csum nets"><div class="cst">&#9989; CH 1 DONE</div><ul><li>Semantic Kernel = LangChain equivalent for .NET</li><li>StepwisePlanner = the ReAct loop in C#</li><li>Every Python concept maps directly to a .NET equivalent</li></ul><button class="nxtch netn" onclick="showCh(1,document.querySelectorAll('#qanav .cnb')[1])">Next: Ch 2 &mdash; Setup &rarr;</button></div>
+</div>
+<div class="cc" id="netc1">
+<div class="chero neth"><div class="chn">CH 2 &middot; .NET</div><div class="cht">&#9881;&#65039; DEV SETUP</div><div class="chd">.NET 8 SDK, Visual Studio 2022, NuGet packages, appsettings.json. All GUI, no terminal needed!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128011;</span><span>.NET Mascot says:</span></div><p>Open <strong>Visual Studio 2022</strong>! Create Console App (.NET 8). Add NuGet packages with Package Manager GUI &mdash; no terminal!<br><br><em>Python devs: "Where's pip install?" &#128013;<br>.NET devs: "Right-click &rarr; Manage NuGet Packages. Done!" &#127881;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128011; NuGet Package Manager Console</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div></div><div class="code-content"><span class="pc">// Tools &rarr; NuGet Package Manager &rarr; Package Manager Console</span>
+Install-Package Microsoft.SemanticKernel
+Install-Package Microsoft.SemanticKernel.Planners.OpenAI
+Install-Package Microsoft.SemanticKernel.Connectors.Memory.Qdrant
+Install-Package Microsoft.Extensions.Configuration.Json
+Install-Package Microsoft.Extensions.Logging.Console</div></div></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128273; appsettings.json</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div></div><div class="code-content">{{
+  <span class="ps">"OpenAI"</span>: {{
+    <span class="ps">"ApiKey"</span>: <span class="ps">"sk-your-key-here"</span>,
+    <span class="ps">"Model"</span>: <span class="ps">"gpt-4o"</span>,
+    <span class="ps">"EmbedModel"</span>: <span class="ps">"text-embedding-3-small"</span>
+  }}
+}}</div></div></div>
+<div class="tip-box netb2"><div class="tip-title">&#9888;&#65039; Add to .gitignore!</div><p>Right-click appsettings.json &rarr; Properties &rarr; Copy if newer. Add to .gitignore to protect your API key!</p></div>
+<div class="csum nets"><div class="cst">&#9989; CH 2 DONE</div><ul><li>Visual Studio 2022 &rarr; New Console App &rarr; NuGet GUI install</li><li>appsettings.json = .env equivalent for .NET (add to .gitignore!)</li><li>All 10 chapters packages installed upfront</li></ul><button class="nxtch netn" onclick="showCh(2,document.querySelectorAll('#qanav .cnb')[2])">Next: Ch 3 &mdash; LLM &rarr;</button></div>
+</div>
+<div class="cc" id="netc2">
+<div class="chero neth"><div class="chn">CH 3 &middot; .NET</div><div class="cht">&#129504; CONNECT TO LLM</div><div class="chd">Build the Kernel, connect to OpenAI, make your first call. Very C# builder pattern style!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#9881;&#65039;</span><span>Semantic Kernel says:</span></div><p>The <strong>Kernel</strong> is the central object &mdash; everything plugs into it. Builder pattern (very idiomatic C#!).<br><br><em>Python: llm = ChatOpenAI(...)</em><br><em>.NET: var kernel = Kernel.CreateBuilder().AddOpenAIChatCompletion(...).Build()</em><br><br>Same idea, just more verbose &mdash; C# loves its builder patterns! &#128516;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128011; KernelSetup.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel;
+
+<span class="pk">var</span> kernel = Kernel.CreateBuilder()
+    .AddOpenAIChatCompletion(
+        modelId: <span class="ps">"gpt-4o"</span>,
+        apiKey:  config[<span class="ps">"OpenAI:ApiKey"</span>]!)
+    .Build();
+
+<span class="pc">// Simple prompt &mdash; equivalent to llm.invoke()</span>
+<span class="pk">var</span> result = <span class="pk">await</span> kernel.InvokePromptAsync(<span class="ps">"Explain AI agents in one sentence."</span>);
+Console.WriteLine(result);
+
+<span class="pc">// Streaming &mdash; tokens appear as they arrive</span>
+<span class="pk">await foreach</span> (<span class="pk">var</span> token <span class="pk">in</span> kernel.InvokePromptStreamingAsync(<span class="ps">"What is LangGraph?"</span>))
+    Console.Write(token);</div></div></div>
+<div class="tip-box netb2"><div class="tip-title">&#128311; Azure OpenAI vs OpenAI direct</div><p>Swap AddOpenAIChatCompletion with AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey) for enterprise Azure. Just one line change!</p></div>
+<div class="csum nets"><div class="cst">&#9989; CH 3 DONE</div><ul><li>Kernel = the central object &mdash; everything plugs into it</li><li>InvokePromptAsync = synchronous call (like llm.invoke)</li><li>InvokePromptStreamingAsync = streaming tokens for better UX</li></ul><button class="nxtch netn" onclick="showCh(3,document.querySelectorAll('#qanav .cnb')[3])">Next: Ch 4 &mdash; Plugins &rarr;</button></div>
+</div>
+<div class="cc" id="netc3">
+<div class="chero neth"><div class="chn">CH 4 &middot; .NET</div><div class="cht">&#128268; PLUGINS &amp; KERNEL FUNCTIONS</div><div class="chd">[KernelFunction] &mdash; the C# equivalent of Python's @tool decorator. Give your agent hands!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128268;</span><span>Plugin Bot says:</span></div><p>In SK, tools are called <strong>Plugins</strong>. A C# class where each method tagged [KernelFunction] becomes a callable tool!<br><br><em>Python: @tool + """docstring"""</em><br><em>.NET: [KernelFunction] + [Description("...")]</em><br><br>Same concept, different syntax. C# is more explicit! &#128170;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128011; ToolPlugin.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel;
+
+<span class="pk">public class</span> <span class="pcl">ToolPlugin</span>
+{{
+    [KernelFunction, Description(<span class="ps">"Get weather info for a city"</span>)]
+    <span class="pk">public string</span> <span class="pf">GetWeather</span>([Description(<span class="ps">"City name"</span>)] <span class="pk">string</span> city)
+        => <span class="ps">$"Weather in {{city}}: 22C, Sunny (mock)"</span>;
+
+    [KernelFunction, Description(<span class="ps">"Calculate a math expression like '42*17'"</span>)]
+    <span class="pk">public string</span> <span class="pf">Calculate</span>([Description(<span class="ps">"Math expression"</span>)] <span class="pk">string</span> expr)
+    {{
+        <span class="pk">try</span>   {{ <span class="pk">return</span> DataTable.Compute(expr).ToString()!; }}
+        <span class="pk">catch</span> {{ <span class="pk">return</span> <span class="ps">"Error: invalid expression"</span>; }}
+    }}
+}}
+
+<span class="pc">// Register plugin with the kernel</span>
+kernel.Plugins.AddFromType&lt;ToolPlugin&gt;(<span class="ps">"tools"</span>);</div></div></div>
+<div class="tip-box netb2"><div class="tip-title">&#128161; [Description] IS the tool prompt</div><p>The Description text tells the LLM when to call your function. Be specific! "Evaluate a math expression like 42*17" is better than "Calculate something".</p></div>
+<div class="csum nets"><div class="cst">&#9989; CH 4 DONE</div><ul><li>[KernelFunction] = @tool equivalent in C# (same idea!)</li><li>[Description('...')] = the docstring that tells LLM when to call it</li><li>kernel.Plugins.AddFromType&lt;T&gt;() registers all functions at once</li></ul><button class="nxtch netn" onclick="showCh(4,document.querySelectorAll('#qanav .cnb')[4])">Next: Ch 5 &mdash; Memory &rarr;</button></div>
+</div>
+<div class="cc" id="netc4">
+<div class="chero neth"><div class="chn">CH 5 &middot; .NET</div><div class="cht">&#128190; MEMORY WITH QDRANT</div><div class="chd">Semantic memory using Qdrant vector store and OpenAI embeddings. Remember everything!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128451;&#65039;</span><span>Memory Bot (.NET) says:</span></div><p>We use <strong>Qdrant</strong> as the vector store (runs locally in Docker &mdash; just one command!).<br><br><em>To start Qdrant: docker run -p 6333:6333 qdrant/qdrant</em><br><em>That's it! No cloud account needed for development! &#127881;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128011; Memory.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel.Memory;
+<span class="pk">using</span> Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
+
+<span class="pc">// Run Qdrant: docker run -p 6333:6333 qdrant/qdrant</span>
+<span class="pk">var</span> store  = <span class="pk">new</span> QdrantMemoryStore(<span class="ps">"http://localhost:6333"</span>, vectorSize: <span class="pn">1536</span>);
+<span class="pk">var</span> memory = <span class="pk">new</span> SemanticTextMemory(store,
+    <span class="pk">new</span> OpenAITextEmbeddingGenerationService(<span class="ps">"text-embedding-3-small"</span>, apiKey));
+
+<span class="pc">// Save facts to memory</span>
+<span class="pk">await</span> memory.SaveInformationAsync(<span class="ps">"company"</span>, id: <span class="ps">"refund"</span>,
+    text: <span class="ps">"Our refund policy is 30 days."</span>);
+
+<span class="pc">// Semantic search &mdash; same power as Python's FAISS!</span>
+<span class="pk">await foreach</span> (<span class="pk">var</span> result <span class="pk">in</span> memory.SearchAsync(<span class="ps">"company"</span>, <span class="ps">"How to get refund?"</span>, limit: <span class="pn">2</span>))
+    Console.WriteLine(result.Metadata.Text);</div></div></div>
+<div class="csum nets"><div class="cst">&#9989; CH 5 DONE</div><ul><li>Qdrant = production-grade vector store (run locally with Docker!)</li><li>SemanticTextMemory = clean interface over any vector store</li><li>SearchAsync = same semantic search power as Python's FAISS</li></ul><button class="nxtch netn" onclick="showCh(5,document.querySelectorAll('#qanav .cnb')[5])">Next: Ch 6 &mdash; RAG &rarr;</button></div>
+</div>
+<div class="cc" id="netc5">
+<div class="chero neth"><div class="chn">CH 6 &middot; .NET</div><div class="cht">&#128269; RAG WITH SEMANTIC KERNEL</div><div class="chd">Load documents, embed into Qdrant, create a memory plugin for the agent. Private knowledge base!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#128196;</span><span>RAG Bot (.NET) says:</span></div><p>Same pipeline as Python: load text &rarr; chunk &rarr; embed &rarr; Qdrant. Difference: wrap retrieval as a <strong>KernelPlugin</strong> so planner calls it automatically!<br><br><em>Planner sees: "User asked about refunds. Call SearchDocs('refund')!" &mdash; thanks to [Description]! &#127919;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128011; RagPlugin.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div></div><div class="code-content"><span class="pk">public class</span> <span class="pcl">RagPlugin</span>(ISemanticTextMemory memory)
+{{
+    [KernelFunction]
+    [Description(<span class="ps">"Search company documents for policies, FAQs, procedures."</span>)]
+    <span class="pk">public async Task</span>&lt;<span class="pk">string</span>&gt; <span class="pf">SearchDocs</span>(
+        [Description(<span class="ps">"Search query"</span>)] <span class="pk">string</span> query)
+    {{
+        <span class="pk">var</span> sb = <span class="pk">new</span> StringBuilder();
+        <span class="pk">await foreach</span> (<span class="pk">var</span> r <span class="pk">in</span> _memory.SearchAsync(<span class="ps">"docs"</span>, query, limit: <span class="pn">3</span>))
+            sb.AppendLine(r.Metadata.Text);
+        <span class="pk">return</span> sb.Length &gt; <span class="pn">0</span> ? sb.ToString() : <span class="ps">"No matching documents found."</span>;
+    }}
+    <span class="pk">private readonly</span> ISemanticTextMemory _memory = memory;
+}}
+<span class="pc">// Register: kernel.Plugins.AddFromObject(new RagPlugin(memory), "rag");</span></div></div></div>
+<div class="csum nets"><div class="cst">&#9989; CH 6 DONE</div><ul><li>RagPlugin wraps Qdrant search as a [KernelFunction] tool</li><li>Planner now auto-decides: SearchDocs vs GetWeather vs Calculate</li><li>C# primary constructors make DI clean and readable</li></ul><button class="nxtch netn" onclick="showCh(6,document.querySelectorAll('#qanav .cnb')[6])">Next: Ch 7 &mdash; Agent &rarr;</button></div>
+</div>
+<div class="cc" id="netc6">
+<div class="chero neth"><div class="chn">CH 7 &middot; .NET</div><div class="cht">&#9851;&#65039; STEPWISE PLANNER AGENT</div><div class="chd">FunctionCallingStepwisePlanner &mdash; the ReAct loop in Semantic Kernel. The big moment!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#127881;</span><span>Big Moment (.NET) says:</span></div><p>FunctionCallingStepwisePlanner is SK's ReAct agent. Give it the Kernel with all plugins and it automatically loops: Think &rarr; Pick Plugin &rarr; Execute &rarr; Observe &rarr; Repeat!<br><br><em>All this = just 3 lines of code! &#128640;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128011; AgentRunner.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel.Planning;
+
+<span class="pc">// Register all plugins first</span>
+kernel.Plugins.AddFromType&lt;ToolPlugin&gt;(<span class="ps">"tools"</span>);
+kernel.Plugins.AddFromObject(<span class="pk">new</span> RagPlugin(memory), <span class="ps">"rag"</span>);
+
+<span class="pc">// Create the ReAct-style planner &mdash; this IS the agent loop</span>
+<span class="pk">var</span> planner = <span class="pk">new</span> FunctionCallingStepwisePlanner();
+
+<span class="pc">// Run &mdash; loops until goal achieved</span>
+<span class="pk">var</span> result = <span class="pk">await</span> planner.ExecuteAsync(kernel,
+    <span class="ps">"What does our refund policy say?"</span>);
+Console.WriteLine(result.FinalAnswer);
+<span class="pc">// Think&rarr;SearchDocs("refund")&rarr;Observe&rarr;Think&rarr;Answer</span></div></div></div>
+<div class="csum nets"><div class="cst">&#9989; CH 7 DONE</div><ul><li>FunctionCallingStepwisePlanner = the ReAct loop for .NET</li><li>All registered plugins become available tools automatically</li><li>Same Think&rarr;Act&rarr;Observe pattern as LangGraph in Python</li></ul><button class="nxtch netn" onclick="showCh(7,document.querySelectorAll('#qanav .cnb')[7])">Next: Ch 8 &mdash; Multi-Agent &rarr;</button></div>
+</div>
+<div class="cc" id="netc7">
+<div class="chero neth"><div class="chn">CH 8 &middot; .NET</div><div class="cht">&#129309; AGENT GROUP CHAT</div><div class="chd">AgentGroupChat: Researcher + Writer + Critic working together in C#!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#129309;</span><span>Team Lead (.NET) says:</span></div><p>SK's <strong>AgentGroupChat</strong> orchestrates multiple ChatCompletionAgent objects. Each has own instructions, group chat manages turn-taking!<br><br><em>Python: LangGraph StateGraph with nodes and edges</em><br><em>.NET: AgentGroupChat &mdash; just pass the agents! &#128526;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128011; MultiAgent.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel.Agents;
+
+<span class="pk">var</span> researcher = <span class="pk">new</span> ChatCompletionAgent {{
+    Name = <span class="ps">"Researcher"</span>,
+    Instructions = <span class="ps">"Search documents and web. Give detailed findings."</span>,
+    Kernel = kernel
+}};
+<span class="pk">var</span> writer = <span class="pk">new</span> ChatCompletionAgent {{
+    Name = <span class="ps">"Writer"</span>, Instructions = <span class="ps">"Write clear, engaging content."</span>, Kernel = kernel
+}};
+<span class="pk">var</span> critic = <span class="pk">new</span> ChatCompletionAgent {{
+    Name = <span class="ps">"Critic"</span>, Instructions = <span class="ps">"Review content. Score 1-10."</span>, Kernel = kernel
+}};
+<span class="pk">var</span> chat = <span class="pk">new</span> AgentGroupChat(researcher, writer, critic);
+chat.AddChatMessage(<span class="pk">new</span> ChatMessageContent(AuthorRole.User, <span class="ps">"Write article about AI agents"</span>));
+<span class="pk">await foreach</span> (<span class="pk">var</span> r <span class="pk">in</span> chat.InvokeAsync())
+    Console.WriteLine(<span class="ps">$"[{{r.AuthorName}}]: {{r.Content}}"</span>);</div></div></div>
+<div class="csum nets"><div class="cst">&#9989; CH 8 DONE</div><ul><li>ChatCompletionAgent = specialist agent with own instructions</li><li>AgentGroupChat manages the conversation between agents</li><li>InvokeAsync streams responses &mdash; watch agents collaborate live!</li></ul><button class="nxtch netn" onclick="showCh(8,document.querySelectorAll('#qanav .cnb')[8])">Next: Ch 9 &mdash; API &rarr;</button></div>
+</div>
+<div class="cc" id="netc8">
+<div class="chero neth"><div class="chn">CH 9 &middot; .NET</div><div class="cht">&#127758; ASP.NET CORE API</div><div class="chd">Wrap the agent as a Web API controller &mdash; enterprise REST endpoint with Dependency Injection!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#127758;</span><span>ASP.NET Bot says:</span></div><p>ASP.NET Core = FastAPI but enterprise-hardened! Register Kernel via <strong>Dependency Injection</strong> (the C# way &#127913;), create a controller, framework handles routing and Swagger automatically!<br><br><em>Right-click &rarr; Publish &rarr; Azure &rarr; Done! No CLI! &#128377;&#65039;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128011; AgentController.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div></div><div class="code-content">[ApiController][Route(<span class="ps">"api/[controller]"</span>)]
+<span class="pk">public class</span> <span class="pcl">AgentController</span>(Kernel kernel) : ControllerBase
+{{
+    [HttpPost(<span class="ps">"ask"</span>)]
+    <span class="pk">public async Task</span>&lt;IActionResult&gt; <span class="pf">Ask</span>([FromBody] QueryDto dto)
+    {{
+        <span class="pk">var</span> planner = <span class="pk">new</span> FunctionCallingStepwisePlanner();
+        <span class="pk">var</span> result  = <span class="pk">await</span> planner.ExecuteAsync(_kernel, dto.Question);
+        <span class="pk">return</span> Ok(<span class="pk">new</span> {{ answer = result.FinalAnswer }});
+    }}
+    <span class="pk">private readonly</span> Kernel _kernel = kernel;
+}}
+<span class="pk">public record</span> <span class="pcl">QueryDto</span>(<span class="pk">string</span> Question, <span class="pk">string</span> Session = <span class="ps">"default"</span>);
+<span class="pc">// Program.cs: builder.Services.AddSingleton(kernel);
+// Swagger at: https://localhost:5001/swagger</span></div></div></div>
+<div class="csum nets"><div class="cst">&#9989; CH 9 DONE</div><ul><li>AddSingleton(kernel) = DI registration (like FastAPI dependency injection)</li><li>[ApiController] + [HttpPost] = POST /api/agent/ask endpoint</li><li>Swagger UI auto-generated at /swagger &mdash; test instantly!</li></ul><button class="nxtch netn" onclick="showCh(9,document.querySelectorAll('#qanav .cnb')[9])">Next: Ch 10 &mdash; Deploy &rarr;</button></div>
+</div>
+<div class="cc" id="netc9">
+<div class="chero neth"><div class="chn">CH 10 &middot; .NET</div><div class="cht">&#128640; DEPLOY TO AZURE</div><div class="chd">Docker &rarr; Azure App Service, or VS 2022 Publish wizard. Azure is home for .NET!</div></div>
+<div class="bubble"><div class="bubble-who"><span>&#9729;&#65039;</span><span>Azure Bot says:</span></div><p>Azure App Service has <strong>native .NET support</strong>! Deploy by right-clicking in VS 2022 (no CLI!), or use Docker.<br><br><em>"We're a .NET shop, so we use Azure." &mdash; Every enterprise architect, ever. &#128516;</em></p></div>
+<div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">&#128051; Dockerfile (.NET)</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div></div><div class="code-content">FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY . .
+RUN dotnet publish -c Release -o /app
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build /app .
+EXPOSE 8080
+ENTRYPOINT ["dotnet","AgentApi.dll"]</div></div></div>
+<div class="tip-box netb2"><div class="tip-title">&#128377;&#65039; VS 2022 One-Click Deploy (No CLI!)</div><p>Right-click project &rarr; <strong>Publish</strong> &rarr; <strong>Azure</strong> &rarr; <strong>Azure App Service (Linux)</strong> &rarr; Sign in &rarr; Click <strong>Publish</strong>. VS handles everything!</p></div>
+<div class="csum nets"><div class="cst">&#127891; .NET COURSE COMPLETE! YOU DID IT! &#127881;</div><ul>
+  <li>&#9989; Semantic Kernel + Azure OpenAI agent with plugins</li>
+  <li>&#9989; Qdrant vector memory + RAG pipeline</li>
+  <li>&#9989; FunctionCallingStepwisePlanner ReAct agent</li>
+  <li>&#9989; AgentGroupChat multi-agent crew</li>
+  <li>&#9989; ASP.NET Core Web API + Docker + Azure App Service</li>
+</ul></div>
+</div>
+
+</div><!-- end netright -->
+
+</div><!-- end sv -->
+</div><!-- end cwrap -->
+</div><!-- end tp -->
+<script>
+/* ═══ SWITCH BETWEEN HOME AND COURSE TABS ═══ */
+function switchMain(t, btn) {
+  var th    = document.getElementById('th');
+  var tp    = document.getElementById('tp');
+  var qanav = document.getElementById('qanav');
+  var btnTh = document.getElementById('btn-th');
+  var btnTp = document.getElementById('btn-tp');
+
+  if (t === 'h' || t === 'home') {
+    th.style.display    = 'block';
+    tp.style.display    = 'none';
+    qanav.style.display = 'none';
+    btnTh.classList.add('act');
+    btnTp.classList.remove('act');
+  } else {
+    th.style.display    = 'none';
+    tp.style.display    = 'flex';
+    qanav.style.display = 'flex';
+    btnTh.classList.remove('act');
+    btnTp.classList.add('act');
+    /* Load CH1 on first open */
+    showCh(0, document.querySelectorAll('#qanav .cnb')[0]);
+  }
+}
+
+/* ═══ SWITCH CHAPTER ═══ */
+function showCh(idx, btn) {
+  /* Update chapter nav active state */
+  document.querySelectorAll('#qanav .cnb').forEach(function(b) {
+    b.classList.remove('act-ch');
+  });
+  if (btn) btn.classList.add('act-ch');
+
+  /* Show correct chapter pair */
+  for (var i = 0; i < 10; i++) {
+    var pyEl  = document.getElementById('pyc' + i);
+    var netEl = document.getElementById('netc' + i);
+    if (pyEl)  pyEl.classList.toggle('act',  i === idx);
+    if (netEl) netEl.classList.toggle('act', i === idx);
+  }
+
+  /* Reset scroll */
+  var pl = document.getElementById('pyleft');
+  var nr = document.getElementById('netright');
+  if (pl) pl.scrollTop = 0;
+  if (nr) nr.scrollTop = 0;
+}
+
+/* ═══ SYNC SCROLL ═══ */
+var pyPanel  = document.getElementById('pyleft');
+var netPanel = document.getElementById('netright');
+var syncLock = false;
+var pyLast   = 0;
+var netLast  = 0;
+
+function syncScroll(src, tgt, last) {
+  if (syncLock) return;
+  syncLock = true;
+  var delta = src.scrollTop - last;
+  tgt.scrollTop += delta;
+  pyLast  = pyPanel.scrollTop;
+  netLast = netPanel.scrollTop;
+  requestAnimationFrame(function() { syncLock = false; });
+}
+
+if (pyPanel && netPanel) {
+  pyPanel.addEventListener('scroll',  function() { syncScroll(pyPanel,  netPanel, pyLast);  });
+  netPanel.addEventListener('scroll', function() { syncScroll(netPanel, pyPanel,  netLast); });
+}
+
+/* ═══ DRAGGABLE SPLITTER ═══ */
+var spl  = document.getElementById('spl');
+var drag = false;
+
+if (spl) {
+  spl.addEventListener('mousedown', function(e) { drag = true; document.body.style.cursor = 'col-resize'; e.preventDefault(); });
+  document.addEventListener('mousemove', function(e) {
+    if (!drag) return;
+    var sv = document.querySelector('.sv');
+    if (!sv) return;
+    var r  = sv.getBoundingClientRect();
+    var lw = Math.max(200, Math.min(e.clientX - r.left, r.width - 200));
+    var rw = r.width - lw - 12;
+    var lp = document.getElementById('pyleft');
+    var rp = document.getElementById('netright');
+    if (lp) { lp.style.flex = 'none'; lp.style.width = lw + 'px'; }
+    if (rp) { rp.style.flex = 'none'; rp.style.width = rw + 'px'; }
+  });
+  document.addEventListener('mouseup', function() { drag = false; document.body.style.cursor = ''; });
+
+  spl.addEventListener('touchstart', function(e) { drag = true; e.preventDefault(); }, { passive: false });
+  document.addEventListener('touchmove', function(e) {
+    if (!drag) return;
+    var t  = e.touches[0];
+    var sv = document.querySelector('.sv');
+    if (!sv) return;
+    var r  = sv.getBoundingClientRect();
+    var lw = Math.max(150, Math.min(t.clientX - r.left, r.width - 150));
+    var rw = r.width - lw - 12;
+    var lp = document.getElementById('pyleft');
+    var rp = document.getElementById('netright');
+    if (lp) { lp.style.flex = 'none'; lp.style.width = lw + 'px'; }
+    if (rp) { rp.style.flex = 'none'; rp.style.width = rw + 'px'; }
+  }, { passive: true });
+  document.addEventListener('touchend', function() { drag = false; });
+}
+</script>
+
+<div class="hs" style="max-width:280px;margin:1rem auto;padding:0 1rem;"></div>
+<script src="analytics.js"></script>
+<script src="widgets.js"></script>
+</body>
+</html>

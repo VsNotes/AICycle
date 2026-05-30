@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Evolution Tree</title>
+
+<style>
+body{
+  background:#0b0b0b;
+  font-family:"Comic Sans MS", cursive;
+  color:#eee;
+  padding:30px;
+}
+
+/* TREE */
+.tree ul{padding-left:25px;position:relative;}
+.tree li{list-style:none;margin:8px 0;padding-left:20px;position:relative;}
+
+/* LINES */
+.tree li::before{
+  content:"";position:absolute;top:0;left:0;width:12px;height:100%;
+  border-left:2px solid;
+}
+.tree li::after{
+  content:"";position:absolute;top:14px;left:0;width:12px;
+  border-top:2px solid;
+}
+
+/* COLORS */
+.ai>span{color:#ff5c5c;font-weight:bold;}
+.ml>span{color:#ffd166;}
+.dl>span{color:#6bcf63;}
+.nn>span{color:#c77dff;}
+.llm>span{color:#4cc9f0;}
+.app>span{color:#00d4ff;}
+.rule>span{color:#adb5bd;}
+.inner>span{color:#ddd;}
+
+/* LINE COLORS */
+.ai::before,.ai::after{border-color:#ff5c5c;}
+.ml::before,.ml::after{border-color:#ffd166;}
+.dl::before,.dl::after{border-color:#6bcf63;}
+.nn::before,.nn::after{border-color:#c77dff;}
+.llm::before,.llm::after{border-color:#4cc9f0;}
+.app::before,.app::after{border-color:#00d4ff;}
+.rule::before,.rule::after{border-color:#888;}
+.inner::before,.inner::after{border-color:#555;}
+
+/* TEXT */
+.desc{color:#888;font-size:13px;margin-top:2px;}
+.meta{color:#666;font-size:12px;}
+
+/* ========== COMIC BULLETS (NO BORDER AT ALL) ========== *//* ========== COMIC BULLETS (NOic-bullet {
+  background: #141414;      /* comic panel feel */
+  border: none;             /* ✅ NO BORDER */
+  outline: none;            /* ✅ NO OUTLINE */
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin: 6px 0;
+  font-size: 13px;
+  color: #e0e0e0;
+  box-shadow: 2px 2px 0 #000; /* shadow only, no border */
+  font-family: "Comic Sans MS", cursive;
+}
+
+/* Slight comic wobble (optional, still safe) */
+.comic-bullet:nth-child(odd) {
+  transform: rotate(-0.3deg);
+}
+.comic-bullet:nth-child(even) {
+  transform: rotate(0.3deg);
+}
+
+
+.comic-flow {
+  margin-top: 8px;
+  margin-left: 8px;
+  padding-left: 10px;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="tree">
+<ul>
+
+<li class="ai">
+<span>🌟 Artificial Intelligence (AI)</span>
+<div class="desc">Goal: Make machines act smart like humans</div>
+<div class="meta">1950s → Present | Cycle 0 (Origin)</div>
+
+<ul>
+
+<li class="rule">
+<span>🤔 Non-Learning AI</span>
+<div class="desc">Hardcoded rules, no learning</div>
+<div class="meta">1950s–1980s | Cycle 1</div>
+
+<ul>
+<li class="inner"><span>Rule-Based Systems</span><div class="desc">IF this → DO that</div></li>
+<li class="inner"><span>Logic Engines</span><div class="desc">Formal reasoning</div></li>
+<li class="inner"><span>Automation Scripts</span><div class="desc">Repetitive tasks</div></li>
+<li class="inner"><span>❌ Limitation</span><div class="desc">No learning or adaptation</div></li>
+<li class="inner"><span>✅ Leads to</span><div class="desc">Machine Learning</div></li>
+</ul>
+</li>
+
+<li class="ml">
+<span>📈 Machine Learning (ML)</span>
+<div class="desc">Learns patterns from data</div>
+<div class="meta">1980s–2010s | Cycle 2</div>
+
+<ul>
+
+<li class="rule">
+<span>🧩 Classical ML</span>
+<div class="desc">Humans design features</div>
+
+<ul>
+<li class="inner"><span>Feature Engineering</span><div class="desc">Manual feature design</div></li>
+<li class="inner"><span>Tasks</span><div class="desc">Regression, Classification</div></li>
+<li class="inner"><span>Models</span><div class="desc">Decision Trees, SVM, k-NN</div></li>
+<li class="inner"><span>❌ Limitation</span><div class="desc">Fails on complex data</div></li>
+<li class="inner"><span>✅ Leads to</span><div class="desc">Deep Learning</div></li>
+</ul>
+</li>
+
+<li class="dl">
+<span>🧠 Deep Learning (DL)</span>
+<div class="desc">Learns features automatically</div>
+<div class="meta">2010s → Present | Cycle 3</div>
+
+<ul>
+
+<li class="nn">
+<span>🔗 Neural Networks (Foundation)</span>
+<div class="desc">Core model behind deep learning</div>
+
+<ul>
+
+<li class="inner"><span>Input Layer</span><div class="desc">Receives data</div></li>
+<li class="inner"><span>Hidden Layers</span><div class="desc">Learn patterns</div></li>
+<li class="inner"><span>Output Layer</span><div class="desc">Prediction</div></li>
+
+<li class="inner"><span>Weights & Biases</span><div class="desc">Control learning</div></li>
+<li class="inner"><span>Activation Functions</span><div class="desc">Non-linearity (ReLU, Sigmoid)</div></li>
+<li class="inner"><span>Loss Function</span><div class="desc">Measures error</div></li>
+
+<li class="inner"><span>Forward Pass</span><div class="desc">Data flows through network</div></li>
+<li class="inner"><span>Backpropagation</span><div class="desc">Adjusts errors</div></li>
+<li class="inner"><span>Optimization</span><div class="desc">Improves learning</div></li>
+
+<li class="nn">
+<span>👁️ CNN</span>
+<div class="desc">Image understanding (edges → objects)</div>
+<div class="comic-flow">
+
+  <strong>Input Image</strong><br>  <div class="comic-bullet">
+    Photo of a cat (ears, eyes, fur pixels)
+  </div>
+
+  <div class="comic-bullet">
+    🔍 <strong>Convolution</strong><br>
+    Finds edges → whiskers → ear shapes
+  </div>
+
+  <div class="comic-bullet">
+    ⚡ <strong>ReLU</strong><br>
+    Keeps strong signals, removes noise
+  </div>
+
+  <div class="comic-bullet">
+    📉 <strong>Pooling</strong><br>
+    Shrinks image, keeps cat shape
+  </div>
+
+  <div class="comic-bullet">
+    🧠 <strong>Deep Layers</strong><br>
+    Combines parts → full cat
+  </div>
+
+  <div class="comic-bullet">
+    ✅ <strong>Output</strong><br>
+    Cat detected ✔️
+  </div>
+
+</div>
+
+</li>
+
+<li class="nn">
+<span>🔁 RNN / LSTM</span>
+<div class="desc">Sequence data (time, text)</div>
+</li>
+
+<li class="nn">
+<span>⚡ Transformers</span>
+<div class="desc">Attention-based architecture</div>
+<div class="meta">Introduced ~2017 | Cycle 4</div>
+
+<ul>
+<li class="inner"><span>Attention</span><div class="desc">Focus on important info</div></li>
+<li class="inner"><span>Self-Attention</span><div class="desc">Relates inputs</div></li>
+<li class="inner"><span>Multi-Head Attention</span><div class="desc">Multiple perspectives</div></li>
+
+<li class="llm">
+<span>🧠 LLMs</span>
+<div class="desc">Built using Transformers</div>
+<div class="meta">2020s → Present | Cycle 5</div>
+
+<ul>
+<li class="inner"><span>Prompt</span><div class="desc">Instruction + context</div></li>
+<li class="inner"><span>Tokenization</span><div class="desc">Text → tokens</div></li>
+<li class="inner"><span>Embeddings</span><div class="desc">Tokens → vectors</div></li>
+<li class="inner"><span>Transformer Layers</span><div class="desc">Process relationships</div></li>
+<li class="inner"><span>Next Token Prediction</span><div class="desc">Generate output</div></li>
+<li class="inner"><span>Training</span><div class="desc">Pretraining, Fine-tuning, RLHF</div></li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+
+<li class="app">
+<span>🧩 Capabilities & Architectures</span>
+<div class="desc">How AI models operate and are used</div>
+
+<ul>
+  <li class="app">
+    <span>🗣️ NLP</span>
+    <div class="desc">Language understanding & generation (LLMs live here)</div>
+    <div class="meta">AI Capability</div>
+  </li>
+
+  <li class="app">
+    <span>👀 Computer Vision</span>
+    <div class="desc">Image & video understanding</div>
+    <div class="meta">AI Capability</div>
+  </li>
+
+  <li class="app">
+    <span>🧩 RAG</span>
+    <div class="desc">Architecture: LLM + external knowledge</div>
+    <div class="meta">System Design Pattern</div>
+
+    <ul>
+      <li class="inner">
+        <span>User Query</span>
+        <div class="desc">Question from user</div>
+      </li>
+
+      <li class="inner">
+        <span>Query Embedding</span>
+        <div class="desc">Convert question into vector</div>
+      </li>
+
+      <li class="inner">
+        <span>Vector Database Search</span>
+        <div class="desc">Semantic similarity search</div>
+      </li>
+
+      <li class="inner">
+        <span>Context Selection</span>
+        <div class="desc">Pick most relevant knowledge</div>
+      </li>
+
+      <li class="inner">
+        <span>Prompt Augmentation</span>
+        <div class="desc">Query + retrieved context</div>
+      </li>
+
+      <li class="inner">
+        <span>LLM Generation</span>
+        <div class="desc">Answer grounded in facts ✅</div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+</body>
+</html>

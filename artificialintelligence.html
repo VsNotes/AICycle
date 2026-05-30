@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+      content="AI Cycle explained in simple terms: Artificial Intelligence, Machine Learning, Deep Learning, Neural Networks, Transformers, Large Language Models (LLMs), RAG and AI tools. A visual learning guide by Ashish Sinha." />
+
+<meta name="keywords"
+      content="AI Cycle, Artificial Intelligence, Machine Learning, Deep Learning, Neural Networks, Transformers, LLM, Large Language Models, RAG, AI learning, AI hierarchy, AI roadmap" />
+
+<meta name="author" content="Ashish Sinha" />
+
+	<title>
+AI Cycle Explained – Machine Learning, Deep Learning, LLMs & RAG | Ashish Sinha
+</title>
+
+<!-- ✅ Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Architects+Daughter&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --panel-bg: #000;
+    --page-bg: #000;
+    --ink-black: #9e9e9e;
+    --ai-blue: #4da3ff;
+    --border-width: 3px;
+}
+
+/* ===== BASE ===== */
+body {
+    background-color: var(--page-bg);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18px;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+}
+
+.comic-canvas {
+    max-width: 100%;
+    margin: 0;
+    background: var(--panel-bg);
+    padding: 40px;
+}
+
+/* ===== HEADER ===== */
+header {
+    border-bottom: var(--border-width) solid var(--ink-black);
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 60px;
+    letter-spacing: 2px;
+    margin: 0;
+    color: var(--ai-blue);
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px var(--ink-black);
+}
+
+.author-tag {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6b6b;
+}
+
+/* ===== NAV TABS ===== */
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin: 30px 0;
+}
+
+.nav-links a {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    color: #aaa;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--ai-blue);
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 3px;
+    background: var(--ai-blue);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+    display: block;
+}
+
+/* ===== TAB SECTIONS ===== */
+.tab-section {
+    display: none;
+}
+
+.tab-section.active {
+    display: block;
+}
+
+/* ===== IFRAME ===== */
+iframe {
+    width: 100%;
+    height: 1400vh;
+    border: 0;
+   
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    h1 { font-size: 38px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="comic-canvas">
+
+<header>
+    <h1>Thinking Machines of Today</h1>
+    <div class="author-tag">Author: Ashish Sinha · AI Developer</div>
+</header>
+<section style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+  <h2>AI Cycle and AI Hierarchy</h2>
+  <p>
+    This page explains the complete AI Cycle, starting from Non-Learning AI
+    and evolving into Machine Learning, Deep Learning, Neural Networks,
+    Transformers, Large Language Models (LLMs), and Retrieval-Augmented Generation (RAG).
+  </p>
+
+  <h3>Machine Learning and Deep Learning</h3>
+  <p>
+    Learn how machines move from rule-based systems to Classical Machine Learning,
+    Deep Learning, CNNs, RNNs, and Transformers.
+  </p>
+
+  <h3>Large Language Models and RAG</h3>
+  <p>
+    Understand how modern AI systems like LLMs use tokenization, embeddings,
+    prompts, and vector databases to deliver intelligent and grounded answers.
+  </p>
+</section>
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav-links">
+    <a class="active" onclick="openTab('aitree', this)">AI Cycle</a>
+    <a class="active" onclick="openTab('intro', this)">Introduction</a>
+    <a onclick="openTab('ml', this)">ML</a>
+    <a onclick="openTab('dl', this)">Deep Learning</a>
+    <a onclick="openTab('llm', this)">LLMs</a>
+    <a onclick="openTab('rag', this)">RAG</a>
+    <a onclick="openTab('tools', this)">AI Tools</a>
+    <a onclick="openTab('career', this)">Career</a>
+</nav>
+
+<div class="main-layout">
+
+<!-- ===== INTRO TAB ===== -->
+<div id="intro" class="tab-section active">
+    <iframe src="AILearning.html" loading="lazy"></iframe>
+</div>
+
+<!-- ===== ML TAB ===== -->
+<div id="ml" class="tab-section">
+    <iframe src="" loading="lazy"></iframe>
+</div>
+
+<!-- ===== OTHER TABS (READY) ===== -->
+<div id="aitree" class="tab-section"><iframe src="" loading="lazy"></iframe></div>
+<div id="dl" class="tab-section"><iframe src="" loading="lazy"></iframe></div>
+<div id="llm" class="tab-section"><iframe src="" loading="lazy"></iframe></div>
+<div id="rag" class="tab-section"><iframe src="" loading="lazy"></iframe></div>
+<div id="tools" class="tab-section"><iframe src="" loading="lazy"></iframe></div>
+<div id="career" class="tab-section"><iframe src="" loading="lazy"></iframe></div>
+
+</div>
+</div>
+
+<script>
+function openTab(id, el) {
+
+    // Hide all tabs
+    document.querySelectorAll('.tab-section')
+        .forEach(s => s.classList.remove('active'));
+
+    // Remove active link
+    document.querySelectorAll('.nav-links a')
+        .forEach(a => a.classList.remove('active'));
+
+    // Activate selected
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+
+    // Map tabs to files
+  
+    const pageMap = {
+        aitree: "tree.html",
+        intro: "AILearning.html",
+        ml: "Ml.html",
+        dl: "Deep Learning.html",
+        llm: "LLM.html",
+        rag: "Rag.html",
+        tools: "AITools.html",
+        career: "Career.html"
+    };
+
+    const iframe = document.querySelector(`#${id} iframe`);
+
+    
+		if (iframe && pageMap[id]) {
+		    iframe.src = pageMap[id];
+		}
+
+}
+window.onload = () => openTab('aitree', document.querySelector('.nav-links a.active'));
+</script>
+<script data-goatcounter="https://machinethinking.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

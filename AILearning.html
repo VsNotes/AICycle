@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Hierarchy - Ashish Sinha</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Architects+Daughter&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --panel-bg: #000000;
+    --page-bg: #000000;
+    --ink-black: #9e9e9e; /* GRAY borders */
+    --ai-blue: #4da3ff;
+    --ml-green: #4caf50;
+    --dl-purple: #b39ddb;
+    --border-width: 3px;
+}
+body {
+    background-color: var(--page-bg);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18px;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.comic-canvas {
+    max-width: 100%;
+    margin: 0;
+    background: var(--panel-bg);
+    padding: 40px;
+}
+
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.comic-canvas {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+header {
+    border-bottom: var(--border-width) solid var(--ink-black);
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 60px;
+    letter-spacing: 2px;
+    margin: 0;
+    color: var(--ai-blue);
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px var(--ink-black);
+}
+
+.author-tag {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6b6b;
+}
+
+.tree-line {
+    border-left: 2px dotted var(--ink-black);
+    margin-left: 20px;
+    padding-left: 30px;
+    margin-top: 20px;
+}
+
+.branch-title {
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+    background: #111;
+    color: #fff;
+    display: inline-block;
+    padding: 5px 20px;
+    transform: rotate(-1deg);
+    margin-bottom: 15px;
+}
+
+.parent-node-title {
+    font-size: 50px;
+    transform: rotate(-0.5deg);
+    margin-bottom: 25px;
+}
+
+.content-block,
+.parent-node-content {
+    background: #000;
+    border: 1px solid var(--ink-black);
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 5px 5px 0px #444;
+    white-space: pre-wrap;
+    color: #e0e0e0;
+}
+
+.parent-node-content {
+    font-size: 22px;
+    border-width: 4px;
+}
+
+.example-box {
+    background: #000;
+    border: 2px dashed var(--ink-black);
+    padding: 15px;
+    margin: 15px 0;
+    font-weight: bold;
+    color: #f5f5f5;
+}
+
+.token-item {
+    display: inline-block;
+    background: #222;
+    color: white;
+    padding: 2px 10px;
+    margin: 2px;
+    border-radius: 4px;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 50px;
+    border-top: var(--border-width) solid var(--ink-black);
+    padding-top: 30px;
+}
+
+.footer-panel {
+    border: var(--border-width) solid var(--ink-black);
+    padding: 20px;
+    background: #000;
+    color: #e0e0e0;
+}
+
+strong { color: #ff6b6b; }
+b { color: var(--ai-blue); }
+
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #555; }
+
+/* ===============================
+  
+   (NO content/data/style altered)
+   =============================== */
+
+/* Tablets + Mobile */
+@media (max-width: 900px) {
+    body {
+        padding: 20px 10px;
+        font-size: 16px;
+    }
+
+    .comic-canvas {
+        padding: 20px;
+        box-shadow: none;
+    }
+
+    h1 {
+        font-size: 44px;
+        text-align: center;
+    }
+
+    .author-tag {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .parent-node-title {
+        font-size: 36px;
+    }
+
+    .branch-title {
+        font-size: 28px;
+    }
+
+    .parent-node-content {
+        font-size: 18px;
+    }
+
+    .content-block {
+        font-size: 16px;
+    }
+
+    .tree-line {
+        margin-left: 10px;
+        padding-left: 20px;
+    }
+
+    .grid-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    .parent-node-title {
+        font-size: 30px;
+    }
+
+    .branch-title {
+        font-size: 24px;
+        padding: 4px 14px;
+    }
+
+    .comic-canvas {
+        padding: 15px;
+    }
+
+    .tree-line {
+        border-left-width: 3px;
+        padding-left: 16px;
+    }
+
+    /*  Prevent horizontal overflow */
+    body {
+        overflow-x: hidden;
+    }
+
+    /*  NLP flow diagram wraps instead of breaking */
+    div[style*="display:flex"] {
+        flex-wrap: wrap;
+        row-gap: 12px;
+    }
+
+    div[style*="white-space:nowrap"] {
+        white-space: normal;
+        text-align: left;
+    }
+
+    /*  Reduce padding for content blocks */
+    .content-block,
+    .parent-node-content {
+        padding: 14px;
+    }
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="comic-canvas">
+    <div class="branch-title parent-node-title">◆ Artificial Intelligence (AI) [1956]</div>
+    <div class="content-block parent-node-content">
+AI is the grand goal of making machines behave intelligently like humans.
+It combines mathematics, data, and algorithms to simulate human thinking.
+
+<b>AI does NOT mean robots only</b> — most AI today runs in software systems.
+
+<b>Real-world AI examples:</b>
+ ▸ Google Search ranking system
+ ▸ ChatGPT answering questions
+ ▸ Face recognition in phones
+ ▸ Fraud detection in banking
+
+<b>Major AI Domains (Beginner Friendly):</b>
+
+<span style="color:var(--ai-blue)">◇ NLP – Natural Language Processing (text, chat, search)</span>
+NLP enables machines to work with human language (text and speech).  
+Modern LLMs like ChatGPT are advanced NLP systems trained on large-scale data to understand context and generate responses.
+<div style="margin-top:10px; font-size:18px; display:flex; align-items:flex-start; gap:14px;">
+  
+ <div style="display:flex; align-items:flex-start; gap:8px; font-size:14px; text-align:center; white-space:nowrap;">
+
+  <div>
+    📝 Input (Prompt)<br>
+    <span style="font-size:12px; color:#555;">"I love you"</span>
+  </div>
+
+  <div style="margin-top:12px;">→</div>
+
+  <div>
+    ✂ Tokenization<br>
+    <span style="font-size:12px; color:#555;">["I","love","you"]</span>
+    <div>
+  ✂ Tokenization<br>
+  <span style="font-size:11px; color:#555; line-height:1.4;">
+    "I love you"<br>
+    ↓<br>
+    ["I", "love", "you"]<br>
+    ↓<br>
+    Vocabulary Lookup<br>
+    ↓<br>
+    Token IDs → [123, 456, 789]
+  </span>
+</div>
+
+  </div>
+
+  <div style="margin-top:12px;">→</div>
+
+  <div>
+    🧠 Embeddings<br>
+    <span style="font-size:11px; color:#555;">
+      [0.12, 0.45]<br>
+      ...
+    </span>
+  </div>
+
+  <div style="margin-top:12px;">→</div>
+
+  <div>
+    🤖 Transformer / LLM (ChatGPT)<br>
+    <div>
+  🤖 Transformer / LLM (ChatGPT)<br>
+  <span style="font-size:11px; color:#555; line-height:1.4;">
+    Attention & Context<br>
+    ↓<br>
+    Next Token Prediction<br>
+    ↓<br>
+    Text Generation
+  </span>
+</div>
+
+  </div>
+
+  <div style="margin-top:12px;">→</div>
+
+  <div>
+    💬 Output Response<br>
+    <span style="font-size:12px; color:#555;">"I love you too ❤️"</span>
+  </div>
+
+</div>
+
+</div>
+<b>Simple idea:</b>  
+Text → Tokenization → Understanding → Response Generation (LLM)
+  
+  <b>Core tasks:</b>
+   • Text understanding (sentiment analysis, intent detection)
+   • Language generation (chatbots, AI writing tools)
+   • Translation (English ↔ Hindi, etc.)
+   • Summarization (long text → short summary)
+  
+  <b>Real examples:</b>
+   ▸ ChatGPT → conversational AI
+   ▸ Google Translate → language conversion
+   ▸ Gmail Smart Reply → auto responses
+  
+  <b>How NLP works (simple flow):</b>
+   Text → Tokenization → Embeddings → Model → Output
+  
+  <b>Challenges:</b>
+   • sarcasm understanding
+   • context tracking
+   • multiple meanings of same word
+
+ <span style="color:var(--ai-blue)">◇ Vision – Image & video understanding</span>
+  Vision AI helps machines “see” like humans.
+  
+  <b>Core tasks:</b>
+   • object detection (cars, people, animals)
+   • face recognition
+   • image classification
+   • medical image analysis
+  
+  <b>Real examples:</b>
+   ▸ iPhone Face ID
+   ▸ Tesla self-driving cameras
+   ▸ Google Photos auto tagging
+  
+  <b>Why important:</b>
+   → 80% of real-world data is visual
+
+ <span style="color:var(--ai-blue)">◇ Speech – Voice recognition, TTS</span>
+  Speech AI converts voice ↔ text.
+  
+  <b>Tasks:</b>
+   • Speech-to-text (STT)
+   • Text-to-speech (TTS)
+   • voice command understanding
+  
+  <b>Examples:</b>
+   ▸ Alexa / Siri
+   ▸ YouTube auto captions
+   ▸ call center voice bots
+  
+  <b>Challenges:</b>
+   • accents
+   • background noise
+   • multiple speakers
+
+ <span style="color:var(--ai-blue)">◇ Robotics – Physical intelligent systems</span>
+  Robotics combines AI + hardware + sensors.
+  
+  <b>Tasks:</b>
+   • movement control
+   • object detection in real world
+   • decision making in physical space
+  
+  <b>Examples:</b>
+   ▸ self-driving cars
+   ▸ warehouse robots (Amazon)
+   ▸ surgical robots
+  
+  <b>Key components:</b>
+   sensors → perception → AI model → motor action
+
+ <span style="color:var(--ai-blue)">◇ Recommender Systems – Netflix, YouTube</span>
+  These systems predict what you will like next.
+  
+  <b>Types:</b>
+   • content-based filtering
+   • collaborative filtering
+   • hybrid systems
+  
+  <b>Real examples:</b>
+   ▸ Netflix movie suggestions
+   ▸ YouTube next video autoplay
+   ▸ Amazon “customers also bought”
+  
+  <b>How it works:</b>
+   user behavior → pattern learning → ranking → recommendation
+    </div>
+    <div class="tree-line">
+        <div class="branch-title">◆  Rule‑Based / Symbolic AI (1950s → early 2000s)</div>
+        <div class="content-block">
+Humans explicitly write IF–ELSE rules.
+These systems follow fixed logical conditions created by experts.
+
+<b>How it works:</b>
+ IF condition is true → THEN execute predefined action
+
+<b>Example:</b>
+ IF temperature > 100°F THEN diagnose = fever
+ IF user_input = "hello" THEN reply = "hi"
+
+<b>Where it was used:</b>
+ • early chatbots (ELIZA style systems)
+ • expert systems in medical diagnosis
+ • industrial automation rules
+
+<b>Limitation in real world:</b>
+ • cannot learn from new data
+ • requires manual rule creation for every case
+ • breaks when input is slightly different
+
+<b>Failed because:</b>
+ • Rules explode in real life (combinatorial explosion)
+ • Cannot handle uncertainty or probability
+ • No adaptation ability
+ • Hard to maintain
+
+<b>Real-world insight:</b>
+ → Works only in controlled environments, not in dynamic environments like language, vision, or human behavior
+        </div>
+
+        <div class="branch-title">◆ Machine Learning (ML) [1990s]</div>
+        <div class="content-block">
+Machine Learning (ML) is a branch of AI where systems learn patterns
+directly from data instead of being explicitly programmed with rules.
+
+<b>Core idea:</b>
+ → Instead of writing logic, we show examples and let the model learn
+
+<b>Real-world meaning:</b>
+ • Email spam detection learns from past emails
+ • Netflix learns from your watching history
+ • Banks learn fraud patterns from transactions
+
+<b>Learning loop:</b>
+ Data → Prediction → Loss → Backpropagation → Better Model
+
+<b>Explanation of loop:</b>
+ • Data → input examples (images, text, numbers)
+ • Prediction → model guesses output
+ • Loss → difference between correct vs predicted answer
+ • Backpropagation → adjusts internal weights to reduce error
+ • Better Model → improved accuracy after training
+
+<b>Why ML is powerful:</b>
+ • finds hidden patterns humans cannot easily see
+ • improves automatically with more data
+ • works for prediction-based problems
+
+<b>Limitations of ML:</b>
+ • depends heavily on quality of data
+ • struggles with raw unstructured data (images/audio/text)
+ • needs manual feature engineering in many cases
+
+<span style="color:var(--ml-green)">◇ Learning Types</span>
+ ├─ <b>Supervised Learning</b>
+ │   • Uses labeled data (input + correct output)
+ │   • Model learns mapping between input and output
+ │   <b>Real examples:</b> spam detection, image classification, price prediction.
+ │   <b>Key idea:</b> → "Learn from correct answers"
+ │
+ └─ <b>Unsupervised Learning</b>
+     • Uses unlabeled data (no correct answers given)
+     • Model finds hidden patterns by itself
+     <b>Real examples:</b> customer segmentation, news grouping, anomaly detection.
+     <b>Key idea:</b> → "Discover structure without guidance"
+        </div>
+
+        <div class="tree-line">
+            <div class="branch-title">◆ Deep Learning (DL) [2012]</div>
+            <div class="content-block">
+ML failed on raw images, speech and text → DL started.
+
+<b>Reason for failure of ML:</b>
+ • Images have millions of pixel features → too complex for manual feature engineering
+ • Speech is continuous time-series data → ML cannot capture sequence well
+ • Text requires context understanding → ML cannot model long dependencies
+
+Deep Learning (DL) solved this by removing manual feature engineering
+and letting the model learn features automatically from raw data.
+
+Uses Neural Networks inspired by human brain.
+
+<b>Idea behind Neural Networks:</b>
+ → mimic how neurons in the brain connect and pass signals
+ → each neuron learns small patterns and combines them into complex understanding
+
+<b>Why DL became powerful:</b>
+ • works directly on raw data
+ • improves with more data and compute (GPU/TPU)
+ • automatically builds feature hierarchy
+
+<span style="color:var(--dl-purple)">◇ Neural Network Layers</span>
+ ├─ <b>Input Layer</b> → receives raw data
+ │   • example: image → pixel values, text → token IDs
+ ├─ <b>Hidden Layers</b> → learn patterns
+ │   Layer 1 → simple patterns (edges)
+ │   Layer 2 → shapes / phrases
+ │   Layer 3 → complex objects / meaning
+ └─ <b>Output Layer</b> → prediction
+     Final decision. Probability-based: Cat = 0.82, Dog = 0.18
+
+<b>◆ CNN (Vision Models)</b>
+ CNN is designed specifically for understanding images and visual data.
+ <b>How CNN “sees”:</b> human brain (edges → shapes) ≈ CNN (filters → features).
+ <b>Key components:</b> Convolution, ReLU, Pooling.
+
+<b>◆ Transformer [2017]</b>
+ Designed to process sequential data using <b>Attention</b>.
+ Solves RNN/LSTM limitations (forgetting long context).
+ <b>Core idea:</b> Looks at ALL words at once and decides which matter most.
+            </div>
+
+            <div class="tree-line">
+                <div class="branch-title">◆ Large Language Models (LLMs) [2018+]</div>
+                <div class="content-block">
+LLMs are trained on massive text to understand and generate human language.
+<b>Core idea:</b> Predict the next word (token) based on previous context.
+
+<div class="example-box">
+<b>Example Input: "I love you"</b>
+</div>
+
+<span style="color:var(--dl-purple)">◇ Tokenization</span>
+ Breaking text into small units called tokens.
+ <b>Word Tokens:</b> ["I", "love", "you"]
+ <b>Sub-word (BPE):</b> ["I", "lo", "ve", "you"]
+ <b>Why?</b> Handles unknown words, reduces vocab size.
+
+<span style="color:var(--dl-purple)">◇ Vocabulary</span>
+ Fixed dictionary where each token has a unique numerical ID.
+ "I" → 101, "love" → 458, "you" → 932.
+
+<span style="color:var(--dl-purple)">◇ Embedding Layer</span>
+ Converts IDs into dense numerical vectors to give semantic meaning.
+
+<span style="color:var(--dl-purple)">◇ Transformer Layers</span>
+ <b>Self-Attention:</b> every word looks at every other word.
+ <b>Feed-Forward:</b> refines relationships.
+
+<span style="color:var(--dl-purple)">◇ Vocabulary Projection</span>
+ Converts hidden vector → softmax → probability distribution.
+ "you" = 0.62, "me" = 0.21.
+
+<span style="color:var(--dl-purple)">◇ Generated Text</span>
+ Model generates text step-by-step. 
+ <b>Key limitation:</b> No real understanding, purely statistical patterns.
+
+<b>◆ RAG (Retrieval-Augmented Generation)</b>
+ Enhances LLMs by connecting them with external knowledge.
+ 
+ ├─ <b>Data Collection:</b> Docs / PDFs / APIs
+ ├─ <b>Data Cleaning:</b> Removes noise
+ ├─ <b>Chunking:</b> Splits into meaningful pieces
+ ├─ <b>Vector Embedding:</b> Numerical vectors for search
+ ├─ <b>Vector Database:</b> AI memory (Azure AI Search / FAISS)
+ ├─ <b>Similarity Search:</b> Finds "closest meaning" (Cosine Similarity)
+ ├─ <b>Prompt + Context:</b> Adds retrieved chunks to user query
+ └─ <b>Grounded Answer:</b> AI is grounded in real data, reduces hallucination.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-layout">
+        <div class="footer-panel">
+            <div class="branch-title" style="font-size: 24px;">◆ AI Career Paths</div>
+            <ul style="list-style: none; padding: 0;">
+                <li>• Prompt Engineer</li>
+                <li>• ML Engineer (Python)</li>
+                <li>• AI Engineer (LLMs, RAG)</li>
+                <li>• Data Scientist</li>
+                <li>• MLOps Engineer</li>
+            </ul>
+        </div>
+        <div class="footer-panel" style="background: #00000;">
+            <div class="branch-title" style="font-size: 24px;">◆ Tech Stack Usage</div>
+            <ul style="list-style: none; padding: 0;">
+                <li>• <b>Python:</b> ML, DL, LLMs, RAG pipelines</li>
+                <li>• <b>Azure AI:</b> GPT models, Vector databases</li>
+                <li>• <b>Enterprise:</b> AI solutions</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

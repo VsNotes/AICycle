@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AICycle – Learn AI from Zero to Hero | Ashish Sinha</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a2e;--bg:#fef9e7;
+  --hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;
+  --green:#10b981;--py:#2563eb;--net:#7c3aed;
+  --teal:#0d9488;--orange:#f59e0b;
+  --ft:'Bangers',cursive;--fb:'Nunito',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:column;}
+
+/* ── BRAND BAR ────────────────────────────────────── */
+.brand-bar{
+  background:var(--ink);
+  border-bottom:3px solid var(--hot);
+  padding:.3rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.3rem;flex-shrink:0;z-index:300;
+}
+.brand-left{display:flex;align-items:center;gap:1rem;}
+.brand-logo{
+  font-family:var(--ft);font-size:2.2rem;color:var(--yellow);
+  letter-spacing:3px;line-height:1;cursor:pointer;
+  transition:transform .2s;
+}
+.brand-logo:hover{transform:scale(1.05);}
+.brand-logo span{color:var(--cyan);}
+.brand-meta{font-size:.72rem;color:#999;line-height:1.55;}
+.brand-meta strong{color:#eee;}
+.brand-meta a{color:var(--yellow);text-decoration:none;transition:color .2s;}
+.brand-meta a:hover{color:var(--hot);}
+.brand-right{display:flex;align-items:center;gap:.5rem;}
+.brand-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(247,37,133,.12);border:1.5px solid rgba(247,37,133,.4);
+  border-radius:20px;padding:.2rem .75rem;
+  font-size:.7rem;color:#f9a8d4;font-weight:700;letter-spacing:.5px;
+}
+.site-hits{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.3);
+  border-radius:20px;padding:.2rem .75rem;
+  font-size:.7rem;color:#6ee7b7;font-weight:700;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#10b981;animation:blink 1.5s ease-in-out infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+/* ── TAB BAR ──────────────────────────────────────── */
+.tab-bar{
+  background:linear-gradient(180deg,#0a0a18 0%,#1a1a2e 100%);
+  border-bottom:4px solid var(--yellow);
+  display:flex;align-items:flex-end;
+  padding:.55rem 1rem 0;gap:.3rem;
+  overflow-x:auto;flex-shrink:0;
+  scrollbar-width:thin;scrollbar-color:var(--hot) #111;
+}
+.tab-bar::-webkit-scrollbar{height:4px;}
+.tab-bar::-webkit-scrollbar-track{background:#111;}
+.tab-bar::-webkit-scrollbar-thumb{background:var(--hot);border-radius:2px;}
+
+.tab{
+  font-family:var(--ft);font-size:.95rem;letter-spacing:1.5px;
+  padding:.45rem 1.1rem .62rem;
+  border:2.5px solid rgba(255,255,255,.08);border-bottom:none;
+  border-radius:10px 10px 0 0;
+  cursor:pointer;color:#8888aa;background:rgba(255,255,255,.05);
+  transition:all .18s cubic-bezier(.34,1.56,.64,1);
+  white-space:nowrap;position:relative;top:4px;outline:none;
+  display:inline-flex;align-items:center;gap:.35rem;
+  user-select:none;
+}
+.tab:hover{background:rgba(255,255,255,.14);color:#ddd;top:2px;}
+
+/* active colour variants */
+.tab.act-y {background:var(--yellow);color:var(--ink);top:0;border-color:var(--yellow);box-shadow:0 -3px 0 var(--yellow),3px 0 0 var(--yellow),-3px 0 0 var(--yellow),inset 0 3px 0 rgba(255,255,255,.4);transform:scale(1.06);}
+.tab.act-b {background:var(--py);color:#fff;top:0;border-color:var(--py);box-shadow:0 -3px 0 var(--py),3px 0 0 var(--py),-3px 0 0 var(--py),inset 0 3px 0 rgba(255,255,255,.25);transform:scale(1.06);}
+.tab.act-p {background:var(--net);color:#fff;top:0;border-color:var(--net);box-shadow:0 -3px 0 var(--net),3px 0 0 var(--net),-3px 0 0 var(--net),inset 0 3px 0 rgba(255,255,255,.2);transform:scale(1.06);}
+.tab.act-h {background:var(--hot);color:#fff;top:0;border-color:var(--hot);box-shadow:0 -3px 0 var(--hot),3px 0 0 var(--hot),-3px 0 0 var(--hot),inset 0 3px 0 rgba(255,255,255,.2);transform:scale(1.06);}
+.tab.act-t {background:var(--teal);color:#fff;top:0;border-color:var(--teal);box-shadow:0 -3px 0 var(--teal),3px 0 0 var(--teal),-3px 0 0 var(--teal),inset 0 3px 0 rgba(255,255,255,.2);transform:scale(1.06);}
+.tab.act-o {background:var(--orange);color:var(--ink);top:0;border-color:var(--orange);box-shadow:0 -3px 0 var(--orange),3px 0 0 var(--orange),-3px 0 0 var(--orange),inset 0 3px 0 rgba(255,255,255,.3);transform:scale(1.06);}
+.tab.act-g {background:var(--green);color:#fff;top:0;border-color:var(--green);box-shadow:0 -3px 0 var(--green),3px 0 0 var(--green),-3px 0 0 var(--green),inset 0 3px 0 rgba(255,255,255,.2);transform:scale(1.06);}
+
+.tab .nbadge{
+  display:inline-block;background:var(--hot);color:#fff;
+  font-size:.48rem;padding:1px 5px;border-radius:10px;
+  font-family:var(--fb);font-weight:800;
+  border:1px solid rgba(255,255,255,.4);
+  animation:pulse-n 2s ease-in-out infinite;
+  vertical-align:middle;
+}
+@keyframes pulse-n{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
+
+/* ── IFRAME AREA ──────────────────────────────────── */
+.frame-wrap{flex:1;overflow:hidden;position:relative;background:#fef9e7;}
+#cf{width:100%;height:100%;border:none;display:block;}
+
+/* ── LOADING SCREEN ───────────────────────────────── */
+.loader{
+  position:absolute;inset:0;
+  background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1.2rem;z-index:200;
+  transition:opacity .35s ease;
+}
+.loader.gone{opacity:0;pointer-events:none;}
+.ld-logo{
+  font-family:var(--ft);font-size:4rem;color:var(--yellow);
+  letter-spacing:4px;
+  animation:pulse-n 1.4s ease-in-out infinite;
+}
+.ld-logo span{color:var(--cyan);}
+.ld-bar{width:220px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
+.ld-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--hot),var(--yellow),var(--cyan),var(--green));background-size:300% 100%;animation:bar-slide 1.3s ease-in-out infinite;}
+@keyframes bar-slide{0%{background-position:100% 0;}100%{background-position:-100% 0;}}
+.ld-txt{font-family:var(--fb);font-size:.82rem;color:#555;letter-spacing:1.5px;text-transform:uppercase;}
+
+/* ── RESPONSIVE ───────────────────────────────────── */
+@media(max-width:700px){
+  .brand-bar{padding:.25rem .8rem;}
+  .brand-logo{font-size:1.6rem;}
+  .brand-meta,.brand-badge,.site-hits{display:none;}
+  .tab{font-size:.72rem;padding:.3rem .6rem .45rem;letter-spacing:.5px;}
+  .tab-bar{padding:.4rem .5rem 0;gap:.18rem;}
+}
+@media(max-width:480px){
+  .tab{font-size:.65rem;padding:.28rem .45rem .4rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── BRAND BAR ─────────────────────────────────── -->
+<div class="brand-bar">
+  <div class="brand-left">
+    <div class="brand-logo" onclick="loadPage('home.html','act-y',0)">AI<span>Cycle</span></div>
+    <div class="brand-meta">
+      Built with 🧠 by <strong>Ashish Sinha</strong> · AI Developer ·
+      <a href="mailto:startvsnotes@gmail.com">✉️ startvsnotes@gmail.com</a> · © 2025
+    </div>
+  </div>
+  <div class="brand-right">
+    <div class="site-hits"><span class="live-dot"></span> <span id="hit-count">...</span> visits</div>
+    <div class="brand-badge">🚀 Zero to AI Hero</div>
+  </div>
+</div>
+
+<!-- ── TAB NAV ────────────────────────────────────── -->
+<div class="tab-bar" id="tabBar">
+  <button class="tab act-y" data-src="home.html"          data-ac="act-y" onclick="loadPage(this.dataset.src,this.dataset.ac,0)">🏠 HOME</button>
+  <button class="tab"       data-src="intro.html"         data-ac="act-y" onclick="loadPage(this.dataset.src,this.dataset.ac,1)">🌱 INTRO</button>
+  <button class="tab"       data-src="ml.html"            data-ac="act-b" onclick="loadPage(this.dataset.src,this.dataset.ac,2)">📊 ML</button>
+  <button class="tab"       data-src="deeplearning.html"  data-ac="act-p" onclick="loadPage(this.dataset.src,this.dataset.ac,3)">🕸️ DEEP LEARNING</button>
+  <button class="tab"       data-src="llms.html"          data-ac="act-b" onclick="loadPage(this.dataset.src,this.dataset.ac,4)">💬 LLMs</button>
+  <button class="tab"       data-src="rag.html"           data-ac="act-g" onclick="loadPage(this.dataset.src,this.dataset.ac,5)">🔍 RAG</button>
+  <button class="tab"       data-src="agentic.html"       data-ac="act-h" onclick="loadPage(this.dataset.src,this.dataset.ac,6)">⚡ AGENTIC AI</button>
+  <button class="tab"       data-src="python-rag.html"    data-ac="act-b" onclick="loadPage(this.dataset.src,this.dataset.ac,7)">🐍 PYTHON RAG</button>
+  <button class="tab"       data-src="dotnet-rag.html"    data-ac="act-p" onclick="loadPage(this.dataset.src,this.dataset.ac,8)">🟣 .NET RAG</button>
+  <button class="tab"       data-src="qa-automation.html" data-ac="act-t" onclick="loadPage(this.dataset.src,this.dataset.ac,9)">🧪 QA AUTO</button>
+  <button class="tab"       data-src="tools.html"         data-ac="act-o" onclick="loadPage(this.dataset.src,this.dataset.ac,10)">🛠️ TOOLS</button>
+  <button class="tab"       data-src="career.html"        data-ac="act-g" onclick="loadPage(this.dataset.src,this.dataset.ac,11)">🎯 CAREER</button>
+  <button class="tab"       data-src="interview.html"     data-ac="act-h" onclick="loadPage(this.dataset.src,this.dataset.ac,12)">🎤 INTERVIEW Q&amp;A <span class="nbadge">NEW</span></button>
+</div>
+
+<!-- ── IFRAME ─────────────────────────────────────── -->
+<div class="frame-wrap">
+  <div class="loader" id="loader">
+    <div class="ld-logo">AI<span>Cycle</span></div>
+    <div class="ld-bar"><div class="ld-fill"></div></div>
+    <div class="ld-txt">Loading...</div>
+  </div>
+  <iframe id="cf" src="home.html" title="AICycle Content" allowfullscreen></iframe>
+</div>
+
+<script>
+const frame  = document.getElementById('cf');
+const loader = document.getElementById('loader');
+const tabs   = document.querySelectorAll('.tab');
+const ALL_ACS= ['act-y','act-b','act-p','act-h','act-t','act-o','act-g'];
+let   currentIdx = 0;
+
+/* ── LOAD A PAGE ──────────────────────────────────── */
+function loadPage(src, ac, idx){
+  // clear active
+  tabs.forEach(t => t.classList.remove(...ALL_ACS));
+  // set active on correct tab
+  if(typeof idx === 'number') tabs[idx]?.classList.add(ac);
+
+  // show loader
+  loader.classList.remove('gone');
+
+  // load iframe
+  frame.src = src;
+  currentIdx = idx;
+
+  // update URL hash (no reload)
+  history.replaceState(null,'','#'+src.replace('.html',''));
+}
+
+/* ── HIDE LOADER WHEN IFRAME READY ───────────────── */
+frame.addEventListener('load', () => {
+  setTimeout(() => loader.classList.add('gone'), 250);
+});
+
+/* ── LIVE VISIT COUNTER (localStorage approx) ─────── */
+(function(){
+  const k  = 'acyc_total';
+  const raw= localStorage.getItem(k);
+  const n  = raw ? parseInt(raw)+1 : 1482;
+  localStorage.setItem(k, n);
+  const el = document.getElementById('hit-count');
+  // Count up animation
+  let cur=n-30; const target=n;
+  const tick=setInterval(()=>{
+    cur+=3; if(cur>=target){cur=target;clearInterval(tick);}
+    el.textContent=cur.toLocaleString();
+  },40);
+})();
+
+/* ── KEYBOARD SHORTCUTS ───────────────────────────── */
+document.addEventListener('keydown', e => {
+  // Alt+1-9 → load tab
+  if(e.altKey && !e.shiftKey && e.key>='1' && e.key<='9'){
+    const i = parseInt(e.key)-1;
+    if(tabs[i]){
+      const t=tabs[i];
+      loadPage(t.dataset.src, t.dataset.ac, i);
+    }
+  }
+  // Alt+← → previous tab
+  if(e.altKey && e.key==='ArrowLeft' && currentIdx>0){
+    const t=tabs[currentIdx-1];
+    loadPage(t.dataset.src,t.dataset.ac,currentIdx-1);
+  }
+  // Alt+→ → next tab
+  if(e.altKey && e.key==='ArrowRight' && currentIdx<tabs.length-1){
+    const t=tabs[currentIdx+1];
+    loadPage(t.dataset.src,t.dataset.ac,currentIdx+1);
+  }
+});
+
+/* ── HANDLE HASH ON LOAD ──────────────────────────── */
+(function(){
+  const hash = window.location.hash.slice(1);
+  if(!hash) return;
+  const btn = Array.from(tabs).find(t=>t.dataset.src===hash+'.html');
+  if(btn){
+    const idx=Array.from(tabs).indexOf(btn);
+    loadPage(btn.dataset.src,btn.dataset.ac,idx);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Large Language Models (LLMs)</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Architects+Daughter&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --panel-bg: #000000;
+    --page-bg: #000000;
+    --ink-black: #9e9e9e;
+    --ai-blue: #4da3ff;
+    --border-width: 3px;
+}
+
+body {
+    background-color: var(--page-bg);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18px;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+}
+
+.comic-canvas {
+    max-width: 100%;
+    margin: 0;
+    background: var(--panel-bg);
+    padding: 40px;
+}
+
+.branch-title {
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+    background: #111;
+    color: #fff;
+    display: inline-block;
+    padding: 5px 20px;
+    transform: rotate(-1deg);
+    margin-bottom: 15px;
+}
+
+.content-block {
+    background: #000;
+    border: 1px solid var(--ink-black);
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 5px 5px 0px #444;
+    white-space: pre-wrap;
+}
+
+.tree-line {
+    border-left: 2px dotted var(--ink-black);
+    margin-left: 20px;
+    padding-left: 30px;
+    margin-top: 20px;
+}
+
+strong { color: #ff6b6b; }
+b { color: var(--ai-blue); }
+</style>
+</head>
+
+<body>
+<div class="comic-canvas">
+
+<div class="branch-title">◆ Large Language Models (LLMs)</div>
+<div class="content-block">
+LLMs are AI systems trained to understand,
+generate, and reason with human language
+at a very large scale.
+
+<b>Simple feeling:</b>
+You talk.
+The system listens.
+It predicts what should come next.
+
+Not magic.
+Just experience — at massive scale.
+</div>
+
+<div class="branch-title">◇ First See the Whole Flow (Big Picture)</div>
+<div class="content-block">
+<p><b>Prompt → Break → Understand → Focus → Guess → Reply</b></p>
+Text you type (Prompt – what you ask)
+↓
+Tokenizer (text cutter – breaks sentence)
+↓
+Tokens (number pieces – AI language units)
+↓
+Vocabulary lookup (word dictionary AI knows)
+↓
+Embeddings (meaning map – words become meaning‑numbers)
+↓
+Transformer Layers (thinking steps – understanding in levels)
+↓
+Attention (focus mechanism – what matters more)
+↓
+Next‑token prediction (best next word guess)
+↓
+Text output (final readable answer)
+
+Everything else is detail.
+This flow never changes.
+</div>
+
+<div class="tree-line">
+
+<div class="branch-title">◇ Why LLMs Were Needed</div>
+<div class="content-block">
+Earlier systems:
+• Didn’t understand context well
+• Forgot long conversations
+• Needed task‑specific models
+
+<b>Problem:</b>
+Human language is long, messy, and contextual.
+
+<b>Human feeling:</b>
+🧑 “Don’t you remember what I said earlier?”
+🤖 Old AI: “No.”
+
+LLMs were created to handle:
+• Long context
+• Meaning across sentences
+• Natural conversation
+</div>
+
+<div class="branch-title">◇ Tokenizer, Token & Vocabulary</div>
+<div class="content-block">
+LLMs do not read letters.
+They read numbers.
+
+<b>Tokenizer:</b>
+Breaks text into parts (splitting sentence)
+
+<b>Token:</b>
+One such part (word or word‑piece)
+
+<b>Vocabulary:</b>
+All tokens the model knows
+
+Example:
+“Artificial Intelligence”
+→ ["Artificial", "Intelli", "gence"]
+
+<b>Human idea:</b>
+🧠 “If I can count it, I can learn it.”
+That’s how models think.
+</div>
+
+<div class="branch-title">◇ Embeddings (Where Meaning Appears)</div>
+<div class="content-block">
+Tokens alone have no meaning.
+Embeddings give meaning.
+
+An embedding is a list of numbers
+that represents a word’s meaning.
+
+<b>Example:</b>
+“Doctor” and “Hospital” → close
+“Doctor” and “Banana” → far
+
+Meaning becomes distance on a map.
+
+That map is called:
+<b>Embedding Space</b>
+</div>
+
+<div class="branch-title">◇ Layers (How Thinking Deepens)</div>
+<div class="content-block">
+LLMs have many layers.
+
+Each layer refines understanding.
+
+<b>Language layers roughly do:</b>
+Layer 1 → Word shapes  
+Layer 2 → Grammar  
+Layer 3 → Relationships  
+Layer 4 → Context  
+Later layers → Meaning & intent  
+
+<b>Human analogy:</b>
+First you hear words.
+Then you understand the sentence.
+Then you get the intention.
+</div>
+
+<div class="branch-title">◇ Transformer (The Core Brain)</div>
+<div class="content-block">
+LLMs are built using
+<b>Transformers</b> (introduced in 2017).
+
+<b>Why Transformers matter:</b>
+They look at all words at once.
+
+This is done via:
+<b>Attention Mechanism</b>
+
+Meaning:
+Each word pays attention
+to other relevant words.
+
+Example:
+“I saw a dog with a telescope”
+Attention decides:
+Who has the telescope?
+
+That ability changed everything.
+</div>
+
+<div class="branch-title">◇ CNN (Brief History)</div>
+<div class="content-block">
+CNNs were used heavily before Transformers.
+
+They worked well for:
+• Images
+• Local patterns
+
+But CNNs struggled with long text.
+
+Transformers replaced CNNs for language
+because language depends on
+long‑range relationships.
+</div>
+
+<div class="branch-title">◇ Where Knowledge Is Stored</div>
+<div class="content-block">
+All knowledge lives in:
+<b>Weights</b>
+
+Weights are learned numbers
+inside the layers.
+
+After seeing billions of sentences,
+weights encode:
+• Language patterns
+• Facts
+• Style
+• Reasoning habits
+
+No memory like humans.
+Only learned tendencies.
+</div>
+
+<div class="branch-title">◇ Training & Backpropagation</div>
+<div class="content-block">
+<b>Training process:</b>
+• Predict next token
+• Compare with correct token
+• Calculate mistake
+• Adjust weights slightly
+  (tiny self‑correction for next attempt)
+
+<b>Friendly idea:</b>
+Guess → check → fix → repeat
+
+Over time:
+Mistakes reduce.
+Understanding improves.
+</div>
+
+<div class="branch-title">◇ Output (What LLMs Actually Do)</div>
+<div class="content-block">
+LLMs always predict:
+<b>Next most likely token</b>
+
+They repeat this step many times,
+which becomes sentences.
+
+They do NOT “know” answers.
+They generate likely responses
+based on experience.
+
+Confidence ≠ correctness.
+</div>
+
+<div class="branch-title">◇ Vector Databases (Memory Extension)</div>
+<div class="content-block">
+LLMs have fixed training knowledge.
+They cannot remember new things.
+
+Vector Databases solve this.
+
+They store embeddings of:
+• Documents
+• PDFs
+• Company data
+
+During query:
+• Search similar meaning
+• Bring context
+• Feed back to LLM
+
+This is called:
+<b>Retrieval‑Augmented Generation (RAG)</b>
+</div>
+
+<div class="branch-title">◇ Azure AI & Real‑World Usage</div>
+<div class="content-block">
+Azure AI provides:
+• Hosted LLMs
+• Enterprise security
+• Vector search
+• RAG pipelines
+• Compliance
+
+Used by:
+• Enterprises
+• Banks
+• Healthcare
+• Governments
+
+Why Azure:
+Companies want AI
+without losing control.
+</div>
+
+<div class="branch-title">◇ Who Uses LLMs Today</div>
+<div class="content-block">
+• Developers → build AI features
+• QA → test behavior & safety
+• HR → screening & training
+• Managers → insights & decisions
+• Users → assistance & learning
+
+LLMs are horizontal tools —
+they fit everywhere.
+</div>
+
+<div class="branch-title">◇ Gentle Ending Thought</div>
+<div class="content-block">
+LLMs do not think.
+They predict.
+
+But prediction at scale
+looks like intelligence.
+
+They don’t replace humans.
+They amplify humans.
+
+The calm way forward:
+Understand the tool.
+Use it wisely.
+Stay responsible.
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

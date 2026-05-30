@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RAG – Retrieval Augmented Generation | AICycle</title><link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--bg:#fef9e7;--hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;--green:#10b981;--py:#2563eb;--net:#7c3aed;--teal:#0d9488;--orange:#f59e0b;--border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px);font-family:var(--fb);font-size:16px;color:#1e293b;min-height:100vh;}
+.page{max-width:1100px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+.hero{background:var(--ink);padding:2rem;text-align:center;position:relative;overflow:hidden;border-bottom:5px solid var(--hot);margin-bottom:2rem;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(247,37,133,.08) 1px,transparent 1px);background-size:20px 20px;}
+.hero h1{font-family:var(--ft);font-size:3rem;color:#fff;letter-spacing:3px;line-height:1.05;position:relative;}
+.hero h1 em{color:var(--hot);font-style:normal;}
+.hero p{color:#ccc;font-size:1rem;max-width:680px;margin:.6rem auto 0;line-height:1.75;position:relative;}
+.hero .badge{display:inline-block;background:var(--hot);color:#fff;font-family:var(--ft);font-size:.9rem;letter-spacing:2px;padding:.2rem 1rem;border-radius:20px;border:2px solid #fff;margin-bottom:.6rem;}
+.hw{display:grid;grid-template-columns:1fr 240px;gap:2rem;align-items:start;}
+.hm{display:flex;flex-direction:column;gap:1.8rem;}
+.hs{display:flex;flex-direction:column;gap:1.2rem;}
+.stitle{font-family:var(--ft);font-size:1.6rem;letter-spacing:2px;padding:.35rem .9rem;border:var(--border);display:inline-block;box-shadow:var(--sh);border-radius:6px;margin-bottom:.9rem;}
+.cstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem;}
+.cp{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1.1rem;position:relative;}
+.cpn{position:absolute;top:-13px;left:10px;background:var(--hot);color:#fff;font-family:var(--ft);font-size:1rem;width:28px;height:28px;border-radius:50%;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;}
+.cp h3{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;margin:.5rem 0 .3rem;}
+.cp p{font-size:.93rem;line-height:1.65;color:#1e293b;}
+.cp .tag{font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);display:inline-block;margin-top:.4rem;}
+.cpi{font-size:2rem;margin-bottom:.2rem;}
+.dbox{background:var(--ink);border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.4rem;position:relative;overflow:hidden;}
+.dbox::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:10px 10px;pointer-events:none;}
+.dbt{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.9rem;text-align:center;}
+.ibox{background:#fff;border:var(--border);border-left:6px solid var(--hot);border-radius:8px;box-shadow:4px 4px 0 var(--ink);padding:1.1rem 1.2rem;}
+.ibox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:var(--hot);margin-bottom:.5rem;}
+.ibox p,.ibox ul{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.ibox ul{padding-left:1.2rem;}.ibox ul li{margin-bottom:.3rem;}
+.ibox.green{border-left-color:var(--green);}.ibox.green h4{color:var(--green);}
+.ibox.blue{border-left-color:var(--py);}.ibox.blue h4{color:var(--py);}
+.ibox.teal{border-left-color:var(--teal);}.ibox.teal h4{color:var(--teal);}
+.ibox.orange{border-left-color:var(--orange);}.ibox.orange h4{color:var(--orange);}
+.ibox.net{border-left-color:var(--net);}.ibox.net h4{color:var(--net);}
+.bubble{background:#fffde7;border:var(--border);border-radius:16px;padding:.9rem 1.1rem;box-shadow:4px 4px 0 var(--ink);position:relative;}
+.bubble::after{content:'';position:absolute;bottom:-18px;left:24px;border-width:10px 8px 0;border-style:solid;border-color:var(--ink) transparent transparent;}
+.bubble::before{content:'';position:absolute;bottom:-14px;left:26px;border-width:9px 7px 0;border-style:solid;border-color:#fffde7 transparent transparent;z-index:1;}
+.bubble p{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.bwho{font-family:var(--ft);font-size:.95rem;color:var(--hot);margin-bottom:.25rem;display:flex;align-items:center;gap:.5rem;}
+.cb{background:#1e1e2e;border:3px solid var(--ink);border-radius:10px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin:.3rem 0;}
+.cbh{padding:.5rem 1rem;background:linear-gradient(90deg,#1e3a8a,#2563eb);color:#93c5fd;font-family:var(--fb);font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:.5rem;border-bottom:2px solid #313244;}
+.cbh.net{background:linear-gradient(90deg,#4c1d95,#7c3aed);color:#c4b5fd;}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.cbody{display:grid;grid-template-columns:40px 1fr;overflow-x:auto;}
+.lnums{background:#181825;color:#45475a;font-family:var(--fc);font-size:.8rem;line-height:1.8;padding:.8rem 0;text-align:right;padding-right:.6rem;user-select:none;border-right:1px solid #313244;}
+.lnums div{height:1.8em;}
+.code-content{padding:.8rem 1rem;font-family:var(--fc);color:#cdd6f4;font-size:.85rem;line-height:1.8;white-space:pre;overflow-x:auto;}
+.pk{color:#cba6f7;}.ps{color:#a6e3a1;}.pc{color:#6c7086;font-style:italic;}.pf{color:#89b4fa;}.pn{color:#f38ba8;}.pcl{color:#fab387;}.pat{color:#f5c2e7;}
+.tbl{width:100%;border-collapse:collapse;font-size:.93rem;background:#fff;border:var(--border);box-shadow:var(--sh);border-radius:8px;overflow:hidden;}
+.tbl th{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.95rem;letter-spacing:1px;padding:.55rem .9rem;text-align:left;}
+.tbl td{padding:.5rem .9rem;border-bottom:1.5px solid #eee;color:#1e293b;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:#f8faff;}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.fc{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;transition:transform .15s,box-shadow .15s;}
+.fc:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.fch{padding:.8rem 1rem;font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;display:flex;align-items:center;gap:.5rem;color:#1e293b;}
+.fcb{padding:0 1rem 1rem;font-size:.93rem;line-height:1.65;color:#1e293b;}
+.ftags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem;}
+.ftag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);}
+.steps{border:var(--border);border-radius:8px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.srow{display:grid;grid-template-columns:44px 1fr;}
+.snum{background:var(--hot);color:#fff;font-family:var(--ft);font-size:1.1rem;display:flex;align-items:center;justify-content:center;border-right:2.5px solid var(--ink);}
+.snum.blue{background:var(--py);}.snum.green{background:var(--green);}.snum.teal{background:var(--teal);}.snum.net{background:var(--net);}.snum.orange{background:var(--orange);}.snum.yellow{background:var(--yellow);color:var(--ink);}
+.scont{padding:.75rem 1rem;border-bottom:1.5px solid #eee;background:#fff;}
+.srow:last-child .scont{border-bottom:none;}
+.sl{font-family:var(--ft);font-size:.98rem;letter-spacing:1px;}
+.sd{font-size:.93rem;color:#334155;line-height:1.6;margin-top:.2rem;}
+.flow{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.3rem;overflow:hidden;position:relative;}
+.flow::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.flow-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.fn{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:.55rem .8rem;text-align:center;min-width:80px;}
+.fn .fi{font-size:1.3rem;display:block;margin-bottom:.15rem;}
+.fn .fl{font-family:var(--ft);font-size:.8rem;letter-spacing:1px;color:#fff;display:block;}
+.fn .fs{font-size:.68rem;color:rgba(255,255,255,.55);display:block;}
+.fn.hi{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.fn.bi{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.fn.gi{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.5);}
+.fn.yi{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.5);}
+.fn.ni{background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.6);}
+.fa{color:var(--yellow);font-size:1.2rem;font-weight:900;}
+.floop{border:2px dashed rgba(251,191,36,.3);border-radius:10px;padding:.5rem .9rem;text-align:center;font-size:.8rem;color:rgba(255,255,255,.55);margin-top:.3rem;}
+.tip{background:#ecfdf5;border:2px solid var(--green);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#065f46;font-weight:600;margin:.3rem 0;}
+.warn{background:#fffbeb;border:2px solid var(--yellow);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#92400e;font-weight:600;margin:.3rem 0;}
+.wow{background:#f0fdfa;border:2px solid var(--teal);border-radius:8px;padding:.65rem 1rem;font-size:.92rem;color:#0f766e;font-weight:600;margin:.3rem 0;}
+.fact{background:linear-gradient(135deg,var(--ink),#252540);border:var(--border);border-radius:10px;padding:1.2rem;box-shadow:var(--sh);text-align:center;color:#fff;}
+.fact .fi2{font-size:2rem;margin-bottom:.4rem;}
+.fact h4{font-family:var(--ft);font-size:1.2rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.4rem;}
+.fact p{font-size:.93rem;color:#ccc;line-height:1.65;}
+.mtr{display:flex;flex-direction:column;gap:.5rem;}
+.mtr-row{display:grid;grid-template-columns:160px 1fr 120px;gap:.5rem;align-items:center;font-size:.88rem;}
+.mtr-label{font-weight:700;color:#1e293b;}
+.mtr-bar-wrap{background:#eee;border-radius:20px;height:10px;overflow:hidden;}
+.mtr-bar{height:100%;border-radius:20px;}
+.mtr-note{font-size:.78rem;color:#64748b;}
+.sbox{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1rem;}
+.sbox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;margin-bottom:.6rem;}
+.sbox ul{font-size:.93rem;line-height:1.8;padding-left:1.1rem;color:#1e293b;}
+.sdark{background:var(--ink);border:var(--border);border-radius:8px;padding:1.1rem;}
+.sdark h4{font-family:var(--ft);font-size:1.05rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.6rem;}
+.sdark ul{font-size:.93rem;line-height:1.8;padding-left:1.1rem;color:#ccc;}
+.sdark dl div{margin-bottom:.5rem;}
+.sdark dt{color:var(--cyan);font-weight:700;font-size:.93rem;}
+.sdark dd{color:#ccc;font-size:.88rem;line-height:1.5;margin-left:.5rem;}
+.timeline{display:flex;flex-direction:column;gap:.8rem;}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:.8rem;align-items:start;}
+.tl-year{font-family:var(--ft);font-size:1.1rem;color:var(--hot);text-align:center;padding:.3rem;border:2px solid var(--hot);border-radius:6px;background:#fce7f3;}
+.tl-body h4{font-family:var(--ft);font-size:1rem;letter-spacing:1px;margin-bottom:.2rem;}
+.tl-body p{font-size:.93rem;line-height:1.6;color:#334155;}
+.sal-wrap{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;}
+.sal-row{display:grid;grid-template-columns:1fr 90px 90px 100px 80px;gap:.3rem;padding:.5rem .7rem;border-bottom:1.5px solid #eee;align-items:center;font-size:.85rem;}
+.sal-row.hdr{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.82rem;letter-spacing:1px;}
+.sal-row:last-child{border-bottom:none;}
+.sal-row:nth-child(even):not(.hdr){background:#f8faff;}
+.next-btn{display:inline-block;font-family:var(--ft);font-size:1rem;letter-spacing:2px;padding:.5rem 1.5rem;background:var(--hot);color:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);text-decoration:none;transition:all .15s;cursor:pointer;margin-top:.5rem;}
+.next-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.toc{display:flex;flex-direction:column;gap:.25rem;margin:.5rem 0;}
+.toc a{font-size:.88rem;color:var(--py);text-decoration:none;padding:.2rem 0;border-bottom:1px dashed #ddd;font-weight:600;}
+.toc a:hover{color:var(--hot);}
+#rbar{position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--hot),var(--yellow),var(--cyan));z-index:9999;transition:width .1s;}
+@media(max-width:900px){.hw{grid-template-columns:1fr;}.hero h1{font-size:2rem;}.sal-row{grid-template-columns:1fr 70px 70px;}.sal-row span:nth-child(4),.sal-row span:nth-child(5){display:none;}}
+</style></head><body>
+<div id="rbar"></div>
+<div class="hero" style="border-bottom-color:var(--green)">
+  <div class="badge" style="background:var(--green)">🔍 Chapter 5 · Advanced</div>
+  <h1>RETRIEVAL<br><em style="color:#6ee7b7">AUGMENTED</em><br>GENERATION</h1>
+  <p>How to give LLMs access to your private data — vector databases, embeddings, similarity search, and grounded AI answers.</p>
+</div>
+<div class="page"><div class="hw"><div class="hm">
+
+<div><div class="stitle" style="background:var(--hot);color:#fff">🔍 THE HALLUCINATION PROBLEM</div>
+<div class="cstrip">
+  <div class="cp" style="border-color:#e63946"><div class="cpi">❌</div><h3>Without RAG</h3><p>LLM answers from training memory. May be <strong>outdated</strong> (knowledge cutoff), <strong>wrong</strong> (hallucination), or about things it never learned (private company docs).</p></div>
+  <div class="cp" style="border-color:var(--green)"><div class="cpi">✅</div><h3>With RAG</h3><p>Retrieve relevant facts first, then answer <strong>grounded in real documents</strong>. Accurate, citeable, always up-to-date, and you control the knowledge base.</p></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--green);color:#fff">🔄 HOW RAG WORKS — STEP BY STEP</div>
+<div class="steps">
+  <div class="srow"><div class="snum blue">1</div><div class="scont"><div class="sl" style="color:var(--py)">📄 Ingest Documents</div><div class="sd">Load PDFs, docs, web pages. Split into overlapping chunks of ~500 tokens each. Overlap ensures context isn't lost at chunk boundaries.</div></div></div>
+  <div class="srow"><div class="snum net">2</div><div class="scont"><div class="sl" style="color:var(--net)">🧮 Create Embeddings</div><div class="sd">Each chunk &rarr; embedding model &rarr; high-dimensional vector (e.g. 1536 floats). Similar content &rarr; similar vectors. Captures semantic meaning!</div></div></div>
+  <div class="srow"><div class="snum teal">3</div><div class="scont"><div class="sl" style="color:var(--teal)">💾 Store in Vector DB</div><div class="sd">Store all chunk vectors in FAISS, Pinecone, Chroma, or Weaviate for fast lookup. This is your AI's "long-term memory."</div></div></div>
+  <div class="srow"><div class="snum orange">4</div><div class="scont"><div class="sl" style="color:var(--orange)">❓ User Asks Question</div><div class="sd">Convert user question to embedding vector using the same embedding model. Now we can compare it to stored chunks mathematically.</div></div></div>
+  <div class="srow"><div class="snum">5</div><div class="scont"><div class="sl">🔍 Similarity Search</div><div class="sd">Find top-K most similar chunks to query vector using cosine similarity. Works even when exact words don't match!</div></div></div>
+  <div class="srow"><div class="snum yellow">6</div><div class="scont"><div class="sl" style="color:#92400e">📋 Build Prompt</div><div class="sd">Inject retrieved chunks as context: "Use this context: [chunks]. Answer: [question]". LLM only answers from retrieved facts.</div></div></div>
+  <div class="srow"><div class="snum green">7</div><div class="scont"><div class="sl" style="color:var(--green)">🤖 LLM Generates Answer</div><div class="sd">LLM reads context + question, generates grounded answer. Can cite sources! Much less hallucination than without RAG.</div></div></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--ink);color:#fff">💾 VECTOR DATABASES COMPARED</div>
+<div class="fgrid">
+  <div class="fc"><div class="fch" style="background:#eff6ff">⚡ FAISS</div><div class="fcb"><strong>Facebook AI Similarity Search.</strong> Local in-memory vector library. Blazing fast for in-memory search. No server needed. Best for prototyping and single-machine use.<br><br><em>Free · Open Source · Python · C++</em><div class="ftags"><span class="ftag" style="background:#dbeafe">Free</span><span class="ftag" style="background:#d1fae5">Local</span><span class="ftag" style="background:#e0e7ff">Prototyping</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f0fdf4">🌲 Pinecone</div><div class="fcb"><strong>Fully managed cloud vector DB.</strong> Production-ready, scalable to billions of vectors. Best for enterprise production deployments with no infra management.<br><br><em>Managed · Scalable · Paid plans</em><div class="ftags"><span class="ftag" style="background:#bbf7d0">Managed</span><span class="ftag" style="background:#fef3c7">Production</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f5f3ff">🔮 Chroma</div><div class="fcb"><strong>Open-source embedded vector DB.</strong> Simple Python API, persistent storage. Great for LangChain integration. Runs locally or as a server.<br><br><em>Open Source · Local or Cloud · Simple API</em><div class="ftags"><span class="ftag" style="background:#ede9fe">Open Source</span><span class="ftag" style="background:#dbeafe">LangChain</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#ecfdf5">🌊 Weaviate</div><div class="fcb"><strong>Open-source, GraphQL-powered vector DB.</strong> Supports hybrid search (vector + keyword). Schema-based with rich filtering and multi-modal support.<br><br><em>Open Source · Hybrid Search · GraphQL</em><div class="ftags"><span class="ftag" style="background:#d1fae5">Hybrid Search</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fce7f3">🔴 Qdrant</div><div class="fcb"><strong>High-performance Rust-based vector DB.</strong> Excellent filtering, multi-vector support. Used in Semantic Kernel (.NET). Great for enterprise.<br><br><em>Open Source · Rust · High Performance</em><div class="ftags"><span class="ftag" style="background:#fce7f3">Rust</span><span class="ftag" style="background:#ede9fe">.NET SK</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f0fdfa">☁️ Azure AI Search</div><div class="fcb"><strong>Microsoft's enterprise vector search service.</strong> Integrates natively with Semantic Kernel and Azure OpenAI. Hybrid search, RBAC, compliance.<br><br><em>Managed · Enterprise · Azure-native</em><div class="ftags"><span class="ftag" style="background:#ccfbf1">Enterprise</span><span class="ftag" style="background:#dbeafe">Azure</span></div></div></div>
+</div></div>
+
+<div><div class="stitle" style="background:var(--py);color:#fff">🐍 RAG IN PYTHON (QUICK START)</div>
+<div class="cb"><div class="cbh "><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span> 🐍 rag_quick.py</div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div></div><div class="code-content"><span class="pk">from</span> langchain_openai <span class="pk">import</span> OpenAIEmbeddings, ChatOpenAI
+<span class="pk">from</span> langchain_community.vectorstores <span class="pk">import</span> FAISS
+<span class="pk">from</span> langchain.chains <span class="pk">import</span> RetrievalQA
+
+<span class="pc"># Create vector store from text</span>
+texts = [
+    <span class="ps">"AI is transforming industries worldwide."</span>,
+    <span class="ps">"RAG grounds LLMs in real, private data."</span>,
+    <span class="ps">"Vector databases store embeddings for similarity search."</span>
+]
+vs = FAISS.from_texts(texts, OpenAIEmbeddings())
+
+<span class="pc"># Build RAG chain</span>
+qa = RetrievalQA.from_chain_type(
+    llm=ChatOpenAI(model=<span class="ps">"gpt-4o"</span>, temperature=<span class="pn">0</span>),
+    retriever=vs.as_retriever(search_kwargs={<span class="ps">"k"</span>: <span class="pn">4</span>})
+)
+result = qa.invoke(<span class="ps">"What is RAG?"</span>)
+print(result[<span class="ps">"result"</span>])
+
+<span class="pc"># For the full step-by-step tutorial:</span>
+<span class="pc"># See Python RAG tab or .NET RAG tab</span></div></div></div></div>
+
+<div class="wow">💡 For the complete step-by-step tutorial with LangGraph agent, see the <strong>Python RAG tab</strong> or <strong>.NET RAG tab</strong>!</div>
+
+<a class="next-btn" style="background:var(--hot)" href="#">⚡ Next: Agentic AI &rarr;</a>
+
+</div><!-- hm -->
+<div class="hs">
+  <div class="sbox"><h4 style="color:var(--green)">📋 ON THIS PAGE</h4>
+    <div class="toc">
+      <a href="#">🔍 Hallucination Problem</a>
+      <a href="#">🔄 How RAG Works</a>
+      <a href="#">💾 Vector Databases</a>
+      <a href="#">🐍 Python RAG Code</a>
+    </div>
+  </div>
+  <div class="sdark"><h4>💡 KEY TERMS</h4>
+    <dl>
+      <div><dt>Embedding</dt><dd>Vector representation of text — similar text = similar vectors</dd></div>
+      <div><dt>Cosine Similarity</dt><dd>Measures angle between vectors — how similar two chunks are</dd></div>
+      <div><dt>Chunking</dt><dd>Splitting documents into pieces the LLM can process</dd></div>
+      <div><dt>Grounding</dt><dd>Anchoring AI answers in retrieved real-world facts</dd></div>
+      <div><dt>Hallucination</dt><dd>When an LLM generates confident but false information</dd></div>
+    </dl>
+  </div>
+  <div class="sbox"><h4 style="color:var(--hot)">👉 CODE TUTORIALS</h4>
+    <ul>
+      <li>🐍 Python RAG Tutorial</li>
+      <li>🟣 .NET RAG Tutorial</li>
+      <li>⚡ Agentic AI Course</li>
+    </ul>
+  </div>
+</div>
+</div></div>
+<script src="analytics.js"></script>
+<script src="widgets.js"></script>
+<script>window.addEventListener('scroll',()=>{const b=document.getElementById('rbar');if(b){const p=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;b.style.width=Math.min(100,p)+'%';}});</script></body></html>

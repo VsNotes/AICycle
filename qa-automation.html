@@ -1,0 +1,986 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Automation – AI-Powered Testing | AICycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   AICYCLE QA AUTOMATION — CLEAN CSS
+   RULE 1: Dark background → WHITE text
+   RULE 2: Light background → DARK #1e293b text
+   RULE 3: No exceptions!
+   ═══════════════════════════════════════════════════ */
+:root{
+  --ink:#1a1a2e;--bg:#fef9e7;
+  --hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;
+  --green:#10b981;--py:#2563eb;--net:#7c3aed;
+  --teal:#0d9488;--orange:#f59e0b;
+  --border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;
+  --ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+
+/* BODY — light notebook bg, DARK text */
+body{
+  background:var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,#e2d9b8 39px,#e2d9b8 40px);
+  font-family:var(--fb);font-size:16px;color:#1e293b;min-height:100vh;
+}
+
+/* HERO — dark bg, WHITE text */
+.hero{background:var(--ink);padding:2rem;text-align:center;position:relative;overflow:hidden;border-bottom:5px solid var(--teal);}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(13,148,136,.08) 1px,transparent 1px);background-size:20px 20px;}
+.hbadge{display:inline-block;background:var(--teal);color:#fff;font-family:var(--ft);font-size:.95rem;letter-spacing:2px;padding:.22rem 1rem;border-radius:20px;border:2px solid rgba(255,255,255,.5);margin-bottom:.7rem;position:relative;}
+.hero h1{font-family:var(--ft);font-size:3.2rem;color:#fff;letter-spacing:3px;line-height:1.05;position:relative;}
+.hero h1 em{color:var(--teal);font-style:normal;}
+.hero p{color:#e2e8f0;font-size:1rem;max-width:660px;margin:.6rem auto 0;line-height:1.75;position:relative;}
+.hpills{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:.9rem;position:relative;}
+.hpill{display:flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:.28rem .85rem;font-size:.85rem;color:#f1f5f9;font-weight:600;}
+
+/* MAIN TABS — toggle between Home and Course */
+.mt-bar{background:linear-gradient(180deg,#0a0a18,#1a1a2e);border-bottom:3px solid rgba(255,255,255,.08);display:flex;padding:.4rem 1rem 0;gap:.3rem;}
+.mt{font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;padding:.45rem 1.4rem .6rem;border:2.5px solid rgba(255,255,255,.1);border-bottom:none;border-radius:10px 10px 0 0;cursor:pointer;color:#777;background:rgba(255,255,255,.04);transition:all .18s;white-space:nowrap;position:relative;top:4px;outline:none;}
+.mt:hover{background:rgba(255,255,255,.1);color:#bbb;top:2px;}
+.mt.act{background:var(--teal);color:#fff;top:0;border-color:var(--teal);box-shadow:0 -3px 0 var(--teal),3px 0 0 var(--teal),-3px 0 0 var(--teal),inset 0 2px 0 rgba(255,255,255,.3);transform:scale(1.05);}
+
+/* HOME/COURSE PANELS */
+#th{display:block;}
+#tp{display:none;flex-direction:column;}
+
+/* LAYOUT — home tab */
+.pg{max-width:1100px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+.hw{display:grid;grid-template-columns:1fr 230px;gap:2rem;align-items:start;}
+.hm{display:flex;flex-direction:column;gap:1.8rem;}
+.hs{display:flex;flex-direction:column;gap:1.2rem;}
+
+/* SECTION TITLE */
+.stitle{font-family:var(--ft);font-size:1.6rem;letter-spacing:2px;padding:.35rem .9rem;border:var(--border);display:inline-block;box-shadow:var(--sh);border-radius:6px;margin-bottom:.9rem;color:#fff;}
+
+/* PERSONA STRIP — white bg, DARK text */
+.persona-strip{border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1rem;background:linear-gradient(135deg,#f0fdfa,#fff);}
+.ps-title{font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;color:#1e293b;margin-bottom:.7rem;}
+.ps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.7rem;}
+.ps-card{background:#fff;border:2px solid #e2e8f0;border-radius:8px;padding:.75rem;display:flex;flex-direction:column;gap:.25rem;transition:all .15s;}
+.ps-card:hover{border-color:var(--teal);box-shadow:3px 3px 0 var(--teal);transform:translate(-1px,-1px);}
+.ps-emoji{font-size:1.4rem;}
+.ps-card strong{font-size:.9rem;color:#1e293b;font-family:var(--ft);letter-spacing:.5px;}
+.ps-card .ps-tag{font-size:.65rem;font-weight:800;padding:2px 7px;border-radius:10px;width:fit-content;border:1.5px solid rgba(0,0,0,.12);}
+.ps-card p{font-size:.83rem;color:#475569;line-height:1.5;}
+
+/* SPEECH BUBBLE — yellow bg, DARK text */
+.bubble{background:#fffde7;border:var(--border);border-radius:16px;padding:1rem 1.2rem;box-shadow:4px 4px 0 var(--ink);position:relative;margin-bottom:.5rem;}
+.bubble::after{content:'';position:absolute;bottom:-18px;left:24px;border-width:10px 8px 0;border-style:solid;border-color:var(--ink) transparent transparent;}
+.bubble::before{content:'';position:absolute;bottom:-14px;left:26px;border-width:9px 7px 0;border-style:solid;border-color:#fffde7 transparent transparent;z-index:1;}
+.bubble p{font-size:.97rem;line-height:1.75;color:#1e293b;}
+.bubble strong{color:var(--hot);}
+.bubble em{color:var(--py);font-style:italic;}
+.bubble-who{font-family:var(--ft);font-size:1rem;color:var(--hot);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem;}
+.bicon{font-size:1.2rem;}
+
+/* STAGE CARDS — white bg, DARK text */
+.cstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem;}
+.cp{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1.2rem;position:relative;transition:transform .15s,box-shadow .15s;}
+.cp:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.cpn{position:absolute;top:-13px;left:10px;color:#fff;font-family:var(--ft);font-size:1rem;width:28px;height:28px;border-radius:50%;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;}
+.cp h3{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;color:#1e293b;margin:.4rem 0 .35rem;}
+.cp p{font-size:.93rem;line-height:1.65;color:#475569;}
+.cpi{font-size:1.9rem;margin-bottom:.2rem;}
+
+/* FLOW DIAGRAM — dark bg, WHITE text */
+.flowdiag{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.4rem;position:relative;overflow:hidden;}
+.flowdiag::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.fd-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.fd-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem;}
+.fd-node{border:2px solid rgba(255,255,255,.25);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;background:rgba(255,255,255,.07);}
+.fd-node .fd-icon{font-size:1.4rem;display:block;margin-bottom:.2rem;}
+.fd-node .fd-label{font-family:var(--ft);font-size:.82rem;letter-spacing:1px;color:#fff;display:block;}
+.fd-node .fd-sub{font-size:.68rem;color:rgba(255,255,255,.65);display:block;margin-top:.1rem;line-height:1.3;}
+.fd-arrow{color:var(--yellow);font-size:1.3rem;font-weight:900;}
+.fd-loop{border:2px dashed rgba(251,191,36,.3);border-radius:10px;padding:.5rem .9rem;text-align:center;font-size:.82rem;color:rgba(255,255,255,.65);margin-top:.5rem;line-height:1.5;}
+.shared-node{background:rgba(255,255,255,.1);}
+.py-node{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.qa-node{background:rgba(13,148,136,.2);border-color:rgba(45,212,191,.6);}
+.hot-node{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+
+/* TOOLS GRID — white bg, DARK text */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;}
+.fc{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);overflow:hidden;transition:transform .15s,box-shadow .15s;}
+.fc:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.fch{padding:.85rem 1rem;font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;display:flex;align-items:center;gap:.5rem;color:#1e293b;}
+.fcb{padding:0 1rem 1rem;font-size:.93rem;line-height:1.65;color:#334155;}
+.ftags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem;}
+.ftag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;border:2px solid var(--ink);color:#1e293b;}
+
+/* TABLE — white bg, DARK text */
+.tbl{width:100%;border-collapse:collapse;font-size:.93rem;background:#fff;border:var(--border);box-shadow:var(--sh);border-radius:8px;overflow:hidden;}
+.tbl th{background:var(--ink);color:var(--yellow);font-family:var(--ft);font-size:.9rem;letter-spacing:1px;padding:.55rem .9rem;text-align:left;}
+.tbl td{padding:.5rem .9rem;border-bottom:1.5px solid #eee;color:#1e293b;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:#f8faff;}
+
+/* CTA — dark bg, WHITE text */
+.cta{background:var(--ink);border:var(--border);border-radius:12px;box-shadow:var(--sh);padding:1.5rem;text-align:center;position:relative;overflow:hidden;}
+.cta::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.cta-title{font-family:var(--ft);font-size:1.4rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.5rem;position:relative;}
+.cta p{color:#e2e8f0;font-size:1rem;margin-bottom:1rem;position:relative;}
+.cta-btn{font-family:var(--ft);font-size:1.1rem;letter-spacing:2px;padding:.6rem 1.8rem;background:var(--hot);color:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);cursor:pointer;transition:all .15s;position:relative;}
+.cta-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+
+/* SIDEBAR */
+.sbox{background:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1rem;}
+.sbox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:#1e293b;margin-bottom:.6rem;}
+.sbox ul{list-style:none;padding:0;font-size:.93rem;color:#334155;line-height:1.9;}
+.sdark{background:var(--ink);border:var(--border);border-radius:8px;padding:1rem;}
+.sdark h4{font-family:var(--ft);font-size:1.05rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.6rem;}
+.sdark dl div{margin-bottom:.5rem;}
+.sdark dt{color:var(--cyan);font-weight:700;font-size:.92rem;}
+.sdark dd{color:#cbd5e1;font-size:.87rem;line-height:1.5;margin-left:.3rem;}
+
+/* CHAPTER NAV — dark bg tabs */
+#qanav{background:linear-gradient(180deg,#0a0a18,#1a1a2e);border-bottom:4px solid var(--yellow);display:none;align-items:flex-end;padding:.5rem 1rem 0;gap:.25rem;overflow-x:auto;flex-shrink:0;scrollbar-width:thin;scrollbar-color:var(--hot) #111;}
+#qanav::-webkit-scrollbar{height:4px;}
+#qanav::-webkit-scrollbar-thumb{background:var(--hot);}
+.cnb{font-family:var(--ft);font-size:.85rem;letter-spacing:1.5px;padding:.42rem 1rem .58rem;border:2.5px solid rgba(255,255,255,.1);border-bottom:none;border-radius:10px 10px 0 0;cursor:pointer;color:#666;background:rgba(255,255,255,.04);transition:all .18s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;position:relative;top:4px;outline:none;}
+.cnb:hover{background:rgba(255,255,255,.1);color:#bbb;top:2px;}
+.cnb.act-ch{background:var(--yellow);color:var(--ink);top:0;border-color:var(--yellow);box-shadow:0 -3px 0 var(--yellow),3px 0 0 var(--yellow),-3px 0 0 var(--yellow),inset 0 2px 0 rgba(255,255,255,.4);transform:scale(1.06);}
+
+/* COURSE SPLIT VIEW */
+.cwrap{display:flex;flex-direction:column;height:calc(100vh - 170px);min-height:600px;}
+.sv{display:flex;flex:1;overflow:hidden;}
+.sp{flex:1;overflow-y:auto;padding:1.4rem;display:flex;flex-direction:column;gap:1.4rem;min-width:0;scrollbar-width:thin;}
+/* Python panel — light blue notebook */
+.pyp{background:#f0f6ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#c3d9f7 31px,#c3d9f7 32px);}
+/* .NET/QA panel — light teal notebook */
+.qatp{background:#f0fdfa;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#99f6e4 31px,#99f6e4 32px);}
+/* Splitter */
+.spl{width:12px;background:linear-gradient(180deg,#252540,#1a1a2e);cursor:col-resize;flex-shrink:0;display:flex;align-items:center;justify-content:center;user-select:none;transition:all .2s;}
+.spl:hover{background:linear-gradient(180deg,var(--teal),var(--green));box-shadow:0 0 16px rgba(13,148,136,.5);}
+.spl::after{content:'⋮⋮';color:rgba(255,255,255,.3);font-size:1rem;letter-spacing:-4px;}
+
+/* LANGUAGE BADGE — dark gradient, WHITE text */
+.lbadge{display:flex;align-items:center;gap:.8rem;padding:.7rem 1.1rem;border-radius:10px;border:var(--border);box-shadow:var(--sh);margin-bottom:.8rem;}
+.lbadge.pyb{background:linear-gradient(135deg,#1e40af,#2563eb);}
+.lbadge.qab{background:linear-gradient(135deg,#0f766e,#0d9488);}
+.lbi{font-size:1.7rem;}
+.lbt{font-family:var(--ft);font-size:1.2rem;letter-spacing:1px;color:#fff;}
+.lbs{font-size:.83rem;color:rgba(255,255,255,.88);}
+
+/* CHAPTER CONTENT */
+.cc{display:none;flex-direction:column;gap:1.3rem;}
+.cc.act{display:flex;}
+
+/* CHAPTER HERO — dark gradient, WHITE text */
+.chero{border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.2rem 1.3rem;position:relative;overflow:hidden;}
+.chero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.pyh{background:linear-gradient(135deg,#1e3a8a,#2563eb);}
+.qah{background:linear-gradient(135deg,#134e4a,#0d9488);}
+.chn{font-size:.8rem;font-weight:800;color:rgba(255,255,255,.72);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.25rem;position:relative;}
+.cht{font-family:var(--ft);font-size:1.6rem;letter-spacing:2px;color:#fff;margin-bottom:.3rem;position:relative;}
+.chd{font-size:.93rem;color:rgba(255,255,255,.9);line-height:1.65;position:relative;}
+
+/* CHAPTER SUMMARY — dark ink, WHITE text */
+.csum{background:var(--ink);border:var(--border);border-radius:10px;box-shadow:var(--sh);padding:1.2rem;position:relative;overflow:hidden;}
+.csum::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.pys{border-color:var(--py);box-shadow:5px 5px 0 var(--py);}
+.qas{border-color:var(--teal);box-shadow:5px 5px 0 var(--teal);}
+.cst{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.6rem;position:relative;}
+.csum ul{padding-left:1.2rem;position:relative;}
+.csum ul li{font-size:.93rem;color:rgba(255,255,255,.95);line-height:1.8;margin-bottom:.2rem;}
+.nxtch{margin-top:.8rem;font-family:var(--ft);font-size:.95rem;letter-spacing:2px;padding:.45rem 1.3rem;color:#fff;border:var(--border);border-radius:8px;box-shadow:var(--sh);cursor:pointer;transition:all .15s;position:relative;display:inline-block;}
+.pyh .nxtch,.nxtch.pyn{background:var(--py);}
+.qah .nxtch,.nxtch.qan{background:var(--teal);}
+.nxtch{background:var(--teal);}
+.nxtch:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+
+/* TIP BOX — light bg, DARK text */
+.tip-box{border-radius:8px;padding:.8rem 1rem;margin:.3rem 0;}
+.tip-box.tip{background:#ecfdf5;border:2px solid var(--green);}
+.tip-box.warn{background:#fffbeb;border:2px solid var(--yellow);}
+.tip-box.info{background:#eff6ff;border:2px solid var(--py);}
+.tip-title{font-family:var(--ft);font-size:.95rem;letter-spacing:1px;margin-bottom:.3rem;color:#065f46;}
+.tip-box.warn .tip-title{color:#92400e;}
+.tip-box.info .tip-title{color:#1e40af;}
+.tip-box p{font-size:.93rem;line-height:1.7;color:#1e293b;}
+
+/* CONCEPT BOX — white bg, DARK text */
+.con{background:#fff;border:var(--border);border-radius:8px;box-shadow:4px 4px 0 var(--ink);padding:1rem 1.1rem;}
+.con h4{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:#1e293b;margin-bottom:.4rem;}
+.con p{font-size:.95rem;line-height:1.75;color:#1e293b;}
+.con ul{padding-left:1.2rem;font-size:.93rem;line-height:1.8;color:#1e293b;}
+.con strong{color:var(--hot);}
+
+/* FW DETAIL CARD — white bg, DARK text */
+.fwd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;}
+.fwd-card{background:#fff;border:2.5px solid #e2e8f0;border-radius:12px;padding:.9rem;display:flex;flex-direction:column;gap:.3rem;transition:all .15s;}
+.fwd-card:hover{border-color:var(--teal);box-shadow:3px 3px 0 var(--teal);transform:translate(-1px,-1px);}
+.fwd-icon{font-size:1.8rem;}
+.fwd-name{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:#1e293b;}
+.fwd-desc{font-size:.88rem;line-height:1.6;color:#334155;}
+.fwd-use{font-size:.75rem;color:#64748b;margin-top:.2rem;}
+
+/* TREE DIAGRAM — ALWAYS DARK bg, ALWAYS WHITE text
+   This is a dark card regardless of which panel it's inside */
+.tree-wrap{
+  background:var(--ink) !important;
+  border:var(--border);border-radius:12px;
+  box-shadow:var(--sh);padding:1.3rem;
+  position:relative;overflow:hidden;
+}
+.tree-wrap::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;}
+.tree-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow) !important;letter-spacing:2px;text-align:center;margin-bottom:1rem;}
+.tr-root{display:flex;justify-content:center;margin-bottom:0;}
+.tr-node{display:inline-flex;flex-direction:column;align-items:center;gap:.22rem;background:rgba(255,255,255,.07);border:2.5px solid rgba(255,255,255,.25);border-radius:12px;padding:.65rem 1rem;min-width:110px;text-align:center;position:relative;transition:transform .15s;}
+.tr-node:hover{transform:translateY(-2px);}
+.tn-icon{font-size:1.55rem;}
+.tn-label{font-family:var(--ft);font-size:.9rem;letter-spacing:1.5px;color:#ffffff !important;}
+.tn-sub{font-size:.72rem;color:rgba(255,255,255,.75) !important;line-height:1.3;}
+.tn-ch{font-size:.58rem;font-weight:800;padding:1px 7px;border-radius:10px;background:rgba(251,191,36,.2);color:var(--yellow) !important;margin-top:.15rem;display:inline-block;font-family:var(--fb);}
+.tr-vline{width:2px;height:22px;background:rgba(255,255,255,.2);margin:0 auto;}
+.tr-children{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative;}
+.tr-children::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:rgba(255,255,255,.15);}
+.tr-branch{display:flex;flex-direction:column;align-items:center;}
+.tr-stub{width:2px;height:16px;background:rgba(255,255,255,.15);}
+.tr-loop{margin-top:1rem;border:2px dashed rgba(251,191,36,.35);border-radius:10px;padding:.5rem 1rem;text-align:center;font-size:.82rem;color:rgba(255,255,255,.65) !important;line-height:1.5;}
+/* Node colour variants — all on dark bg, all have white text via parent rule */
+.tn-root{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.55);}
+.tn-net{background:rgba(124,58,237,.2);border-color:rgba(167,139,250,.6);}
+.tn-py{background:rgba(37,99,235,.2);border-color:rgba(96,165,250,.6);}
+.tn-hot{background:rgba(247,37,133,.15);border-color:rgba(247,37,133,.5);}
+.tn-green{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.55);}
+.tn-cyan{background:rgba(6,182,212,.15);border-color:rgba(6,182,212,.5);}
+.tn-qa{background:rgba(13,148,136,.2);border-color:rgba(45,212,191,.7);}
+
+/* VS CODE CODE BLOCK */
+.cb{background:#1e1e2e;border:3px solid var(--ink);border-radius:10px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin:.3rem 0;}
+.ch2{padding:.5rem 1rem;display:flex;align-items:center;gap:.5rem;border-bottom:2px solid #313244;}
+.pyh2{background:linear-gradient(90deg,#1e3a8a,#2563eb);}
+.qah2{background:linear-gradient(90deg,#134e4a,#0d9488);}
+.nethc{background:linear-gradient(90deg,#4c1d95,#7c3aed);}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.vsc-tab{font-family:var(--fb);font-size:.88rem;font-weight:700;color:#93c5fd;}
+.nethc .vsc-tab{color:#c4b5fd;}
+.qah2 .vsc-tab{color:#5eead4;}
+.cbody{display:grid;grid-template-columns:40px 1fr;overflow-x:auto;}
+.lnums{background:#181825;color:#45475a;font-family:var(--fc);font-size:.8rem;line-height:1.8;padding:.8rem 0;text-align:right;padding-right:.6rem;user-select:none;border-right:1px solid #313244;}
+.lnums div{height:1.8em;}
+.code-content{padding:.8rem 1rem;font-family:var(--fc);color:#cdd6f4;font-size:.85rem;line-height:1.8;white-space:pre;overflow-x:auto;}
+.pk{color:#cba6f7;}.ps{color:#a6e3a1;}.pc{color:#6c7086;font-style:italic;}
+.pf{color:#89b4fa;}.pn{color:#f38ba8;}.pcl{color:#fab387;}.pv{color:#cdd6f4;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hw{grid-template-columns:1fr;}
+  .hero h1{font-size:2.3rem;}
+  .sv{flex-direction:column;}
+  .spl{width:100%;height:10px;cursor:row-resize;}
+  .cwrap{height:auto;min-height:0;}
+  .sp{min-height:400px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <div class="hbadge">🧪 AI-Powered QA Automation</div>
+  <h1>QA <em>AUTOMATION</em><br>WITH AI AGENTS</h1>
+  <p>Stop writing brittle tests. Start building <strong style="color:var(--yellow)">intelligent test agents</strong> that understand your app, find real bugs, and self-heal when UI changes. Playwright + Selenium + AI — all in one course.</p>
+  <div class="hpills">
+    <div class="hpill">🎭 Playwright</div>
+    <div class="hpill">🌐 Selenium</div>
+    <div class="hpill">🤖 AI Test Generation</div>
+    <div class="hpill">🐍 Python pytest</div>
+    <div class="hpill">🟣 .NET NUnit</div>
+    <div class="hpill">🔄 CI/CD Integration</div>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN TABS ═══════════════ -->
+<div class="mt-bar">
+  <button class="mt act" id="btn-th" onclick="switchMain('h',this)">🏠 WHAT IS AI QA?</button>
+  <button class="mt" id="btn-tp" onclick="switchMain('p',this)">📚 COURSE &nbsp;<span style="font-size:.6rem;background:var(--hot);color:#fff;padding:1px 6px;border-radius:8px">8 CH</span></button>
+</div>
+
+<!-- ═══════════════ HOME TAB ═══════════════ -->
+<div id="th">
+<div class="pg"><div class="hw"><div class="hm">
+
+<!-- WHO IS THIS FOR -->
+<div>
+<div class="stitle" style="background:var(--yellow);color:var(--ink)">👥 WHO IS THIS FOR?</div>
+<div class="ps-grid" style="margin-bottom:1rem;">
+  <div class="ps-card" style="border-color:var(--teal)"><div class="ps-emoji">🧪</div><strong>QA Engineer</strong><span class="ps-tag" style="background:#ccfbf1;color:#0f766e">Test Automation</span><p>"I write tests manually — how do I 10x my coverage with AI?"</p></div>
+  <div class="ps-card" style="border-color:var(--py)"><div class="ps-emoji">👨‍💻</div><strong>Developer</strong><span class="ps-tag" style="background:#dbeafe;color:#1e40af">Dev Productivity</span><p>"I want automated tests that don't break every sprint!"</p></div>
+  <div class="ps-card" style="border-color:var(--hot)"><div class="ps-emoji">🚀</div><strong>DevOps / SRE</strong><span class="ps-tag" style="background:#fce7f3;color:#9d174d">CI/CD</span><p>"How do I add AI-powered tests to our CI/CD pipeline?"</p></div>
+  <div class="ps-card" style="border-color:var(--orange)"><div class="ps-emoji">📊</div><strong>Manager / PM</strong><span class="ps-tag" style="background:#fef3c7;color:#92400e">Big Picture</span><p>"We need faster releases with fewer regressions — what's the plan?"</p></div>
+  <div class="ps-card" style="border-color:var(--green)"><div class="ps-emoji">🎓</div><strong>Student / Switcher</strong><span class="ps-tag" style="background:#d1fae5;color:#065f46">Career</span><p>"QA is my entry into tech — AI skills will make me stand out!"</p></div>
+</div>
+</div>
+
+<!-- WHAT IS AI QA -->
+<div>
+<div class="stitle" style="background:var(--hot);color:#fff">🤔 WHAT IS AI-POWERED QA?</div>
+<div class="bubble">
+  <div class="bubble-who"><span class="bicon">🤖</span><span>The QA Bot says:</span></div>
+  <p><strong>"Traditional tests break when UI changes. AI tests understand intent."</strong><br><br>
+  A normal Selenium test clicks <em>#submit-btn</em>. When that button moves, the test fails. An AI-powered test agent understands that it needs to <strong>"submit the form"</strong> — and finds the button even if it moved, was renamed, or changed style.</p>
+</div>
+<div style="height:18px"></div>
+<div class="cstrip">
+  <div class="cp"><div class="cpn" style="background:#64748b">1</div><div class="cpi">🖱️</div><h3>Manual Testing</h3><p>Human clicks through app. Slow, inconsistent, doesn't scale. Can't run 500 test cases in 5 minutes.</p></div>
+  <div class="cp"><div class="cpn" style="background:var(--py)">2</div><div class="cpi">🤖</div><h3>Script Tests</h3><p>Playwright/Selenium scripts. Fast but brittle — one CSS change breaks 50 tests. High maintenance.</p></div>
+  <div class="cp"><div class="cpn" style="background:var(--teal)">3</div><div class="cpi">🧠</div><h3>AI-Assisted</h3><p>AI generates test cases from requirements. Still human-reviewed but 10x faster to write.</p></div>
+  <div class="cp" style="border-color:var(--hot);box-shadow:5px 5px 0 var(--hot)"><div class="cpn" style="background:var(--hot)">★</div><div class="cpi">⚡</div><h3>Agentic QA</h3><p>Agent explores the app, generates tests, runs them, diagnoses failures, and <strong>self-heals</strong> broken selectors. Fully autonomous!</p></div>
+</div>
+</div>
+
+<!-- FLOW DIAGRAM -->
+<div>
+<div class="stitle" style="background:var(--ink);color:#fff">🗺️ THE FULL QA AUTOMATION FLOW</div>
+<div class="flowdiag">
+  <div class="fd-title">⚡ AI-POWERED QA PIPELINE — END TO END</div>
+  <div class="fd-row">
+    <div class="fd-node shared-node"><span class="fd-icon">📋</span><span class="fd-label">Requirements</span><span class="fd-sub">Jira, Confluence, docs</span></div>
+    <span class="fd-arrow">→</span>
+    <div class="fd-node py-node"><span class="fd-icon">🤖</span><span class="fd-label">AI Test Gen</span><span class="fd-sub">GPT writes test cases</span></div>
+    <span class="fd-arrow">→</span>
+    <div class="fd-node qa-node"><span class="fd-icon">🎭</span><span class="fd-label">Playwright</span><span class="fd-sub">Executes browser tests</span></div>
+    <span class="fd-arrow">→</span>
+    <div class="fd-node hot-node"><span class="fd-icon">🔍</span><span class="fd-label">AI Analysis</span><span class="fd-sub">Diagnoses failures</span></div>
+  </div>
+  <div class="fd-row">
+    <div class="fd-node hot-node"><span class="fd-icon">🔧</span><span class="fd-label">Self-Heal</span><span class="fd-sub">Fixes broken selectors</span></div>
+    <span class="fd-arrow">→</span>
+    <div class="fd-node qa-node"><span class="fd-icon">📊</span><span class="fd-label">Reports</span><span class="fd-sub">Allure · HTML · Slack</span></div>
+    <span class="fd-arrow">→</span>
+    <div class="fd-node py-node"><span class="fd-icon">🔄</span><span class="fd-label">CI/CD</span><span class="fd-sub">GitHub Actions · Azure DevOps</span></div>
+    <span class="fd-arrow">→</span>
+    <div class="fd-node shared-node"><span class="fd-icon">✅</span><span class="fd-label">Ship with</span><span class="fd-sub">Confidence!</span></div>
+  </div>
+  <div class="fd-loop">🔁 AI monitors failures → suggests fixes → updates test suite → runs again — continuous quality improvement</div>
+</div>
+</div>
+
+<!-- TOOLS -->
+<div>
+<div class="stitle" style="background:var(--py);color:#fff">🛠️ TOOLS &amp; FRAMEWORKS</div>
+<div class="fgrid">
+  <div class="fc"><div class="fch" style="background:#ecfdf5">🎭 Playwright</div><div class="fcb">Microsoft's modern browser automation. Faster than Selenium, built-in AI selector healing, supports all browsers in one API.<div class="ftags"><span class="ftag" style="background:#d1fae5">chromium</span><span class="ftag" style="background:#dbeafe">firefox</span><span class="ftag" style="background:#fef3c7">webkit</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fef9ee">🌐 Selenium</div><div class="fcb">The industry standard. 15+ years of community, integrates with every CI tool, supports Java/Python/.NET/JS.<div class="ftags"><span class="ftag" style="background:#fef3c7">enterprise</span><span class="ftag" style="background:#ede9fe">grid</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#fce7f3">🤖 AI Test Gen</div><div class="fcb">Use GPT-4o to generate test cases from requirements docs, convert manual test plans into Playwright scripts instantly.<div class="ftags"><span class="ftag" style="background:#fce7f3">gpt-4o</span><span class="ftag" style="background:#dbeafe">langchain</span></div></div></div>
+  <div class="fc"><div class="fch" style="background:#f0fdf4">📊 Allure Reports</div><div class="fcb">Beautiful test reports with screenshots, videos, history trends — stakeholders can actually read them!<div class="ftags"><span class="ftag" style="background:#bbf7d0">reporting</span><span class="ftag" style="background:#ccfbf1">dashboard</span></div></div></div>
+</div>
+</div>
+
+<!-- TABLE -->
+<div>
+<div class="stitle" style="background:var(--teal);color:#fff">⚖️ PLAYWRIGHT vs SELENIUM</div>
+<table class="tbl">
+  <thead><tr><th>Feature</th><th>🎭 Playwright</th><th>🌐 Selenium</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Speed</strong></td><td>⚡ Very fast (parallel)</td><td>Moderate</td></tr>
+    <tr><td><strong>Setup</strong></td><td>✓ 1 command</td><td>Driver config needed</td></tr>
+    <tr><td><strong>AI Integration</strong></td><td>✓ Built-in locator healing</td><td>Manual with wrappers</td></tr>
+    <tr><td><strong>Language</strong></td><td>Python, JS, .NET, Java</td><td>All major languages</td></tr>
+    <tr><td><strong>Best For</strong></td><td>Modern web apps, SPA</td><td>Enterprise, legacy apps</td></tr>
+    <tr><td><strong>Community</strong></td><td>Fast-growing</td><td>✓ Massive ecosystem</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="cta-title">🚀 READY TO BUILD SMARTER TESTS?</div>
+  <p>8 chapters. Python pytest + .NET NUnit. Side by side. AI-generated tests, self-healing selectors, CI/CD pipelines!</p>
+  <button class="cta-btn" onclick="switchMain('p',document.getElementById('btn-tp'))">📚 Open Course → Chapter 1</button>
+</div>
+
+</div><!-- hm -->
+<div class="hs">
+  <div class="sbox">
+    <h4 style="color:var(--teal)">📋 ON THIS PAGE</h4>
+    <ul>
+      <li>👥 Who is this for?</li>
+      <li>🤔 What is AI QA?</li>
+      <li>🗺️ Full QA Flow</li>
+      <li>🛠️ Tools &amp; Frameworks</li>
+      <li>⚖️ Playwright vs Selenium</li>
+    </ul>
+  </div>
+  <div class="sdark">
+    <h4>📚 COURSE CONTENTS</h4>
+    <dl>
+      <div><dt>CH 1</dt><dd>Foundations &amp; Architecture</dd></div>
+      <div><dt>CH 2</dt><dd>Setup &amp; First Tests</dd></div>
+      <div><dt>CH 3</dt><dd>Page Object Model</dd></div>
+      <div><dt>CH 4</dt><dd>AI Test Generation</dd></div>
+      <div><dt>CH 5</dt><dd>Self-Healing Selectors</dd></div>
+      <div><dt>CH 6</dt><dd>Reports &amp; Screenshots</dd></div>
+      <div><dt>CH 7</dt><dd>CI/CD Integration</dd></div>
+      <div><dt>CH 8</dt><dd>Full Autonomous QA Agent</dd></div>
+    </dl>
+  </div>
+</div>
+</div></div>
+</div><!-- end th -->
+
+<!-- ═══════════════ CHAPTER NAV ═══════════════ -->
+<div id="qanav">
+  <button class="cnb act-ch" onclick="showCh(0,this)">🌱 CH1 FOUNDATIONS</button>
+  <button class="cnb" onclick="showCh(1,this)">⚙️ CH2 SETUP</button>
+  <button class="cnb" onclick="showCh(2,this)">🎭 CH3 FIRST TESTS</button>
+  <button class="cnb" onclick="showCh(3,this)">🤖 CH4 AI GEN</button>
+  <button class="cnb" onclick="showCh(4,this)">🔧 CH5 SELF-HEAL</button>
+  <button class="cnb" onclick="showCh(5,this)">📊 CH6 REPORTS</button>
+  <button class="cnb" onclick="showCh(6,this)">🔄 CH7 CI/CD</button>
+  <button class="cnb" onclick="showCh(7,this)">🚀 CH8 AI AGENT</button>
+</div>
+
+<!-- ═══════════════ COURSE TAB ═══════════════ -->
+<div id="tp">
+<div class="cwrap">
+<div class="sv">
+
+<!-- ════ LEFT: PYTHON ════ -->
+<div class="sp pyp" id="pyleft">
+  <div class="lbadge pyb"><div class="lbi">🐍</div><div><div class="lbt">Python</div><div class="lbs">LangChain · pytest · Playwright · Allure · GitHub Actions</div></div></div>
+
+  <!-- CH1 PYTHON -->
+  <div class="cc act" id="pyc0">
+    <div class="chero pyh"><div class="chn">CH 1 · PYTHON</div><div class="cht">🌱 FOUNDATIONS &amp; FLOW</div><div class="chd">Understand the full Python QA stack — what each library does, how they connect, and why AI makes testing 10x better.</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🐍</span><span>Python Mascot says:</span></div><p>Think of our QA stack like a <strong>restaurant kitchen</strong>! 🍳<br><br>
+    <strong>Playwright</strong> = the chef's hands (does the actual browser work)<br>
+    <strong>pytest</strong> = the kitchen manager (organises and runs everything)<br>
+    <strong>LangChain + GPT-4o</strong> = the creative head chef (writes new recipes/tests)<br>
+    <strong>Allure</strong> = the menu presented to customers (beautiful reports)<br>
+    <strong>GitHub Actions</strong> = the automatic dishwasher (runs on every PR!)</p></div>
+    <div class="persona-strip">
+      <div class="ps-title">👥 WHO USES PYTHON QA AUTOMATION?</div>
+      <div class="ps-grid">
+        <div class="ps-card" style="border-color:var(--py)"><span class="ps-emoji">🐍</span><strong>Python Developer</strong><span class="ps-tag" style="background:#dbeafe;color:#1e40af">Native Stack</span><p>Already know Python? This is your fastest path to AI-powered QA!</p></div>
+        <div class="ps-card" style="border-color:var(--teal)"><span class="ps-emoji">🧪</span><strong>QA Engineer</strong><span class="ps-tag" style="background:#ccfbf1;color:#0f766e">Test First</span><p>Learn Playwright + AI together — the modern QA skillset for 2025</p></div>
+        <div class="ps-card" style="border-color:var(--green)"><span class="ps-emoji">🔄</span><strong>DevOps Engineer</strong><span class="ps-tag" style="background:#d1fae5;color:#065f46">CI/CD</span><p>Add AI quality gates to your GitHub Actions pipelines</p></div>
+      </div>
+    </div>
+    <div class="tree-wrap">
+      <div class="tree-title">🐍 PYTHON QA AUTOMATION — FULL STACK TREE</div>
+      <div class="tr-root"><div class="tr-node tn-root"><span class="tn-icon">💬</span><span class="tn-label">USER INPUT</span><span class="tn-sub">HTTP request / UI</span></div></div>
+      <div class="tr-vline"></div>
+      <div class="tr-children">
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-py"><span class="tn-icon">🦜</span><span class="tn-label">LANGCHAIN</span><span class="tn-sub">Orchestration &amp; chaining</span><span class="tn-ch">Ch 2–4</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-hot"><span class="tn-icon">🧠</span><span class="tn-label">GPT-4o</span><span class="tn-sub">Reasoning engine</span><span class="tn-ch">Ch 3</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-green"><span class="tn-icon">🎭</span><span class="tn-label">PLAYWRIGHT</span><span class="tn-sub">Browser automation</span><span class="tn-ch">Ch 2–3</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-cyan"><span class="tn-icon">🧪</span><span class="tn-label">PYTEST</span><span class="tn-sub">Test framework &amp; runner</span><span class="tn-ch">Ch 2</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-qa"><span class="tn-icon">📊</span><span class="tn-label">ALLURE</span><span class="tn-sub">HTML reports</span><span class="tn-ch">Ch 6</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-green"><span class="tn-icon">🔄</span><span class="tn-label">GITHUB ACTIONS</span><span class="tn-sub">CI/CD quality gate</span><span class="tn-ch">Ch 7</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-root"><span class="tn-icon">✅</span><span class="tn-label">RESPONSE</span><span class="tn-sub">Final answer to user</span></div></div>
+      </div>
+      <div class="tr-loop">🔁 LangGraph ReAct Loop — Think → Pick Tool → Execute → Observe → Think again → until task done</div>
+    </div>
+    <div class="csum pys"><div class="cst">✅ CH 1 DONE</div><ul><li>Python QA stack: Playwright + pytest + LangChain AI + Allure + GitHub Actions</li><li>LangChain builds the chains; LangGraph runs the stateful loop</li><li>Every chapter adds one layer to the full QA architecture</li></ul><button class="nxtch" onclick="showCh(1,document.querySelectorAll('#qanav .cnb')[1])">Next: Ch 2 — Setup →</button></div>
+  </div>
+
+  <!-- CH2 PYTHON -->
+  <div class="cc" id="pyc1">
+    <div class="chero pyh"><div class="chn">CH 2 · PYTHON</div><div class="cht">⚙️ DEV SETUP</div><div class="chd">Python 3.11+, virtual environment, install all packages, set API keys safely using .env files.</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">📦</span><span>Package Bot says:</span></div><p>We use a <strong>virtual environment</strong> (venv) so our project's packages don't mess up other Python projects on your machine. Think of it like a <strong>clean lunchbox just for this project</strong> — nothing leaks in or out! 🍱</p></div>
+    <div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">⚡ VS Code Terminal</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div></div><div class="code-content"><span class="pc"># Step 1: Create project &amp; virtual environment</span>
+mkdir qa-agent && cd qa-agent
+python -m venv venv && source venv/bin/activate
+
+<span class="pc"># Step 2: Install all packages at once</span>
+pip install pytest playwright pytest-playwright
+pip install langchain langchain-openai langgraph
+pip install allure-pytest python-dotenv</div></div></div>
+    <div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🔑 .env — API Keys Safe!</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div></div><div class="code-content">OPENAI_API_KEY=sk-your-key-here
+OPENAI_MODEL=gpt-4o</div></div></div>
+    <div class="tip-box tip"><div class="tip-title">💡 Security Rule #1</div><p>Add <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">.env</code> to your <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">.gitignore</code> immediately! Never commit API keys to GitHub. Use <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">python-dotenv</code> to load them safely.</p></div>
+    <div class="csum pys"><div class="cst">✅ CH 2 DONE</div><ul><li>venv = clean, isolated Python environment for this project only</li><li>.env + python-dotenv = API keys safe and out of your code</li><li>All dependencies installed in one go — run <code style="color:var(--yellow)">playwright install</code> too!</li></ul><button class="nxtch" onclick="showCh(2,document.querySelectorAll('#qanav .cnb')[2])">Next: Ch 3 — First Tests →</button></div>
+  </div>
+
+  <!-- CH3 PYTHON -->
+  <div class="cc" id="pyc2">
+    <div class="chero pyh"><div class="chn">CH 3 · PYTHON</div><div class="cht">🎭 FIRST PLAYWRIGHT TESTS</div><div class="chd">Write your first Playwright tests with pytest — Page Object Model, assertions, parametrized tests that actually make sense!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🎭</span><span>Playwright Mascot says:</span></div><p>Old Selenium way: <strong style="color:#dc2626">page.find_element(By.CSS_SELECTOR, "#submit-btn")</strong> — breaks when CSS changes!<br><br>
+    Modern Playwright way: <strong>page.get_by_role("button", name="Login")</strong> — finds the login button <em>even if CSS changes</em> because it uses semantic meaning! 🎯</p></div>
+    <div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🐍 pages/login_page.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div></div><div class="code-content"><span class="pk">from</span> playwright.sync_api <span class="pk">import</span> Page
+
+<span class="pk">class</span> <span class="pcl">LoginPage</span>:
+    <span class="pk">def</span> <span class="pf">__init__</span>(self, page: Page):
+        self.page = page
+
+    <span class="pk">def</span> <span class="pf">login</span>(self, user: str, pwd: str):
+        self.page.goto(<span class="ps">"/login"</span>)
+        self.page.get_by_label(<span class="ps">"Username"</span>).fill(user)
+        self.page.get_by_label(<span class="ps">"Password"</span>).fill(pwd)
+        self.page.get_by_role(<span class="ps">"button"</span>, name=<span class="ps">"Login"</span>).click()</div></div></div>
+    <div class="tip-box info"><div class="tip-title">🧠 Why Page Object Model?</div><p>When your login button CSS changes, you update ONE class. Without POM, you'd have to update 50 test files. POM = DRY tests! (Don't Repeat Yourself)</p></div>
+    <div class="csum pys"><div class="cst">✅ CH 3 DONE</div><ul><li>Page Object Model = one class per page, update once, fix everywhere</li><li>get_by_role / get_by_label = semantic selectors that survive UI changes</li><li>pytest fixtures auto-manage browser lifecycle — no manual cleanup!</li></ul><button class="nxtch" onclick="showCh(3,document.querySelectorAll('#qanav .cnb')[3])">Next: Ch 4 — AI Gen →</button></div>
+  </div>
+
+  <!-- CH4 PYTHON -->
+  <div class="cc" id="pyc3">
+    <div class="chero pyh"><div class="chn">CH 4 · PYTHON</div><div class="cht">🤖 AI TEST GENERATION</div><div class="chd">Use GPT-4o + LangChain to generate complete Playwright test code from user stories. What took 30 mins now takes 30 seconds!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🤖</span><span>AI Gen Bot says:</span></div><p>Give GPT-4o a <strong>user story + your Page Object classes</strong>. It writes the entire test file — assertions, edge cases, error handling, parametrized scenarios! 🚀<br><br>
+    <em>You: "Write tests for the checkout flow"</em><br>
+    <em>AI: *generates 50 lines of perfect pytest code* ✅</em></p></div>
+    <div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🐍 ai_test_gen.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div></div><div class="code-content"><span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI
+<span class="pk">from</span> langchain_core.messages <span class="pk">import</span> SystemMessage, HumanMessage
+
+llm = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>)
+
+<span class="pk">def</span> <span class="pf">generate_test_from_story</span>(story: str, html_snippet: str = <span class="ps">""</span>) -> str:
+    msgs = [
+        SystemMessage(<span class="ps">"You are a senior QA engineer. Write pytest + Playwright tests."</span>),
+        SystemMessage(<span class="ps">"Use Page Object Model. Include assertions and edge cases."</span>),
+        HumanMessage(<span class="ps">f"Story: {story}\nHTML: {html_snippet}\nWrite complete test file."</span>)
+    ]
+    <span class="pk">return</span> llm.invoke(msgs).content
+
+story = <span class="ps">"As a user, I want to add items to cart and see the total update."</span>
+test_code = generate_test_from_story(story)
+print(test_code)  <span class="pc"># Writes complete pytest test!</span></div></div></div>
+    <div class="tip-box tip"><div class="tip-title">✅ Pro Tip: Paste real HTML into the prompt!</div><p>Copy your page's HTML structure (F12 → Elements) and include it in the prompt. The AI will generate selectors that match your actual DOM — not generic placeholders. The more context you give, the better the tests!</p></div>
+    <div class="csum pys"><div class="cst">✅ CH 4 DONE</div><ul><li>GPT-4o + LangChain generates Playwright tests from user stories</li><li>Include your HTML + existing POM classes for precise, working code</li><li>AI diagnoses test failures when you paste in error logs</li></ul><button class="nxtch" onclick="showCh(4,document.querySelectorAll('#qanav .cnb')[4])">Next: Ch 5 — Self-Healing →</button></div>
+  </div>
+
+  <!-- CH5 PYTHON -->
+  <div class="cc" id="pyc4">
+    <div class="chero pyh"><div class="chn">CH 5 · PYTHON</div><div class="cht">🔧 SELF-HEALING SELECTORS</div><div class="chd">Build an AI layer that detects broken selectors and automatically finds the right element using GPT-4o Vision!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🔧</span><span>Self-Heal Bot says:</span></div><p>When a selector breaks (button moved, ID changed, CSS class renamed), instead of failing, our agent <strong>takes a screenshot, sends it to GPT-4o Vision</strong>, asks "where is the Submit button?", and gets the new selector back automatically! 🪄<br><br>
+    <em>Before: ❌ Test fails → Developer wakes up at 2am</em><br>
+    <em>After: ✅ AI heals selector → Test passes → Everyone sleeps!</em> 😴</p></div>
+    <div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🐍 ai_healer.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div></div><div class="code-content"><span class="pk">import</span> base64
+<span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI
+
+vision_llm = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>)
+
+<span class="pk">def</span> <span class="pf">heal_selector</span>(page, broken_selector: str, element_purpose: str) -> str:
+    <span class="pc"># Take screenshot, ask AI to find the element</span>
+    screenshot = page.screenshot()
+    img_b64 = base64.b64encode(screenshot).decode()
+    response = vision_llm.invoke([
+        {<span class="ps">"type"</span>:<span class="ps">"image_url"</span>,<span class="ps">"image_url"</span>:{<span class="ps">"url"</span>:<span class="ps">f"data:image/png;base64,{img_b64}"</span>}},
+        {<span class="ps">"type"</span>:<span class="ps">"text"</span>,<span class="ps">"text"</span>:<span class="ps">f"Find '{element_purpose}'. Return only the new Playwright selector."</span>}
+    ])
+    <span class="pk">return</span> response.content.strip()
+<span class="pc"># Returns: 'get_by_role("button", name="Submit Order")' — test continues!</span></div></div></div>
+    <div class="csum pys"><div class="cst">✅ CH 5 DONE</div><ul><li>GPT-4o Vision analyzes screenshots to find moved elements</li><li>heal_selector() returns a working Playwright selector automatically</li><li>Wrap all page interactions in a try/heal pattern for resilient tests</li></ul><button class="nxtch" onclick="showCh(5,document.querySelectorAll('#qanav .cnb')[5])">Next: Ch 6 — Reports →</button></div>
+  </div>
+
+  <!-- CH6 PYTHON -->
+  <div class="cc" id="pyc5">
+    <div class="chero pyh"><div class="chn">CH 6 · PYTHON</div><div class="cht">📊 REPORTS &amp; SCREENSHOTS</div><div class="chd">Allure reports with screenshots, videos, test trends — reports your whole team can actually read and understand!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">📊</span><span>Report Bot says:</span></div><p>Plain pytest output is just boring text. <strong>Allure reports</strong> show a beautiful dashboard with pass/fail trends, screenshots of failures, test execution videos, and history across builds. 📈<br><br>
+    <em>Your PM will actually look at these — and understand them!</em> 🎉</p></div>
+    <div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🐍 tests/test_with_reporting.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div></div><div class="code-content"><span class="pk">import</span> allure
+<span class="pk">from</span> playwright.sync_api <span class="pk">import</span> Page
+
+<span class="pf">@allure.feature</span>(<span class="ps">"Shopping Cart"</span>)
+<span class="pf">@allure.story</span>(<span class="ps">"Add item to cart"</span>)
+<span class="pk">def</span> <span class="pf">test_add_to_cart</span>(page: Page):
+    <span class="pk">with</span> allure.step(<span class="ps">"Open product page"</span>):
+        page.goto(<span class="ps">"/product/123"</span>)
+    <span class="pk">with</span> allure.step(<span class="ps">"Click Add to Cart"</span>):
+        page.get_by_role(<span class="ps">"button"</span>, name=<span class="ps">"Add to Cart"</span>).click()
+    <span class="pk">with</span> allure.step(<span class="ps">"Verify cart count"</span>):
+        assert page.get_by_test_id(<span class="ps">"cart-count"</span>).text_content() == <span class="ps">"1"</span>
+<span class="pc"># Run: allure serve allure-results — opens beautiful dashboard!</span></div></div></div>
+    <div class="csum pys"><div class="cst">✅ CH 6 DONE</div><ul><li>allure.step() = named steps in reports — great for debugging failures</li><li>Screenshots auto-captured on failure via pytest-playwright</li><li>Run: <code style="color:var(--yellow)">allure serve allure-results</code> — opens beautiful live dashboard</li></ul><button class="nxtch" onclick="showCh(6,document.querySelectorAll('#qanav .cnb')[6])">Next: Ch 7 — CI/CD →</button></div>
+  </div>
+
+  <!-- CH7 PYTHON -->
+  <div class="cc" id="pyc6">
+    <div class="chero pyh"><div class="chn">CH 7 · PYTHON</div><div class="cht">🔄 CI/CD INTEGRATION</div><div class="chd">GitHub Actions pipeline — tests run automatically on every PR, block merges on failure. Quality gates built in!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🔄</span><span>DevOps Bot says:</span></div><p>Tests that only run locally are <strong>not real tests</strong>! 🚨<br><br>
+    We add a GitHub Actions workflow so every Pull Request triggers the full test suite. Failing tests block the merge — <strong>quality gates built in automatically!</strong><br><br>
+    <em>No more "it works on my machine" excuses!</em> 😄</p></div>
+    <div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">📄 .github/workflows/qa.yml</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div></div><div class="code-content"><span class="ps">name:</span> QA Automation Pipeline
+<span class="ps">on:</span> [push, pull_request] <span class="pc"># run on every PR!</span>
+
+<span class="ps">jobs:</span>
+  <span class="ps">test:</span>
+    <span class="ps">runs-on:</span> ubuntu-latest
+    <span class="ps">steps:</span>
+      - <span class="pk">uses:</span> actions/checkout@v4
+      - <span class="pk">uses:</span> actions/setup-python@v5
+        <span class="ps">with:</span> {python-version: <span class="ps">'3.11'</span>}
+      - <span class="ps">run:</span> pip install pytest playwright pytest-playwright allure-pytest
+      - <span class="ps">run:</span> playwright install --with-deps
+      - <span class="ps">run:</span> pytest tests/ --alluredir=allure-results -v
+      - <span class="pk">uses:</span> actions/upload-artifact@v4 <span class="pc"># save reports</span>
+        <span class="ps">if:</span> always()
+        <span class="ps">with:</span>
+          <span class="ps">name:</span> allure-results
+          <span class="ps">path:</span> allure-results/</div></div></div>
+    <div class="csum pys"><div class="cst">✅ CH 7 DONE</div><ul><li>GitHub Actions runs tests on every push and PR automatically</li><li>Test artifacts (reports, screenshots) saved for review</li><li>Failed tests = blocked merge = quality gate enforced!</li></ul><button class="nxtch" onclick="showCh(7,document.querySelectorAll('#qanav .cnb')[7])">Next: Ch 8 — AI Agent →</button></div>
+  </div>
+
+  <!-- CH8 PYTHON -->
+  <div class="cc" id="pyc7">
+    <div class="chero pyh"><div class="chn">CH 8 · PYTHON</div><div class="cht">🚀 FULL AUTONOMOUS QA AGENT</div><div class="chd">Build an autonomous QA agent that explores your app, generates tests, runs them, heals failures, and files bug reports — all automatically, 24/7!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🤖</span><span>The QA Agent says:</span></div><p>Give me a URL and a Jira project. I'll <strong>crawl your app</strong>, generate test cases, run them with Playwright, use Vision to heal failures, and <strong>create GitHub Issues</strong> for real bugs. I'm a tireless QA engineer that works 24/7 without coffee breaks! ☕🚀</p></div>
+    <div class="flowdiag">
+      <div class="fd-title">🚀 AUTONOMOUS QA AGENT LOOP</div>
+      <div class="fd-row">
+        <div class="fd-node shared-node"><span class="fd-icon">🌐</span><span class="fd-label">App URL</span><span class="fd-sub">Starting point</span></div>
+        <span class="fd-arrow">→</span>
+        <div class="fd-node py-node"><span class="fd-icon">🔍</span><span class="fd-label">Crawler Agent</span><span class="fd-sub">Discovers all pages</span></div>
+        <span class="fd-arrow">→</span>
+        <div class="fd-node hot-node"><span class="fd-icon">🤖</span><span class="fd-label">Test Generator</span><span class="fd-sub">Writes Playwright tests</span></div>
+        <span class="fd-arrow">→</span>
+        <div class="fd-node qa-node"><span class="fd-icon">🎭</span><span class="fd-label">Test Runner</span><span class="fd-sub">Executes tests</span></div>
+      </div>
+      <div class="fd-row">
+        <div class="fd-node hot-node"><span class="fd-icon">🔧</span><span class="fd-label">Healer</span><span class="fd-sub">Fixes broken tests</span></div>
+        <span class="fd-arrow">→</span>
+        <div class="fd-node py-node"><span class="fd-icon">🐛</span><span class="fd-label">Bug Reporter</span><span class="fd-sub">Files GitHub Issues</span></div>
+        <span class="fd-arrow">→</span>
+        <div class="fd-node qa-node"><span class="fd-icon">📊</span><span class="fd-label">Report</span><span class="fd-sub">Allure + Slack</span></div>
+      </div>
+      <div class="fd-loop">🔁 Runs nightly → new features auto-tested → coverage grows autonomously</div>
+    </div>
+    <div class="csum pys"><div class="cst">🎓 PYTHON QA COURSE COMPLETE!</div><ul><li>✅ Playwright + pytest setup with VS Code</li><li>✅ Page Object Model for maintainable tests</li><li>✅ AI generates tests from user stories</li><li>✅ GPT-4o Vision self-heals broken selectors</li><li>✅ Allure reports your whole team can read</li><li>✅ GitHub Actions CI/CD quality gates</li><li>✅ Full autonomous QA agent — runs 24/7</li></ul></div>
+  </div>
+
+</div><!-- end pyleft -->
+
+<!-- SPLITTER -->
+<div class="spl" id="spl"></div>
+
+<!-- ════ RIGHT: .NET ════ -->
+<div class="sp qatp" id="netright">
+  <div class="lbadge qab"><div class="lbi">🟣</div><div><div class="lbt">.NET / C#</div><div class="lbs">NUnit · Playwright .NET · Semantic Kernel · Azure DevOps</div></div></div>
+
+  <!-- CH1 .NET -->
+  <div class="cc act" id="netc0">
+    <div class="chero qah"><div class="chn">CH 1 · .NET</div><div class="cht">🌱 FOUNDATIONS &amp; FLOW</div><div class="chd">The .NET QA ecosystem — Playwright .NET, NUnit, Semantic Kernel for AI — and how they connect in an enterprise pipeline.</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🟣</span><span>.NET QA Mascot says:</span></div><p>In .NET, QA automation feels very natural if you're a C# developer! <strong>Playwright .NET</strong> gives you the same power as the Python version, with full <strong>async/await</strong> support, and NUnit integrates perfectly with Azure DevOps pipelines! 🏢<br><br>
+    <em>Already know C#? You're 80% there already!</em> 💪</p></div>
+    <div class="persona-strip">
+      <div class="ps-title">👥 WHO USES .NET QA AUTOMATION?</div>
+      <div class="ps-grid">
+        <div class="ps-card" style="border-color:var(--teal)"><span class="ps-emoji">🏢</span><strong>Enterprise QA</strong><span class="ps-tag" style="background:#ccfbf1;color:#0f766e">C# Native</span><p>Your whole team knows C# — no Python context switch needed</p></div>
+        <div class="ps-card" style="border-color:var(--py)"><span class="ps-emoji">☁️</span><strong>Azure DevOps</strong><span class="ps-tag" style="background:#dbeafe;color:#1e40af">Azure Pipelines</span><p>First-class integration with ADO pipelines and Test Plans</p></div>
+        <div class="ps-card" style="border-color:var(--net)"><span class="ps-emoji">🔒</span><strong>Compliance Teams</strong><span class="ps-tag" style="background:#ede9fe;color:#4c1d95">Audit Ready</span><p>NUnit + Azure Test Plans = full audit trail for regulated industries</p></div>
+        <div class="ps-card" style="border-color:var(--green)"><span class="ps-emoji">🚀</span><strong>DevOps Team</strong><span class="ps-tag" style="background:#d1fae5;color:#065f46">CI/CD</span><p>dotnet test integrates with every .NET CI/CD workflow natively</p></div>
+      </div>
+    </div>
+    <div class="tree-wrap">
+      <div class="tree-title">🟣 .NET QA AUTOMATION — FULL STACK TREE</div>
+      <div class="tr-root"><div class="tr-node tn-root"><span class="tn-icon">📋</span><span class="tn-label">REQUIREMENTS</span><span class="tn-sub">Azure Boards / Jira</span></div></div>
+      <div class="tr-vline"></div>
+      <div class="tr-children">
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-net"><span class="tn-icon">⚙️</span><span class="tn-label">SEMANTIC KERNEL</span><span class="tn-sub">AI test code generation</span><span class="tn-ch">Ch 4</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-green"><span class="tn-icon">🎭</span><span class="tn-label">PLAYWRIGHT .NET</span><span class="tn-sub">Browser automation (async C#)</span><span class="tn-ch">Ch 2–3</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-cyan"><span class="tn-icon">🧪</span><span class="tn-label">NUNIT</span><span class="tn-sub">Test framework &amp; runner</span><span class="tn-ch">Ch 2</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-py"><span class="tn-icon">📄</span><span class="tn-label">PAGE OBJECTS</span><span class="tn-sub">C# POM classes</span><span class="tn-ch">Ch 3</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-hot"><span class="tn-icon">🔧</span><span class="tn-label">AI HEALER</span><span class="tn-sub">SK + Vision API fix</span><span class="tn-ch">Ch 5</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-qa"><span class="tn-icon">📊</span><span class="tn-label">ALLURE</span><span class="tn-sub">HTML reports</span><span class="tn-ch">Ch 6</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-qa"><span class="tn-icon">📈</span><span class="tn-label">AZURE TEST PLANS</span><span class="tn-sub">Enterprise audit trail</span><span class="tn-ch">Ch 6</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-green"><span class="tn-icon">🔄</span><span class="tn-label">AZURE PIPELINES</span><span class="tn-sub">CI/CD quality gate</span><span class="tn-ch">Ch 7</span></div></div>
+        <div class="tr-branch"><div class="tr-stub"></div><div class="tr-node tn-root"><span class="tn-icon">✅</span><span class="tn-label">SHIP WITH CONFIDENCE</span><span class="tn-sub">Bugs caught before production</span></div></div>
+      </div>
+      <div class="tr-loop">🔁 SK Planner QA Loop — Generate C# tests → Execute → Heal → Report to ADO → improve</div>
+    </div>
+    <div class="fwd-grid">
+      <div class="fwd-card"><div class="fwd-icon">🎭</div><div class="fwd-name">Playwright .NET</div><div class="fwd-desc">Same Playwright power, native C# async/await API. Microsoft.Playwright NuGet. Perfect for ASP.NET apps with Azure AD auth flows.</div><div class="fwd-use">Ch2 setup → Ch3 first tests → Ch5 healing</div></div>
+      <div class="fwd-card"><div class="fwd-icon">🧪</div><div class="fwd-name">NUnit</div><div class="fwd-desc">The .NET standard for test organization. [Test], [TestCase], [SetUp], [TearDown] attributes. First-class support in Visual Studio and Azure DevOps Test Plans.</div><div class="fwd-use">Ch2 setup → All chapters</div></div>
+      <div class="fwd-card"><div class="fwd-icon">⚙️</div><div class="fwd-name">Semantic Kernel</div><div class="fwd-desc">Microsoft's AI SDK generates test code from requirements. C# Kernel calls GPT-4o with your HTML context and gets back NUnit test classes ready to compile.</div><div class="fwd-use">Ch4 AI gen → Ch8 agents</div></div>
+      <div class="fwd-card"><div class="fwd-icon">📊</div><div class="fwd-name">Azure Test Plans</div><div class="fwd-desc">Full test management in Azure DevOps. Map automated tests to test cases, track manual + automated coverage together, compliance-ready audit trails.</div><div class="fwd-use">Ch6 reports → Ch7 CI/CD</div></div>
+    </div>
+    <div class="csum qas"><div class="cst">✅ CH 1 DONE!</div><ul><li>.NET QA stack: Playwright .NET + NUnit + Semantic Kernel AI</li><li>Azure DevOps native integration throughout the whole pipeline</li><li>Same 8-chapter journey as Python — different C# patterns</li></ul><button class="nxtch" onclick="showCh(1,document.querySelectorAll('#qanav .cnb')[1])">Next: Ch 2 — Setup →</button></div>
+  </div>
+
+  <!-- CH2 .NET -->
+  <div class="cc" id="netc1">
+    <div class="chero qah"><div class="chn">CH 2 · .NET</div><div class="cht">⚙️ SETUP IN VISUAL STUDIO</div><div class="chd">Create NUnit project, install Playwright .NET NuGet packages, configure in Visual Studio — no terminal needed!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🟣</span><span>.NET Mascot says:</span></div><p>In Visual Studio, everything is GUI-driven! Create the project → add NuGet packages via the Package Manager → run tests from the Test Explorer panel. <strong>The terminal is optional here</strong> — Visual Studio handles it all! 🖥️<br><br>
+    <em>Right-click → Manage NuGet Packages → Install. Done!</em> ✅</p></div>
+    <div class="con"><h4>🖥️ Visual Studio Setup Steps</h4><p>File → New Project → <strong>NUnit Test Project (.NET)</strong> → then in Solution Explorer, right-click → Manage NuGet Packages → search and install. Test Explorer panel (View → Test Explorer) runs individual tests with one click — shows green/red traffic light for each test!</p></div>
+    <div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🟣 QaProject.csproj</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div></div><div class="code-content">&lt;Project Sdk="Microsoft.NET.Sdk"&gt;
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;net8.0&lt;/TargetFramework&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+  &lt;/PropertyGroup&gt;
+  &lt;ItemGroup&gt;
+    <span class="pc">&lt;!-- Right-click → Manage NuGet Packages to install these --&gt;</span>
+    &lt;PackageReference Include="Microsoft.Playwright.NUnit" Version="1.*" /&gt;
+    &lt;PackageReference Include="Microsoft.SemanticKernel" Version="1.*" /&gt;
+    &lt;PackageReference Include="Allure.NUnit" Version="2.*" /&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;</div></div></div>
+    <div class="csum qas"><div class="cst">✅ CH 2 DONE</div><ul><li>NUnit project + Playwright .NET NuGet installed via VS GUI — no CLI needed!</li><li>Inherit from PageTest — browser lifecycle managed automatically</li><li>Test Explorer in Visual Studio shows green/red for each test instantly</li></ul><button class="nxtch" onclick="showCh(2,document.querySelectorAll('#qanav .cnb')[2])">Next: Ch 3 — First Tests →</button></div>
+  </div>
+
+  <!-- CH3 .NET -->
+  <div class="cc" id="netc2">
+    <div class="chero qah"><div class="chn">CH 3 · .NET</div><div class="cht">🎭 FIRST PLAYWRIGHT .NET TESTS</div><div class="chd">Page Object Model in C#, [TestCase] for parametrized tests, async/await test patterns.</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🎭</span><span>Playwright .NET says:</span></div><p>The C# Page Object Model uses <strong>classes with async methods</strong> — very idiomatic .NET. Every UI action is awaited (<code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">await Page.ClickAsync</code>). The <strong>[TestCase]</strong> attribute is NUnit's equivalent of pytest's parametrize — run the same test with multiple data sets cleanly! 🎯</p></div>
+    <div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🟣 Pages/LoginPage.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div></div><div class="code-content"><span class="pk">using</span> Microsoft.Playwright;
+
+<span class="pk">public class</span> <span class="pcl">LoginPage</span>(IPage page)
+{
+    <span class="pk">private readonly</span> IPage _page = page;
+
+    <span class="pk">public async Task</span> <span class="pf">LoginAsync</span>(<span class="pk">string</span> user, <span class="pk">string</span> password)
+    {
+        <span class="pk">await</span> _page.GotoAsync(<span class="ps">"/login"</span>);
+        <span class="pk">await</span> _page.GetByLabel(<span class="ps">"Username"</span>).FillAsync(user);
+        <span class="pk">await</span> _page.GetByLabel(<span class="ps">"Password"</span>).FillAsync(password);
+        <span class="pk">await</span> _page.GetByRole(AriaRole.Button, <span class="pk">new</span> { Name = <span class="ps">"Login"</span> }).ClickAsync();
+    }
+    <span class="pk">public bool</span> <span class="pf">IsLoggedIn</span>() => _page.Url.EndsWith(<span class="ps">"/dashboard"</span>);
+}</div></div></div>
+    <div class="csum qas"><div class="cst">✅ CH 3 DONE</div><ul><li>C# POM uses async methods — await every Playwright action</li><li>GetByLabel/GetByRole = semantic, self-healing selectors same as Python</li><li>[TestCase] = parametrize equivalent — test multiple scenarios cleanly</li></ul><button class="nxtch" onclick="showCh(3,document.querySelectorAll('#qanav .cnb')[3])">Next: Ch 4 — AI Gen →</button></div>
+  </div>
+
+  <!-- CH4 .NET -->
+  <div class="cc" id="netc3">
+    <div class="chero qah"><div class="chn">CH 4 · .NET</div><div class="cht">🤖 AI TEST GENERATION WITH SK</div><div class="chd">Semantic Kernel generates NUnit + Playwright C# test code from requirements documents. Code that compiles first time!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">⚙️</span><span>Semantic Kernel says:</span></div><p>We use Semantic Kernel's <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">InvokePromptAsync</code> to send a user story to GPT-4o and get back C# NUnit test code. The system prompt tells the AI your project's patterns (<strong>PageTest base class, async/await, GetByRole selectors</strong>) so the generated code compiles first time! 🎉</p></div>
+    <div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🟣 AiTestGenerator.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel;
+
+<span class="pk">public class</span> <span class="pcl">AiTestGenerator</span>(Kernel kernel)
+{
+    <span class="pk">private readonly</span> Kernel _kernel = kernel;
+
+    <span class="pk">public async Task</span>&lt;<span class="pk">string</span>&gt; <span class="pf">GenerateFromStoryAsync</span>(<span class="pk">string</span> userStory)
+    {
+        <span class="pk">var</span> prompt = <span class="ps">$"""
+            You are a C# QA engineer using Playwright .NET + NUnit.
+            Inherit from PageTest. Use async/await. Use GetByRole/GetByLabel.
+            Return ONLY compilable C# code.
+            Write tests for: {userStory}
+            """</span>;
+        <span class="pk">var</span> result = <span class="pk">await</span> _kernel.InvokePromptAsync(prompt);
+        <span class="pk">return</span> result.ToString();
+    }
+}</div></div></div>
+    <div class="csum qas"><div class="cst">✅ CH 4 DONE</div><ul><li>Semantic Kernel calls GPT-4o with C#-specific system prompts</li><li>Include your base class patterns → generated code compiles directly</li><li>Paste in real HTML for accurate selector generation</li></ul><button class="nxtch" onclick="showCh(4,document.querySelectorAll('#qanav .cnb')[4])">Next: Ch 5 — Self-Heal →</button></div>
+  </div>
+
+  <!-- CH5 .NET -->
+  <div class="cc" id="netc4">
+    <div class="chero qah"><div class="chn">CH 5 · .NET</div><div class="cht">🔧 SELF-HEALING IN C#</div><div class="chd">AI-powered selector recovery using GPT-4o Vision via Semantic Kernel — same concept as Python, C# async patterns!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🔧</span><span>C# Healer says:</span></div><p>Same concept as Python — <strong>screenshot + GPT-4o Vision</strong> — but in C# with async/await throughout! The key C# difference: we use .NET's built-in <code style="background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:3px">Convert.ToBase64String()</code> for image encoding. No extra libraries needed! 💪</p></div>
+    <div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🟣 AiHealer.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div></div><div class="code-content"><span class="pk">public async Task</span>&lt;<span class="pk">string</span>&gt; <span class="pf">HealSelectorAsync</span>(IPage page, <span class="pk">string</span> purpose)
+{
+    <span class="pc">// 1. Take screenshot as base64</span>
+    <span class="pk">var</span> screenshotBytes = <span class="pk">await</span> page.ScreenshotAsync();
+    <span class="pk">var</span> b64 = Convert.ToBase64String(screenshotBytes);
+
+    <span class="pc">// 2. Ask GPT-4o Vision to find the element</span>
+    <span class="pk">var</span> prompt = <span class="ps">$"Find the '{purpose}' element. Return only the Playwright .NET selector."</span>;
+    <span class="pk">var</span> result = <span class="pk">await</span> _kernel.InvokePromptAsync(prompt,
+        <span class="pk">new</span> KernelArguments {{ <span class="ps">"image_base64"</span>, b64 }});
+    <span class="pk">return</span> result.ToString().Trim();
+}
+<span class="pc">// Returns: 'GetByRole(AriaRole.Button, new { Name = "Submit" })'</span></div></div></div>
+    <div class="csum qas"><div class="cst">✅ CH 5 DONE</div><ul><li>Convert.ToBase64String() encodes screenshot for GPT-4o Vision</li><li>SK KernelArguments passes image data alongside the prompt</li><li>Wrap in try/catch — attempt original selector, heal on failure</li></ul><button class="nxtch" onclick="showCh(5,document.querySelectorAll('#qanav .cnb')[5])">Next: Ch 6 — Reports →</button></div>
+  </div>
+
+  <!-- CH6 .NET -->
+  <div class="cc" id="netc5">
+    <div class="chero qah"><div class="chn">CH 6 · .NET</div><div class="cht">📊 ALLURE + AZURE TEST PLANS</div><div class="chd">Beautiful Allure reports AND Azure Test Plans integration for enterprise test management with full audit trails!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">📊</span><span>.NET Report Bot says:</span></div><p>In .NET, we can do <em>both</em>: <strong>Allure</strong> for the beautiful web report, AND <strong>Azure Test Plans</strong> for mapping automated tests to requirements — critical for regulated industries where you need to prove test coverage to auditors! 🏦<br><br>
+    <em>Compliance team: "Show me the test evidence!"</em><br>
+    <em>You: *one click* "Here's the full audit trail!" 😎</em></p></div>
+    <div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🟣 Tests/CartTests.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div></div><div class="code-content"><span class="pk">using</span> Allure.NUnit;
+<span class="pk">using</span> NUnit.Framework;
+
+[TestFixture][AllureNUnit]
+<span class="pk">public class</span> <span class="pcl">CartTests</span> : BaseTest
+{
+    [Test]
+    [AllureFeature(<span class="ps">"Shopping Cart"</span>)][AllureStory(<span class="ps">"Add item to cart"</span>)]
+    <span class="pk">public async Task</span> <span class="pf">AddToCart_ShouldUpdateCount</span>()
+    {
+        <span class="pk">await</span> Page.GotoAsync(<span class="ps">"/product/123"</span>);
+        <span class="pk">await</span> Page.GetByRole(AriaRole.Button, <span class="pk">new</span>{Name=<span class="ps">"Add to Cart"</span>}).ClickAsync();
+        <span class="pk">await</span> Expect(Page.GetByTestId(<span class="ps">"cart-count"</span>)).ToHaveTextAsync(<span class="ps">"1"</span>);
+    }
+}</div></div></div>
+    <div class="csum qas"><div class="cst">✅ CH 6 DONE</div><ul><li>[AllureNUnit] + [AllureFeature] = Allure reports with one attribute</li><li>Azure Test Plans: map [Test] to ADO test cases by ID</li><li>dotnet test --results-directory allure-results generates the report</li></ul><button class="nxtch" onclick="showCh(6,document.querySelectorAll('#qanav .cnb')[6])">Next: Ch 7 — CI/CD →</button></div>
+  </div>
+
+  <!-- CH7 .NET -->
+  <div class="cc" id="netc6">
+    <div class="chero qah"><div class="chn">CH 7 · .NET</div><div class="cht">🔄 AZURE DEVOPS PIPELINE</div><div class="chd">Azure Pipelines YAML — run NUnit + Playwright tests on every PR, publish results to Azure Test Plans automatically!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🔄</span><span>Azure DevOps says:</span></div><p>Azure Pipelines integrates natively with Azure Test Plans — your test results appear <em>inside your work items</em> in ADO! The <strong>PublishTestResults task</strong> uploads NUnit XML results, and each test run shows pass/fail trends directly in your sprint board! 📊<br><br>
+    <em>Sprint review: "Are we done?" → Dashboard: "✅ All 247 tests passing!"</em></p></div>
+    <div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">📄 azure-pipelines.yml</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div></div><div class="code-content"><span class="ps">trigger:</span> [main, develop]
+<span class="ps">pr:</span> [<span class="ps">'*'</span>] <span class="pc"># run on every Pull Request</span>
+<span class="ps">pool:</span> {vmImage: ubuntu-latest}
+
+<span class="ps">steps:</span>
+  - <span class="pk">task:</span> UseDotNet@2
+    <span class="ps">inputs:</span> {version: <span class="ps">'8.x'</span>}
+
+  - <span class="ps">script:</span> dotnet restore
+    <span class="ps">displayName:</span> <span class="ps">'Restore packages'</span>
+
+  - <span class="ps">script:</span> |
+      dotnet build
+      npx playwright install --with-deps chromium
+    <span class="ps">displayName:</span> <span class="ps">'Build + install browsers'</span>
+
+  - <span class="ps">script:</span> dotnet test --logger trx --results-directory TestResults
+    <span class="ps">displayName:</span> <span class="ps">'Run NUnit + Playwright tests'</span>
+
+  - <span class="pk">task:</span> PublishTestResults@2
+    <span class="ps">inputs:</span> {testResultsFormat: VSTest, testResultsFiles: <span class="ps">'TestResults/*.trx'</span>}
+    <span class="ps">condition:</span> always() <span class="pc"># publish even if tests fail</span></div></div></div>
+    <div class="csum qas"><div class="cst">✅ CH 7 DONE</div><ul><li>Azure Pipelines runs dotnet test on every PR trigger automatically</li><li>PublishTestResults uploads to Azure Test Plans automatically</li><li>condition: always() ensures results published even on failures</li></ul><button class="nxtch" onclick="showCh(7,document.querySelectorAll('#qanav .cnb')[7])">Next: Ch 8 — AI Agent →</button></div>
+  </div>
+
+  <!-- CH8 .NET -->
+  <div class="cc" id="netc7">
+    <div class="chero qah"><div class="chn">CH 8 · .NET</div><div class="cht">🚀 FULL SK QA AGENT</div><div class="chd">Semantic Kernel FunctionCallingStepwisePlanner orchestrates a full autonomous QA agent — explore → generate → run → heal → report!</div></div>
+    <div class="bubble"><div class="bubble-who"><span class="bicon">🤖</span><span>SK QA Agent says:</span></div><p>The SK Planner is the brain! 🧠 It takes a high-level goal like <em>"Test the checkout flow"</em>, decomposes it into steps (navigate → find elements → generate tests → run → heal failures → create bug tickets), and executes each step using registered plugins — <strong>fully autonomous!</strong><br><br>
+    <em>You: "Test everything on /checkout"</em><br>
+    <em>Agent: *works for 5 minutes*</em><br>
+    <em>Agent: "Found 3 bugs, filed GitHub Issues #42 #43 #44, coverage: 87%!" 🎉</em></p></div>
+    <div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🟣 QaAgentOrchestrator.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel.Planning;
+
+<span class="pc">// Register all QA plugins</span>
+kernel.Plugins.AddFromType&lt;BrowserPlugin&gt;(<span class="ps">"browser"</span>);   <span class="pc">// navigates &amp; screenshots</span>
+kernel.Plugins.AddFromType&lt;TestGenPlugin&gt;(<span class="ps">"testgen"</span>);   <span class="pc">// generates test code</span>
+kernel.Plugins.AddFromType&lt;TestRunnerPlugin&gt;(<span class="ps">"runner"</span>); <span class="pc">// runs dotnet test</span>
+kernel.Plugins.AddFromType&lt;HealerPlugin&gt;(<span class="ps">"healer"</span>);    <span class="pc">// fixes broken selectors</span>
+kernel.Plugins.AddFromType&lt;BugReporterPlugin&gt;(<span class="ps">"bugs"</span>);  <span class="pc">// creates GitHub Issues</span>
+
+<span class="pc">// Run the autonomous planner — it decides the steps!</span>
+<span class="pk">var</span> planner = <span class="pk">new</span> FunctionCallingStepwisePlanner();
+<span class="pk">var</span> result = <span class="pk">await</span> planner.ExecuteAsync(kernel,
+    <span class="ps">"Fully test the /checkout page, generate tests, run them, file bugs for failures"</span>);
+
+Console.WriteLine(result.FinalAnswer);
+<span class="pc">// "Found 3 bugs, filed GitHub Issues #42 #43 #44, coverage: 87%"</span></div></div></div>
+    <div class="csum qas"><div class="cst">🎓 .NET QA COURSE COMPLETE!</div><ul><li>✅ Playwright .NET + NUnit in Visual Studio</li><li>✅ C# Page Object Model with async/await</li><li>✅ Semantic Kernel generates NUnit test code from stories</li><li>✅ GPT-4o Vision self-heals broken selectors</li><li>✅ Allure + Azure Test Plans reporting</li><li>✅ Azure Pipelines CI/CD quality gates</li><li>✅ SK Planner autonomous QA agent — 24/7 coverage!</li></ul></div>
+  </div>
+
+</div><!-- end netright -->
+</div><!-- end sv -->
+</div><!-- end cwrap -->
+</div><!-- end tp -->
+
+<script>
+/* ═══ SWITCH BETWEEN HOME AND COURSE TABS ═══ */
+function switchMain(t, btn) {
+  var th    = document.getElementById('th');
+  var tp    = document.getElementById('tp');
+  var qanav = document.getElementById('qanav');
+  var btnTh = document.getElementById('btn-th');
+  var btnTp = document.getElementById('btn-tp');
+
+  if (t === 'h' || t === 'home') {
+    th.style.display    = 'block';
+    tp.style.display    = 'none';
+    qanav.style.display = 'none';
+    btnTh.classList.add('act');
+    btnTp.classList.remove('act');
+  } else {
+    th.style.display    = 'none';
+    tp.style.display    = 'flex';
+    qanav.style.display = 'flex';
+    btnTh.classList.remove('act');
+    btnTp.classList.add('act');
+    /* Load CH1 on first open */
+    showCh(0, document.querySelectorAll('#qanav .cnb')[0]);
+  }
+}
+
+/* ═══ SWITCH CHAPTER ═══ */
+function showCh(idx, btn) {
+  /* Update chapter nav active state */
+  document.querySelectorAll('#qanav .cnb').forEach(function(b) {
+    b.classList.remove('act-ch');
+  });
+  if (btn) btn.classList.add('act-ch');
+
+  /* Show correct chapter pair */
+  for (var i = 0; i < 8; i++) {
+    var pyEl  = document.getElementById('pyc' + i);
+    var netEl = document.getElementById('netc' + i);
+    if (pyEl)  pyEl.classList.toggle('act',  i === idx);
+    if (netEl) netEl.classList.toggle('act', i === idx);
+  }
+
+  /* Reset scroll */
+  var pl = document.getElementById('pyleft');
+  var nr = document.getElementById('netright');
+  if (pl) pl.scrollTop = 0;
+  if (nr) nr.scrollTop = 0;
+}
+
+/* ═══ SYNC SCROLL ═══ */
+var pyPanel  = document.getElementById('pyleft');
+var netPanel = document.getElementById('netright');
+var syncLock = false;
+var pyLast   = 0;
+var netLast  = 0;
+
+function syncScroll(src, tgt, last) {
+  if (syncLock) return;
+  syncLock = true;
+  var delta = src.scrollTop - last;
+  tgt.scrollTop += delta;
+  pyLast  = pyPanel.scrollTop;
+  netLast = netPanel.scrollTop;
+  requestAnimationFrame(function() { syncLock = false; });
+}
+
+if (pyPanel && netPanel) {
+  pyPanel.addEventListener('scroll',  function() { syncScroll(pyPanel,  netPanel, pyLast);  });
+  netPanel.addEventListener('scroll', function() { syncScroll(netPanel, pyPanel,  netLast); });
+}
+
+/* ═══ DRAGGABLE SPLITTER ═══ */
+var spl  = document.getElementById('spl');
+var drag = false;
+
+if (spl) {
+  spl.addEventListener('mousedown', function(e) { drag = true; document.body.style.cursor = 'col-resize'; e.preventDefault(); });
+  document.addEventListener('mousemove', function(e) {
+    if (!drag) return;
+    var sv = document.querySelector('.sv');
+    if (!sv) return;
+    var r  = sv.getBoundingClientRect();
+    var lw = Math.max(200, Math.min(e.clientX - r.left, r.width - 200));
+    var rw = r.width - lw - 12;
+    var lp = document.getElementById('pyleft');
+    var rp = document.getElementById('netright');
+    if (lp) { lp.style.flex = 'none'; lp.style.width = lw + 'px'; }
+    if (rp) { rp.style.flex = 'none'; rp.style.width = rw + 'px'; }
+  });
+  document.addEventListener('mouseup', function() { drag = false; document.body.style.cursor = ''; });
+
+  spl.addEventListener('touchstart', function(e) { drag = true; e.preventDefault(); }, { passive: false });
+  document.addEventListener('touchmove', function(e) {
+    if (!drag) return;
+    var t  = e.touches[0];
+    var sv = document.querySelector('.sv');
+    if (!sv) return;
+    var r  = sv.getBoundingClientRect();
+    var lw = Math.max(150, Math.min(t.clientX - r.left, r.width - 150));
+    var rw = r.width - lw - 12;
+    var lp = document.getElementById('pyleft');
+    var rp = document.getElementById('netright');
+    if (lp) { lp.style.flex = 'none'; lp.style.width = lw + 'px'; }
+    if (rp) { rp.style.flex = 'none'; rp.style.width = rw + 'px'; }
+  }, { passive: true });
+  document.addEventListener('touchend', function() { drag = false; });
+}
+</script>
+
+<div class="hs" style="max-width:280px;margin:1rem auto;padding:0 1rem;"></div>
+<script src="analytics.js"></script>
+<script src="widgets.js"></script>
+</body>
+</html>

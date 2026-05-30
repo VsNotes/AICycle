@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VSNotes — Your All‑in‑One Productivity Hub</title>
+  <meta name="description" content="VSNotes is a powerful, tab‑based notes and productivity hub with auto‑save, navigation tree for files/links, built‑in screen recording, whiteboard, JSON editor, mini spreadsheet, enhanced notepad, favorites, screenshots manager, Outlook meeting bar, and file compare (WinMerge-style)." />
+  <meta name="keywords" content="VSNotes, notes app, productivity, screen recording, whiteboard, JSON editor, spreadsheet, notepad, Outlook meetings, screenshots manager, navigation tree, file compare, WinMerge" />
+  <meta property="og:title" content="VSNotes — Your All‑in‑One Productivity Hub" />
+  <meta property="og:description" content="Work faster in one window: notes, files, links, screen recording, whiteboard, JSON editor, mini Excel, notepad, favorites, screenshots, meetings — all auto‑saved." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta property="og:url" content="https://vsnotes.github.io/vsnotes-site/" />
+  <meta name="theme-color" content="#5b7cfa" />
+
+  <!-- Optional Google Font (remove these 3 lines if you prefer system fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#0a0c12; --bg2:#0e1220; --glass:#101626cc; --card:#0f172a;
+      --accent:#6C8BFF; --accent2:#7CF7FF; --text:#eef2ff; --muted:#91A0C5;
+      --success:#2ED573; --warning:#FFD166; --danger:#FF6B6B;
+      --shadow:0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03);
+      --radius:16px; --radius-lg:22px; --ring:0 0 0 2px rgba(124,247,255,.25), 0 0 0 8px rgba(124,247,255,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif; color:var(--text);
+      background: radial-gradient(1200px 1200px at 80% 10%, #18204b33 0%, transparent 60%),
+                  radial-gradient(900px 900px at 10% 20%, #1d2e6b2b 0%, transparent 60%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      overflow-x:hidden;
+    }
+
+    /* Header */
+    .site-header{
+      position: sticky; top:0; z-index:40;
+      backdrop-filter: saturate(140%) blur(10px);
+      background: linear-gradient(180deg, rgba(10,12,18,.85), rgba(10,12,18,.45));
+      border-bottom: 1px solid rgba(124,247,255,.08);
+    }
+    .container{max-width:1200px; margin-inline:auto; padding: 0 20px;}
+    .row{display:flex; align-items:center; justify-content:space-between; gap:16px; height:68px;}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text)}
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, #7CF7FF, #6C8BFF 60%, #5c66ff);
+      box-shadow: var(--shadow);
+      display:grid; place-items:center;
+    }
+    .logo svg{width:22px; height:22px; filter: drop-shadow(0 2px 8px #00000080)}
+    .brand-name{font-weight:800; letter-spacing:.3px}
+    nav a{
+      color:var(--muted); text-decoration:none; font-weight:600; font-size:14.5px;
+      padding:10px 14px; border-radius:12px; transition:.25s ease; margin-left:6px;
+    }
+    nav a:hover{color:var(--text); background:rgba(108,139,255,.08)}
+    .cta{
+      background: linear-gradient(135deg, var(--accent), #5b7cfa 40%, #7CF7FF 120%);
+      color:#081223; font-weight:800; border:none; border-radius:14px; padding:12px 18px; cursor:pointer;
+      box-shadow: 0 8px 24px rgba(108,139,255,.4), inset 0 1px 0 rgba(255,255,255,.35);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .cta:hover{ transform: translateY(-1px); box-shadow: 0 12px 28px rgba(108,139,255,.5), inset 0 1px 0 rgba(255,255,255,.4)}
+    .cta:active{ transform: translateY(0) scale(.98)}
+    .cta.secondary{ background: transparent; color:var(--text); border:1px solid rgba(124,247,255,.25)}
+
+    /* Hero */
+    .hero{ padding: 72px 20px 36px; position:relative; overflow:hidden; }
+    .hero-grid{ display:grid; grid-template-columns: 1.1fr .9fr; gap:28px; align-items:center; }
+    .badge{
+      display:inline-flex; gap:10px; align-items:center; color:var(--accent2);
+      background: linear-gradient(180deg, rgba(124,247,255,.12), rgba(124,247,255,.04));
+      border:1px solid rgba(124,247,255,.25);
+      padding:8px 12px; border-radius:999px; font-weight:700; box-shadow: var(--shadow);
+    }
+    .title{
+      font-size: clamp(28px, 4vw + 10px, 56px); line-height:1.05; margin:14px 0 12px; font-weight:900;
+      letter-spacing:.1px;
+      background: linear-gradient(180deg, #f6f9ff 0%, #b8c6ff 100%);
+      -webkit-background-clip: text; background-clip:text; color:transparent;
+      text-shadow: 0 10px 40px rgba(124,247,255,.08);
+    }
+    .subtitle{color:#c8d3ff; font-size: clamp(15px, 1.2vw + 10px, 19px); line-height:1.55; max-width: 560px}
+    .hero-actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;}
+    .hero-card{
+      background: linear-gradient(180deg, rgba(23,32,54,.6), rgba(19,26,42,.6));
+      border:1px solid rgba(124,247,255,.12); border-radius: var(--radius-lg);
+      padding:18px; box-shadow: var(--shadow); display:grid; gap:10px;
+    }
+    .hero-slab{
+      border-radius: 20px; overflow:hidden; position:relative; isolation:isolate;
+      background: radial-gradient(800px 500px at 70% -10%, rgba(108,139,255,.2), transparent 60%),
+                  linear-gradient(180deg, #0f1526 0%, #0b1222 100%);
+      border:1px solid rgba(124,247,255,.14);
+      min-height: 320px; display:grid; place-items:center; box-shadow: var(--shadow);
+    }
+    .hero-preview{
+      width:100%; max-width: 560px; aspect-ratio: 16/9; border-radius:14px; border:1px solid rgba(124,247,255,.2);
+      background: linear-gradient(135deg, #14203a, #0e172e); display:grid; place-items:center; color:#a9c6ff;
+      position:relative; overflow:hidden;
+    }
+    .glow{
+      position:absolute; inset:auto; width:520px; height:520px; border-radius:50%;
+      background: radial-gradient(circle, rgba(124,247,255,.15), transparent 60%);
+      filter: blur(40px); bottom:-180px; right:-120px; pointer-events:none;
+    }
+
+    /* Sections */
+    section{padding: 64px 20px;}
+    .section-title{
+      font-size: clamp(22px, 3vw, 34px); font-weight:900; margin:0 0 10px;
+      background: linear-gradient(180deg, #f2f6ff 0%, #b9c8ff 100%); -webkit-background-clip:text; color:transparent;
+    }
+    .section-sub{color:var(--muted); margin-bottom:24px}
+    .grid{display:grid; gap:18px; grid-template-columns: repeat(12, 1fr);}
+    .col-4{grid-column: span 4}
+    .col-6{grid-column: span 6}
+    .col-8{grid-column: span 8}
+    .col-12{grid-column: span 12}
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr}
+      .col-4,.col-6,.col-8{grid-column: span 12}
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(19,26,42,.9), rgba(13,18,32,.85));
+      border:1px solid rgba(124,247,255,.12); border-radius: var(--radius); padding:18px;
+      box-shadow: var(--shadow); transition: transform .18s ease, box-shadow .25s ease, border-color .2s ease;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.04);
+      border-color: rgba(124,247,255,.25);
+    }
+    .card .hdr{display:flex; align-items:center; gap:12px; margin-bottom:8px}
+    .icon{
+      width:38px; height:38px; border-radius:12px; display:grid; place-items:center;
+      background: linear-gradient(180deg, rgba(108,139,255,.2), rgba(124,247,255,.08));
+      border:1px solid rgba(124,247,255,.2);
+    }
+    .icon svg{width:20px; height:20px}
+    .card h3{margin:0; font-size: 18px}
+    .card p{margin: 8px 0 0; color: var(--muted); line-height:1.55}
+
+    /* Feature images (thumbnails) */
+    .feature-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 12px;
+      border: 1px solid rgba(124,247,255,0.18);
+      background: #0c1224;
+      display: block;
+      object-fit: cover;
+      cursor: zoom-in;
+    }
+
+    /* Showcase */
+    .showcase{
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:8px;
+    }
+    .shot{
+      height:160px; border-radius:14px; background:#111827; border:1px dashed rgba(124,247,255,.22);
+      display:grid; place-items:center; color:#97b6ff; font-size:14px;
+    }
+
+    /* CTA band */
+    .cta-band{
+      border-radius: 22px; padding: 28px; display:grid; gap:12px;
+      background: radial-gradient(800px 400px at 80% 0%, rgba(108,139,255,.22), transparent 60%),
+                  linear-gradient(180deg, #0e162e, #0a1228);
+      border:1px solid rgba(124,247,255,.18);
+      box-shadow: var(--shadow);
+    }
+    .cta-band h3{margin:0}
+    .cta-actions{display:flex; gap:10px; flex-wrap:wrap}
+
+    /* Footer */
+    footer{padding:32px 20px 60px; color:#9fb0e6;}
+    .foot-grid{display:grid; gap:16px; grid-template-columns: 1.2fr 1fr 1fr}
+    .foot h4{margin:0 0 8px}
+    .foot a{color:#b8c6ff; text-decoration:none}
+    .foot a:hover{text-decoration:underline}
+
+    /* Animations */
+    @keyframes float { from{ transform: translateY(0) } 50%{ transform: translateY(-6px)} to{ transform: translateY(0) } }
+    .float{ animation: float 6s ease-in-out infinite }
+    .reveal{ opacity:0; transform: translateY(10px); transition: .6s ease}
+    .reveal.in{ opacity:1; transform: translateY(0)}
+    .ring:hover{ box-shadow: var(--ring) }
+
+    /* ===== Lightbox Popup ===== */
+    .lightbox {
+      position: fixed; inset: 0;
+      background: rgba(6, 10, 22, 0.6);
+      backdrop-filter: blur(6px) saturate(120%);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox__panel {
+      position: relative;
+      max-width: min(92vw, 1100px); max-height: 86vh;
+      background: linear-gradient(180deg, rgba(19,26,42,.95), rgba(12,18,34,.95));
+      border: 1px solid rgba(124,247,255,.22);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.04);
+      overflow: hidden; animation: lb-pop .2s ease-out;
+    }
+    @keyframes lb-pop { from { opacity: 0; transform: translateY(6px) scale(.98);} to {opacity:1; transform: translateY(0) scale(1);} }
+    .lightbox__img-wrap { padding: 10px; display: grid; place-items: center;
+      background: radial-gradient(900px 600px at 80% -10%, rgba(108,139,255,.22), transparent 60%); }
+    .lightbox__img { max-width: 100%; max-height: 70vh; border-radius: 12px; border: 1px solid rgba(124,247,255,.18); background: #0c1224; display: block; }
+    .lightbox__caption { padding: 10px 14px 14px; color: #c7d6ff; font-size: 14px; border-top: 1px solid rgba(124,247,255,.12); }
+    .lightbox__close {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(12,18,36,.8); color: #cfe7ff;
+      border: 1px solid rgba(124,247,255,.25);
+      width: 36px; height: 36px; border-radius: 10px;
+      display: grid; place-items: center; cursor: pointer; font-weight: 800;
+      box-shadow: 0 6px 20px rgba(0,0,0,.35);
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .lightbox__close:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(0,0,0,.45); background: rgba(18,28,58,.9); }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="row">
+        <a href="#top" class="brand" aria-label="VSNotes Home">
+          <span class="logo" aria-hidden="true">
+            <!-- Minimal notebook icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#061128" stroke-width="2">
+              <rect x="5" y="3" width="14" height="18" rx="3" fill="#e9f3ff"/>
+              <path d="M8 7h8M8 11h8M8 15h6" stroke="#5b7cfa"/>
+            </svg>
+          </span>
+          <span class="brand-name">VSNotes</span>
+        </a>
+        <nav aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#showcase">Showcase</a>
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div>
+          <button class="cta secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+          <button class="cta ring" onclick="alert('Attach your download link here!')">Download</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div>
+        <span class="badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z" stroke="#7CF7FF" stroke-width="1.6"/></svg>
+          All‑in‑One Notes & Work Hub — Auto‑Save Included
+        </span>
+        <h1 class="title">Work faster in one window with <strong>VSNotes</strong></h1>
+        <p class="subtitle">
+          Create tab‑based notes with rich formatting, manage files and links from a left navigation tree,
+          open content right inside the app, record meetings, sketch on a whiteboard, format and edit JSON,
+          write with an enhanced notepad, work in a mini spreadsheet, and never miss a meeting — all with automatic saving.
+        </p>
+        <div class="hero-actions">
+          <button class="cta ring">Get VSNotes</button>
+          <button class="cta secondary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Explore Features</button>
+        </div>
+
+        <div class="hero-card reveal" style="margin-top:18px">
+          <div class="bullets">
+            <div class="bullet"><span class="dot"></span><div><strong>Tab‑wise Notes:</strong> formatted text, images, tables — create unlimited tabs with <em>automatic save</em>.</div></div>
+            <div class="bullet"><span class="dot"></span><div><strong>Navigation Tree:</strong> add/paste files & links under <em>MyNotes</em>; click a node to open content in the middle — no more juggling windows.</div></div>
+            <div class="bullet"><span class="dot"></span><div><strong>Built‑in Recorder:</strong> record screen with/without camera; pause/resume; auto‑saved in <em>Recorder</em> folder.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="hero-slab float">
+          <div class="hero-preview">
+            <!-- Replace this placeholder with your product screenshot -->
+            <div style="text-align:center; padding:14px">
+              <div class="tag">Live Preview Placeholder</div>
+              <h3 style="margin:10px 0 6px; color:#dbe6ff">VSNotes Unified Workspace</h3>
+              <p style="margin:0; color:#a9b8ff">Tabs • Navigation Tree • Open Links Inside • Auto‑Save</p>
+              <div style="display:flex; gap:8px; justify-content:center; margin-top:12px; flex-wrap:wrap">
+                <span class="tag">Jira</span>
+                <span class="tag">Google</span>
+                <span class="tag">YouTube</span>
+                <span class="tag">Banking</span>
+                <span class="tag">Office Online</span>
+              </div>
+            </div>
+            <div class="glow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features (images wired + Compare feature) -->
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title">Powerful features, seamless flow</h2>
+      <p class="section-sub">Everything you need for daily office and personal work — inside one elegant tool.</p>
+
+      <div class="grid">
+        <!-- Notes & Tabs -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <rect x="4" y="3" width="14" height="18" rx="3"/>
+                <path d="M7 7h8M7 11h8M7 15h6"/>
+              </svg>
+            </div>
+            <h3>Tab‑Wise Notes (Auto‑Save)</h3>
+          </div>
+          <p>Create unlimited tabs with formatted text, images, and tables. Your content is saved automatically — no manual save required.</p>
+          <img class="feature-img"
+               src="assets/features/notes-tabs.png"
+               alt="VSNotes tab-wise notes with auto-save"
+               loading="lazy"
+               data-caption="Organize ideas in multiple tabs with rich formatting.">
+        </div>
+
+        <!-- Navigation Tree -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <path d="M6 20V6h12v14M6 10h12M10 10v10M14 10v10"/>
+              </svg>
+            </div>
+            <h3>MyNotes Navigation Tree</h3>
+          </div>
+          <p>Add/paste files and links; VSNotes creates nodes in a familiar tree. Click to open in the center — no more window juggling.</p>
+          <img class="feature-img"
+               src="assets/features/navigation-tree.png"
+               alt="MyNotes left navigation tree with files and links"
+               loading="lazy"
+               data-caption="Tree-style navigation to open anything in the middle area.">
+        </div>
+
+        <!-- Open Links Inside -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <path d="M10 13a5 5 0 0 1 0-7l2-2a5 5 0 0 1 7 7l-2 2"/>
+                <path d="M14 11a5 5 0 0 1 0 7l-2 2a5 5 0 0 1-7-7l2-2"/>
+              </svg>
+            </div>
+            <h3>Open Links Right Here</h3>
+          </div>
+          <p>Open Jira, Google, YouTube, banking, and Office online directly in VSNotes — no external browser needed.</p>
+          <img class="feature-img"
+               src="assets/features/open-links-inside.png"
+               alt="Open Jira, Google, YouTube, and more inside VSNotes"
+               loading="lazy"
+               data-caption="Built-in browser experience — stay in one window.">
+        </div>
+
+        <!-- Recorder -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <circle cx="12" cy="12" r="8"/>
+                <circle cx="12" cy="12" r="4" fill="#7CF7FF"/>
+              </svg>
+            </div>
+            <h3>Screen Recorder (Cam Optional)</h3>
+          </div>
+          <p>Start recording anytime with or without camera, pause/resume, and auto‑save to the <em>Recorder</em> folder.</p>
+          <img class="feature-img"
+               src="assets/features/screen-recorder.png"
+               alt="Screen recorder controls with camera toggle"
+               loading="lazy"
+               data-caption="One-click recording with pause/resume — auto-saved.">
+        </div>
+
+        <!-- Whiteboard -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <path d="M12 19l7-7-5-5-7 7-2 5 5-2z"/>
+              </svg>
+            </div>
+            <h3>Whiteboard & Diagrams</h3>
+          </div>
+          <p>Sketch flow diagrams anytime. Export to PNG or PDF — no third‑party tools required.</p>
+          <img class="feature-img"
+               src="assets/features/whiteboard.png"
+               alt="Whiteboard canvas for quick flow diagrams"
+               loading="lazy"
+               data-caption="Draw flows and export to PNG/PDF.">
+        </div>
+
+        <!-- JSON Editor -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <path d="M8 4c-2 0-3 1-3 3v2c0 1-1 2-2 2 1 0 2 1 2 2v2c0 2 1 3 3 3"/>
+                <path d="M16 4c2 0 3 1 3 3v2c0 1 1 2 2 2-1 0-2 1-2 2v2c0 2-1 3-3 3"/>
+              </svg>
+            </div>
+            <h3>JSON Editor (Pretty + Tree)</h3>
+          </div>
+          <p>Open, paste, or load JSON files — pretty‑printed with a hierarchical tree view for navigation and editing.</p>
+          <img class="feature-img"
+               src="assets/features/json-editor.png"
+               alt="JSON editor pretty-printed with a tree view"
+               loading="lazy"
+               data-caption="Format, explore, and edit JSON comfortably.">
+        </div>
+
+        <!-- Notepad -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <path d="M4 6h16M6 10h12M8 14h8M10 18h4"/>
+              </svg>
+            </div>
+            <h3>Enhanced Notepad</h3>
+          </div>
+          <p>Load or create text files, change font size and color, and work directly from the tool.</p>
+          <img class="feature-img"
+               src="assets/features/notepad.png"
+               alt="Enhanced notepad with font and color options"
+               loading="lazy"
+               data-caption="A better notepad for everyday text work.">
+        </div>
+
+        <!-- Outlook Bar -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <rect x="3" y="5" width="18" height="16" rx="3"/>
+                <path d="M16 3v4M8 3v4M3 11h18"/>
+              </svg>
+            </div>
+            <h3>Incoming Meetings Bar</h3>
+          </div>
+          <p>If Outlook is available, see upcoming meetings at the bottom — gentle reminders so you don’t miss anything.</p>
+          <img class="feature-img"
+               src="assets/features/meetings-bar.png"
+               alt="Incoming meetings bar integrated with Outlook"
+               loading="lazy"
+               data-caption="Meetings always in sight — never miss one.">
+        </div>
+
+        <!-- Mini Excel -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <path d="M4 10h16M4 16h16M10 4v16M16 4v16"/>
+              </svg>
+            </div>
+            <h3>Mini Excel (Spreadsheet)</h3>
+          </div>
+          <p>Create colorful sheets with rows, cells, merges, and quick editing. Double‑click long cells to edit in a separate view.</p>
+          <img class="feature-img"
+               src="assets/features/mini-excel.png"
+               alt="Mini spreadsheet with cells, merge, and styling"
+               loading="lazy"
+               data-caption="Spreadsheet power for quick work — no Excel required.">
+        </div>
+
+        <!-- Favorites -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <path d="M12 3l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z"/>
+              </svg>
+            </div>
+            <h3>Favorites by Category</h3>
+          </div>
+          <p>Pin your go‑to Apps, Files, Links, and Documents for one‑click access — open right inside VSNotes for speed and safety.</p>
+          <img class="feature-img"
+               src="assets/features/favorites.png"
+               alt="Favorites grouped as Apps, Files, Links, Documents"
+               loading="lazy"
+               data-caption="One-click access to your most-used items.">
+        </div>
+
+        <!-- Screenshots Manager -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <path d="M5 7h3l2-2h4l2 2h3a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-7a3 3 0 0 1 3-3z"/>
+                <circle cx="12" cy="14" r="4"/>
+              </svg>
+            </div>
+            <h3>Screenshots, Auto‑Saved</h3>
+          </div>
+          <p>Press PrintScreen — VSNotes captures and saves under <em>Screens</em>. Double‑click to open in MS Paint, edit, and save.</p>
+          <img class="feature-img"
+               src="assets/features/screenshots-manager.png"
+               alt="Screenshots tab with auto-saved captures"
+               loading="lazy"
+               data-caption="Instantly capture and manage screenshots.">
+        </div>
+
+        <!-- NEW: Compare (WinMerge-style) -->
+        <div class="card col-4 reveal">
+          <div class="hdr">
+            <div class="icon">
+              <!-- simple diff icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8">
+                <path d="M7 4h10M7 20h10M8 8h4M8 12h8M8 16h6"/>
+              </svg>
+            </div>
+            <h3>Compare (WinMerge‑Style)</h3>
+          </div>
+          <p>Side‑by‑side file comparison to spot differences quickly — copy left/right like WinMerge. Perfect for reviews and merges.</p>
+          <img class="feature-img"
+               src="assets/features/compare.png"
+               alt="Side-by-side file comparison like WinMerge"
+               loading="lazy"
+               data-caption="Clear diffs with copy left/right."
+               onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase / Screens -->
+  <section id="showcase">
+    <div class="container">
+      <h2 class="section-title">Screens you’ll add later</h2>
+      <p class="section-sub">Drop your product screenshots into the placeholders below. Replace with <code>&lt;img src="assets/..." alt="..." /&gt;</code></p>
+
+      <div class="showcase">
+        <div class="shot reveal">Add: Tabs & Notes UI</div>
+        <div class="shot reveal">Add: Navigation Tree</div>
+        <div class="shot reveal">Add: Open Jira/Google/YouTube</div>
+        <div class="shot reveal">Add: Screen Recorder</div>
+        <div class="shot reveal">Add: Whiteboard</div>
+        <div class="shot reveal">Add: JSON Editor Tree</div>
+        <div class="shot reveal">Add: Notepad</div>
+        <div class="shot reveal">Add: Outlook Meetings Bar</div>
+        <div class="shot reveal">Add: Mini Excel</div>
+        <div class="shot reveal">Add: Favorites</div>
+        <div class="shot reveal">Add: Screenshots Tab</div>
+        <div class="shot reveal">Add: Settings</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h3 class="section-title" style="margin-bottom:4px">How VSNotes fits your day</h3>
+        <p class="section-sub" style="margin:0">Three simple steps to keep everything organized and accessible.</p>
+        <div class="grid" style="margin-top:6px">
+          <div class="col-4 card">
+            <div class="hdr">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8"><path d="M4 6h16M6 10h12M8 14h8M10 18h4"/></svg></div>
+              <h3>1) Capture</h3>
+            </div>
+            <p>Write rich notes in tabs, add files & links to the tree, take screenshots, or start recording — everything auto‑saves.</p>
+          </div>
+          <div class="col-4 card">
+            <div class="hdr">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8"><path d="M6 20V6h12v14M6 10h12M10 10v10M14 10v10"/></svg></div>
+              <h3>2) Navigate</h3>
+            </div>
+            <p>Browse your MyNotes tree and open anything in the center — web links, docs, JSON, spreadsheets — no window chaos.</p>
+          </div>
+          <div class="col-4 card">
+            <div class="hdr">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7CF7FF" stroke-width="1.8"><path d="M12 3l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z"/></svg></div>
+              <h3>3) Share</h3>
+            </div>
+            <p>Send recordings, export whiteboards, copy notes, or share files — VSNotes keeps content ready for your team.</p>
+          </div>
+        </div>
+        <div class="cta-actions">
+          <button class="cta">Download for Windows</button>
+          <button class="cta secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently asked questions</h2>
+      <div class="grid">
+        <div class="col-6 card reveal">
+          <h3>Do I need to hit Save?</h3>
+          <p>No — VSNotes saves your content automatically across tabs, the navigation tree, recordings, and more.</p>
+        </div>
+        <div class="col-6 card reveal">
+          <h3>What types of content can I store?</h3>
+          <p>Formatted text, images, tables, files, and links. JSON data gets pretty‑printed with a tree view. Screenshots and recordings are organized for quick access.</p>
+        </div>
+        <div class="col-6 card reveal">
+          <h3>Where do my recordings go?</h3>
+          <p>Recordings are auto‑saved into the <em>Recorder</em> folder in the left navigation. Pause/resume and camera on/off are supported.</p>
+        </div>
+        <div class="col-6 card reveal">
+          <h3>Can I open websites inside VSNotes?</h3>
+          <p>Yes. Open links like Jira, Google, YouTube, Office online, and more directly in the center panel — no external browser needed.</p>
+        </div>
+        <div class="col-6 card reveal">
+          <h3>Does the spreadsheet support long text?</h3>
+          <p>Yes. Double‑click a cell with long data to edit it in a separate view for better visibility. You can style cells, merge, and color them.</p>
+        </div>
+        <div class="col-6 card reveal">
+          <h3>How does the meeting bar work?</h3>
+          <p>If Outlook is available, VSNotes shows upcoming meetings at the bottom of the screen so you don’t miss anything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h3 class="section-title" style="margin-bottom:6px">Ready to move faster?</h3>
+        <p class="section-sub" style="margin:0">Tell us a bit about your team and we’ll help you get started with VSNotes.</p>
+        <form onsubmit="event.preventDefault(); alert('Hook this to your backend or email');" class="grid" style="margin-top:12px">
+          <div class="col-6">
+            <div class="card">
+              <label for="name" style="display:block; font-weight:700; margin-bottom:6px">Name</label>
+              <input id="name" name="name" required placeholder="Your name" style="width:100%; padding:12px 14px; border-radius:12px; background:#0b1224; color:#eaf1ff; border:1px solid rgba(124,247,255,.2)" />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card">
+              <label for="email" style="display:block; font-weight:700; margin-bottom:6px">Email</label>
+              <input id="email" type="email" name="email" required placeholder="you@company.com" style="width:100%; padding:12px 14px; border-radius:12px; background:#0b1224; color:#eaf1ff; border:1px solid rgba(124,247,255,.2)" />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card">
+              <label for="msg" style="display:block; font-weight:700; margin-bottom:6px">Message</label>
+              <textarea id="msg" name="msg" rows="4" placeholder="How can we help?" style="width:100%; padding:12px 14px; border-radius:12px; background:#0b1224; color:#eaf1ff; border:1px solid rgba(124,247,255,.2)"></textarea>
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="cta ring">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container foot-grid">
+      <div class="foot">
+        <a href="#top" class="brand" aria-label="VSNotes Home">
+          <span class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#061128" stroke-width="2">
+              <rect x="5" y="3" width="14" height="18" rx="3" fill="#e9f3ff"/>
+              <path d="M8 7h8M8 11h8M8 15h6" stroke="#5b7cfa"/>
+            </svg>
+          </span>
+          <span class="brand-name">VSNotes</span>
+        </a>
+        <p style="max-width:520px">The unified workspace for notes, files, links, recordings, diagrams, JSON, spreadsheets, compare, and more — all auto‑saved.</p>
+      </div>
+      <div class="foot">
+        <h4>Explore</h4>
+        <div><a href="#features">Features</a></div>
+        <div><a href="#showcase">Showcase</a></div>
+        <div><a href="#how">How it works</a></div>
+        <div><a href="#faq">FAQ</a></div>
+      </div>
+      <div class="foot">
+        <h4>Get</h4>
+        <div><a href="#top">Download</a></div>
+        <div><a href="#contact">Contact</a></div>
+        <div><a href="#top">Documentation</a></div>
+      </div>
+    </div>
+    <div class="container" style="opacity:.7; margin-top:16px">© <span id="yr"></span> VSNotes. All rights reserved.</div>
+  </footer>
+
+  <!-- Lightbox Root -->
+  <div class="lightbox" id="vsn-lightbox" aria-hidden="true" role="dialog" aria-label="Image preview">
+    <div class="lightbox__panel" role="document">
+      <button class="lightbox__close" id="vsn-lightbox-close" aria-label="Close (Esc)">✕</button>
+      <div class="lightbox__img-wrap">
+        <img id="vsn-lightbox-img" class="lightbox__img" alt="">
+      </div>
+      <div id="vsn-lightbox-caption" class="lightbox__caption"></div>
+    </div>
+  </div>
+
+  <script>
+    // Year
+    const yr = document.getElementById('yr');
+    if (yr) yr.textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+    // ===== Lightbox logic =====
+    (function(){
+      const lb      = document.getElementById('vsn-lightbox');
+      const lbImg   = document.getElementById('vsn-lightbox-img');
+      const lbCap   = document.getElementById('vsn-lightbox-caption');
+      const lbClose = document.getElementById('vsn-lightbox-close');
+
+      function openLightbox(src, caption, altText){
+        if (!src) return;
+        lbImg.src = src;
+        lbImg.alt = altText || caption || 'Preview';
+        lbCap.textContent = caption || altText || '';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        lbClose.focus();
+        document.addEventListener('keydown', onEsc);
+      }
+
+      function closeLightbox(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        document.removeEventListener('keydown', onEsc);
+      }
+
+      function onEsc(e){ if (e.key === 'Escape') closeLightbox(); }
+
+      // Close on outside click (clicking the backdrop)
+      lb.addEventListener('click', (e)=>{
+        const panel = e.target.closest('.lightbox__panel');
+        if (!panel) closeLightbox();
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+
+      // Attach to all feature thumbnails
+      document.querySelectorAll('.feature-img').forEach(img=>{
+        img.setAttribute('tabindex', '0');
+        img.setAttribute('aria-label', 'Open preview');
+        const openFromImg = ()=>{
+          const src = img.getAttribute('data-full') || img.src;
+          const caption = img.getAttribute('data-caption') || img.alt || '';
+          openLightbox(src, caption, img.alt);
+        };
+        img.addEventListener('click', openFromImg);
+        img.addEventListener('keydown', (e)=>{
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openFromImg();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
