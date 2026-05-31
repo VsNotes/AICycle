@@ -1064,7 +1064,7 @@ transform = transforms.Compose([
         logits = model(tensor)
         pred   = logits.argmax(<span class="pn">1</span>).item()
         conf   = torch.softmax(logits, <span class="pn">1</span>).max().item()
-    <span class="pk">return</span> {{<span class="ps">"prediction"</span>: pred, <span class="ps">"confidence"</span>: <span class="ps">f"{conf:.1%}"</span>}}
+    <span class="pk">return</span> {<span class="ps">"prediction"</span>: pred, <span class="ps">"confidence"</span>: <span class="ps">f"{conf:.1%}"</span>}
 <span class="pc"># 🚀 uvicorn dl_api:app --reload → test at /docs</span></div></div>
 </div>
 <div style="background:linear-gradient(135deg,#060610,#0f0f2a);border:2px solid rgba(255,255,255,.1);border-radius:12px;box-shadow:4px 4px 0 rgba(0,0,0,.4);padding:1rem;position:relative;overflow:hidden;">
@@ -1123,7 +1123,7 @@ dummy_input = torch.randn(<span class="pn">1</span>, <span class="pn">1</span>, 
 torch.onnx.export(
     model, dummy_input, <span class="ps">"model.onnx"</span>,
     input_names=[<span class="ps">"input"</span>], output_names=[<span class="ps">"output"</span>],
-    dynamic_axes={{<span class="ps">"input"</span>: {{<span class="pn">0</span>: <span class="ps">"batch_size"</span>}}}}  <span class="pc"># variable batch size</span>
+    dynamic_axes={<span class="ps">"input"</span>: {<span class="pn">0</span>: <span class="ps">"batch_size"</span>}}  <span class="pc"># variable batch size</span>
 )
 
 <span class="pc"># ⚡ Run ONNX — 10x faster than PyTorch!</span>
@@ -1131,7 +1131,7 @@ torch.onnx.export(
 <span class="pk">import</span> numpy <span class="pk">as</span> np
 sess  = ort.InferenceSession(<span class="ps">"model.onnx"</span>)
 input_data = dummy_input.numpy()
-result = sess.run(<span class="pk">None</span>, {{<span class="ps">"input"</span>: input_data}})
+result = sess.run(<span class="pk">None</span>, {<span class="ps">"input"</span>: input_data})
 print(<span class="ps">f"ONNX prediction: {result[0].argmax()}"</span>)  <span class="pc"># same result, faster!</span></div></div>
 </div>
 <div class="cb">
@@ -1269,15 +1269,15 @@ image.Mutate(x => x.Resize(<span class="pn">28</span>, <span class="pn">28</span
 <span class="pc">// 🔢 Convert pixels to normalised float array</span>
 <span class="pk">var</span> inputData = <span class="pk">new float</span>[<span class="pn">1</span> * <span class="pn">1</span> * <span class="pn">28</span> * <span class="pn">28</span>];
 <span class="pk">var</span> idx = <span class="pn">0</span>;
-image.ProcessPixelRows(acc => {{
+image.ProcessPixelRows(acc => {
     <span class="pk">for</span> (<span class="pk">int</span> y = <span class="pn">0</span>; y &lt; acc.Height; y++)
         <span class="pk">foreach</span> (<span class="pk">var</span> px <span class="pk">in</span> acc.GetRowSpan(y))
             inputData[idx++] = (px.R / <span class="pn">255f</span> - <span class="pn">0.1307f</span>) / <span class="pn">0.3081f</span>;  <span class="pc">// normalise</span>
-}});
+});
 
 <span class="pc">// 📦 Wrap in DenseTensor with correct shape [1,1,28,28]</span>
 <span class="pk">var</span> tensor = <span class="pk">new</span> DenseTensor&lt;<span class="pk">float</span>&gt;(inputData, [<span class="pn">1</span>, <span class="pn">1</span>, <span class="pn">28</span>, <span class="pn">28</span>]);
-<span class="pk">var</span> inputs = <span class="pk">new</span> List&lt;NamedOnnxValue&gt; {{ NamedOnnxValue.CreateFromTensor(<span class="ps">"input"</span>, tensor) }};
+<span class="pk">var</span> inputs = <span class="pk">new</span> List&lt;NamedOnnxValue&gt; { NamedOnnxValue.CreateFromTensor(<span class="ps">"input"</span>, tensor) };
 
 <span class="pc">// ⚡ Run inference!</span>
 <span class="pk">using var</span> session = <span class="pk">new</span> InferenceSession(<span class="ps">"model.onnx"</span>);
@@ -1340,27 +1340,27 @@ Console.WriteLine(<span class="ps">$"Predicted digit: {predicted} ✅"</span>);<
 <span class="pk">using</span> Microsoft.ML.OnnxRuntime.Tensors;
 
 <span class="pk">public class</span> <span class="pcl">ImageClassifierService</span> : IDisposable
-{{
+{
     <span class="pk">private readonly</span> InferenceSession _session;
     <span class="pk">private readonly string</span>[] _labels;
 
     <span class="pk">public</span> <span class="pf">ImageClassifierService</span>(IConfiguration config)
-    {{
+    {
         _session = <span class="pk">new</span> InferenceSession(config[<span class="ps">"Model:Path"</span>]!);
         _labels  = [<span class="ps">"0"</span>,<span class="ps">"1"</span>,<span class="ps">"2"</span>,<span class="ps">"3"</span>,<span class="ps">"4"</span>,<span class="ps">"5"</span>,<span class="ps">"6"</span>,<span class="ps">"7"</span>,<span class="ps">"8"</span>,<span class="ps">"9"</span>];
-    }}
+    }
 
     <span class="pk">public</span> (string label, float confidence) <span class="pf">Classify</span>(<span class="pk">float</span>[] pixels)
-    {{
+    {
         <span class="pk">var</span> tensor = <span class="pk">new</span> DenseTensor&lt;<span class="pk">float</span>&gt;(pixels, [<span class="pn">1</span>, <span class="pn">1</span>, <span class="pn">28</span>, <span class="pn">28</span>]);
         <span class="pk">var</span> inputs = [NamedOnnxValue.CreateFromTensor(<span class="ps">"input"</span>, tensor)];
         <span class="pk">using var</span> result = _session.Run(inputs);
         <span class="pk">var</span> scores = result.First().AsEnumerable&lt;<span class="pk">float</span>&gt;().ToArray();
         <span class="pk">var</span> idx    = Array.IndexOf(scores, scores.Max());
         <span class="pk">return</span> (_labels[idx], scores[idx]);
-    }}
+    }
     <span class="pk">public void</span> <span class="pf">Dispose</span>() => _session.Dispose();
-}}
+}
 
 <span class="pc">// Program.cs — register as singleton</span>
 builder.Services.AddSingleton&lt;ImageClassifierService&gt;();
@@ -1368,10 +1368,10 @@ builder.Services.AddSingleton&lt;ImageClassifierService&gt;();
 <span class="pc">// Controller — inject and use</span>
 [ApiController, Route(<span class="ps">"api/[controller]"</span>)]
 <span class="pk">public class</span> <span class="pcl">ClassifyController</span>(ImageClassifierService svc) : ControllerBase
-{{
+{
     [HttpPost] <span class="pk">public</span> IActionResult <span class="pf">Post</span>([FromBody] <span class="pk">float</span>[] pixels)
-        => Ok(<span class="pk">new</span> {{ label = svc.Classify(pixels).label }});
-}}</div></div>
+        => Ok(<span class="pk">new</span> { label = svc.Classify(pixels).label });
+}</div></div>
 </div>
 <div style="background:linear-gradient(135deg,#060610,#0f0f2a);border:2px solid rgba(255,255,255,.1);border-radius:12px;box-shadow:4px 4px 0 rgba(0,0,0,.4);padding:1rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;"></div>
@@ -1426,7 +1426,7 @@ builder.Services.AddSingleton&lt;ImageClassifierService&gt;();
 <span class="pk">using</span> SixLabors.ImageSharp;
 
 <span class="pk">public class</span> <span class="pcl">ProductClassifier</span>(IConfiguration cfg)
-{{
+{
     <span class="pk">private readonly</span> InferenceSession _session = <span class="pk">new</span>(cfg[<span class="ps">"EfficientNet:Path"</span>]!);
     <span class="pk">private readonly string</span>[] _categories = [<span class="ps">"electronics"</span>,<span class="ps">"clothing"</span>,<span class="ps">"food"</span>,<span class="ps">"furniture"</span>];
     <span class="pc">// ImageNet mean/std for EfficientNet</span>
@@ -1434,30 +1434,30 @@ builder.Services.AddSingleton&lt;ImageClassifierService&gt;();
     <span class="pk">private static readonly float</span>[] Std  = [<span class="pn">0.229f</span>, <span class="pn">0.224f</span>, <span class="pn">0.225f</span>];
 
     <span class="pk">public string</span> <span class="pf">Classify</span>(Stream imageStream)
-    {{
+    {
         <span class="pk">using var</span> image = Image.Load&lt;Rgb24&gt;(imageStream);
         image.Mutate(x => x.Resize(<span class="pn">224</span>, <span class="pn">224</span>));
 
         <span class="pc">// Build [1,3,224,224] tensor (RGB channels)</span>
         <span class="pk">var</span> data = <span class="pk">new float</span>[<span class="pn">1</span> * <span class="pn">3</span> * <span class="pn">224</span> * <span class="pn">224</span>];
-        image.ProcessPixelRows(acc => {{
+        image.ProcessPixelRows(acc => {
             <span class="pk">for</span> (<span class="pk">int</span> y = <span class="pn">0</span>; y &lt; <span class="pn">224</span>; y++)
-            {{
+            {
                 <span class="pk">var</span> row = acc.GetRowSpan(y);
                 <span class="pk">for</span> (<span class="pk">int</span> x = <span class="pn">0</span>; x &lt; <span class="pn">224</span>; x++)
-                {{
+                {
                     data[<span class="pn">0</span> * <span class="pn">224</span> * <span class="pn">224</span> + y * <span class="pn">224</span> + x] = (row[x].R/<span class="pn">255f</span> - Mean[<span class="pn">0</span>]) / Std[<span class="pn">0</span>];
                     data[<span class="pn">1</span> * <span class="pn">224</span> * <span class="pn">224</span> + y * <span class="pn">224</span> + x] = (row[x].G/<span class="pn">255f</span> - Mean[<span class="pn">1</span>]) / Std[<span class="pn">1</span>];
                     data[<span class="pn">2</span> * <span class="pn">224</span> * <span class="pn">224</span> + y * <span class="pn">224</span> + x] = (row[x].B/<span class="pn">255f</span> - Mean[<span class="pn">2</span>]) / Std[<span class="pn">2</span>];
-                }}
-            }}
-        }});
+                }
+            }
+        });
         <span class="pk">var</span> tensor = <span class="pk">new</span> DenseTensor&lt;<span class="pk">float</span>&gt;(data, [<span class="pn">1</span>, <span class="pn">3</span>, <span class="pn">224</span>, <span class="pn">224</span>]);
         <span class="pk">using var</span> result = _session.Run([NamedOnnxValue.CreateFromTensor(<span class="ps">"input"</span>, tensor)]);
         <span class="pk">var</span> scores = result.First().AsEnumerable&lt;<span class="pk">float</span>&gt;().ToArray();
         <span class="pk">return</span> _categories[Array.IndexOf(scores, scores.Max())];
-    }}
-}}</div></div>
+    }
+}</div></div>
 </div>
 <div style="background:rgba(247,37,133,.1);border:2px solid var(--hot);border-radius:10px;box-shadow:3px 3px 0 rgba(0,0,0,.4);padding:.8rem 1rem;">
   <div style="font-family:var(--ft);font-size:.85rem;letter-spacing:1px;color:var(--hot);margin-bottom:.2rem;">🔗 WHY NEXT MISSION FOLLOWS</div>
@@ -1496,12 +1496,12 @@ builder.Services.AddSingleton&lt;ImageClassifierService&gt;();
 <span class="pk">using</span> BERTTokenizers;  <span class="pc">// NuGet: BertTokenizers</span>
 
 <span class="pk">public class</span> <span class="pcl">SentimentService</span>(IConfiguration cfg)
-{{
+{
     <span class="pk">private readonly</span> InferenceSession _session = <span class="pk">new</span>(cfg[<span class="ps">"Bert:Path"</span>]!);
     <span class="pk">private readonly</span> BertUncasedTokenizer _tok = <span class="pk">new</span>(cfg[<span class="ps">"Bert:VocabPath"</span>]!);
 
     <span class="pk">public</span> (string sentiment, float score) <span class="pf">Analyse</span>(<span class="pk">string</span> text)
-    {{
+    {
         <span class="pc">// 📝 Tokenise (same as Python HuggingFace!)</span>
         <span class="pk">var</span> encoded     = _tok.Encode(maxSeqLen: <span class="pn">128</span>, text);
         <span class="pk">var</span> inputIds    = encoded.Select(t => (<span class="pk">long</span>)t.InputIds).ToArray();
@@ -1509,18 +1509,18 @@ builder.Services.AddSingleton&lt;ImageClassifierService&gt;();
         <span class="pk">var</span> tokenTypeIds = encoded.Select(t => (<span class="pk">long</span>)t.TokenTypeIds).ToArray();
 
         <span class="pk">var</span> inputs = <span class="pk">new</span>[]
-        {{
+        {
             NamedOnnxValue.CreateFromTensor(<span class="ps">"input_ids"</span>,      <span class="pk">new</span> DenseTensor&lt;<span class="pk">long</span>&gt;(inputIds,    [<span class="pn">1</span>, inputIds.Length])),
             NamedOnnxValue.CreateFromTensor(<span class="ps">"attention_mask"</span>,  <span class="pk">new</span> DenseTensor&lt;<span class="pk">long</span>&gt;(attentionM,  [<span class="pn">1</span>, attentionM.Length])),
             NamedOnnxValue.CreateFromTensor(<span class="ps">"token_type_ids"</span>,  <span class="pk">new</span> DenseTensor&lt;<span class="pk">long</span>&gt;(tokenTypeIds,[<span class="pn">1</span>, tokenTypeIds.Length]))
-        }};
+        };
 
         <span class="pk">using var</span> result = _session.Run(inputs);
         <span class="pk">var</span> logits  = result.First().AsEnumerable&lt;<span class="pk">float</span>&gt;().ToArray();
         <span class="pk">var</span> isPos   = logits[<span class="pn">1</span>] &gt; logits[<span class="pn">0</span>];
         <span class="pk">return</span> (isPos ? <span class="ps">"POSITIVE"</span> : <span class="ps">"NEGATIVE"</span>, Math.Max(logits[<span class="pn">0</span>], logits[<span class="pn">1</span>]));
-    }}
-}}</div></div>
+    }
+}</div></div>
 </div>
 <div style="background:linear-gradient(135deg,#060610,#0f0f2a);border:2px solid rgba(255,255,255,.1);border-radius:12px;box-shadow:4px 4px 0 rgba(0,0,0,.4);padding:1rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;"></div>
@@ -1646,35 +1646,35 @@ cudaOptions.AppendExecutionProvider_CUDA(deviceId: <span class="pn">0</span>);
 <div class="cb">
   <div class="ch2 nethc"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="vsc-tab">🟣 Evaluation.cs</span></div>
   <div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div></div><div class="code-content"><span class="pk">public class</span> <span class="pcl">ModelEvaluator</span>(ImageClassifierService classifier)
-{{
+{
     <span class="pk">public</span> EvalReport <span class="pf">Evaluate</span>(IEnumerable&lt;(Stream image, <span class="pk">string</span> trueLabel)&gt; testSet)
-    {{
+    {
         <span class="pk">var</span> tp = <span class="pk">new</span> Dictionary&lt;<span class="pk">string</span>, <span class="pk">int</span>&gt;();
         <span class="pk">var</span> fp = <span class="pk">new</span> Dictionary&lt;<span class="pk">string</span>, <span class="pk">int</span>&gt;();
         <span class="pk">var</span> fn = <span class="pk">new</span> Dictionary&lt;<span class="pk">string</span>, <span class="pk">int</span>&gt;();
         <span class="pk">int</span> correct = <span class="pn">0</span>, total = <span class="pn">0</span>;
 
         <span class="pk">foreach</span> (<span class="pk">var</span> (image, trueLabel) <span class="pk">in</span> testSet)
-        {{
+        {
             <span class="pk">var</span> pred = classifier.Classify(image);
             total++; <span class="pk">if</span> (pred == trueLabel) correct++;
             tp[pred] = tp.GetValueOrDefault(pred) + (pred == trueLabel ? <span class="pn">1</span> : <span class="pn">0</span>);
-            <span class="pk">if</span> (pred != trueLabel) {{ fp[pred] = fp.GetValueOrDefault(pred) + <span class="pn">1</span>;
-                                     fn[trueLabel] = fn.GetValueOrDefault(trueLabel) + <span class="pn">1</span>; }}
-        }}
+            <span class="pk">if</span> (pred != trueLabel) { fp[pred] = fp.GetValueOrDefault(pred) + <span class="pn">1</span>;
+                                     fn[trueLabel] = fn.GetValueOrDefault(trueLabel) + <span class="pn">1</span>; }
+        }
 
         <span class="pk">var</span> classes = tp.Keys.Union(fn.Keys).Distinct();
         <span class="pk">foreach</span> (<span class="pk">var</span> cls <span class="pk">in</span> classes)
-        {{
+        {
             <span class="pk">float</span> p = tp.GetValueOrDefault(cls) / (float)(tp.GetValueOrDefault(cls) + fp.GetValueOrDefault(cls) + <span class="pn">1e-9f</span>);
             <span class="pk">float</span> r = tp.GetValueOrDefault(cls) / (float)(tp.GetValueOrDefault(cls) + fn.GetValueOrDefault(cls) + <span class="pn">1e-9f</span>);
             <span class="pk">float</span> f1 = <span class="pn">2</span> * p * r / (p + r + <span class="pn">1e-9f</span>);
             Console.WriteLine(<span class="ps">$"{cls,15}: P={p:P1} R={r:P1} F1={f1:P1}"</span>);
-        }}
+        }
         Console.WriteLine(<span class="ps">$"Overall Accuracy: {correct/(float)total:P1}"</span>);
         <span class="pk">return new</span> EvalReport(correct, total);
-    }}
-}}</div></div>
+    }
+}</div></div>
 </div>
 <div style="background:linear-gradient(135deg,#060610,#0f0f2a);border:2px solid rgba(255,255,255,.1);border-radius:12px;box-shadow:4px 4px 0 rgba(0,0,0,.4);padding:1rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;"></div>
