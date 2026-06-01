@@ -268,115 +268,218 @@ body{background:var(--bg);background-image:repeating-linear-gradient(0deg,transp
 
 <!-- WHAT IS AN LLM -->
 <div>
-<div class="stitle" style="background:var(--cyan);color:#1a1a2e">🤔 WHAT IS AN LLM?</div>
+<div class="stitle" style="background:var(--cyan);color:#1a1a2e">🤔 WHAT IS AN LLM? — START FROM ZERO</div>
+
+<!-- Full form + NLP context -->
+<div style="background:linear-gradient(135deg,#060610,#0a1520);border:2px solid rgba(6,182,212,.3);border-radius:12px;padding:1rem 1.1rem;box-shadow:4px 4px 0 rgba(0,0,0,.4);">
+  <div style="font-family:var(--ft);font-size:.95rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.65rem;">📖 LLM = LARGE LANGUAGE MODEL</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.75rem;">
+    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.4);border-radius:10px;padding:.65rem;text-align:center;">
+      <div style="font-family:var(--ft);font-size:1.6rem;color:#f9a8d4;">L</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#fff;margin:.1rem 0;">LARGE</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.7);">Billions of parameters. Trained on trillions of words.</div>
+    </div>
+    <div style="background:rgba(6,182,212,.15);border:2px solid rgba(6,182,212,.4);border-radius:10px;padding:.65rem;text-align:center;">
+      <div style="font-family:var(--ft);font-size:1.6rem;color:#67e8f9;">L</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#fff;margin:.1rem 0;">LANGUAGE</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.7);">Works with human text — reads it, understands it, writes it.</div>
+    </div>
+    <div style="background:rgba(16,185,129,.15);border:2px solid rgba(16,185,129,.4);border-radius:10px;padding:.65rem;text-align:center;">
+      <div style="font-family:var(--ft);font-size:1.6rem;color:#6ee7b7;">M</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#fff;margin:.1rem 0;">MODEL</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.7);">A neural network — the same building blocks from Chapter 3!</div>
+    </div>
+  </div>
+  <div style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:.7rem .85rem;">
+    <div style="font-family:var(--ft);font-size:.85rem;color:var(--cyan);letter-spacing:1px;margin-bottom:.25rem;">🔬 WHERE IT COMES FROM — NLP</div>
+    <p style="font-size:.87rem;line-height:1.75;color:#e2e8f0;">LLMs are the latest milestone in a field called <strong style="color:var(--yellow)">NLP — Natural Language Processing</strong>. NLP = teaching computers to understand and generate human language.<br><br>
+    NLP has been around since the 1950s — but for 70 years it was rules and statistics. Slow progress.<br>
+    Then in 2017, the <strong style="color:var(--yellow)">Transformer</strong> architecture arrived (Chapter 3). LLMs are just Transformers scaled up massively. NLP went from "translate a sentence" to "write a novel" overnight. 🚀</p>
+  </div>
+</div>
+
+<div style="height:10px"></div>
+
+<!-- Step 1: Super simple -->
 <div style="background:linear-gradient(135deg,#1c1900,#2a2400);border:2px solid var(--yellow);border-radius:14px;padding:.85rem 1rem;box-shadow:4px 4px 0 rgba(0,0,0,.4);">
-  <div style="font-family:var(--ft);font-size:.88rem;color:var(--yellow);margin-bottom:.3rem;">💬 LLM Bot says:</div>
+  <div style="font-family:var(--ft);font-size:.88rem;color:var(--yellow);margin-bottom:.3rem;display:flex;align-items:center;gap:.4rem;"><span>💬</span><span>Start simple — your phone already does this:</span></div>
   <p style="font-size:.92rem;line-height:1.85;color:#fde68a;">
-    Remember from Deep Learning: a neural network predicts the next word.<br><br>
-    Now imagine doing that with <strong>ALL the text ever written on the internet</strong> — Wikipedia, books, GitHub, Reddit, research papers...<br><br>
-    The model that predicts text well enough starts to <em>understand</em>:<br>
-    &bull; <strong>Facts</strong> (it read Wikipedia 1000 times)<br>
-    &bull; <strong>Code</strong> (it read GitHub 1000 times)<br>
-    &bull; <strong>Reasoning</strong> (it read millions of logical arguments)<br>
-    &bull; <strong>Emotions</strong> (it read millions of human conversations)<br><br>
-    <strong>Intelligence emerges from predicting text at massive scale. That's an LLM. 🧠</strong>
+    You know autocomplete on your phone? You type <strong>"I love you"</strong> and it suggests <strong>"too"</strong>.<br><br>
+    That's predicting the next word. Simple. Dumb. But the right idea.<br><br>
+    <strong>Now do that with ALL the text ever written on the internet.<br>
+    Train it for 6 months on 10,000 GPUs.<br>
+    That's an LLM. 🤯</strong>
   </p>
 </div>
-<div style="height:12px"></div>
-<div style="background:linear-gradient(135deg,#060610,#0f0f2a);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;">
-  <div style="font-family:var(--ft);font-size:.95rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:.8rem;">🏗️ HOW AN LLM IS BUILT</div>
+
+<div style="height:10px"></div>
+
+<!-- Step 2: The emergence story -->
+<div style="background:linear-gradient(135deg,#060610,#0f0f2a);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;box-shadow:4px 4px 0 rgba(0,0,0,.4);">
+  <div style="font-family:var(--ft);font-size:.95rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:.8rem;">🧠 THE WILD PART — WHAT EMERGED</div>
+  <p style="font-size:.9rem;line-height:1.85;color:#e2e8f0;margin-bottom:.75rem;">Nobody programmed ChatGPT to understand medicine. Nobody taught it to write poetry. Nobody told it how to debug Python code.<br><br>
+  But to <em>predict text accurately</em> across ALL topics, it had to learn all of those things as <strong style="color:var(--yellow)">side effects</strong>:</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;">
+    <div style="background:rgba(6,182,212,.12);border:1.5px solid rgba(6,182,212,.3);border-radius:10px;padding:.65rem .8rem;">
+      <div style="font-size:.78rem;font-weight:800;color:#67e8f9;letter-spacing:1px;margin-bottom:.3rem;">📚 READ WIKIPEDIA 1000×</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.82);">To predict Wikipedia sentences well → learned world facts</div>
+    </div>
+    <div style="background:rgba(16,185,129,.12);border:1.5px solid rgba(16,185,129,.3);border-radius:10px;padding:.65rem .8rem;">
+      <div style="font-size:.78rem;font-weight:800;color:#6ee7b7;letter-spacing:1px;margin-bottom:.3rem;">💻 READ GITHUB 1000×</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.82);">To predict code completions → learned every programming language</div>
+    </div>
+    <div style="background:rgba(247,37,133,.12);border:1.5px solid rgba(247,37,133,.3);border-radius:10px;padding:.65rem .8rem;">
+      <div style="font-size:.78rem;font-weight:800;color:#f9a8d4;letter-spacing:1px;margin-bottom:.3rem;">🧪 READ RESEARCH PAPERS</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.82);">To predict scientific text → learned to reason logically</div>
+    </div>
+    <div style="background:rgba(251,191,36,.1);border:1.5px solid rgba(251,191,36,.3);border-radius:10px;padding:.65rem .8rem;">
+      <div style="font-size:.78rem;font-weight:800;color:#fde68a;letter-spacing:1px;margin-bottom:.3rem;">💬 READ HUMAN CHATS</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.82);">To predict conversation → learned empathy and social context</div>
+    </div>
+  </div>
+  <div style="margin-top:.75rem;background:rgba(247,37,133,.1);border:2px solid rgba(247,37,133,.35);border-radius:10px;padding:.75rem;text-align:center;">
+    <span style="font-size:.9rem;color:rgba(255,255,255,.9);">💡 <strong style="color:var(--yellow)">Intelligence wasn't programmed in. It fell out as a side effect of predicting text at scale.</strong><br>That's the thing that surprised even the researchers who built it.</span>
+  </div>
+</div>
+
+<div style="height:10px"></div>
+
+<!-- Step 3: The 3 phases simply -->
+<div style="background:linear-gradient(135deg,#060610,#0f0f2a);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;box-shadow:4px 4px 0 rgba(0,0,0,.4);">
+  <div style="font-family:var(--ft);font-size:.95rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:.8rem;">🏗️ HOW AN LLM IS BUILT — IN PLAIN ENGLISH</div>
   <div style="display:flex;align-items:stretch;gap:.5rem;flex-wrap:wrap;">
-    <div style="background:rgba(6,182,212,.2);border:2px solid rgba(6,182,212,.5);border-radius:10px;padding:.7rem;flex:1;min-width:80px;text-align:center;">
-      <div style="font-size:1.2rem;">📚</div>
-      <div style="font-family:var(--ft);font-size:.78rem;color:#67e8f9;margin:.2rem 0;">TRAIN</div>
-      <div style="font-size:.7rem;color:rgba(255,255,255,.65);">Trillions of words. Predict next token.</div>
+    <div style="background:rgba(6,182,212,.15);border:2px solid rgba(6,182,212,.4);border-radius:10px;padding:.75rem;flex:1;min-width:90px;text-align:center;">
+      <div style="font-size:1.3rem;">📚</div>
+      <div style="font-family:var(--ft);font-size:.82rem;color:#67e8f9;margin:.25rem 0 .3rem;">PHASE 1<br>PRE-TRAIN</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.75);line-height:1.55;">Feed it ALL the internet. Predict next word. Repeat 10 trillion times.</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.3rem;color:var(--yellow);align-self:center;">→</div>
-    <div style="background:rgba(124,58,237,.2);border:2px solid rgba(167,139,250,.5);border-radius:10px;padding:.7rem;flex:1;min-width:80px;text-align:center;">
-      <div style="font-size:1.2rem;">🎯</div>
-      <div style="font-family:var(--ft);font-size:.78rem;color:#c4b5fd;margin:.2rem 0;">FINE-TUNE</div>
-      <div style="font-size:.7rem;color:rgba(255,255,255,.65);">Q&A pairs. Teach it to be helpful.</div>
+    <div style="background:rgba(124,58,237,.15);border:2px solid rgba(124,58,237,.4);border-radius:10px;padding:.75rem;flex:1;min-width:90px;text-align:center;">
+      <div style="font-size:1.3rem;">🎯</div>
+      <div style="font-family:var(--ft);font-size:.82rem;color:#c4b5fd;margin:.25rem 0 .3rem;">PHASE 2<br>FINE-TUNE</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.75);line-height:1.55;">Teach it to have conversations. Q&amp;A pairs. "Be helpful, not harmful."</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.3rem;color:var(--yellow);align-self:center;">→</div>
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.7rem;flex:1;min-width:80px;text-align:center;">
-      <div style="font-size:1.2rem;">👥</div>
-      <div style="font-family:var(--ft);font-size:.78rem;color:#f9a8d4;margin:.2rem 0;">RLHF</div>
-      <div style="font-size:.7rem;color:rgba(255,255,255,.65);">Humans rate responses. Reinforce good ones.</div>
+    <div style="background:rgba(247,37,133,.12);border:2px solid rgba(247,37,133,.4);border-radius:10px;padding:.75rem;flex:1;min-width:90px;text-align:center;">
+      <div style="font-size:1.3rem;">👥</div>
+      <div style="font-family:var(--ft);font-size:.82rem;color:#f9a8d4;margin:.25rem 0 .3rem;">PHASE 3<br>RLHF</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.75);line-height:1.55;">Humans rate answers. Model learns what humans prefer. Gets polished.</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.3rem;color:var(--yellow);align-self:center;">→</div>
-    <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.7rem;flex:1;min-width:80px;text-align:center;">
-      <div style="font-size:1.2rem;">🤖</div>
-      <div style="font-family:var(--ft);font-size:.78rem;color:#6ee7b7;margin:.2rem 0;">DEPLOY</div>
-      <div style="font-size:.7rem;color:rgba(255,255,255,.65);">GPT-4, Claude, Gemini — live!</div>
+    <div style="background:rgba(16,185,129,.12);border:2px solid rgba(16,185,129,.4);border-radius:10px;padding:.75rem;flex:1;min-width:90px;text-align:center;">
+      <div style="font-size:1.3rem;">🤖</div>
+      <div style="font-family:var(--ft);font-size:.82rem;color:#6ee7b7;margin:.25rem 0 .3rem;">RESULT<br>CHATGPT</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.75);line-height:1.55;">100M users in 2 months. Changed everything overnight.</div>
     </div>
   </div>
 </div>
+
 </div>
 
 <!-- HOW LLMs GENERATE TEXT -->
 <div>
-<div class="stitle" style="background:linear-gradient(90deg,var(--cyan),#0d9488);color:#fff">⚙️ HOW LLMs GENERATE TEXT — STEP BY STEP</div>
-<div style="background:linear-gradient(135deg,#1c1900,#2a2400);border:2px solid var(--yellow);border-radius:14px;padding:.85rem 1rem;box-shadow:4px 4px 0 rgba(0,0,0,.4);margin-bottom:.9rem;">
+<div class="stitle" style="background:linear-gradient(90deg,var(--cyan),#0d9488);color:#fff">⚙️ HOW LLMs GENERATE TEXT</div>
+
+<div style="background:linear-gradient(135deg,#1c1900,#2a2400);border:2px solid var(--yellow);border-radius:14px;padding:.85rem 1rem;box-shadow:4px 4px 0 rgba(0,0,0,.4);margin-bottom:1rem;">
   <div style="font-family:var(--ft);font-size:.88rem;color:var(--yellow);margin-bottom:.3rem;display:flex;align-items:center;gap:.4rem;"><span>💬</span><span>LLM Bot — the magic loop:</span></div>
-  <p style="font-size:.92rem;line-height:1.85;color:#fde68a;">
-    Every time you see a word appear from ChatGPT, this loop ran once.<br>
-    One token at a time. Predict → append → predict again → append again...<br>
-    <strong>A 500-word answer = this loop ran ~650 times. In about 3 seconds. 🤯</strong>
-  </p>
+  <p style="font-size:.92rem;line-height:1.85;color:#fde68a;">Every word you see from ChatGPT = this loop ran once. One token at a time. <strong>A 500-word answer = ~650 loops in ~3 seconds. 🤯</strong></p>
 </div>
 
-<div style="display:flex;flex-direction:column;gap:.5rem;">
+<!-- TREE FLOWCHART -->
+<div style="position:relative;padding:.5rem 0;">
 
-  <div style="display:grid;grid-template-columns:52px 1fr;border-radius:12px;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
-    <div style="background:linear-gradient(135deg,#0c4a6e,#0284c7);display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.5rem;color:#fff;border-right:2px solid rgba(255,255,255,.1);">1</div>
-    <div style="background:linear-gradient(135deg,#040d15,#071525);padding:.75rem 1rem;">
-      <div style="font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;color:#67e8f9;margin-bottom:.2rem;">🔢 TOKENISE</div>
-      <div style="font-size:.87rem;color:rgba(255,255,255,.85);line-height:1.6;">"Hello World!" splits into integer IDs: <code style="background:rgba(0,0,0,.4);color:#a6e3a1;padding:1px 6px;border-radius:4px;font-family:var(--fc);">[9906, 3146, 0]</code> — the model never reads letters, only numbers.</div>
+  <!-- vertical spine line -->
+  <div style="position:absolute;left:35px;top:30px;bottom:30px;width:3px;background:linear-gradient(180deg,#0284c7,#0d9488,#7c3aed,#be185d,#059669);border-radius:3px;z-index:0;"></div>
+
+  <!-- STEP 1 -->
+  <div style="display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.5rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:70px;display:flex;flex-direction:column;align-items:center;gap:.2rem;">
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#0c4a6e,#0284c7);border:3px solid #67e8f9;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.1rem;color:#fff;box-shadow:0 0 12px rgba(6,182,212,.5);">1</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#071525,#0c2035);border:2px solid rgba(6,182,212,.35);border-left:4px solid #0284c7;border-radius:0 12px 12px 0;padding:.8rem 1rem;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
+      <div style="font-family:var(--ft);font-size:1.05rem;letter-spacing:1.5px;color:#67e8f9;margin-bottom:.35rem;">🔢 TOKENISE</div>
+      <p style="font-size:.88rem;line-height:1.7;color:#e2e8f0;">"Hello World!" splits into integer IDs: <code style="background:rgba(0,0,0,.5);color:#a6e3a1;padding:2px 7px;border-radius:4px;font-family:var(--fc);">[9906, 3146, 0]</code><br>The model <strong style="color:var(--yellow)">never reads letters</strong> — only numbers. Every word you've ever written = a list of integers to the LLM.</p>
     </div>
   </div>
 
-  <div style="display:flex;justify-content:center;"><span style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);">↓</span></div>
+  <!-- connector branch -->
+  <div style="display:flex;align-items:center;margin-bottom:.5rem;padding-left:53px;position:relative;z-index:1;">
+    <div style="width:20px;height:2px;background:rgba(255,255,255,.2);"></div>
+    <span style="font-family:var(--ft);font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:1px;margin-left:.4rem;">each number maps to...</span>
+  </div>
 
-  <div style="display:grid;grid-template-columns:52px 1fr;border-radius:12px;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
-    <div style="background:linear-gradient(135deg,#134e4a,#0d9488);display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.5rem;color:#fff;border-right:2px solid rgba(255,255,255,.1);">2</div>
-    <div style="background:linear-gradient(135deg,#040d15,#071525);padding:.75rem 1rem;">
-      <div style="font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;color:#5eead4;margin-bottom:.2rem;">🧮 EMBED</div>
-      <div style="font-size:.87rem;color:rgba(255,255,255,.85);line-height:1.6;">Each token ID maps to a <strong style="color:#fde68a;">4096-dimensional vector</strong> (for GPT-4) via a lookup table. Token 9906 → [0.21, -0.87, 0.44, ... 4093 more numbers]. This vector encodes its meaning.</div>
+  <!-- STEP 2 -->
+  <div style="display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.5rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:70px;display:flex;flex-direction:column;align-items:center;gap:.2rem;">
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#134e4a,#0d9488);border:3px solid #5eead4;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.1rem;color:#fff;box-shadow:0 0 12px rgba(13,148,136,.5);">2</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#071a18,#0a2520);border:2px solid rgba(13,148,136,.35);border-left:4px solid #0d9488;border-radius:0 12px 12px 0;padding:.8rem 1rem;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
+      <div style="font-family:var(--ft);font-size:1.05rem;letter-spacing:1.5px;color:#5eead4;margin-bottom:.35rem;">🧮 EMBED</div>
+      <p style="font-size:.88rem;line-height:1.7;color:#e2e8f0;">Token 9906 → <code style="background:rgba(0,0,0,.5);color:#a6e3a1;padding:2px 7px;border-radius:4px;font-family:var(--fc);">[0.21, -0.87, 0.44, ...]</code> — a <strong style="color:var(--yellow)">4096-number vector</strong> that encodes its meaning.<br><em style="color:rgba(255,255,255,.65);">"King" and "Queen" vectors are mathematically similar. "Cat" and "Dog" are close. "Cat" and "Tax Return" are very far apart.</em></p>
     </div>
   </div>
 
-  <div style="display:flex;justify-content:center;"><span style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);">↓</span></div>
+  <!-- connector branch -->
+  <div style="display:flex;align-items:center;margin-bottom:.5rem;padding-left:53px;position:relative;z-index:1;">
+    <div style="width:20px;height:2px;background:rgba(255,255,255,.2);"></div>
+    <span style="font-family:var(--ft);font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:1px;margin-left:.4rem;">all tokens talk to each other...</span>
+  </div>
 
-  <div style="display:grid;grid-template-columns:52px 1fr;border-radius:12px;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
-    <div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.5rem;color:#fff;border-right:2px solid rgba(255,255,255,.1);">3</div>
-    <div style="background:linear-gradient(135deg,#040d15,#071525);padding:.75rem 1rem;">
-      <div style="font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;color:#c4b5fd;margin-bottom:.2rem;">👁️ ATTENTION</div>
-      <div style="font-size:.87rem;color:rgba(255,255,255,.85);line-height:1.6;">Every token looks at <strong style="color:#fde68a;">every other token simultaneously</strong>. "The trophy didn't fit because IT was too big" — attention connects IT → trophy, not bag. Runs across <strong style="color:#fde68a;">120 stacked layers</strong> in GPT-4.</div>
+  <!-- STEP 3 -->
+  <div style="display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.5rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:70px;display:flex;flex-direction:column;align-items:center;gap:.2rem;">
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#4c1d95,#7c3aed);border:3px solid #c4b5fd;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.1rem;color:#fff;box-shadow:0 0 12px rgba(124,58,237,.5);">3</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#0d0a20,#160d2a);border:2px solid rgba(124,58,237,.35);border-left:4px solid #7c3aed;border-radius:0 12px 12px 0;padding:.8rem 1rem;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
+      <div style="font-family:var(--ft);font-size:1.05rem;letter-spacing:1.5px;color:#c4b5fd;margin-bottom:.35rem;">👁️ ATTENTION</div>
+      <p style="font-size:.88rem;line-height:1.7;color:#e2e8f0;"><strong style="color:var(--yellow)">Every token looks at every other token simultaneously</strong> across 120 stacked layers.<br><em style="color:rgba(255,255,255,.65);">"The trophy didn't fit because <strong style="color:#f9a8d4;">IT</strong> was too big" → attention figures out IT = trophy, not bag. That's contextual understanding!</em></p>
     </div>
   </div>
 
-  <div style="display:flex;justify-content:center;"><span style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);">↓</span></div>
+  <!-- connector branch -->
+  <div style="display:flex;align-items:center;margin-bottom:.5rem;padding-left:53px;position:relative;z-index:1;">
+    <div style="width:20px;height:2px;background:rgba(255,255,255,.2);"></div>
+    <span style="font-family:var(--ft);font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:1px;margin-left:.4rem;">scores every possible next word...</span>
+  </div>
 
-  <div style="display:grid;grid-template-columns:52px 1fr;border-radius:12px;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
-    <div style="background:linear-gradient(135deg,#831843,#be185d);display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.5rem;color:#fff;border-right:2px solid rgba(255,255,255,.1);">4</div>
-    <div style="background:linear-gradient(135deg,#040d15,#071525);padding:.75rem 1rem;">
-      <div style="font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;color:#f9a8d4;margin-bottom:.2rem;">🎲 SAMPLE</div>
-      <div style="font-size:.87rem;color:rgba(255,255,255,.85);line-height:1.6;">The final layer outputs a <strong style="color:#fde68a;">probability score for every token in the vocabulary</strong> (~100K options). "Paris" = 42%, "London" = 18%, "Berlin" = 12%... Temperature controls how random the pick is.</div>
+  <!-- STEP 4 -->
+  <div style="display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.5rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:70px;display:flex;flex-direction:column;align-items:center;gap:.2rem;">
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#831843,#be185d);border:3px solid #f9a8d4;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.1rem;color:#fff;box-shadow:0 0 12px rgba(190,24,93,.5);">4</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#1a0820,#250a2a);border:2px solid rgba(190,24,93,.35);border-left:4px solid #be185d;border-radius:0 12px 12px 0;padding:.8rem 1rem;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
+      <div style="font-family:var(--ft);font-size:1.05rem;letter-spacing:1.5px;color:#f9a8d4;margin-bottom:.35rem;">🎲 SAMPLE</div>
+      <p style="font-size:.88rem;line-height:1.7;color:#e2e8f0;">Final layer scores <strong style="color:var(--yellow)">all ~100K tokens</strong> at once:<br>
+      <span style="display:inline-flex;gap:.4rem;flex-wrap:wrap;margin-top:.3rem;">
+        <span style="background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4);border-radius:6px;padding:2px 8px;font-size:.78rem;color:#6ee7b7;">"Paris" 42%</span>
+        <span style="background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.3);border-radius:6px;padding:2px 8px;font-size:.78rem;color:#67e8f9;">"London" 18%</span>
+        <span style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:6px;padding:2px 8px;font-size:.78rem;color:#c4b5fd;">"Berlin" 12%</span>
+        <span style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:2px 8px;font-size:.78rem;color:rgba(255,255,255,.5);">... 99,997 others</span>
+      </span><br><em style="color:rgba(255,255,255,.65);">Temperature=0: always picks "Paris". Temperature=1: sometimes "London". Temperature=2: picks randomly. 🎲</em></p>
     </div>
   </div>
 
-  <div style="display:flex;justify-content:center;"><span style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);">↓</span></div>
+  <!-- connector branch -->
+  <div style="display:flex;align-items:center;margin-bottom:.5rem;padding-left:53px;position:relative;z-index:1;">
+    <div style="width:20px;height:2px;background:rgba(255,255,255,.2);"></div>
+    <span style="font-family:var(--ft);font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:1px;margin-left:.4rem;">add token → go back to step 1...</span>
+  </div>
 
-  <div style="display:grid;grid-template-columns:52px 1fr;border-radius:12px;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
-    <div style="background:linear-gradient(135deg,#064e3b,#059669);display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.5rem;color:#fff;border-right:2px solid rgba(255,255,255,.1);">5</div>
-    <div style="background:linear-gradient(135deg,#040d15,#071525);padding:.75rem 1rem;">
-      <div style="font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;color:#6ee7b7;margin-bottom:.2rem;">🔁 REPEAT</div>
-      <div style="font-size:.87rem;color:rgba(255,255,255,.85);line-height:1.6;">The sampled token is <strong style="color:#fde68a;">appended to the input</strong> and the whole process runs again. Token by token until the model generates a special end-of-sequence token. That's <strong style="color:#fde68a;">autoregressive generation</strong>.</div>
+  <!-- STEP 5 -->
+  <div style="display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.8rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:70px;display:flex;flex-direction:column;align-items:center;gap:.2rem;">
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#064e3b,#059669);border:3px solid #6ee7b7;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1.1rem;color:#fff;box-shadow:0 0 12px rgba(5,150,105,.5);">5</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#071a12,#0a2018);border:2px solid rgba(5,150,105,.35);border-left:4px solid #059669;border-radius:0 12px 12px 0;padding:.8rem 1rem;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
+      <div style="font-family:var(--ft);font-size:1.05rem;letter-spacing:1.5px;color:#6ee7b7;margin-bottom:.35rem;">🔁 REPEAT</div>
+      <p style="font-size:.88rem;line-height:1.7;color:#e2e8f0;">The picked token <strong style="color:var(--yellow)">joins the input</strong> and the whole loop runs again from Step 1. Token by token, word by word, until a special <code style="background:rgba(0,0,0,.5);color:#a6e3a1;padding:2px 7px;border-radius:4px;font-family:var(--fc);">[END]</code> token is generated.<br><em style="color:rgba(255,255,255,.65);">This is called <strong style="color:#fde68a;">autoregressive generation</strong> — each word depends on all previous words.</em></p>
     </div>
   </div>
 
-  <div style="background:rgba(251,191,36,.08);border:2px dashed rgba(251,191,36,.3);border-radius:10px;padding:.75rem 1rem;margin-top:.3rem;text-align:center;">
-    <span style="font-size:.88rem;color:rgba(255,255,255,.7);">🔁 Steps 1–5 repeat for <strong style="color:var(--yellow)">every single token</strong> in the output. A 500-word answer = ~650 loops. GPT-4 does this in ~3 seconds. That's why GPUs matter!</span>
+  <!-- loop back arrow box -->
+  <div style="margin-left:70px;background:rgba(251,191,36,.07);border:2px dashed rgba(251,191,36,.35);border-radius:12px;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
+    <div style="font-size:1.5rem;flex-shrink:0;">🔄</div>
+    <div style="font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.6;">Steps 1→5 repeat for <strong style="color:var(--yellow)">every single token</strong> in the output. A 500-word answer = ~650 loops. GPT-4 runs all of this in ~3 seconds. <strong style="color:var(--yellow)">That's why GPUs matter!</strong></div>
   </div>
 
 </div>
