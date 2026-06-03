@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="Agentic AI Tutorial – Build AI Agents with LangChain, LangGraph & Semantic Kernel | AICycle">
 <meta name="twitter:description" content="Learn Agentic AI from scratch. Build autonomous AI agents with LangChain, LangGraph, ReAct loops, tool calling, memory, multi-agent systems. Python & .NET side by side.">
 <link rel="canonical" href="https://vsnotes.github.io/vsnotes-site/agentic.html">
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
 
 /* ══════════════════════════════════════════════════════
@@ -31,34 +31,37 @@
    ══════════════════════════════════════════════════════ */
 
 :root {
-  --ink:#1a1a2e; --bg:#0d1117;
-  --hot:#f72585; --yellow:#fbbf24; --cyan:#06b6d4;
-  --green:#10b981; --py:#2563eb; --net:#7c3aed;
-  --teal:#0d9488; --orange:#f59e0b;
-  --bd:3px solid rgba(255,255,255,.15);
-  --sh:4px 4px 0 rgba(0,0,0,.5);
-  --ft:'Bangers',cursive; --fb:'Nunito',sans-serif; --fc:'Fira Code',monospace;
-  --txt:#e2e8f0; --txt2:#94a3b8;
+  --ink:#12131f; --bg:#0d0e1a;
+  --hot:#b85c7a;  --yellow:#c9a048; --cyan:#4a8fa8;
+  --green:#2e9070; --py:#5a6a9a; --net:#6a559a;
+  --teal:#2a6e65; --orange:#b87830;
+  --bd:2px solid rgba(255,255,255,.1);
+  --sh:3px 3px 0 rgba(0,0,0,.4);
+  --ft:'Bangers',cursive; --fb:'Inter',system-ui,-apple-system,sans-serif; --fc:'Fira Code',monospace;
+  --txt:#e0e4f0; --txt2:#9aa4bc;
 }
 * { box-sizing:border-box; margin:0; padding:0; }
+p { line-height:1.72; }
+strong { font-weight:700; }
+em { font-style:italic; }
 
 /* ── BODY ── */
 body {
-  background:var(--bg);
+  background:#0c0d14;
   background-image:
-    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.03) 39px,rgba(255,255,255,.03) 40px),
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.03) 40px),
     repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.03) 39px,rgba(255,255,255,.03) 40px);
-  font-family:var(--fb); font-size:16px; color:var(--txt); min-height:100vh;
+  font-family:var(--fb); font-size:15.5px; color:var(--txt); min-height:100vh; line-height:1.65; -webkit-font-smoothing:antialiased;
 }
 
 /* ── HERO ── */
 .hero {
-  background:linear-gradient(135deg,#f72585,#7c3aed,#2563eb);
+  background:linear-gradient(135deg,#1a1b30,#252645,#1e2a3a);
   padding:2rem; text-align:center; position:relative; overflow:hidden;
   border-bottom:4px solid rgba(255,255,255,.1);
 }
 .hero::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1px); background-size:18px 18px; }
-.hbadge { display:inline-block; background:var(--yellow); color:#1a1a2e; font-family:var(--ft); font-size:.9rem; letter-spacing:2px; padding:.2rem .9rem; border-radius:20px; border:2px solid rgba(255,255,255,.3); margin-bottom:.6rem; position:relative; box-shadow:3px 3px 0 rgba(0,0,0,.3); }
+.hbadge { display:inline-block; background:#c9a048; color:#1a1a2e; font-family:var(--fb); font-weight:800; font-size:.9rem; letter-spacing:2px; padding:.2rem .9rem; border-radius:20px; border:2px solid rgba(255,255,255,.3); margin-bottom:.6rem; position:relative; box-shadow:3px 3px 0 rgba(0,0,0,.3); }
 .hero h1 { font-family:var(--ft); font-size:3rem; color:#fff; letter-spacing:3px; position:relative; }
 .hero h1 em { color:var(--yellow); font-style:normal; }
 .hero p { color:rgba(255,255,255,.85); font-size:.97rem; max-width:640px; margin:.5rem auto 0; line-height:1.75; position:relative; }
@@ -67,9 +70,9 @@ body {
 
 /* ── MAIN TABS ── */
 .mt-bar { background:linear-gradient(180deg,#060610,#0d1117); border-bottom:3px solid rgba(255,255,255,.06); display:flex; padding:.4rem 1rem 0; gap:.3rem; }
-.mt { font-family:var(--ft); font-size:.95rem; letter-spacing:1.5px; padding:.4rem 1.3rem .55rem; border:2.5px solid rgba(255,255,255,.15); border-bottom:none; border-radius:10px 10px 0 0; cursor:pointer; color:#e2e8f0; background:rgba(255,255,255,.07); transition:all .18s; white-space:nowrap; position:relative; top:4px; outline:none; }
+.mt { font-family:var(--fb); font-size:.82rem; font-weight:700; letter-spacing:.05em; padding:.4rem 1.3rem .55rem; border:2.5px solid rgba(255,255,255,.15); border-bottom:none; border-radius:10px 10px 0 0; cursor:pointer; color:#e2e8f0; background:rgba(255,255,255,.07); transition:all .18s; white-space:nowrap; position:relative; top:4px; outline:none; }
 .mt:hover { background:rgba(255,255,255,.15); color:#fff; top:2px; }
-.mt.act { background:var(--hot); color:#fff; top:0; border-color:var(--hot); box-shadow:0 -3px 0 var(--hot); transform:scale(1.05); }
+.mt.act { background:#252535; color:#c8cce0; top:0; border-color:rgba(180,180,220,.3); box-shadow:0 -3px 0 rgba(160,160,200,.3); transform:scale(1.04); }
 
 /* ── HOME / COURSE PANELS ── */
 #th { display:block; }
@@ -82,26 +85,26 @@ body {
 .hs { display:flex; flex-direction:column; gap:1.2rem; }
 
 /* ── SECTION TITLE ── */
-.stitle { font-family:var(--ft); font-size:1.5rem; letter-spacing:2px; padding:.3rem .8rem; border:2px solid rgba(255,255,255,.2); display:inline-block; box-shadow:3px 3px 0 rgba(0,0,0,.4); border-radius:6px; margin-bottom:.85rem; color:#fff; }
+.stitle { font-family:var(--fb); font-size:1.1rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; padding:.3rem .8rem; border:2px solid rgba(255,255,255,.2); display:inline-block; box-shadow:3px 3px 0 rgba(0,0,0,.4); border-radius:6px; margin-bottom:.85rem; color:#fff; }
 
 /* ── PERSONA CARDS — COLOURFUL, NOT WHITE ── */
 .ps-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:.7rem; }
 .ps-card { border:2px solid rgba(255,255,255,.15); border-radius:10px; padding:.8rem; display:flex; flex-direction:column; gap:.3rem; transition:all .15s; }
 .ps-card:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(0,0,0,.4); }
 /* Each card gets its own gradient */
-.ps-card:nth-child(1) { background:linear-gradient(135deg,#1e3a8a,#2563eb); border-color:rgba(96,165,250,.5); }
-.ps-card:nth-child(2) { background:linear-gradient(135deg,#065f46,#10b981); border-color:rgba(52,211,153,.5); }
-.ps-card:nth-child(3) { background:linear-gradient(135deg,#4c1d95,#7c3aed); border-color:rgba(167,139,250,.5); }
-.ps-card:nth-child(4) { background:linear-gradient(135deg,#92400e,#f59e0b); border-color:rgba(251,191,36,.5); }
-.ps-card:nth-child(5) { background:linear-gradient(135deg,#134e4a,#0d9488); border-color:rgba(45,212,191,.5); }
+.ps-card:nth-child(1) { background:linear-gradient(135deg,#1e2035,#3a5088); border-color:rgba(96,165,250,.5); }
+.ps-card:nth-child(2) { background:linear-gradient(135deg,#065f46,#2e8060); border-color:rgba(52,211,153,.5); }
+.ps-card:nth-child(3) { background:linear-gradient(135deg,#2e1858,#5a3a90); border-color:rgba(167,139,250,.5); }
+.ps-card:nth-child(4) { background:linear-gradient(135deg,#92400e,#b88030); border-color:rgba(251,191,36,.5); }
+.ps-card:nth-child(5) { background:linear-gradient(135deg,#162e28,#257068); border-color:rgba(45,212,191,.5); }
 .ps-emoji { font-size:1.5rem; }
-.ps-card strong { font-family:var(--ft); font-size:.95rem; letter-spacing:.5px; color:#fff; }
+.ps-card strong { font-family:var(--fb); font-size:.9rem; font-weight:800; letter-spacing:.02em; color:#fff; }
 .ps-card .ps-tag { font-size:.65rem; font-weight:800; padding:2px 7px; border-radius:10px; background:rgba(255,255,255,.2); color:#fff; border:1px solid rgba(255,255,255,.3); width:fit-content; }
 .ps-card p { font-size:.82rem; color:rgba(255,255,255,.85); line-height:1.5; }
 
 /* ── STORY BOX — COMIC NEWSPAPER STYLE ── */
 .story-box { border:2px solid rgba(255,255,255,.15); border-radius:12px; overflow:hidden; box-shadow:4px 4px 0 rgba(0,0,0,.4); }
-.story-head { background:linear-gradient(90deg,var(--hot),#7c3aed); padding:.55rem 1rem; font-family:var(--ft); font-size:.85rem; letter-spacing:2px; color:#fff; }
+.story-head { background:linear-gradient(90deg,#8a3858,#3a2870); padding:.55rem 1rem; font-family:var(--fb); font-weight:700; font-size:.85rem; letter-spacing:2px; color:#fff; }
 .story-body { background:linear-gradient(135deg,#1a1a2e,#0f172a); padding:1rem 1.1rem; font-size:.95rem; line-height:1.85; color:var(--txt); }
 .story-body strong { color:var(--hot); }
 .story-body em { color:var(--yellow); font-style:italic; }
@@ -110,23 +113,23 @@ body {
 .bubble { background:linear-gradient(135deg,#1c1900,#2a2400); border:2px solid var(--yellow); border-radius:14px; padding:.9rem 1.1rem; box-shadow:4px 4px 0 rgba(0,0,0,.4); position:relative; margin-bottom:.5rem; }
 .bubble::after { content:''; position:absolute; bottom:-17px; left:22px; border-width:9px 7px 0; border-style:solid; border-color:var(--yellow) transparent transparent; }
 .bubble::before { content:''; position:absolute; bottom:-12px; left:24px; border-width:8px 6px 0; border-style:solid; border-color:#2a2400 transparent transparent; z-index:1; }
-.bubble p { font-size:.95rem; line-height:1.8; color:#fde68a; }
+.bubble p { font-size:.95rem; line-height:1.8; color:#d8c070; }
 .bubble strong { color:var(--hot); }
 .bubble em { color:var(--cyan); font-style:italic; }
 .bubble code { background:rgba(0,0,0,.4); color:#a6e3a1; padding:1px 6px; border-radius:3px; font-family:var(--fc); font-size:.88rem; }
-.bubble-who { font-family:var(--ft); font-size:.95rem; color:var(--yellow); margin-bottom:.35rem; display:flex; align-items:center; gap:.4rem; }
+.bubble-who { font-family:var(--fb); font-size:.82rem; font-weight:800; color:#c9a048; margin-bottom:.35rem; display:flex; align-items:center; gap:.4rem; }
 .bicon { font-size:1.15rem; }
 
 /* ── STAGE CARDS (Chatbot/RAG/Agent/Multi) ── */
 .cstrip { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:.9rem; }
 .cp { border:2px solid rgba(255,255,255,.15); border-radius:10px; padding:1.1rem; position:relative; transition:all .15s; }
 .cp:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(0,0,0,.4); }
-.cp:nth-child(1) { background:linear-gradient(135deg,#1e293b,#334155); }
-.cp:nth-child(2) { background:linear-gradient(135deg,#134e4a,#0d9488); border-color:rgba(45,212,191,.4); }
-.cp:nth-child(3) { background:linear-gradient(135deg,#7c2d12,#ea580c); border-color:rgba(251,146,60,.5); }
-.cp:nth-child(4) { background:linear-gradient(135deg,#4c1d95,#7c3aed); border-color:rgba(167,139,250,.5); }
+.cp:nth-child(1) { background:linear-gradient(135deg,#18181e,#22202a); border-color:rgba(120,115,150,.25); }
+.cp:nth-child(2) { background:linear-gradient(135deg,#0f3530,#1a4a44); border-color:rgba(40,160,130,.3); }
+.cp:nth-child(3) { background:linear-gradient(135deg,#2e1a0e,#3d2a14); border-color:rgba(180,110,40,.3); }
+.cp:nth-child(4) { background:linear-gradient(135deg,#1e1540,#2a1d56); border-color:rgba(110,85,190,.3); }
 .cpn { position:absolute; top:-13px; left:10px; color:#fff; font-family:var(--ft); font-size:1rem; width:28px; height:28px; border-radius:50%; border:2px solid rgba(255,255,255,.3); display:flex; align-items:center; justify-content:center; }
-.cp h3 { font-family:var(--ft); font-size:1.05rem; letter-spacing:1px; color:#fff; margin:.35rem 0 .3rem; }
+.cp h3 { font-family:var(--fb); font-size:.95rem; font-weight:800; letter-spacing:.05em; color:#fff; margin:.35rem 0 .3rem; text-transform:uppercase; }
 .cp p { font-size:.88rem; line-height:1.6; color:rgba(255,255,255,.8); }
 .cpi { font-size:1.7rem; margin-bottom:.15rem; }
 
@@ -138,12 +141,12 @@ body {
   padding:1.2rem; position:relative; overflow:hidden;
 }
 .react-box::after, .arch-box::after { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px); background-size:12px 12px; pointer-events:none; }
-.rt, .arch-title { font-family:var(--ft); font-size:1.05rem; color:var(--yellow); letter-spacing:2px; text-align:center; margin-bottom:.6rem; position:relative; }
+.rt, .arch-title { font-family:var(--fb); font-size:.95rem; font-weight:800; color:#c9a048; letter-spacing:.03em; text-align:center; margin-bottom:.6rem; position:relative; }
 .rs { font-size:.85rem; color:var(--txt2); text-align:center; margin-bottom:.9rem; line-height:1.5; }
 .rl-row { display:flex; align-items:center; justify-content:center; gap:.4rem; flex-wrap:wrap; position:relative; }
 .rn { border:2px solid rgba(255,255,255,.2); border-radius:10px; padding:.65rem .8rem; text-align:center; min-width:85px; }
 .rni { font-size:1.3rem; display:block; margin-bottom:.15rem; }
-.rnl { font-family:var(--ft); font-size:.82rem; letter-spacing:1px; color:#fff; display:block; }
+.rnl { font-family:var(--fb); font-size:.75rem; font-weight:700; letter-spacing:.02em; color:#fff; display:block; }
 .rns { font-size:.68rem; color:rgba(255,255,255,.6); display:block; margin-top:.1rem; }
 .ra { color:var(--yellow); font-size:1.2rem; font-weight:900; }
 .rdone { margin-top:.7rem; text-align:center; font-size:.83rem; color:var(--txt2); border-top:1px solid rgba(255,255,255,.08); padding-top:.5rem; position:relative; }
@@ -156,7 +159,7 @@ body {
 .arch-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(125px,1fr)); gap:.55rem; position:relative; }
 .an { border:2px solid rgba(255,255,255,.15); border-radius:10px; padding:.65rem .75rem; text-align:center; }
 .ani { font-size:1.3rem; margin-bottom:.2rem; }
-.anl { font-family:var(--ft); font-size:.82rem; letter-spacing:1px; color:#fff; }
+.anl { font-family:var(--fb); font-size:.75rem; font-weight:700; letter-spacing:.02em; color:#fff; }
 .ans { font-size:.68rem; color:rgba(255,255,255,.6); line-height:1.3; margin-top:.1rem; }
 .an1 { background:rgba(247,37,133,.2); border-color:rgba(247,37,133,.5); }
 .an2 { background:rgba(37,99,235,.25); border-color:rgba(96,165,250,.5); }
@@ -167,7 +170,7 @@ body {
 
 /* ── TABLE ── */
 .tbl { width:100%; border-collapse:collapse; font-size:.9rem; border:2px solid rgba(255,255,255,.1); border-radius:8px; overflow:hidden; }
-.tbl th { background:linear-gradient(90deg,#0f172a,#1e1b4b); color:var(--yellow); font-family:var(--ft); font-size:.85rem; letter-spacing:1px; padding:.5rem .85rem; text-align:left; }
+.tbl th { background:linear-gradient(90deg,#141420,#1e1c2e); color:#c9a048; font-family:var(--fb); font-weight:700; font-size:.82rem; letter-spacing:1px; padding:.5rem .85rem; text-align:left; }
 .tbl td { padding:.45rem .85rem; border-bottom:1px solid rgba(255,255,255,.06); color:var(--txt); background:rgba(255,255,255,.02); }
 .tbl tr:nth-child(even) td { background:rgba(255,255,255,.04); }
 .tbl tr:last-child td { border-bottom:none; }
@@ -176,31 +179,31 @@ body {
 .uc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:.9rem; }
 .uc-card { border:2px solid rgba(255,255,255,.1); border-radius:10px; overflow:hidden; transition:all .15s; }
 .uc-card:hover { transform:translate(-2px,-2px); box-shadow:4px 4px 0 rgba(0,0,0,.4); }
-.uc-head { padding:.75rem .9rem; font-family:var(--ft); font-size:1rem; letter-spacing:1px; display:flex; align-items:center; gap:.5rem; color:#fff; }
+.uc-head { padding:.75rem .9rem; font-family:var(--fb); font-size:.9rem; font-weight:700; letter-spacing:.03em; display:flex; align-items:center; gap:.5rem; color:#fff; }
 .uc-body { padding:0 .9rem .85rem; font-size:.88rem; line-height:1.6; color:rgba(255,255,255,.8); }
 .uc-tags { display:flex; gap:.3rem; flex-wrap:wrap; margin-top:.4rem; }
 .uc-tag { font-size:.68rem; font-weight:700; padding:2px 7px; border-radius:20px; border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.8); background:rgba(255,255,255,.08); }
-.uc-card:nth-child(1) { background:linear-gradient(135deg,#134e4a,#0d9488); border-color:rgba(45,212,191,.3); }
-.uc-card:nth-child(2) { background:linear-gradient(135deg,#831843,#be185d); border-color:rgba(249,168,212,.3); }
-.uc-card:nth-child(3) { background:linear-gradient(135deg,#1e3a8a,#2563eb); border-color:rgba(96,165,250,.3); }
+.uc-card:nth-child(1) { background:linear-gradient(135deg,#162e28,#257068); border-color:rgba(45,212,191,.3); }
+.uc-card:nth-child(2) { background:linear-gradient(135deg,#831843,#8a2a4a); border-color:rgba(249,168,212,.3); }
+.uc-card:nth-child(3) { background:linear-gradient(135deg,#1e2035,#3a5088); border-color:rgba(96,165,250,.3); }
 .uc-card:nth-child(4) { background:linear-gradient(135deg,#78350f,#d97706); border-color:rgba(251,191,36,.3); }
 
 /* ── CTA ── */
-.cta { background:linear-gradient(135deg,#1a0030,#2d0050,#4c1d95); border:2px solid rgba(167,139,250,.3); border-radius:12px; box-shadow:4px 4px 0 rgba(0,0,0,.4); padding:1.4rem; text-align:center; position:relative; overflow:hidden; }
+.cta { background:linear-gradient(135deg,#1a0030,#2d0050,#2e1858); border:2px solid rgba(167,139,250,.3); border-radius:12px; box-shadow:4px 4px 0 rgba(0,0,0,.4); padding:1.4rem; text-align:center; position:relative; overflow:hidden; }
 .cta::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px); background-size:12px 12px; pointer-events:none; }
-.cta-title { font-family:var(--ft); font-size:1.3rem; color:var(--yellow); letter-spacing:2px; margin-bottom:.4rem; position:relative; }
+.cta-title { font-family:var(--fb); font-size:1.15rem; font-weight:800; color:#c9a048; letter-spacing:.03em; margin-bottom:.4rem; position:relative; }
 .cta p { color:rgba(255,255,255,.8); font-size:.95rem; margin-bottom:.9rem; position:relative; }
-.cta-btn { font-family:var(--ft); font-size:1rem; letter-spacing:2px; padding:.55rem 1.6rem; background:var(--hot); color:#fff; border:2px solid rgba(255,255,255,.2); border-radius:8px; box-shadow:3px 3px 0 rgba(0,0,0,.4); cursor:pointer; transition:all .15s; position:relative; }
+.cta-btn { font-family:var(--fb); font-size:.9rem; font-weight:700; letter-spacing:.06em; padding:.55rem 1.6rem; background:#2e3a5a; color:#fff; border:2px solid rgba(255,255,255,.2); border-radius:8px; box-shadow:3px 3px 0 rgba(0,0,0,.4); cursor:pointer; transition:all .15s; position:relative; }
 .cta-btn:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(0,0,0,.4); }
 
 /* ── SIDEBAR ── */
-.sbox { background:linear-gradient(135deg,#0f172a,#1e1b4b); border:2px solid rgba(255,255,255,.1); border-radius:8px; padding:.9rem; }
-.sbox h4 { font-family:var(--ft); font-size:1rem; letter-spacing:1px; color:var(--yellow); margin-bottom:.55rem; }
+.sbox { background:linear-gradient(135deg,#111118,#181620); border:2px solid rgba(255,255,255,.1); border-radius:8px; padding:.9rem; }
+.sbox h4 { font-family:var(--fb); font-size:.9rem; font-weight:800; letter-spacing:.04em; color:#c9a048; margin-bottom:.55rem; text-transform:uppercase; }
 .sbox ul { list-style:none; padding:0; font-size:.9rem; color:var(--txt2); line-height:1.9; }
 .sbox a { color:var(--cyan); }
 .sbox p { font-size:.82rem; color:var(--txt2); margin-top:.3rem; }
-.sdark { background:linear-gradient(135deg,#060610,#0f0f2a); border:2px solid rgba(255,255,255,.08); border-radius:8px; padding:.9rem; }
-.sdark h4 { font-family:var(--ft); font-size:1rem; color:var(--yellow); letter-spacing:1px; margin-bottom:.55rem; }
+.sdark { background:linear-gradient(135deg,#0c0c12,#121018); border:2px solid rgba(255,255,255,.08); border-radius:8px; padding:.9rem; }
+.sdark h4 { font-family:var(--fb); font-size:.9rem; font-weight:800; color:#c9a048; letter-spacing:.04em; margin-bottom:.55rem; text-transform:uppercase; }
 .sdark dt { color:var(--cyan); font-weight:700; font-size:.9rem; }
 .sdark dd { color:var(--txt2); font-size:.85rem; line-height:1.5; margin-left:.3rem; margin-bottom:.4rem; }
 
@@ -208,20 +211,20 @@ body {
 #qanav { background:linear-gradient(180deg,#060610,#0d1117); border-bottom:4px solid var(--yellow); display:none; align-items:flex-end; padding:.45rem .9rem 0; gap:.22rem; overflow-x:auto; flex-shrink:0; scrollbar-width:thin; scrollbar-color:var(--hot) #111; }
 #qanav::-webkit-scrollbar { height:4px; }
 #qanav::-webkit-scrollbar-thumb { background:var(--hot); }
-.cnb { font-family:var(--ft); font-size:.78rem; letter-spacing:1.5px; padding:.38rem .8rem .52rem; border:2px solid rgba(255,255,255,.15); border-bottom:none; border-radius:10px 10px 0 0; cursor:pointer; color:#e2e8f0; background:rgba(255,255,255,.07); transition:all .18s cubic-bezier(.34,1.56,.64,1); white-space:nowrap; position:relative; top:4px; outline:none; }
+.cnb { font-family:var(--fb); font-size:.72rem; font-weight:700; letter-spacing:.06em; padding:.38rem .8rem .52rem; border:2px solid rgba(255,255,255,.15); border-bottom:none; border-radius:10px 10px 0 0; cursor:pointer; color:#e2e8f0; background:rgba(255,255,255,.07); transition:all .18s cubic-bezier(.34,1.56,.64,1); white-space:nowrap; position:relative; top:4px; outline:none; }
 .cnb:hover { background:rgba(255,255,255,.15); color:#fff; top:2px; transform:scale(1.03); }
-.cnb.act-ch { background:var(--yellow); color:#1a1a2e; top:0; border-color:var(--yellow); box-shadow:0 -3px 0 var(--yellow),inset 0 2px 0 rgba(255,255,255,.3); transform:scale(1.07); }
+.cnb.act-ch { background:#b8922e; color:#fff; top:0; border-color:#d4a843; box-shadow:0 -3px 0 #d4a843,inset 0 2px 0 rgba(255,255,255,.2); transform:scale(1.06); }
 
 /* Each tab its own bright colour when not active */
-#qanav .cnb:nth-child(1)  { border-color:rgba(251,191,36,.5);  color:#fbbf24; background:rgba(251,191,36,.1); }
-#qanav .cnb:nth-child(2)  { border-color:rgba(96,165,250,.5);  color:#93c5fd; background:rgba(37,99,235,.1); }
-#qanav .cnb:nth-child(3)  { border-color:rgba(247,37,133,.5);  color:#f9a8d4; background:rgba(247,37,133,.1); }
-#qanav .cnb:nth-child(4)  { border-color:rgba(52,211,153,.5);  color:#6ee7b7; background:rgba(16,185,129,.1); }
-#qanav .cnb:nth-child(5)  { border-color:rgba(167,139,250,.5); color:#c4b5fd; background:rgba(124,58,237,.1); }
-#qanav .cnb:nth-child(6)  { border-color:rgba(6,182,212,.5);   color:#67e8f9; background:rgba(6,182,212,.1); }
-#qanav .cnb:nth-child(7)  { border-color:rgba(251,146,60,.5);  color:#fdba74; background:rgba(234,88,12,.1); }
-#qanav .cnb:nth-child(8)  { border-color:rgba(249,168,212,.5); color:#fbcfe8; background:rgba(219,39,119,.1); }
-#qanav .cnb:nth-child(9)  { border-color:rgba(45,212,191,.5);  color:#5eead4; background:rgba(13,148,136,.1); }
+#qanav .cnb:nth-child(1)  { border-color:rgba(212,168,67,.45);  color:#d4a843; background:rgba(212,168,67,.08); }
+#qanav .cnb:nth-child(2)  { border-color:rgba(140,150,200,.35); color:#a0aac8; background:rgba(100,100,160,.07); }
+#qanav .cnb:nth-child(3)  { border-color:rgba(196,80,122,.45);  color:#d4809a; background:rgba(196,80,122,.08); }
+#qanav .cnb:nth-child(4)  { border-color:rgba(46,158,114,.45);  color:#5bbf96; background:rgba(46,158,114,.08); }
+#qanav .cnb:nth-child(5)  { border-color:rgba(107,82,200,.45);  color:#a48ad8; background:rgba(107,82,200,.08); }
+#qanav .cnb:nth-child(6)  { border-color:rgba(59,158,190,.45);  color:#6ab8d4; background:rgba(59,158,190,.08); }
+#qanav .cnb:nth-child(7)  { border-color:rgba(196,124,42,.45);  color:#d4a060; background:rgba(196,124,42,.08); }
+#qanav .cnb:nth-child(8)  { border-color:rgba(249,168,212,.5); color:#d8b0ba; background:rgba(219,39,119,.1); }
+#qanav .cnb:nth-child(9)  { border-color:rgba(45,212,191,.5);  color:#70b8aa; background:rgba(13,148,136,.1); }
 #qanav .cnb:nth-child(10) { border-color:rgba(129,140,248,.5); color:#a5b4fc; background:rgba(99,102,241,.1); }
 
 /* Active always yellow */
@@ -233,15 +236,9 @@ body {
 .sp { flex:1; overflow-y:auto; padding:1.2rem; display:flex; flex-direction:column; gap:1.2rem; min-width:0; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.1) transparent; }
 
 /* Python panel — dark blue tint */
-.pyp {
-  background:#060d1f;
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(37,99,235,.1) 31px,rgba(37,99,235,.1) 32px);
-}
+.pyp { background:#0b0c12; background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(255,255,255,.03) 31px,rgba(255,255,255,.03) 32px); }
 /* .NET panel — dark purple tint */
-.netp {
-  background:#0d0619;
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(124,58,237,.1) 31px,rgba(124,58,237,.1) 32px);
-}
+.netp { background:#0b0c12; background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(255,255,255,.03) 31px,rgba(255,255,255,.03) 32px); }
 /* Splitter — rainbow */
 .spl { width:14px; background:linear-gradient(180deg,var(--hot),var(--net),var(--py),var(--green),var(--yellow)); cursor:col-resize; flex-shrink:0; display:flex; align-items:center; justify-content:center; user-select:none; }
 .spl:hover { filter:brightness(1.3); }
@@ -249,10 +246,10 @@ body {
 
 /* ── LANGUAGE BADGE ── */
 .lbadge { display:flex; align-items:center; gap:.75rem; padding:.65rem 1rem; border-radius:10px; border:2px solid rgba(255,255,255,.15); box-shadow:3px 3px 0 rgba(0,0,0,.4); margin-bottom:.8rem; }
-.lbadge.pyb { background:linear-gradient(135deg,#1e40af,#2563eb); }
-.lbadge.netb { background:linear-gradient(135deg,#4c1d95,#7c3aed); }
+.lbadge.pyb { background:linear-gradient(135deg,#1a1e2e,#252a3e); }
+.lbadge.netb { background:linear-gradient(135deg,#1a1628,#26213a); }
 .lbi { font-size:1.6rem; }
-.lbt { font-family:var(--ft); font-size:1.1rem; letter-spacing:1px; color:#fff; }
+.lbt { font-family:var(--fb); font-size:1rem; font-weight:800; letter-spacing:.02em; color:#fff; }
 .lbs { font-size:.8rem; color:rgba(255,255,255,.85); }
 
 /* ── CHAPTER CONTENT ── */
@@ -262,10 +259,10 @@ body {
 /* ── CHAPTER HERO — gradient, white text ── */
 .chero { border:2px solid rgba(255,255,255,.12); border-radius:12px; box-shadow:4px 4px 0 rgba(0,0,0,.4); padding:1.1rem 1.2rem; position:relative; overflow:hidden; }
 .chero::after { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px); background-size:12px 12px; pointer-events:none; }
-.pyh { background:linear-gradient(135deg,#1e3a8a,#2563eb,#1e40af); }
-.neth { background:linear-gradient(135deg,#4c1d95,#7c3aed,#6d28d9); }
+.pyh { background:linear-gradient(135deg,#1e2035,#3a5088,#1e40af); }
+.neth { background:linear-gradient(135deg,#2e1858,#5a3a90,#4a2878); }
 .chn { font-size:.75rem; font-weight:800; color:rgba(255,255,255,.65); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:.2rem; position:relative; }
-.cht { font-family:var(--ft); font-size:1.55rem; letter-spacing:2px; color:#fff; margin-bottom:.25rem; position:relative; }
+.cht { font-family:var(--fb); font-size:1.3rem; font-weight:800; letter-spacing:.02em; color:#fff; margin-bottom:.25rem; position:relative; }
 .chd { font-size:.9rem; color:rgba(255,255,255,.85); line-height:1.6; position:relative; }
 
 /* ── CHAPTER SUMMARY ── */
@@ -273,12 +270,12 @@ body {
 .csum::after { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px); background-size:12px 12px; pointer-events:none; }
 .pys { border-color:rgba(96,165,250,.4); box-shadow:4px 4px 0 rgba(37,99,235,.3); }
 .nets { border-color:rgba(167,139,250,.4); box-shadow:4px 4px 0 rgba(124,58,237,.3); }
-.cst { font-family:var(--ft); font-size:1.05rem; color:var(--yellow); letter-spacing:2px; margin-bottom:.55rem; position:relative; }
+.cst { font-family:var(--fb); font-size:1rem; font-weight:800; color:#c9a048; letter-spacing:.04em; margin-bottom:.55rem; position:relative; text-transform:uppercase; }
 .csum ul { padding-left:1.1rem; position:relative; }
 .csum ul li { font-size:.9rem; color:rgba(255,255,255,.88); line-height:1.8; margin-bottom:.15rem; }
-.nxtch { margin-top:.75rem; font-family:var(--ft); font-size:.9rem; letter-spacing:2px; padding:.4rem 1.2rem; color:#fff; border:2px solid rgba(255,255,255,.2); border-radius:8px; box-shadow:3px 3px 0 rgba(0,0,0,.4); cursor:pointer; transition:all .15s; display:inline-block; }
-.nxtch.pyn { background:var(--py); }
-.nxtch.netn { background:var(--net); }
+.nxtch { margin-top:.75rem; font-family:var(--fb); font-size:.82rem; font-weight:700; letter-spacing:.05em; padding:.4rem 1.2rem; color:#fff; border:2px solid rgba(255,255,255,.2); border-radius:8px; box-shadow:3px 3px 0 rgba(0,0,0,.4); cursor:pointer; transition:all .15s; display:inline-block; }
+.nxtch.pyn { background:#2a2a48; }
+.nxtch.netn { background:#2e2244; }
 .nxtch:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(0,0,0,.5); }
 
 /* ── TIP BOXES ── */
@@ -287,13 +284,13 @@ body {
 .tip-box.warn { background:rgba(251,191,36,.1); border-color:var(--orange); }
 .tip-box.info { background:rgba(37,99,235,.15); border-color:var(--py); }
 .tip-box.netb2 { background:rgba(124,58,237,.15); border-color:var(--net); }
-.tip-title { font-family:var(--ft); font-size:.9rem; letter-spacing:1px; margin-bottom:.25rem; color:var(--yellow); }
+.tip-title { font-family:var(--fb); font-size:.85rem; font-weight:700; letter-spacing:.03em; margin-bottom:.25rem; color:#c9a048; }
 .tip-box p { font-size:.9rem; line-height:1.7; color:var(--txt); }
 .tip-box p code { background:rgba(0,0,0,.4); color:#a6e3a1; padding:1px 6px; border-radius:3px; font-family:var(--fc); font-size:.85rem; }
 
 /* ── CON BOX ── */
 .con { background:linear-gradient(135deg,#0f172a,#1e293b); border:2px solid rgba(255,255,255,.1); border-radius:8px; box-shadow:3px 3px 0 rgba(0,0,0,.4); padding:.9rem 1rem; }
-.con h4 { font-family:var(--ft); font-size:.95rem; letter-spacing:1px; color:var(--yellow); margin-bottom:.35rem; }
+.con h4 { font-family:var(--fb); font-size:.88rem; font-weight:700; letter-spacing:.03em; color:#c9a048; margin-bottom:.35rem; }
 .con p, .con ul { font-size:.9rem; line-height:1.75; color:var(--txt); }
 .con ul { padding-left:1.1rem; }
 .con strong { color:var(--hot); }
@@ -303,12 +300,12 @@ body {
 /* ── TREE WRAP ── */
 .tree-wrap { background:linear-gradient(135deg,#060610,#0f0f2a) !important; border:2px solid rgba(255,255,255,.1); border-radius:12px; box-shadow:4px 4px 0 rgba(0,0,0,.4); padding:1.2rem; position:relative; overflow:hidden; }
 .tree-wrap::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px); background-size:14px 14px; pointer-events:none; }
-.tree-title { font-family:var(--ft); font-size:1rem; color:var(--yellow) !important; letter-spacing:2px; text-align:center; margin-bottom:.9rem; }
+.tree-title { font-family:var(--fb); font-size:.9rem; font-weight:800; color:#c9a048 !important; letter-spacing:.04em; text-align:center; margin-bottom:.9rem; }
 .tr-root { display:flex; justify-content:center; }
 .tr-node { display:inline-flex; flex-direction:column; align-items:center; gap:.2rem; background:rgba(255,255,255,.06); border:2px solid rgba(255,255,255,.2); border-radius:12px; padding:.6rem .9rem; min-width:100px; text-align:center; transition:transform .15s; }
 .tr-node:hover { transform:translateY(-2px); }
 .tn-icon { font-size:1.4rem; }
-.tn-label { font-family:var(--ft); font-size:.85rem; letter-spacing:1.5px; color:#fff !important; }
+.tn-label { font-family:var(--fb); font-size:.78rem; font-weight:700; letter-spacing:.03em; color:#fff !important; }
 .tn-sub { font-size:.7rem; color:rgba(255,255,255,.7) !important; line-height:1.3; }
 .tn-ch { font-size:.56rem; font-weight:800; padding:1px 6px; border-radius:10px; background:rgba(251,191,36,.2); color:var(--yellow) !important; margin-top:.1rem; display:inline-block; }
 .tr-vline { width:2px; height:20px; background:rgba(255,255,255,.15); margin:0 auto; }
@@ -328,12 +325,12 @@ body {
 /* ── VS CODE BLOCK ── */
 .cb { background:#1e1e2e; border:2px solid rgba(255,255,255,.1); border-radius:10px; box-shadow:4px 4px 0 rgba(0,0,0,.4); overflow:hidden; margin:.2rem 0; }
 .ch2 { padding:.45rem .9rem; display:flex; align-items:center; gap:.45rem; border-bottom:2px solid rgba(255,255,255,.06); }
-.pyh2 { background:linear-gradient(90deg,#1e3a8a,#2563eb); }
-.nethc { background:linear-gradient(90deg,#4c1d95,#7c3aed); }
-.qah2 { background:linear-gradient(90deg,#134e4a,#0d9488); }
+.pyh2 { background:linear-gradient(90deg,#1a1e2e,#252d44); }
+.nethc { background:linear-gradient(90deg,#1e1628,#2e2044); }
+.qah2 { background:linear-gradient(90deg,#162e28,#257068); }
 .dot { width:9px; height:9px; border-radius:50%; display:inline-block; }
-.vsc-tab { font-family:var(--fb); font-size:.85rem; font-weight:700; color:#93c5fd; }
-.nethc .vsc-tab { color:#c4b5fd; }
+.vsc-tab { font-family:var(--fb); font-size:.85rem; font-weight:700; color:#a8bcd8; }
+.nethc .vsc-tab { color:#b0a0d8; }
 .cbody { display:grid; grid-template-columns:38px 1fr; overflow-x:auto; }
 .lnums { background:#181825; color:#45475a; font-family:var(--fc); font-size:.78rem; line-height:1.8; padding:.75rem 0; text-align:right; padding-right:.55rem; user-select:none; border-right:1px solid #313244; }
 .lnums div { height:1.8em; }
@@ -348,9 +345,9 @@ body {
 /* Override for specific bright colored inline elements */
 .sp [style*="color:var(--hot)"],.sp [style*="color:var(--yellow)"],
 .sp [style*="color:var(--cyan)"],.sp [style*="color:var(--green)"],
-.sp [style*="color:#93c5fd"],.sp [style*="color:#c4b5fd"],
-.sp [style*="color:#6ee7b7"],.sp [style*="color:#67e8f9"],
-.sp [style*="color:#f9a8d4"],.sp [style*="color:var(--yellow)"] { color:inherit; }
+.sp [style*="color:#a8bcd8"],.sp [style*="color:#b0a0d8"],
+.sp [style*="color:#80c0a0"],.sp [style*="color:#88c0d0"],
+.sp [style*="color:#d0909a"],.sp [style*="color:var(--yellow)"] { color:inherit; }
 
 /* Code inside sp already dark */
 .sp .cb { background:#1e1e2e; }
@@ -367,7 +364,7 @@ body {
 .fwd-card { background:linear-gradient(135deg,#0f172a,#1e293b); border:2px solid rgba(255,255,255,.1); border-radius:10px; padding:.85rem; display:flex; flex-direction:column; gap:.25rem; transition:all .15s; }
 .fwd-card:hover { border-color:var(--teal); box-shadow:3px 3px 0 rgba(0,0,0,.4); transform:translate(-1px,-1px); }
 .fwd-icon { font-size:1.7rem; }
-.fwd-name { font-family:var(--ft); font-size:.95rem; letter-spacing:1px; color:var(--yellow); }
+.fwd-name { font-family:var(--fb); font-size:.85rem; font-weight:700; letter-spacing:.02em; color:#c9a048; }
 .fwd-desc { font-size:.85rem; line-height:1.6; color:var(--txt); }
 .fwd-use { font-size:.73rem; color:var(--txt2); margin-top:.15rem; }
 
@@ -387,14 +384,15 @@ body {
 
 <div style="background:#0d1117;border-bottom:3px solid var(--hot);padding:.7rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
   <div style="display:flex;align-items:center;gap:1rem;">
-    <span style="background:var(--hot);color:#fff;font-family:var(--ft);font-size:.85rem;letter-spacing:2px;padding:.2rem .8rem;border-radius:20px;border:2px solid rgba(255,255,255,.2);white-space:nowrap;">⚡ AGENTIC AI</span>
+    <span style="background:var(--hot);color:#fff;font-family:var(--ft);font-size:.85rem;letter-spacing:2px;padding:.2rem .8rem;border-radius:20px;border:2px solid rgba(255,255,255,.2);white-space:nowrap;">&#9889; AGENTIC AI</span>
     <div style="font-family:var(--ft);font-size:1.6rem;color:#fff;letter-spacing:2px;line-height:1;">LEARN &amp; <em style="color:var(--hot);font-style:normal;">BUILD</em></div>
+    <div style="font-size:.82rem;color:rgba(255,255,255,.55);max-width:400px;line-height:1.4;display:none;" class="hero-sub">Where AI stops answering and starts <strong style="color:var(--yellow)">thinking, planning &amp; acting</strong></div>
   </div>
   <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-    <span style="background:rgba(37,99,235,.2);border:1.5px solid rgba(96,165,250,.4);border-radius:20px;padding:.18rem .7rem;font-size:.75rem;color:#93c5fd;font-weight:700;">🐍 Python LangChain</span>
-    <span style="background:rgba(124,58,237,.2);border:1.5px solid rgba(167,139,250,.4);border-radius:20px;padding:.18rem .7rem;font-size:.75rem;color:#c4b5fd;font-weight:700;">🟣 .NET Semantic Kernel</span>
-    <span style="background:rgba(16,185,129,.2);border:1.5px solid rgba(52,211,153,.4);border-radius:20px;padding:.18rem .7rem;font-size:.75rem;color:#6ee7b7;font-weight:700;">🔧 Tools &amp; Memory</span>
-    <span style="background:rgba(247,37,133,.2);border:1.5px solid rgba(247,37,133,.4);border-radius:20px;padding:.18rem .7rem;font-size:.75rem;color:#f9a8d4;font-weight:700;">🤝 Multi-Agent</span>
+    <span style="background:rgba(37,99,235,.2);border:1.5px solid rgba(96,165,250,.4);border-radius:20px;padding:.18rem .7rem;font-size:.75rem;color:#a8bcd8;font-weight:700;">&#128013; Python LangChain</span>
+    <span style="background:rgba(124,58,237,.2);border:1.5px solid rgba(167,139,250,.4);border-radius:20px;padding:.18rem .7rem;font-size:.75rem;color:#b0a0d8;font-weight:700;">&#128011; .NET Semantic Kernel</span>
+    <span style="background:rgba(16,185,129,.2);border:1.5px solid rgba(52,211,153,.4);border-radius:20px;padding:.18rem .7rem;font-size:.75rem;color:#80c0a0;font-weight:700;">&#128295; Tools &amp; Memory</span>
+    <span style="background:rgba(247,37,133,.2);border:1.5px solid rgba(247,37,133,.4);border-radius:20px;padding:.18rem .7rem;font-size:.75rem;color:#d0909a;font-weight:700;">&#129309; Multi-Agent</span>
   </div>
 </div>
 
@@ -411,7 +409,7 @@ body {
 <div class="ps-grid">
   <div class="ps-card" style="border-color:var(--py)"><div class="ps-emoji">&#128104;&#8205;&#128187;</div><strong>Developer</strong><span class="ps-tag" style="background:#dbeafe;color:#1e40af">Build It</span><p>"I want to build AI systems that actually <em>do</em> things!"</p></div>
   <div class="ps-card" style="border-color:var(--teal)"><div class="ps-emoji">&#129514;</div><strong>QA Engineer</strong><span class="ps-tag" style="background:#ccfbf1;color:#0f766e">Test It</span><p>"How do agents change how we test software?"</p></div>
-  <div class="ps-card" style="border-color:var(--net)"><div class="ps-emoji">&#128208;</div><strong>Architect</strong><span class="ps-tag" style="background:#ede9fe;color:#4c1d95">Design It</span><p>"What's the right pattern for my system?"</p></div>
+  <div class="ps-card" style="border-color:var(--net)"><div class="ps-emoji">&#128208;</div><strong>Architect</strong><span class="ps-tag" style="background:#ede9fe;color:#2e1858">Design It</span><p>"What's the right pattern for my system?"</p></div>
   <div class="ps-card" style="border-color:var(--orange)"><div class="ps-emoji">&#128202;</div><strong>Manager / PM</strong><span class="ps-tag" style="background:#fef3c7;color:#92400e">Understand It</span><p>"What can agents actually automate for my team?"</p></div>
   <div class="ps-card" style="border-color:var(--green)"><div class="ps-emoji">&#127891;</div><strong>Student</strong><span class="ps-tag" style="background:#d1fae5;color:#065f46">Learn It</span><p>"I'm learning AI &mdash; where does Agentic fit in?"</p></div>
 </div>
@@ -566,7 +564,7 @@ body {
 
 <div class="cc act" id="pyc0">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -608,19 +606,19 @@ body {
   <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.8rem;text-align:center;">&#128295; TOOL CHEATSHEET — USE WHEN?</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem;">
     <div style="background:rgba(37,99,235,.25);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.7rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#93c5fd;margin-bottom:.2rem;">&#128060; LangChain</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#a8bcd8;margin-bottom:.2rem;">&#128060; LangChain</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;">Connecting LLM + tools + prompts. The glue. Always needed.</div>
     </div>
     <div style="background:rgba(16,185,129,.2);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.7rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#6ee7b7;margin-bottom:.2rem;">&#128376;&#65039; LangGraph</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#80c0a0;margin-bottom:.2rem;">&#128376;&#65039; LangGraph</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;">Agent needs to loop until done. ReAct pattern. Ch7+</div>
     </div>
     <div style="background:rgba(6,182,212,.2);border:2px solid rgba(6,182,212,.5);border-radius:10px;padding:.7rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#67e8f9;margin-bottom:.2rem;">&#128190; FAISS</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#88c0d0;margin-bottom:.2rem;">&#128190; FAISS</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;">Remember documents. Free. Fast. Local. No cloud needed.</div>
     </div>
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.7rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#f9a8d4;margin-bottom:.2rem;">&#127758; FastAPI</div>
+    <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.7rem;">
+      <div style="font-family:var(--ft);font-size:.9rem;color:#d0909a;margin-bottom:.2rem;">&#127758; FastAPI</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;">Expose agent as REST API. Auto Swagger docs. Fast.</div>
     </div>
     <div style="background:rgba(251,191,36,.12);border:2px solid rgba(251,191,36,.4);border-radius:10px;padding:.7rem;">
@@ -635,11 +633,11 @@ body {
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"LangChain? LangGraph? FAISS? Are these all the same thing? Do I need ALL of them??" 😵‍💫</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Each tool = one job. LangChain=glue, LangGraph=loop, FAISS=memory, FastAPI=API, GPT-4o=brain!" 🎯</div>
       </div>
@@ -662,7 +660,7 @@ body {
 
 <div class="cc" id="pyc1">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -736,11 +734,11 @@ EMBED_MODEL=text-embedding-3-small
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"I installed LangChain globally and now my Django project is broken and I spent 2 hours debugging it..." 😭</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"venv + one pip install = entire course ready in 5 minutes. Never touching global Python again!" ✅</div>
       </div>
@@ -763,7 +761,7 @@ EMBED_MODEL=text-embedding-3-small
 
 <div class="cc" id="pyc2">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -816,15 +814,15 @@ print(llm.invoke(msgs).content)  <span class="pc"># "Yarr, LangGraph be the ship
   <div class="arch-title">&#129504; TEMPERATURE — THE CREATIVITY DIAL</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.3rem;">
     <div style="background:rgba(37,99,235,.25);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.7rem;text-align:center;">
-      <div style="font-family:var(--ft);font-size:1.1rem;color:#93c5fd;">temperature=0</div>
+      <div style="font-family:var(--ft);font-size:1.1rem;color:#a8bcd8;">temperature=0</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.75);margin-top:.3rem;line-height:1.5;">Same question = same answer every time. Use for agents, tools, decisions.</div>
     </div>
     <div style="background:rgba(251,191,36,.12);border:2px solid rgba(251,191,36,.4);border-radius:10px;padding:.7rem;text-align:center;">
       <div style="font-family:var(--ft);font-size:1.1rem;color:var(--yellow);">temperature=0.7</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.75);margin-top:.3rem;line-height:1.5;">Balanced. Good for chat, summaries, general tasks.</div>
     </div>
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.7rem;text-align:center;">
-      <div style="font-family:var(--ft);font-size:1.1rem;color:#f9a8d4;">temperature=1.0</div>
+    <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.7rem;text-align:center;">
+      <div style="font-family:var(--ft);font-size:1.1rem;color:#d0909a;">temperature=1.0</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.75);margin-top:.3rem;line-height:1.5;">Creative mode! Writing, brainstorming, poetry. Unpredictable.</div>
     </div>
   </div>
@@ -840,11 +838,11 @@ print(llm.invoke(msgs).content)  <span class="pc"># "Yarr, LangGraph be the ship
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"I need to write HTTP headers, handle JSON, add retry logic, parse responses... just to say hello to GPT-4o?" 😩</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"llm.invoke() — one line. LangChain handles everything else. I spent 5 minutes on setup, 0 minutes on boilerplate!" ⚡</div>
       </div>
@@ -867,7 +865,7 @@ print(llm.invoke(msgs).content)  <span class="pc"># "Yarr, LangGraph be the ship
 
 <div class="cc" id="pyc3">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -917,21 +915,21 @@ tools = [get_weather, calculate, search]</div></div>
 <div class="arch-box">
   <div class="arch-title">&#128161; HOW THE LLM DECIDES WHICH TOOL TO CALL</div>
   <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.5rem;align-items:center;margin-top:.5rem;">
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.7rem;text-align:center;">
+    <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.7rem;text-align:center;">
       <div style="font-size:1.3rem;">&#128172;</div>
-      <div style="font-family:var(--ft);font-size:.8rem;color:#f9a8d4;">USER ASKS</div>
+      <div style="font-family:var(--ft);font-size:.8rem;color:#d0909a;">USER ASKS</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);margin-top:.2rem;">"What's 42 * 17?"</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.3rem;color:var(--yellow);text-align:center;">&#8594;</div>
     <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.7rem;text-align:center;">
       <div style="font-size:1.3rem;">&#129504;</div>
-      <div style="font-family:var(--ft);font-size:.8rem;color:#93c5fd;">LLM READS</div>
+      <div style="font-family:var(--ft);font-size:.8rem;color:#a8bcd8;">LLM READS</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);margin-top:.2rem;">All tool docstrings</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.3rem;color:var(--yellow);text-align:center;">&#8594;</div>
-    <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.7rem;text-align:center;">
+    <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.7rem;text-align:center;">
       <div style="font-size:1.3rem;">&#128295;</div>
-      <div style="font-family:var(--ft);font-size:.8rem;color:#6ee7b7;">CALLS calculate</div>
+      <div style="font-family:var(--ft);font-size:.8rem;color:#80c0a0;">CALLS calculate</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);margin-top:.2rem;">Returns "714" ✅</div>
     </div>
   </div>
@@ -950,11 +948,11 @@ tools = [get_weather, calculate, search]</div></div>
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Ask agent about today's news = gets 2-year-old training data. Ask to calculate = it guesses. Useless for real tasks." 😞</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Agent searches the web for real news, calculates exactly, calls my APIs — it's actually DOING things in the real world!" 🚀</div>
       </div>
@@ -977,7 +975,7 @@ tools = [get_weather, calculate, search]</div></div>
 
 <div class="cc" id="pyc4">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1028,21 +1026,21 @@ memory = MemorySaver()
 <div class="arch-box">
   <div class="arch-title">&#129327; HOW VECTOR SEARCH WORKS — MAGIC EXPLAINED</div>
   <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.5rem;align-items:center;margin-top:.5rem;">
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.7rem;text-align:center;">
+    <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.7rem;text-align:center;">
       <div style="font-size:1.2rem;margin-bottom:.2rem;">&#128172;</div>
-      <div style="font-family:var(--ft);font-size:.78rem;color:#f9a8d4;">YOUR QUERY</div>
+      <div style="font-family:var(--ft);font-size:.78rem;color:#d0909a;">YOUR QUERY</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);margin-top:.2rem;">"How do I get my money back?"</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.3rem;color:var(--yellow);text-align:center;">&#8594;</div>
     <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.7rem;text-align:center;">
       <div style="font-size:1.2rem;margin-bottom:.2rem;">&#129504;</div>
-      <div style="font-family:var(--ft);font-size:.78rem;color:#93c5fd;">CONVERT TO VECTOR</div>
+      <div style="font-family:var(--ft);font-size:.78rem;color:#a8bcd8;">CONVERT TO VECTOR</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);margin-top:.2rem;">[0.23, -0.81, 0.44, ...]<br>1536 numbers = meaning</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.3rem;color:var(--yellow);text-align:center;">&#8594;</div>
-    <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.7rem;text-align:center;">
+    <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.7rem;text-align:center;">
       <div style="font-size:1.2rem;margin-bottom:.2rem;">&#9989;</div>
-      <div style="font-family:var(--ft);font-size:.78rem;color:#6ee7b7;">FINDS CLOSEST MATCH</div>
+      <div style="font-family:var(--ft);font-size:.78rem;color:#80c0a0;">FINDS CLOSEST MATCH</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);margin-top:.2rem;">"Refund policy is 30 days"<br>Similar meaning = found! ✅</div>
     </div>
   </div>
@@ -1058,11 +1056,11 @@ memory = MemorySaver()
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Agent forgets my name after every message. Can't search my 500-page company manual. Basically useless for real work." 😤</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Agent remembers the whole conversation. Ask 'what did I say earlier?' — it knows. Search 500-page doc in 20ms. Game changer!" 🚀</div>
       </div>
@@ -1085,7 +1083,7 @@ memory = MemorySaver()
 
 <div class="cc" id="pyc5">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1143,27 +1141,27 @@ tools = [rag_tool, search, calculate]</div></div>
   <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:.5rem;">
     <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;">
       <div style="font-size:1.2rem;">&#128196;</div>
-      <div style="font-family:var(--ft);font-size:.72rem;color:#93c5fd;letter-spacing:1px;">LOAD PDF</div>
+      <div style="font-family:var(--ft);font-size:.72rem;color:#a8bcd8;letter-spacing:1px;">LOAD PDF</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);">&#8594;</div>
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;">
+    <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;">
       <div style="font-size:1.2rem;">&#9986;</div>
-      <div style="font-family:var(--ft);font-size:.72rem;color:#f9a8d4;letter-spacing:1px;">CHUNK IT</div>
+      <div style="font-family:var(--ft);font-size:.72rem;color:#d0909a;letter-spacing:1px;">CHUNK IT</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);">&#8594;</div>
     <div style="background:rgba(124,58,237,.2);border:2px solid rgba(167,139,250,.6);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;">
       <div style="font-size:1.2rem;">&#129327;</div>
-      <div style="font-family:var(--ft);font-size:.72rem;color:#c4b5fd;letter-spacing:1px;">EMBED</div>
+      <div style="font-family:var(--ft);font-size:.72rem;color:#b0a0d8;letter-spacing:1px;">EMBED</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);">&#8594;</div>
     <div style="background:rgba(6,182,212,.2);border:2px solid rgba(6,182,212,.5);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;">
       <div style="font-size:1.2rem;">&#128190;</div>
-      <div style="font-family:var(--ft);font-size:.72rem;color:#67e8f9;letter-spacing:1px;">FAISS STORE</div>
+      <div style="font-family:var(--ft);font-size:.72rem;color:#88c0d0;letter-spacing:1px;">FAISS STORE</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);">&#8594;</div>
-    <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;">
+    <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:80px;">
       <div style="font-size:1.2rem;">&#128295;</div>
-      <div style="font-family:var(--ft);font-size:.72rem;color:#6ee7b7;letter-spacing:1px;">AGENT TOOL</div>
+      <div style="font-family:var(--ft);font-size:.72rem;color:#80c0a0;letter-spacing:1px;">AGENT TOOL</div>
     </div>
   </div>
 </div>
@@ -1178,11 +1176,11 @@ tools = [rag_tool, search, calculate]</div></div>
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"My 500-page company manual? I have to manually search it. The agent doesn't know any of it. Useless for customer support." 😤</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Agent searches 500 pages in 20ms. Finds exact relevant section. Answers with source citation. Customer support sorted!" 🚀</div>
       </div>
@@ -1205,7 +1203,7 @@ tools = [rag_tool, search, calculate]</div></div>
 
 <div class="cc" id="pyc6">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1256,20 +1254,20 @@ print(resp[<span class="ps">"messages"</span>][-<span class="pn">1</span>].conte
   <div class="arch-title">&#128257; THE ReAct LOOP IN ACTION</div>
   <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem;">
     <div style="display:flex;align-items:center;gap:.6rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
-        <div style="font-family:var(--ft);font-size:.85rem;color:#f9a8d4;">1. THINK</div>
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
+        <div style="font-family:var(--ft);font-size:.85rem;color:#d0909a;">1. THINK</div>
       </div>
       <div style="font-size:.82rem;color:rgba(255,255,255,.8);flex:1;">"User asked about refund policy AND a calculation. I have two tools: search_company_docs and calculate. I'll call search_docs first."</div>
     </div>
     <div style="display:flex;align-items:center;gap:.6rem;">
       <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
-        <div style="font-family:var(--ft);font-size:.85rem;color:#93c5fd;">2. ACT</div>
+        <div style="font-family:var(--ft);font-size:.85rem;color:#a8bcd8;">2. ACT</div>
       </div>
       <div style="font-size:.82rem;color:rgba(255,255,255,.8);flex:1;">Calls <code style="background:rgba(0,0,0,.3);color:#a6e3a1;padding:1px 5px;border-radius:3px;">search_company_docs("refund policy")</code></div>
     </div>
     <div style="display:flex;align-items:center;gap:.6rem;">
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
-        <div style="font-family:var(--ft);font-size:.85rem;color:#6ee7b7;">3. OBSERVE</div>
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
+        <div style="font-family:var(--ft);font-size:.85rem;color:#80c0a0;">3. OBSERVE</div>
       </div>
       <div style="font-size:.82rem;color:rgba(255,255,255,.8);flex:1;">"Got it: 30 days. Now I still need the calculation." → loops back to THINK</div>
     </div>
@@ -1287,11 +1285,11 @@ print(resp[<span class="ps">"messages"</span>][-<span class="pn">1</span>].conte
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"I have LLM, tools, memory — but they're all separate scripts. I have to manually decide which to call. Not autonomous at all." 😩</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"create_react_agent() — the agent decides what to call, when to loop, when to stop. Fully autonomous. 8 lines of code!" 🤯</div>
       </div>
@@ -1314,7 +1312,7 @@ print(resp[<span class="ps">"messages"</span>][-<span class="pn">1</span>].conte
 
 <div class="cc" id="pyc7">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1375,19 +1373,19 @@ result = crew.invoke({{<span class="ps">"topic"</span>: <span class="ps">"Latest
   <div style="display:flex;align-items:stretch;gap:.5rem;flex-wrap:wrap;margin-top:.5rem;">
     <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.8rem;text-align:center;flex:1;min-width:100px;">
       <div style="font-size:1.3rem;">&#128269;</div>
-      <div style="font-family:var(--ft);font-size:.85rem;color:#93c5fd;margin:.2rem 0;">RESEARCHER</div>
+      <div style="font-family:var(--ft);font-size:.85rem;color:#a8bcd8;margin:.2rem 0;">RESEARCHER</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);">Tools: web + docs<br>Finds facts &amp; data</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.5rem;color:var(--yellow);align-self:center;">&#8594;</div>
-    <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.8rem;text-align:center;flex:1;min-width:100px;">
+    <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.8rem;text-align:center;flex:1;min-width:100px;">
       <div style="font-size:1.3rem;">&#9999;&#65039;</div>
-      <div style="font-family:var(--ft);font-size:.85rem;color:#6ee7b7;margin:.2rem 0;">WRITER</div>
+      <div style="font-family:var(--ft);font-size:.85rem;color:#80c0a0;margin:.2rem 0;">WRITER</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);">No tools needed<br>Turns research → prose</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.5rem;color:var(--yellow);align-self:center;">&#8594;</div>
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.8rem;text-align:center;flex:1;min-width:100px;">
+    <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.8rem;text-align:center;flex:1;min-width:100px;">
       <div style="font-size:1.3rem;">&#128202;</div>
-      <div style="font-family:var(--ft);font-size:.85rem;color:#f9a8d4;margin:.2rem 0;">CRITIC</div>
+      <div style="font-family:var(--ft);font-size:.85rem;color:#d0909a;margin:.2rem 0;">CRITIC</div>
       <div style="font-size:.72rem;color:rgba(255,255,255,.7);">Reviews quality<br>Scores 1-10, flags issues</div>
     </div>
     <div style="font-family:var(--ft);font-size:1.5rem;color:var(--yellow);align-self:center;">&#8594;</div>
@@ -1409,11 +1407,11 @@ result = crew.invoke({{<span class="ps">"topic"</span>: <span class="ps">"Latest
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"One agent for complex tasks = confused, repeats itself, mixes research/writing/reviewing badly. Output quality is mediocre." 😞</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"3 specialist agents: researcher finds facts, writer crafts prose, critic ensures quality. Result is publication-ready every time!" ✨</div>
       </div>
@@ -1436,7 +1434,7 @@ result = crew.invoke({{<span class="ps">"topic"</span>: <span class="ps">"Latest
 
 <div class="cc" id="pyc8">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1494,19 +1492,19 @@ app = FastAPI(title=<span class="ps">"&#129302; My AI Agent API"</span>, version
   <div style="display:flex;align-items:stretch;gap:.4rem;flex-wrap:wrap;margin-top:.5rem;">
     <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.6rem;text-align:center;flex:1;min-width:80px;">
       <div style="font-size:1.1rem;">&#128241;</div>
-      <div style="font-family:var(--ft);font-size:.72rem;color:#93c5fd;">ANY CLIENT</div>
+      <div style="font-family:var(--ft);font-size:.72rem;color:#a8bcd8;">ANY CLIENT</div>
       <div style="font-size:.68rem;color:rgba(255,255,255,.65);margin-top:.2rem;">App/Web/Slack</div>
     </div>
     <div style="align-self:center;font-family:var(--ft);font-size:1.1rem;color:var(--yellow);">POST /ask</div>
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.6rem;text-align:center;flex:1;min-width:80px;">
+    <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.6rem;text-align:center;flex:1;min-width:80px;">
       <div style="font-size:1.1rem;">&#127758;</div>
-      <div style="font-family:var(--ft);font-size:.72rem;color:#f9a8d4;">FASTAPI</div>
+      <div style="font-family:var(--ft);font-size:.72rem;color:#d0909a;">FASTAPI</div>
       <div style="font-size:.68rem;color:rgba(255,255,255,.65);margin-top:.2rem;">Validates + routes</div>
     </div>
     <div style="align-self:center;font-family:var(--ft);font-size:1.1rem;color:var(--yellow);">&#8594;</div>
-    <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.6rem;text-align:center;flex:1;min-width:80px;">
+    <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.6rem;text-align:center;flex:1;min-width:80px;">
       <div style="font-size:1.1rem;">&#129302;</div>
-      <div style="font-family:var(--ft);font-size:.72rem;color:#6ee7b7;">AGENT</div>
+      <div style="font-family:var(--ft);font-size:.72rem;color:#80c0a0;">AGENT</div>
       <div style="font-size:.68rem;color:rgba(255,255,255,.65);margin-top:.2rem;">Runs ReAct loop</div>
     </div>
     <div style="align-self:center;font-family:var(--ft);font-size:1.1rem;color:var(--yellow);">&#8594;</div>
@@ -1528,11 +1526,11 @@ app = FastAPI(title=<span class="ps">"&#129302; My AI Agent API"</span>, version
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"My agent only works on my laptop. I have to paste questions manually. My team can't use it. My app can't call it." 😤</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"POST to https://myagent.com/ask — works from React app, iOS app, Slack bot, or curl. Everyone has access!" 🌍</div>
       </div>
@@ -1555,7 +1553,7 @@ app = FastAPI(title=<span class="ps">"&#129302; My AI Agent API"</span>, version
 
 <div class="cc" id="pyc9">
 
-<div style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#1e2035,#3a5088,#5a3a90);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1606,19 +1604,19 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
   <div class="arch-title">&#9729;&#65039; THREE CLOUD OPTIONS — PICK YOUR ADVENTURE</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem;margin-top:.5rem;">
     <div style="background:rgba(16,185,129,.2);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.8rem;">
-      <div style="font-family:var(--ft);font-size:.95rem;color:#6ee7b7;margin-bottom:.3rem;">&#128994; RAILWAY</div>
+      <div style="font-family:var(--ft);font-size:.95rem;color:#80c0a0;margin-bottom:.3rem;">&#128994; RAILWAY</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.6;">Connect GitHub → auto-deploy. Free tier. Easiest option. Best for side projects.</div>
-      <div style="margin-top:.4rem;font-size:.72rem;background:rgba(16,185,129,.3);color:#6ee7b7;padding:2px 7px;border-radius:8px;display:inline-block;">BEGINNER</div>
+      <div style="margin-top:.4rem;font-size:.72rem;background:rgba(16,185,129,.3);color:#80c0a0;padding:2px 7px;border-radius:8px;display:inline-block;">BEGINNER</div>
     </div>
     <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.8rem;">
-      <div style="font-family:var(--ft);font-size:.95rem;color:#93c5fd;margin-bottom:.3rem;">&#128309; RENDER</div>
+      <div style="font-family:var(--ft);font-size:.95rem;color:#a8bcd8;margin-bottom:.3rem;">&#128309; RENDER</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.6;">Free tier, Docker support, good for demos. Auto-deploys from GitHub. Simple.</div>
-      <div style="margin-top:.4rem;font-size:.72rem;background:rgba(37,99,235,.3);color:#93c5fd;padding:2px 7px;border-radius:8px;display:inline-block;">BEGINNER</div>
+      <div style="margin-top:.4rem;font-size:.72rem;background:rgba(37,99,235,.3);color:#a8bcd8;padding:2px 7px;border-radius:8px;display:inline-block;">BEGINNER</div>
     </div>
     <div style="background:rgba(124,58,237,.2);border:2px solid rgba(167,139,250,.6);border-radius:10px;padding:.8rem;">
-      <div style="font-family:var(--ft);font-size:.95rem;color:#c4b5fd;margin-bottom:.3rem;">&#128311; AZURE</div>
+      <div style="font-family:var(--ft);font-size:.95rem;color:#b0a0d8;margin-bottom:.3rem;">&#128311; AZURE</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.6;">Enterprise scale, native .NET support, Azure DevOps integration. Best for work projects.</div>
-      <div style="margin-top:.4rem;font-size:.72rem;background:rgba(124,58,237,.3);color:#c4b5fd;padding:2px 7px;border-radius:8px;display:inline-block;">ENTERPRISE</div>
+      <div style="margin-top:.4rem;font-size:.72rem;background:rgba(124,58,237,.3);color:#b0a0d8;padding:2px 7px;border-radius:8px;display:inline-block;">ENTERPRISE</div>
     </div>
   </div>
 </div>
@@ -1628,11 +1626,11 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"My agent runs on localhost. I close my laptop, it's gone. Nobody else can use it. It's a local toy, not a real product." 😔</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Docker + Railway = live URL in 10 minutes. Team uses it. Users love it. Runs 24/7 even when laptop is closed. Shipped! 🚀"</div>
       </div>
@@ -1667,7 +1665,7 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
 
 <div class="cc act" id="netc0">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1709,19 +1707,19 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
   <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.8rem;text-align:center;">&#128295; .NET TOOL CHEATSHEET</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem;">
     <div style="background:rgba(124,58,237,.25);border:2px solid rgba(167,139,250,.6);border-radius:10px;padding:.7rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#c4b5fd;margin-bottom:.2rem;">&#9881;&#65039; Semantic Kernel</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#b0a0d8;margin-bottom:.2rem;">&#9881;&#65039; Semantic Kernel</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;">Microsoft's AI SDK. Connects LLM + plugins + memory. Always needed.</div>
     </div>
     <div style="background:rgba(16,185,129,.2);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.7rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#6ee7b7;margin-bottom:.2rem;">&#129517; SK Planner</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#80c0a0;margin-bottom:.2rem;">&#129517; SK Planner</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;">FunctionCallingStepwisePlanner. The autonomous loop engine. Ch7+</div>
     </div>
     <div style="background:rgba(6,182,212,.2);border:2px solid rgba(6,182,212,.5);border-radius:10px;padding:.7rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#67e8f9;margin-bottom:.2rem;">&#128451;&#65039; Qdrant</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#88c0d0;margin-bottom:.2rem;">&#128451;&#65039; Qdrant</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;">Production vector store. One docker command. Scales to millions.</div>
     </div>
-    <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.7rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#f9a8d4;margin-bottom:.2rem;">&#127758; ASP.NET Core</div>
+    <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.7rem;">
+      <div style="font-family:var(--ft);font-size:.9rem;color:#d0909a;margin-bottom:.2rem;">&#127758; ASP.NET Core</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;">Enterprise REST API. DI built-in. Azure deploy one click.</div>
     </div>
     <div style="background:rgba(251,191,36,.12);border:2px solid rgba(251,191,36,.4);border-radius:10px;padding:.7rem;">
@@ -1736,11 +1734,11 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Semantic Kernel? FunctionCallingStepwisePlanner?? Is this C# or a spell from Harry Potter?!" 🧙</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"SK=LangChain, Planner=loop, Qdrant=memory, ASP.NET=API. Same pattern as Python, enterprise C# quality!" 💪</div>
       </div>
@@ -1763,7 +1761,7 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
 
 <div class="cc" id="netc1">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1782,7 +1780,7 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
 
 <div class="bubble">
   <div class="bubble-who"><span class="bicon">&#128011;</span><span>.NET Mascot:</span></div>
-  <p>Python devs ask: 'Where's pip install?' 😄<br><br>.NET devs: Right-click project → Manage NuGet Packages → Browse → Search → Install. Done!<br><br>For those who prefer terminal (Package Manager Console in VS):<br><code style='background:var(--ink);color:#c4b5fd;padding:2px 6px;border-radius:3px'>Install-Package Microsoft.SemanticKernel</code><br><br><em>Both work. The GUI is beginner-friendly. The console is faster once you know the package names. Choose your weapon! ⚔️</em></p>
+  <p>Python devs ask: 'Where's pip install?' 😄<br><br>.NET devs: Right-click project → Manage NuGet Packages → Browse → Search → Install. Done!<br><br>For those who prefer terminal (Package Manager Console in VS):<br><code style='background:var(--ink);color:#b0a0d8;padding:2px 6px;border-radius:3px'>Install-Package Microsoft.SemanticKernel</code><br><br><em>Both work. The GUI is beginner-friendly. The console is faster once you know the package names. Choose your weapon! ⚔️</em></p>
 </div>
 
 <div class="cb">
@@ -1826,11 +1824,11 @@ Install-Package Microsoft.Extensions.Logging.Console
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"I need to set up a terminal, manage Python versions, deal with venv, remember pip syntax..." 😩</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Visual Studio: right-click → Install. appsettings.json: add key. Done in 5 minutes. Back to coding!" ✅</div>
       </div>
@@ -1853,7 +1851,7 @@ Install-Package Microsoft.Extensions.Logging.Console
 
 <div class="cc" id="netc2">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1872,7 +1870,7 @@ Install-Package Microsoft.Extensions.Logging.Console
 
 <div class="bubble">
   <div class="bubble-who"><span class="bicon">&#9881;&#65039;</span><span>Semantic Kernel says:</span></div>
-  <p>Python uses assignment: <code style='background:var(--ink);color:#a6e3a1;padding:1px 6px;border-radius:3px'>llm = ChatOpenAI(model='gpt-4o')</code><br><br>.NET uses the Builder pattern — very idiomatic C#:<br><code style='background:var(--ink);color:#c4b5fd;padding:1px 6px;border-radius:3px'>var kernel = Kernel.CreateBuilder().AddOpenAI(...).Build()</code><br><br>More verbose? Yes. But you can chain multiple services, plugins, and middleware all in the builder. It's C# being C# — explicit, type-safe, enterprise-ready! 💪</p>
+  <p>Python uses assignment: <code style='background:var(--ink);color:#a6e3a1;padding:1px 6px;border-radius:3px'>llm = ChatOpenAI(model='gpt-4o')</code><br><br>.NET uses the Builder pattern — very idiomatic C#:<br><code style='background:var(--ink);color:#b0a0d8;padding:1px 6px;border-radius:3px'>var kernel = Kernel.CreateBuilder().AddOpenAI(...).Build()</code><br><br>More verbose? Yes. But you can chain multiple services, plugins, and middleware all in the builder. It's C# being C# — explicit, type-safe, enterprise-ready! 💪</p>
 </div>
 
 <div class="cb">
@@ -1907,11 +1905,11 @@ Console.WriteLine(result);
   <div class="arch-title">&#128311; AZURE OPENAI vs OPENAI DIRECT — ONE LINE CHANGE</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.5rem;">
     <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.8rem;">
-      <div style="font-family:var(--ft);font-size:.85rem;color:#93c5fd;margin-bottom:.4rem;">&#128013; OPENAI DIRECT (side projects)</div>
+      <div style="font-family:var(--ft);font-size:.85rem;color:#a8bcd8;margin-bottom:.4rem;">&#128013; OPENAI DIRECT (side projects)</div>
       <div style="font-family:var(--fc);font-size:.78rem;color:#cdd6f4;line-height:1.6;">.AddOpenAIChatCompletion(<br>&nbsp;&nbsp;modelId: "gpt-4o",<br>&nbsp;&nbsp;apiKey: config["OpenAI:ApiKey"]!)</div>
     </div>
     <div style="background:rgba(124,58,237,.2);border:2px solid rgba(167,139,250,.6);border-radius:10px;padding:.8rem;">
-      <div style="font-family:var(--ft);font-size:.85rem;color:#c4b5fd;margin-bottom:.4rem;">&#128311; AZURE OPENAI (enterprise)</div>
+      <div style="font-family:var(--ft);font-size:.85rem;color:#b0a0d8;margin-bottom:.4rem;">&#128311; AZURE OPENAI (enterprise)</div>
       <div style="font-family:var(--fc);font-size:.78rem;color:#cdd6f4;line-height:1.6;">.AddAzureOpenAIChatCompletion(<br>&nbsp;&nbsp;deploymentName: "gpt-4o",<br>&nbsp;&nbsp;endpoint: config["Azure:Endpoint"]!,<br>&nbsp;&nbsp;apiKey: config["Azure:ApiKey"]!)</div>
     </div>
   </div>
@@ -1923,11 +1921,11 @@ Console.WriteLine(result);
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"How do I even start? I need to figure out HTTP headers, authentication, JSON serialization just to say hello..." 😩</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Kernel built in 5 lines. InvokePromptAsync() for single calls, streaming for UX. GPT-4o is live!" ⚡</div>
       </div>
@@ -1950,7 +1948,7 @@ Console.WriteLine(result);
 
 <div class="cc" id="netc3">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -1969,7 +1967,7 @@ Console.WriteLine(result);
 
 <div class="bubble">
   <div class="bubble-who"><span class="bicon">&#128268;</span><span>Plugin Bot:</span></div>
-  <p>Python: <code style='background:var(--ink);color:#a6e3a1;padding:1px 6px;border-radius:3px'>@tool + docstring</code><br>.NET: <code style='background:var(--ink);color:#c4b5fd;padding:1px 6px;border-radius:3px'>[KernelFunction] + [Description('...')]</code><br><br>Same idea, C# style. The Description attribute IS the AI instruction — the Planner reads it to decide when to call your function.<br><br><em>Bad description: 'Calculate something'<br>Good description: 'Evaluate a math expression like 42*17 or 100/4+2'<br>Better description = LLM picks right tool every time! 🎯</em></p>
+  <p>Python: <code style='background:var(--ink);color:#a6e3a1;padding:1px 6px;border-radius:3px'>@tool + docstring</code><br>.NET: <code style='background:var(--ink);color:#b0a0d8;padding:1px 6px;border-radius:3px'>[KernelFunction] + [Description('...')]</code><br><br>Same idea, C# style. The Description attribute IS the AI instruction — the Planner reads it to decide when to call your function.<br><br><em>Bad description: 'Calculate something'<br>Good description: 'Evaluate a math expression like 42*17 or 100/4+2'<br>Better description = LLM picks right tool every time! 🎯</em></p>
 </div>
 
 <div class="cb">
@@ -2014,11 +2012,11 @@ kernel.Plugins.AddFromType&lt;ToolPlugin&gt;(<span class="ps">"tools"</span>);</
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Agent knows things but can't DO things. Ask about current news = stale training data. Ask to calculate = it guesses." 😤</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"[KernelFunction] on any method = AI can call it. Web search, calculate, your APIs — agent does real work!" 🚀</div>
       </div>
@@ -2041,7 +2039,7 @@ kernel.Plugins.AddFromType&lt;ToolPlugin&gt;(<span class="ps">"tools"</span>);</
 
 <div class="cc" id="netc4">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -2060,7 +2058,7 @@ kernel.Plugins.AddFromType&lt;ToolPlugin&gt;(<span class="ps">"tools"</span>);</
 
 <div class="bubble">
   <div class="bubble-who"><span class="bicon">&#128451;&#65039;</span><span>Memory Bot (.NET):</span></div>
-  <p>Qdrant is production-grade — used by companies with millions of vectors. And you can run it locally with ONE Docker command:<br><br><code style='background:var(--ink);color:#c4b5fd;padding:2px 8px;border-radius:3px;display:block;margin:.4rem 0;'>docker run -p 6333:6333 qdrant/qdrant</code><br><br>That's it! No cloud account, no API key, no setup. Qdrant is running locally on port 6333. And when you're ready for production, just change the URL to your cloud Qdrant instance. <em>Same code, zero changes! &#128170;</em></p>
+  <p>Qdrant is production-grade — used by companies with millions of vectors. And you can run it locally with ONE Docker command:<br><br><code style='background:var(--ink);color:#b0a0d8;padding:2px 8px;border-radius:3px;display:block;margin:.4rem 0;'>docker run -p 6333:6333 qdrant/qdrant</code><br><br>That's it! No cloud account, no API key, no setup. Qdrant is running locally on port 6333. And when you're ready for production, just change the URL to your cloud Qdrant instance. <em>Same code, zero changes! &#128170;</em></p>
 </div>
 
 <div class="cb">
@@ -2107,11 +2105,11 @@ kernel.Plugins.AddFromType&lt;ToolPlugin&gt;(<span class="ps">"tools"</span>);</
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Every conversation starts fresh. Agent can't search our company manual. Memory is wiped after each API call." 😔</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Qdrant stores everything permanently. Semantic search finds answers by meaning. Memory persists forever!" 🚀</div>
       </div>
@@ -2134,7 +2132,7 @@ kernel.Plugins.AddFromType&lt;ToolPlugin&gt;(<span class="ps">"tools"</span>);</
 
 <div class="cc" id="netc5">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -2193,7 +2191,7 @@ kernel.Plugins.AddFromObject(<span class="pk">new</span> RagPlugin(memory), <spa
 
 <div style="background:linear-gradient(135deg,#f5f0ff,#ede9fe);border:3px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);padding:.8rem 1rem;">
   <div style="font-family:var(--ft);font-size:.9rem;letter-spacing:1px;color:#5b21b6;margin-bottom:.3rem;">&#128311; Why primary constructors?</div>
-  <p style="font-size:.88rem;line-height:1.7;color:#1e293b;"><code style='background:var(--ink);color:#c4b5fd;padding:1px 6px;border-radius:3px'>public class RagPlugin(ISemanticTextMemory memory)</code> is C# 12 primary constructor syntax. Shorter than writing a constructor body. Works perfectly with .NET's DI container — inject memory automatically in ASP.NET Core! 🎯</p>
+  <p style="font-size:.88rem;line-height:1.7;color:#1e293b;"><code style='background:var(--ink);color:#b0a0d8;padding:1px 6px;border-radius:3px'>public class RagPlugin(ISemanticTextMemory memory)</code> is C# 12 primary constructor syntax. Shorter than writing a constructor body. Works perfectly with .NET's DI container — inject memory automatically in ASP.NET Core! 🎯</p>
 </div>
 
 <div style="background:linear-gradient(135deg,#0f172a,#1e1b4b);border:3px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--ink);padding:1.1rem;position:relative;overflow:hidden;">
@@ -2201,11 +2199,11 @@ kernel.Plugins.AddFromObject(<span class="pk">new</span> RagPlugin(memory), <spa
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"500-page company manual. Agent knows none of it. Users get wrong answers from training data. Support tickets pile up." 😤</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Agent searches entire manual in 20ms. Cites exact sources. Answers are always accurate. Support tickets drop 80%!" ✅</div>
       </div>
@@ -2228,7 +2226,7 @@ kernel.Plugins.AddFromObject(<span class="pk">new</span> RagPlugin(memory), <spa
 
 <div class="cc" id="netc6">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -2278,20 +2276,20 @@ Console.WriteLine(result.FinalAnswer);
   <div class="arch-title">&#128257; HOW THE PLANNER LOOP WORKS IN .NET</div>
   <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem;">
     <div style="display:flex;align-items:center;gap:.6rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
-        <div style="font-family:var(--ft);font-size:.85rem;color:#f9a8d4;">1. PLAN</div>
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
+        <div style="font-family:var(--ft);font-size:.85rem;color:#d0909a;">1. PLAN</div>
       </div>
       <div style="font-size:.82rem;color:rgba(255,255,255,.8);flex:1;">Reads all [Description] attributes. Decides: "I need SearchDocs AND Calculate for this task."</div>
     </div>
     <div style="display:flex;align-items:center;gap:.6rem;">
       <div style="background:rgba(124,58,237,.2);border:2px solid rgba(167,139,250,.6);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
-        <div style="font-family:var(--ft);font-size:.85rem;color:#c4b5fd;">2. CALL</div>
+        <div style="font-family:var(--ft);font-size:.85rem;color:#b0a0d8;">2. CALL</div>
       </div>
-      <div style="font-size:.82rem;color:rgba(255,255,255,.8);flex:1;">Calls <code style="background:rgba(0,0,0,.3);color:#c4b5fd;padding:1px 5px;border-radius:3px;">SearchDocs("refund policy")</code> → gets result</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.8);flex:1;">Calls <code style="background:rgba(0,0,0,.3);color:#b0a0d8;padding:1px 5px;border-radius:3px;">SearchDocs("refund policy")</code> → gets result</div>
     </div>
     <div style="display:flex;align-items:center;gap:.6rem;">
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
-        <div style="font-family:var(--ft);font-size:.85rem;color:#6ee7b7;">3. OBSERVE</div>
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:8px;padding:.5rem .8rem;min-width:80px;text-align:center;">
+        <div style="font-family:var(--ft);font-size:.85rem;color:#80c0a0;">3. OBSERVE</div>
       </div>
       <div style="font-size:.82rem;color:rgba(255,255,255,.8);flex:1;">Got refund info. Still needs calculation → loops back to PLAN</div>
     </div>
@@ -2309,11 +2307,11 @@ Console.WriteLine(result.FinalAnswer);
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"I have plugins and memory but have to manually decide which to call. Writing routing logic. Not autonomous at all." 😩</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"FunctionCallingStepwisePlanner — 3 lines. Sets goal, figures out steps, calls plugins, loops, gives answer. 100% autonomous!" 🤯</div>
       </div>
@@ -2336,7 +2334,7 @@ Console.WriteLine(result.FinalAnswer);
 
 <div class="cc" id="netc7">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -2408,11 +2406,11 @@ chat.AddChatMessage(<span class="pk">new</span> ChatMessageContent(
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"One agent for research + writing + review = confused output, mediocre quality, mixed up priorities." 😞</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Researcher finds facts, Writer crafts prose, Critic ensures quality. Pipeline output is publication-ready every time!" ✨</div>
       </div>
@@ -2435,7 +2433,7 @@ chat.AddChatMessage(<span class="pk">new</span> ChatMessageContent(
 
 <div class="cc" id="netc8">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -2520,11 +2518,11 @@ app.Run();
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Agent runs in console. Team can't use it. Mobile app can't reach it. Each run needs manual input." 😤</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"POST to https://myagent.azurewebsites.net/api/agent/ask — team, mobile, web all connected. Enterprise-ready!" 🌍</div>
       </div>
@@ -2547,7 +2545,7 @@ app.Run();
 
 <div class="cc" id="netc9">
 
-<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#f72585);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#2e1858,#5a3a90,#b85070);border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;"></div>
   <div style="position:relative;">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap;">
@@ -2593,19 +2591,19 @@ ENTRYPOINT ["dotnet", "AgentApi.dll"]
   <div class="arch-title">&#128311; AZURE DEPLOYMENT OPTIONS</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem;margin-top:.5rem;">
     <div style="background:rgba(37,99,235,.2);border:2px solid rgba(96,165,250,.6);border-radius:10px;padding:.8rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#93c5fd;margin-bottom:.3rem;">&#128377;&#65039; App Service</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#a8bcd8;margin-bottom:.3rem;">&#128377;&#65039; App Service</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.6;">Right-click → Publish. Managed platform. Auto-scaling. Best for most apps.</div>
-      <div style="margin-top:.3rem;font-size:.7rem;background:rgba(37,99,235,.3);color:#93c5fd;padding:2px 6px;border-radius:8px;display:inline-block;">VS 2022 GUI</div>
+      <div style="margin-top:.3rem;font-size:.7rem;background:rgba(37,99,235,.3);color:#a8bcd8;padding:2px 6px;border-radius:8px;display:inline-block;">VS 2022 GUI</div>
     </div>
-    <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.8rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#6ee7b7;margin-bottom:.3rem;">&#128051; Container Apps</div>
+    <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.8rem;">
+      <div style="font-family:var(--ft);font-size:.9rem;color:#80c0a0;margin-bottom:.3rem;">&#128051; Container Apps</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.6;">Docker-based, auto-scales to zero, pay per request. Best for cost efficiency.</div>
-      <div style="margin-top:.3rem;font-size:.7rem;background:rgba(16,185,129,.3);color:#6ee7b7;padding:2px 6px;border-radius:8px;display:inline-block;">Docker + CLI</div>
+      <div style="margin-top:.3rem;font-size:.7rem;background:rgba(16,185,129,.3);color:#80c0a0;padding:2px 6px;border-radius:8px;display:inline-block;">Docker + CLI</div>
     </div>
     <div style="background:rgba(124,58,237,.2);border:2px solid rgba(167,139,250,.6);border-radius:10px;padding:.8rem;">
-      <div style="font-family:var(--ft);font-size:.9rem;color:#c4b5fd;margin-bottom:.3rem;">&#9729;&#65039; AKS</div>
+      <div style="font-family:var(--ft);font-size:.9rem;color:#b0a0d8;margin-bottom:.3rem;">&#9729;&#65039; AKS</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.6;">Kubernetes. Enterprise scale, microservices, 100% control. When you need it all.</div>
-      <div style="margin-top:.3rem;font-size:.7rem;background:rgba(124,58,237,.3);color:#c4b5fd;padding:2px 6px;border-radius:8px;display:inline-block;">ENTERPRISE</div>
+      <div style="margin-top:.3rem;font-size:.7rem;background:rgba(124,58,237,.3);color:#b0a0d8;padding:2px 6px;border-radius:8px;display:inline-block;">ENTERPRISE</div>
     </div>
   </div>
 </div>
@@ -2615,11 +2613,11 @@ ENTRYPOINT ["dotnet", "AgentApi.dll"]
   <div style="position:relative;">
     <div style="font-family:var(--ft);font-size:1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.7rem;text-align:center;">&#9889; BEFORE vs AFTER THIS MISSION</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
-      <div style="background:rgba(247,37,133,.15);border:2px solid rgba(247,37,133,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(180,60,100,.12);border:2px solid rgba(180,60,100,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--hot);margin-bottom:.3rem;">&#128544; BEFORE</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Agent runs on localhost:5001. Closes when I close VS. Team can't access it. Not a real product." 😔</div>
       </div>
-      <div style="background:rgba(16,185,129,.15);border:2px solid rgba(52,211,153,.5);border-radius:10px;padding:.75rem;">
+      <div style="background:rgba(30,140,100,.12);border:2px solid rgba(40,160,110,.4);border-radius:10px;padding:.75rem;">
         <div style="font-family:var(--ft);font-size:.85rem;color:var(--green);margin-bottom:.3rem;">&#9989; AFTER</div>
         <div style="font-size:.83rem;color:rgba(255,255,255,.85);line-height:1.7;">"Live on azurewebsites.net. 24/7 uptime. Team access. Auto-scaling. Monitoring in App Insights. Shipped! 🚀"</div>
       </div>
