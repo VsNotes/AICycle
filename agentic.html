@@ -92,11 +92,11 @@ body {
 .ps-card { border:2px solid rgba(255,255,255,.15); border-radius:10px; padding:.8rem; display:flex; flex-direction:column; gap:.3rem; transition:all .15s; }
 .ps-card:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(0,0,0,.4); }
 /* Each card gets its own gradient */
-.ps-card:nth-child(1) { background:linear-gradient(135deg,#1e2035,#3a5088); border-color:rgba(96,165,250,.5); }
-.ps-card:nth-child(2) { background:linear-gradient(135deg,#065f46,#2e8060); border-color:rgba(52,211,153,.5); }
-.ps-card:nth-child(3) { background:linear-gradient(135deg,#2e1858,#5a3a90); border-color:rgba(167,139,250,.5); }
-.ps-card:nth-child(4) { background:linear-gradient(135deg,#92400e,#b88030); border-color:rgba(251,191,36,.5); }
-.ps-card:nth-child(5) { background:linear-gradient(135deg,#162e28,#257068); border-color:rgba(45,212,191,.5); }
+.ps-card:nth-child(1) { background:linear-gradient(135deg,#141620,#1e2230); border-color:rgba(90,106,154,.4); }
+.ps-card:nth-child(2) { background:linear-gradient(135deg,#0c2018,#162a20); border-color:rgba(46,144,112,.4); }
+.ps-card:nth-child(3) { background:linear-gradient(135deg,#181030,#221840); border-color:rgba(107,82,180,.4); }
+.ps-card:nth-child(4) { background:linear-gradient(135deg,#201408,#2e1e10); border-color:rgba(180,140,60,.4); }
+.ps-card:nth-child(5) { background:linear-gradient(135deg,#0c2018,#162820); border-color:rgba(46,144,112,.4); }
 .ps-emoji { font-size:1.5rem; }
 .ps-card strong { font-family:var(--fb); font-size:.9rem; font-weight:800; letter-spacing:.02em; color:#fff; }
 .ps-card .ps-tag { font-size:.65rem; font-weight:800; padding:2px 7px; border-radius:10px; background:rgba(255,255,255,.2); color:#fff; border:1px solid rgba(255,255,255,.3); width:fit-content; }
@@ -106,7 +106,7 @@ body {
 .story-box { border:2px solid rgba(255,255,255,.15); border-radius:12px; overflow:hidden; box-shadow:4px 4px 0 rgba(0,0,0,.4); }
 .story-head { background:linear-gradient(90deg,#8a3858,#3a2870); padding:.55rem 1rem; font-family:var(--fb); font-weight:700; font-size:.85rem; letter-spacing:2px; color:#fff; }
 .story-body { background:linear-gradient(135deg,#1a1a2e,#0f172a); padding:1rem 1.1rem; font-size:.95rem; line-height:1.85; color:var(--txt); }
-.story-body strong { color:var(--hot); }
+.story-body strong { color:#c9a048; }
 .story-body em { color:var(--yellow); font-style:italic; }
 
 /* ── SPEECH BUBBLE — DARK YELLOW TINT ── */
@@ -404,124 +404,334 @@ body {
 <div id="th">
 <div class="pg"><div class="hw"><div class="hm">
 
+<!-- ① TOUCHING STORY — FIRST THING THEY SEE -->
 <div>
-<div class="stitle" style="background:var(--yellow);color:var(--ink)">&#128101; WHO IS THIS FOR?</div>
-<div class="ps-grid">
-  <div class="ps-card" style="border-color:var(--py)"><div class="ps-emoji">&#128104;&#8205;&#128187;</div><strong>Developer</strong><span class="ps-tag" style="background:#dbeafe;color:#1e40af">Build It</span><p>"I want to build AI systems that actually <em>do</em> things!"</p></div>
-  <div class="ps-card" style="border-color:var(--teal)"><div class="ps-emoji">&#129514;</div><strong>QA Engineer</strong><span class="ps-tag" style="background:#ccfbf1;color:#0f766e">Test It</span><p>"How do agents change how we test software?"</p></div>
-  <div class="ps-card" style="border-color:var(--net)"><div class="ps-emoji">&#128208;</div><strong>Architect</strong><span class="ps-tag" style="background:#ede9fe;color:#2e1858">Design It</span><p>"What's the right pattern for my system?"</p></div>
-  <div class="ps-card" style="border-color:var(--orange)"><div class="ps-emoji">&#128202;</div><strong>Manager / PM</strong><span class="ps-tag" style="background:#fef3c7;color:#92400e">Understand It</span><p>"What can agents actually automate for my team?"</p></div>
-  <div class="ps-card" style="border-color:var(--green)"><div class="ps-emoji">&#127891;</div><strong>Student</strong><span class="ps-tag" style="background:#d1fae5;color:#065f46">Learn It</span><p>"I'm learning AI &mdash; where does Agentic fit in?"</p></div>
-</div>
-</div>
-
-<div>
-<div class="stitle" style="background:var(--hot);color:#fff">&#128544; THE PROBLEM &mdash; WHY OLD AI WASN'T ENOUGH</div>
+<div class="stitle" style="background:var(--hot);color:#fff">😤 REMEMBER WHEN AI COULDN'T DO ANYTHING?</div>
 <div class="story-box">
-  <div class="story-head">&#128240; A REAL STORY FROM 2023...</div>
+  <div class="story-head">✈️ A REAL STORY — SARAH BOOKS A HOLIDAY, 2023 STYLE</div>
   <div class="story-body">
-    <p>Imagine you're a developer at a company. You open ChatGPT and ask:<br>
-    <strong>"Research our competitors, write a report, and email it to my team."</strong><br><br>
-    ChatGPT says: <em>"Sure! Here's a draft report... [but I can't actually search the web, can't access your company email, and I forgot everything from 5 minutes ago]"</em><br><br>
-    &#128544; <strong>The old problem:</strong> LLMs were stuck in a box. They could TALK but not DO. Like hiring a genius who can only answer questions but can't pick up a phone, open a browser, or remember who you are.<br><br>
-    <strong>&#10024; Before agents, developers had to:</strong><br>
-    &bull; Manually copy-paste between ChatGPT and their tools<br>
-    &bull; Write custom code for every API integration<br>
-    &bull; Re-explain context every single conversation<br>
-    &bull; Babysit every step of a multi-step task<br><br>
-    &#9889; <strong>The Agentic AI solution:</strong> Give the LLM TOOLS (web search, email API, file access), MEMORY (remember past conversations), and a LOOP (keep trying until the job is done). Now it's not just talking &mdash; it's actually working!</p>
+    <p>Sarah wants to book a 5-day trip to Rome. She opens ChatGPT and types:<br><br>
+    <strong>"Find me flights from London to Rome, 10–15 June, under £300, book the cheapest one, then find a hotel near the Colosseum under £100/night, and add it all to my calendar."</strong><br><br>
+    ChatGPT replies:<br>
+    <em style="color:#94a3b8;">"I'd be happy to help! Unfortunately I can't search the web, can't access flight databases, can't make bookings, and can't connect to your calendar. But here's some general advice about booking trips to Rome..."</em><br><br>
+    😤 <strong style="color:var(--yellow)">5 separate tabs. 45 minutes. Done manually. Again.</strong><br><br>
+    <strong>That same task in 2024 with an Agentic AI:</strong><br>
+    Sarah types the same message → Agent searches Skyscanner → finds cheapest flight → books it → searches Booking.com → picks hotel → adds both to Google Calendar → sends Sarah a summary.<br><br>
+    ⏱️ <strong style="color:var(--yellow)">4 minutes. Zero tabs. Zero babysitting.</strong><br><br>
+    That's Agentic AI. An AI that doesn't just <em>answer</em> — it <em>does</em>. 🤖
+    </p>
   </div>
 </div>
 </div>
 
+<!-- ② WHAT IS AGENTIC AI — LAYMAN DEFINITION -->
 <div>
-<div class="stitle" style="background:var(--ink);color:#fff">&#129300; WHAT IS AGENTIC AI?</div>
-<div class="bubble">
-  <div class="bubble-who"><span>&#129302;</span><span>The Agent says:</span></div>
-  <p><strong>"Don't just answer me &mdash; go figure it out!"</strong><br><br>
-  A normal chatbot waits for you to give it all the info. An Agentic AI <strong>takes initiative</strong> &mdash; it searches the web, reads files, runs code, calls APIs, remembers past conversations, and loops until the job is done.<br><br>
-  Think of it like the difference between a <strong>calculator</strong> (gives answer instantly) vs a <strong>junior developer</strong> (goes off, investigates, tries things, comes back with a solution).</p>
+<div class="stitle" style="background:var(--ink);color:#fff">🤖 SO WHAT IS AGENTIC AI?</div>
+<div style="background:linear-gradient(135deg,#1c1900,#2a2400);border:2px solid #c9a048;border-radius:14px;padding:.9rem 1rem;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
+  <div class="bubble-who"><span>🤖</span><span>Agent Bot — one sentence definition:</span></div>
+  <p style="font-size:.92rem;line-height:1.85;color:#d8c070;">
+    <strong>Agentic AI = an LLM that has been given TOOLS, MEMORY, and a LOOP.</strong><br><br>
+    🔧 <strong>Tools</strong> — it can search Google, call APIs, write files, run code, send emails<br>
+    🧠 <strong>Memory</strong> — it remembers what happened in previous steps<br>
+    🔁 <strong>Loop</strong> — it keeps going until the job is done, not just one shot<br><br>
+    Without these 3 things: a chatbot. With them: an employee.
+  </p>
 </div>
-<div style="height:18px"></div>
-<div class="cstrip">
-  <div class="cp"><div class="cpn" style="background:#64748b">1</div><div class="cpi">&#128172;</div><h3>Chatbot</h3><p>You ask &rarr; It answers. One shot. No memory. No actions. Think: basic FAQ bot.</p></div>
-  <div class="cp"><div class="cpn" style="background:var(--teal)">2</div><div class="cpi">&#128218;</div><h3>RAG</h3><p>You ask &rarr; It searches your docs &rarr; Answers. Smarter but still reactive. No loops.</p></div>
-  <div class="cp" style="border-color:var(--hot);box-shadow:5px 5px 0 var(--hot)"><div class="cpn" style="background:var(--hot)">3</div><div class="cpi">&#9889;</div><h3>Agent</h3><p>You ask &rarr; It <strong>plans</strong> &rarr; Uses tools &rarr; Observes &rarr; Loops &rarr; Gets it done!</p></div>
-  <div class="cp" style="border-color:var(--net)"><div class="cpn" style="background:var(--net)">&#9733;</div><div class="cpi">&#129309;</div><h3>Multi-Agent</h3><p>Teams of specialists. One researches, one writes, one reviews. Like a real dev team!</p></div>
+
+<div style="height:12px"></div>
+
+<!-- CARTOON COMPARISON — 3 stages -->
+<div style="background:linear-gradient(135deg,#0e0e18,#141420);border:2px solid rgba(255,255,255,.1);border-radius:14px;padding:1rem;box-shadow:3px 3px 0 rgba(0,0,0,.4);">
+  <div style="font-family:var(--fb);font-size:.85rem;font-weight:800;color:#c9a048;letter-spacing:.04em;text-align:center;margin-bottom:.9rem;text-transform:uppercase;">The Evolution — What Actually Changed</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;">
+
+    <div style="background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:.8rem;text-align:center;">
+      <div style="font-size:2.2rem;margin-bottom:.3rem;">🗣️</div>
+      <div style="font-family:var(--fb);font-size:.8rem;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem;">Chatbot</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.6;">You ask → It answers. One shot. Then forgets everything. Like talking to a goldfish with a PhD.</div>
+      <div style="margin-top:.5rem;font-size:.7rem;background:rgba(255,255,255,.06);border-radius:6px;padding:3px 6px;color:#888;">e.g. old ChatGPT</div>
+    </div>
+
+    <div style="background:rgba(46,144,112,.08);border:2px solid rgba(46,144,112,.3);border-radius:12px;padding:.8rem;text-align:center;">
+      <div style="font-size:2.2rem;margin-bottom:.3rem;">🔍</div>
+      <div style="font-family:var(--fb);font-size:.8rem;font-weight:800;color:#70b898;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem;">RAG</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.6;">You ask → It searches your docs → Answers. Smarter! But still reactive. Still no loops.</div>
+      <div style="margin-top:.5rem;font-size:.7rem;background:rgba(46,144,112,.1);border-radius:6px;padding:3px 6px;color:#70b898;">Ch5 — previous chapter</div>
+    </div>
+
+    <div style="background:rgba(184,80,112,.1);border:2px solid rgba(184,80,112,.4);border-radius:12px;padding:.8rem;text-align:center;position:relative;">
+      <div style="position:absolute;top:-10px;right:-10px;background:#b85070;color:#fff;font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:10px;letter-spacing:.05em;">YOU ARE HERE</div>
+      <div style="font-size:2.2rem;margin-bottom:.3rem;">⚡</div>
+      <div style="font-family:var(--fb);font-size:.8rem;font-weight:800;color:#d08090;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem;">Agentic AI</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.6;">You ask → It plans → Searches → Books → Emails → Loops → Gets it done. Like a real employee!</div>
+      <div style="margin-top:.5rem;font-size:.7rem;background:rgba(184,80,112,.15);border-radius:6px;padding:3px 6px;color:#d08090;">This chapter ✅</div>
+    </div>
+
+  </div>
 </div>
 </div>
 
+<!-- ③ FLIGHT BOOKING WALKTHROUGH — STEP BY STEP -->
 <div>
-<div class="stitle" style="background:var(--hot);color:#fff">&#128260; THE ReAct LOOP &mdash; AGENT'S BRAIN</div>
+<div class="stitle" style="background:linear-gradient(90deg,#2a6e65,#3a6080);color:#fff">✈️ HOW THE AGENT BOOKS SARAH'S FLIGHT — STEP BY STEP</div>
+
+<div style="background:linear-gradient(135deg,#1c1900,#2a2400);border:2px solid #c9a048;border-radius:14px;padding:.85rem 1rem;margin-bottom:.9rem;">
+  <div class="bubble-who"><span>✈️</span><span>Travel Agent Bot:</span></div>
+  <p style="font-size:.9rem;line-height:1.8;color:#d8c070;">Watch what happens inside the agent's "brain" when Sarah sends her request. This is the <strong>ReAct loop</strong> — Reason → Act → Observe → Repeat.</p>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:0;">
+
+  <!-- User message -->
+  <div style="display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.4rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2a3848,#3a4860);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">👩</div>
+    <div style="background:linear-gradient(135deg,#1a2030,#222840);border:2px solid rgba(100,120,180,.3);border-radius:0 12px 12px 12px;padding:.7rem .9rem;flex:1;">
+      <div style="font-size:.7rem;font-weight:700;color:#a0b0d0;margin-bottom:.2rem;letter-spacing:.04em;">SARAH TYPES</div>
+      <div style="font-size:.86rem;color:#d4d8e8;line-height:1.6;">"Find flights London→Rome 10-15 June under £300, book cheapest, hotel near Colosseum under £100/night, add to my calendar."</div>
+    </div>
+  </div>
+
+  <!-- Spine connector -->
+  <div style="margin-left:18px;width:3px;height:16px;background:linear-gradient(180deg,rgba(100,120,180,.3),rgba(90,160,130,.4));"></div>
+
+  <!-- Step 1 THINK -->
+  <div style="display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.4rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1e2a44,#2a3a60);border:2px solid rgba(100,130,200,.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;">💭</div>
+    <div style="background:linear-gradient(135deg,#0e1420,#141c2e);border:2px solid rgba(80,100,160,.3);border-left:3px solid #5a6a9a;border-radius:0 12px 12px 12px;padding:.7rem .9rem;flex:1;">
+      <div style="font-size:.7rem;font-weight:700;color:#8898c8;margin-bottom:.2rem;letter-spacing:.04em;">🧠 AGENT THINKS</div>
+      <div style="font-size:.85rem;color:#c0c8e0;line-height:1.65;">"I need to: 1) search flights 2) book cheapest 3) search hotels 4) book hotel 5) add to calendar. Let me start with flights."</div>
+    </div>
+  </div>
+
+  <div style="margin-left:18px;width:3px;height:16px;background:linear-gradient(180deg,rgba(90,160,130,.4),rgba(90,160,130,.5));"></div>
+
+  <!-- Step 2 SEARCH FLIGHTS -->
+  <div style="display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.4rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#162e28,#1e3e30);border:2px solid rgba(46,144,112,.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;">🔧</div>
+    <div style="background:linear-gradient(135deg,#0a1812,#0e2018);border:2px solid rgba(46,144,112,.25);border-left:3px solid #2e9070;border-radius:0 12px 12px 12px;padding:.7rem .9rem;flex:1;">
+      <div style="font-size:.7rem;font-weight:700;color:#5ab898;margin-bottom:.2rem;letter-spacing:.04em;">⚙️ CALLS TOOL → search_flights()</div>
+      <div style="font-size:.82rem;color:#a0c8b8;line-height:1.65;font-family:var(--fc);">search_flights(origin="LHR", dest="FCO", dates="10-15 Jun", max_price=300)<br><span style="color:#608878;">→ Found: BA £249, Ryanair £189, EasyJet £210</span></div>
+    </div>
+  </div>
+
+  <div style="margin-left:18px;width:3px;height:16px;background:rgba(90,160,130,.4);"></div>
+
+  <!-- Step 3 OBSERVE -->
+  <div style="display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.4rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1e2a44,#2a3a60);border:2px solid rgba(100,130,200,.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;">👁️</div>
+    <div style="background:linear-gradient(135deg,#0e1420,#141c2e);border:2px solid rgba(80,100,160,.3);border-left:3px solid #5a6a9a;border-radius:0 12px 12px 12px;padding:.7rem .9rem;flex:1;">
+      <div style="font-size:.7rem;font-weight:700;color:#8898c8;margin-bottom:.2rem;letter-spacing:.04em;">👀 OBSERVES RESULT → REASONS</div>
+      <div style="font-size:.85rem;color:#c0c8e0;line-height:1.65;">"Ryanair £189 is cheapest and under £300 limit. I'll book that. Next: hotels."</div>
+    </div>
+  </div>
+
+  <div style="margin-left:18px;width:3px;height:16px;background:rgba(90,160,130,.4);"></div>
+
+  <!-- Step 4 BOOK FLIGHT -->
+  <div style="display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.4rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#162e28,#1e3e30);border:2px solid rgba(46,144,112,.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;">🔧</div>
+    <div style="background:linear-gradient(135deg,#0a1812,#0e2018);border:2px solid rgba(46,144,112,.25);border-left:3px solid #2e9070;border-radius:0 12px 12px 12px;padding:.7rem .9rem;flex:1;">
+      <div style="font-size:.7rem;font-weight:700;color:#5ab898;margin-bottom:.2rem;letter-spacing:.04em;">⚙️ CALLS TOOL → book_flight() + search_hotels()</div>
+      <div style="font-size:.82rem;color:#a0c8b8;line-height:1.65;font-family:var(--fc);">book_flight(flight_id="FR4421") → ✅ Booked! Ref: FR-928341<br>search_hotels(location="Colosseum Rome", max=100)<br><span style="color:#608878;">→ Found: Hotel Luce £89/night ⭐4.2</span></div>
+    </div>
+  </div>
+
+  <div style="margin-left:18px;width:3px;height:16px;background:rgba(90,160,130,.4);"></div>
+
+  <!-- Step 5 CALENDAR -->
+  <div style="display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.4rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#162e28,#1e3e30);border:2px solid rgba(46,144,112,.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;">🔧</div>
+    <div style="background:linear-gradient(135deg,#0a1812,#0e2018);border:2px solid rgba(46,144,112,.25);border-left:3px solid #2e9070;border-radius:0 12px 12px 12px;padding:.7rem .9rem;flex:1;">
+      <div style="font-size:.7rem;font-weight:700;color:#5ab898;margin-bottom:.2rem;letter-spacing:.04em;">⚙️ CALLS TOOL → add_calendar() + send_summary()</div>
+      <div style="font-size:.82rem;color:#a0c8b8;line-height:1.65;font-family:var(--fc);">add_calendar(event="Rome Trip 10-15 Jun", details=...)<br>send_email(to="sarah@...", subject="Your Rome trip is booked!")<br><span style="color:#608878;">→ ✅ Done!</span></div>
+    </div>
+  </div>
+
+  <div style="margin-left:18px;width:3px;height:16px;background:rgba(90,160,130,.4);"></div>
+
+  <!-- Final answer -->
+  <div style="display:flex;gap:.75rem;align-items:flex-start;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2a1818,#3a2020);border:2px solid rgba(184,80,112,.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;">🤖</div>
+    <div style="background:linear-gradient(135deg,#1a0e14,#221218);border:2px solid rgba(184,80,112,.3);border-left:3px solid #b85070;border-radius:0 12px 12px 12px;padding:.7rem .9rem;flex:1;">
+      <div style="font-size:.7rem;font-weight:700;color:#d08090;margin-bottom:.2rem;letter-spacing:.04em;">✅ AGENT REPLIES TO SARAH</div>
+      <div style="font-size:.86rem;color:#d4d8e8;line-height:1.65;">"Done! Ryanair flight booked (£189, ref FR-928341). Hotel Luce near Colosseum booked (£89/night). Both added to your calendar. Summary email sent. Total trip cost: £634." 🎉</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:.9rem;background:rgba(200,160,70,.07);border:2px dashed rgba(200,160,70,.3);border-radius:10px;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
+  <div style="font-size:1.4rem;flex-shrink:0;">⏱️</div>
+  <div style="font-size:.87rem;color:rgba(255,255,255,.8);line-height:1.6;">Sarah's task: <strong style="color:#c9a048;">5 tool calls, 4 minutes, zero manual effort</strong>. The same task done manually = 45 minutes across 5 browser tabs. This is Agentic AI.</div>
+</div>
+</div>
+
+<!-- ④ THE ReAct LOOP — NOW MAKES SENSE -->
+<div>
+<div class="stitle" style="background:var(--hot);color:#fff">🔁 THE REACT LOOP — THE AGENT'S BRAIN</div>
+<div style="background:linear-gradient(135deg,#1c1900,#2a2400);border:2px solid #c9a048;border-radius:14px;padding:.85rem 1rem;margin-bottom:.9rem;">
+  <div class="bubble-who"><span>🧠</span><span>ReAct Bot:</span></div>
+  <p style="font-size:.9rem;line-height:1.8;color:#d8c070;">You just watched the flight booking loop above. That's ReAct — <strong>Re</strong>ason + <strong>Act</strong>. Every agent runs this same loop, for any task, forever until done.</p>
+</div>
 <div class="react-box">
-  <div class="rt">&#128161; ReAct = Reasoning + Acting</div>
-  <div class="rs">The brain of every agent. Think, pick a tool, run it, see the result, think again, repeat until done. No human needed!</div>
+  <div class="rt">💡 ReAct = Reason + Act — runs every step</div>
   <div class="rl-row">
-    <div class="rn think"><span class="rni">&#128161;</span><span class="rnl">THINK</span><span class="rns">What should I do?</span></div>
-    <span class="ra">&rarr;</span>
-    <div class="rn act"><span class="rni">&#128295;</span><span class="rnl">ACT</span><span class="rns">Call a tool / API</span></div>
-    <span class="ra">&rarr;</span>
-    <div class="rn obs"><span class="rni">&#128065;&#65039;</span><span class="rnl">OBSERVE</span><span class="rns">See the result</span></div>
-    <span class="ra">&rarr;</span>
-    <div class="rn loop"><span class="rni">&#128257;</span><span class="rnl">REPEAT</span><span class="rns">Loop or finish</span></div>
+    <div class="rn think"><span class="rni">💭</span><span class="rnl">THINK</span><span class="rns">What's my next step?</span></div>
+    <span class="ra">→</span>
+    <div class="rn act"><span class="rni">🔧</span><span class="rnl">ACT</span><span class="rns">Call a tool</span></div>
+    <span class="ra">→</span>
+    <div class="rn obs"><span class="rni">👁️</span><span class="rnl">OBSERVE</span><span class="rns">Read the result</span></div>
+    <span class="ra">→</span>
+    <div class="rn loop"><span class="rni">🔁</span><span class="rnl">REPEAT</span><span class="rns">Until job done</span></div>
   </div>
-  <div class="rdone">&#127937; <strong style="color:var(--yellow)">DONE WHEN:</strong> <span style="color:rgba(255,255,255,.75)">Agent decides "I have enough to answer!"</span></div>
+  <div class="rdone">🏁 <strong style="color:#c9a048;">DONE WHEN:</strong> <span style="color:rgba(255,255,255,.75);">Agent decides "I have everything — here's your answer!"</span></div>
 </div>
 </div>
 
+<!-- ⑤ TOOLS — WHAT GIVES AGENTS POWER -->
 <div>
-<div class="stitle" style="background:var(--net);color:#fff">&#127959;&#65039; FULL ARCHITECTURE</div>
-<div class="arch-box">
-  <div class="arch-title">&#127758; AGENTIC AI &mdash; HOW ALL PIECES FIT</div>
-  <div class="arch-grid">
-    <div class="an an1"><div class="ani">&#129504;</div><div class="anl">LLM BRAIN</div><div class="ans">GPT-4o, Claude &mdash; reasoning engine</div></div>
-    <div class="an an2"><div class="ani">&#128295;</div><div class="anl">TOOLS</div><div class="ans">Web search, code exec, APIs, DB</div></div>
-    <div class="an an3"><div class="ani">&#128190;</div><div class="anl">MEMORY</div><div class="ans">Short-term (chat) + Long-term (vectors)</div></div>
-    <div class="an an4"><div class="ani">&#128203;</div><div class="anl">PLANNER</div><div class="ans">Breaks big goals into steps</div></div>
-    <div class="an an5"><div class="ani">&#129309;</div><div class="anl">ORCHESTRATOR</div><div class="ans">Manages multiple agents</div></div>
-    <div class="an an6"><div class="ani">&#127758;</div><div class="anl">API LAYER</div><div class="ans">FastAPI / ASP.NET serving the agent</div></div>
+<div class="stitle" style="background:var(--ink);color:#fff">🔧 WHAT TOOLS CAN AN AGENT USE?</div>
+<div style="background:linear-gradient(135deg,#1c1900,#2a2400);border:2px solid #c9a048;border-radius:14px;padding:.85rem 1rem;margin-bottom:.9rem;">
+  <div class="bubble-who"><span>🔧</span><span>Tool Bot:</span></div>
+  <p style="font-size:.9rem;line-height:1.8;color:#d8c070;">A tool is just a Python or C# function with a description. The agent reads the description and decides WHEN to call it. You write the function — the agent uses it at the right moment automatically.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.7rem;">
+  <div style="background:linear-gradient(135deg,#162e28,#1e3a30);border:2px solid rgba(46,144,112,.3);border-radius:12px;padding:.8rem;text-align:center;">
+    <div style="font-size:1.6rem;margin-bottom:.3rem;">🌐</div>
+    <div style="font-family:var(--fb);font-size:.8rem;font-weight:700;color:#70b898;margin-bottom:.25rem;">Web Search</div>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;">Google, Bing, news, live prices</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1e1830,#261a3e);border:2px solid rgba(107,82,180,.3);border-radius:12px;padding:.8rem;text-align:center;">
+    <div style="font-size:1.6rem;margin-bottom:.3rem;">📧</div>
+    <div style="font-family:var(--fb);font-size:.8rem;font-weight:700;color:#a890d8;margin-bottom:.25rem;">Send Email</div>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;">Gmail, Outlook, SendGrid</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1e2035,#26283e);border:2px solid rgba(90,106,154,.3);border-radius:12px;padding:.8rem;text-align:center;">
+    <div style="font-size:1.6rem;margin-bottom:.3rem;">📅</div>
+    <div style="font-family:var(--fb);font-size:.8rem;font-weight:700;color:#8898c8;margin-bottom:.25rem;">Calendar</div>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;">Google Cal, Outlook, events</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#2a1818,#362020);border:2px solid rgba(184,80,80,.3);border-radius:12px;padding:.8rem;text-align:center;">
+    <div style="font-size:1.6rem;margin-bottom:.3rem;">🗄️</div>
+    <div style="font-family:var(--fb);font-size:.8rem;font-weight:700;color:#c88080;margin-bottom:.25rem;">Database</div>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;">SQL, MongoDB, Postgres</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1a1c28,#222535);border:2px solid rgba(90,90,140,.3);border-radius:12px;padding:.8rem;text-align:center;">
+    <div style="font-size:1.6rem;margin-bottom:.3rem;">💻</div>
+    <div style="font-family:var(--fb);font-size:.8rem;font-weight:700;color:#9090c8;margin-bottom:.25em;">Run Code</div>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;">Python, bash scripts, tests</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1e2a1a,#283520);border:2px solid rgba(80,130,80,.3);border-radius:12px;padding:.8rem;text-align:center;">
+    <div style="font-size:1.6rem;margin-bottom:.3rem;">📄</div>
+    <div style="font-family:var(--fb);font-size:.8rem;font-weight:700;color:#80b880;margin-bottom:.25rem;">Read Files</div>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;">PDFs, Word docs, CSVs</div>
   </div>
 </div>
 </div>
 
+<!-- ⑥ KEY FRAMEWORKS — WHAT TO USE -->
 <div>
-<div class="stitle" style="background:var(--py);color:#fff">&#9876;&#65039; PYTHON vs .NET</div>
-<table class="tbl">
-  <thead><tr><th>Feature</th><th>&#128013; Python</th><th>&#128aces; .NET C#</th></tr></thead>
-  <tbody>
-    <tr><td><strong>Main Framework</strong></td><td>LangChain + LangGraph</td><td>Semantic Kernel</td></tr>
-    <tr><td><strong>LLM Connection</strong></td><td>ChatOpenAI, Anthropic SDK</td><td>AzureOpenAI / OpenAI</td></tr>
-    <tr><td><strong>Tool Definition</strong></td><td>@tool decorator</td><td>[KernelFunction] attribute</td></tr>
-    <tr><td><strong>Vector Store</strong></td><td>FAISS, ChromaDB, Qdrant</td><td>Qdrant, Azure AI Search</td></tr>
-    <tr><td><strong>Agent Loop</strong></td><td>create_react_agent()</td><td>FunctionCallingStepwisePlanner</td></tr>
-    <tr><td><strong>Multi-Agent</strong></td><td>LangGraph StateGraph</td><td>AgentGroupChat</td></tr>
-    <tr><td><strong>API Serving</strong></td><td>FastAPI + Uvicorn</td><td>ASP.NET Core Web API</td></tr>
-    <tr><td><strong>Best For</strong></td><td>Fast prototyping, ML ecosystem</td><td>Enterprise, Azure-native apps</td></tr>
-  </tbody>
-</table>
+<div class="stitle" style="background:linear-gradient(90deg,#2e1858,#3a2870);color:#fff">🛠️ KEY TOOLS TO BUILD AGENTIC AI</div>
+<div style="background:linear-gradient(135deg,#1c1900,#2a2400);border:2px solid #c9a048;border-radius:14px;padding:.85rem 1rem;margin-bottom:.9rem;">
+  <div class="bubble-who"><span>🛠️</span><span>Framework Bot:</span></div>
+  <p style="font-size:.9rem;line-height:1.8;color:#d8c070;">You don't build the ReAct loop from scratch. These frameworks give you the loop, tool calling, memory, and multi-agent patterns — pre-built. You just write the tools and the goal.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;">
+
+  <div style="background:linear-gradient(135deg,#0e1c10,#162818);border:2px solid rgba(46,144,112,.35);border-radius:12px;padding:.9rem;position:relative;">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;">
+      <div style="font-size:1.5rem;">🦜</div>
+      <div>
+        <div style="font-family:var(--fb);font-size:.9rem;font-weight:800;color:#80c8a0;">LangChain / LangGraph</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.5);">Python · Most popular</div>
+      </div>
+    </div>
+    <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.65;">The go-to Python framework. LangChain for single agents, LangGraph for multi-agent workflows with state machines.<br><br><em style="color:#5ab898;">Best for: Python devs, rapid prototyping, huge community</em></div>
+    <div style="margin-top:.6rem;display:flex;gap:.4rem;flex-wrap:wrap;">
+      <span style="font-size:.65rem;background:rgba(46,144,112,.15);border:1px solid rgba(46,144,112,.3);border-radius:6px;padding:2px 7px;color:#70b898;">🐍 Python</span>
+      <span style="font-size:.65rem;background:rgba(46,144,112,.15);border:1px solid rgba(46,144,112,.3);border-radius:6px;padding:2px 7px;color:#70b898;">Open Source</span>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#1a1535,#221a45);border:2px solid rgba(107,82,180,.35);border-radius:12px;padding:.9rem;">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;">
+      <div style="font-size:1.5rem;">🟣</div>
+      <div>
+        <div style="font-family:var(--fb);font-size:.9rem;font-weight:800;color:#a890d8;">Semantic Kernel</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.5);">.NET / Python · Microsoft</div>
+      </div>
+    </div>
+    <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.65;">Microsoft's official agent framework. Enterprise-grade, Azure-native, [KernelFunction] decorator makes any C# method a tool.<br><br><em style="color:#9080c8;">Best for: .NET enterprises, Azure OpenAI, production apps</em></div>
+    <div style="margin-top:.6rem;display:flex;gap:.4rem;flex-wrap:wrap;">
+      <span style="font-size:.65rem;background:rgba(107,82,180,.15);border:1px solid rgba(107,82,180,.3);border-radius:6px;padding:2px 7px;color:#a090d0;">🟣 .NET</span>
+      <span style="font-size:.65rem;background:rgba(107,82,180,.15);border:1px solid rgba(107,82,180,.3);border-radius:6px;padding:2px 7px;color:#a090d0;">Enterprise</span>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#1e1a10,#2a2414);border:2px solid rgba(180,140,60,.35);border-radius:12px;padding:.9rem;">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;">
+      <div style="font-size:1.5rem;">🤝</div>
+      <div>
+        <div style="font-family:var(--fb);font-size:.9rem;font-weight:800;color:#c8a860;">AutoGen</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.5);">Python · Microsoft Research</div>
+      </div>
+    </div>
+    <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.65;">Multi-agent conversations. Agents talk to each other — one writes code, another tests it, another reviews. Like a virtual team.<br><br><em style="color:#a08848;">Best for: multi-agent research, code generation teams</em></div>
+    <div style="margin-top:.6rem;display:flex;gap:.4rem;flex-wrap:wrap;">
+      <span style="font-size:.65rem;background:rgba(180,140,60,.12);border:1px solid rgba(180,140,60,.3);border-radius:6px;padding:2px 7px;color:#c0a050;">🐍 Python</span>
+      <span style="font-size:.65rem;background:rgba(180,140,60,.12);border:1px solid rgba(180,140,60,.3);border-radius:6px;padding:2px 7px;color:#c0a050;">Multi-Agent</span>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#1a1020,#221528);border:2px solid rgba(184,80,112,.35);border-radius:12px;padding:.9rem;">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;">
+      <div style="font-size:1.5rem;">🌊</div>
+      <div>
+        <div style="font-family:var(--fb);font-size:.9rem;font-weight:800;color:#c87090;">CrewAI</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.5);">Python · Role-based</div>
+      </div>
+    </div>
+    <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.65;">Define a crew of role-based agents. "Researcher", "Writer", "Editor" agents collaborate on a task like a real team.<br><br><em style="color:#a06080;">Best for: content pipelines, research workflows, beginners</em></div>
+    <div style="margin-top:.6rem;display:flex;gap:.4rem;flex-wrap:wrap;">
+      <span style="font-size:.65rem;background:rgba(184,80,112,.12);border:1px solid rgba(184,80,112,.3);border-radius:6px;padding:2px 7px;color:#c07090;">🐍 Python</span>
+      <span style="font-size:.65rem;background:rgba(184,80,112,.12);border:1px solid rgba(184,80,112,.3);border-radius:6px;padding:2px 7px;color:#c07090;">Beginner friendly</span>
+    </div>
+  </div>
+
+</div>
 </div>
 
+<!-- ⑦ WHO IS THIS FOR — NOW MAKES SENSE AFTER CONTEXT -->
 <div>
-<div class="stitle" style="background:var(--green);color:#fff">&#127758; REAL WORLD USE CASES</div>
-<div class="uc-grid">
-  <div class="uc-card"><div class="uc-head" >&#129514; QA Automation</div><div class="uc-body">Agent reads requirements, writes tests, runs them, detects failures, files bug reports &mdash; all automatically!<div class="uc-tags"><span class="uc-tag">testing</span><span class="uc-tag">playwright</span></div></div></div>
-  <div class="uc-card"><div class="uc-head" >&#128188; Sales Assistant</div><div class="uc-body">Researches leads, drafts personalised emails, logs CRM entries, schedules follow-ups without human intervention.<div class="uc-tags"><span class="uc-tag" >crm</span><span class="uc-tag">outreach</span></div></div></div>
-  <div class="uc-card"><div class="uc-head" >&#128269; Code Reviewer</div><div class="uc-body">Reads PR diffs, checks for bugs, security issues, coding standards, and posts review comments in GitHub.<div class="uc-tags"><span class="uc-tag">devops</span><span class="uc-tag">github</span></div></div></div>
-  <div class="uc-card"><div class="uc-head" >&#128202; Data Analyst</div><div class="uc-body">Downloads data, runs Python analysis, generates charts, writes executive summary &mdash; in one command.<div class="uc-tags"><span class="uc-tag">analytics</span><span class="uc-tag">reporting</span></div></div></div>
+<div class="stitle" style="background:var(--ink);color:#fff">👥 WHO IS THIS COURSE FOR?</div>
+<div class="ps-grid">
+  <div class="ps-card" style="border-color:#5a6a9a"><div class="ps-emoji">👨‍💻</div><strong>Developer</strong><span class="ps-tag" style="background:rgba(90,106,154,.2);color:#a0b0d8;border:1px solid rgba(90,106,154,.4);">Build It</span><p>"I want to build AI systems that actually <em>do</em> things — like Sarah's travel agent!"</p></div>
+  <div class="ps-card" style="border-color:#2a6e65"><div class="ps-emoji">🧪</div><strong>QA Engineer</strong><span class="ps-tag" style="background:rgba(42,110,101,.2);color:#70b8a8;border:1px solid rgba(42,110,101,.4);">Test It</span><p>"How do agents change how we test software? Can agents write and run tests themselves?"</p></div>
+  <div class="ps-card" style="border-color:#3a2870"><div class="ps-emoji">📐</div><strong>Architect</strong><span class="ps-tag" style="background:rgba(58,40,112,.2);color:#9080c8;border:1px solid rgba(58,40,112,.4);">Design It</span><p>"What's the right pattern — single agent, multi-agent, or RAG+agent hybrid?"</p></div>
+  <div class="ps-card" style="border-color:#b87830"><div class="ps-emoji">📊</div><strong>Manager / PM</strong><span class="ps-tag" style="background:rgba(184,120,48,.15);color:#c89848;border:1px solid rgba(184,120,48,.4);">Understand It</span><p>"What can agents automate for my team? Which tasks are worth building agents for?"</p></div>
+  <div class="ps-card" style="border-color:#2e9070"><div class="ps-emoji">🎓</div><strong>Student</strong><span class="ps-tag" style="background:rgba(46,144,112,.15);color:#70b898;border:1px solid rgba(46,144,112,.4);">Learn It</span><p>"I've done ML and LLMs — Agentic AI is the final piece before I'm job-ready!"</p></div>
 </div>
 </div>
 
 <div class="cta">
-  <div class="cta-title">&#128640; READY TO BUILD?</div>
-  <p>10 chapters. Both Python and .NET. Side by side. Start Chapter 1 now!</p>
-  <button class="cta-btn" onclick="switchMain('p',document.getElementById('btn-tp'))">&#128218; Open Course &rarr; Chapter 1</button>
+  <div class="cta-title">⚡ READY TO BUILD YOUR FIRST AGENT?</div>
+  <p style="color:rgba(255,255,255,.75);font-size:.92rem;margin-bottom:.85rem;">10 missions. LangChain + Semantic Kernel side by side. From one tool to full multi-agent system!</p>
+  <button class="cta-btn" onclick="switchMain('p',document.getElementById('btn-tp'))">📚 Open Course → Mission 1</button>
 </div>
 
 </div>
 <div class="hs">
   <div class="sbox">
     <h4 style="color:var(--hot)">&#128203; ON THIS PAGE</h4>
-    <ul><li>&#128101; Who is this for?</li><li>&#128544; The Problem</li><li>&#129300; What is Agentic AI?</li><li>&#128260; The ReAct Loop</li><li>&#127959;&#65039; Full Architecture</li><li>&#9876;&#65039; Python vs .NET</li><li>&#127758; Use Cases</li></ul>
+    <ul>
+      <li>✈️ Sarah's flight story</li>
+      <li>🤖 What is Agentic AI?</li>
+      <li>✈️ Flight booking walkthrough</li>
+      <li>🔁 The ReAct Loop</li>
+      <li>🔧 Tools agents can use</li>
+      <li>🛠️ Key frameworks</li>
+      <li>👥 Who is this for?</li>
+    </ul>
   </div>
   <div class="sdark">
     <h4>&#128273; KEY TERMS</h4>
@@ -536,12 +746,10 @@ body {
   <div class="sbox">
     <h4 style="color:var(--teal)">&#128260; ALSO CHECK OUT</h4>
     <ul><li>&#129514; <a href="#" style="color:var(--teal);font-weight:700">QA Automation Course &rarr;</a></li></ul>
-    <p style="font-size:.82rem;color:#475569;margin-top:.3rem">Playwright &middot; Selenium &middot; AI-driven testing</p>
+    <p style="font-size:.82rem;color:#7a8898;margin-top:.3rem">Playwright &middot; Selenium &middot; AI-driven testing</p>
   </div>
 </div>
 </div></div>
-</div>
-
 </div><!-- end th -->
 
 <div id="qanav">
