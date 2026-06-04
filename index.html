@@ -2,31 +2,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- ═══ SEO META TAGS — AICycle by Ashish Sinha ═══ -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AICycle by Ashish Sinha – Learn AI, LLM, Agentic AI & Machine Learning Free</title>
-<meta name="description" content="Free AI course by Ashish Sinha covering LLM, ChatGPT, GPT-4, RAG, Agentic AI, LangChain, LangGraph, Semantic Kernel, Machine Learning, Deep Learning. Python & .NET side by side.">
-<meta name="keywords" content="Ashish Sinha AI course, AICycle, learn AI free, LLM tutorial, ChatGPT tutorial, GPT-4, Agentic AI, LangChain tutorial, LangGraph, Semantic Kernel, RAG tutorial, machine learning course, deep learning, AI agents, Python AI, .NET AI, AI for beginners, AI roadmap 2025, prompt engineering, vector database, FAISS, QA automation AI">
+<meta name="description" content="Free AI course covering LLM, ChatGPT, GPT-4, RAG, Agentic AI, LangChain, LangGraph, Semantic Kernel, Machine Learning, Deep Learning. Python & .NET side by side. By Ashish Sinha.">
+<meta name="keywords" content="Ashish Sinha AI course, AICycle, AI course free, LLM tutorial, learn AI 2025, ChatGPT tutorial, GPT-4, Agentic AI, LangChain tutorial, LangGraph, Semantic Kernel, RAG tutorial, machine learning course, deep learning, AI agents, Python AI, .NET AI, AI for beginners, AI roadmap, prompt engineering, vector database, FAISS, QA automation AI">
 <meta name="author" content="Ashish Sinha">
 <meta name="robots" content="index, follow">
 
 <!-- Open Graph -->
 <meta property="og:title" content="AICycle by Ashish Sinha – Learn AI, LLM, Agentic AI & Machine Learning Free">
-<meta property="og:description" content="Free AI course by Ashish Sinha. LLM, ChatGPT, RAG, Agentic AI, LangChain, Machine Learning. Python & .NET side by side.">
+<meta property="og:description" content="Free AI course covering LLM, ChatGPT, RAG, Agentic AI, LangChain, Machine Learning. Python & .NET. By Ashish Sinha.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://vsnotes.github.io/vsnotes-site/">
+<meta property="og:url" content="https://vsnotes.github.io/AICycle/">
 <meta property="og:site_name" content="AICycle">
+<meta property="og:image" content="https://vsnotes.github.io/AICycle/og-image.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AICycle by Ashish Sinha – Learn AI, LLM, Agentic AI Free">
 <meta name="twitter:description" content="Free AI course: LLM, ChatGPT, RAG, Agentic AI, LangChain, ML. Python & .NET side by side.">
+<meta name="twitter:image" content="https://vsnotes.github.io/AICycle/og-image.png">
 
 <!-- Canonical -->
-<link rel="canonical" href="https://vsnotes.github.io/vsnotes-site/">
+<link rel="canonical" href="https://vsnotes.github.io/AICycle/">
 
-<!-- JSON-LD Structured Data for Google -->
+<!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -36,15 +37,17 @@
   "provider": {
     "@type": "Person",
     "name": "Ashish Sinha",
-    "email": "startvsnotes@gmail.com"
+    "email": "startvsnotes@gmail.com",
+    "sameAs": ["https://github.com/vsnotes", "https://substack.com/@startvsnotes"]
   },
-  "url": "https://vsnotes.github.io/vsnotes-site/",
+  "url": "https://vsnotes.github.io/AICycle/",
   "educationalLevel": "Beginner to Advanced",
-  "teaches": ["LLM", "ChatGPT", "GPT-4", "RAG", "Agentic AI", "LangChain", "LangGraph", "Semantic Kernel", "Machine Learning", "Deep Learning", "Python AI", ".NET AI"],
+  "teaches": ["LLM", "ChatGPT", "RAG", "Agentic AI", "LangChain", "LangGraph", "Semantic Kernel", "Machine Learning", "Deep Learning", "Python AI", ".NET AI"],
   "isAccessibleForFree": true,
   "inLanguage": "en"
 }
 </script>
+<link rel="canonical" href="https://vsnotes.github.io/AICycle/index.html">
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -52,51 +55,34 @@
   --hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;
   --green:#10b981;--py:#2563eb;--net:#7c3aed;
   --teal:#0d9488;--orange:#f59e0b;
+  --border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;
   --ft:'Bangers',cursive;--fb:'Nunito',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
 body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:column;}
 
-/* ── BRAND BAR ────────────────────────────────────── */
+/* ── BRAND BAR ── */
 .brand-bar{
-  background:var(--ink);
-  border-bottom:3px solid var(--hot);
-  padding:.3rem 1.5rem;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:.3rem;flex-shrink:0;z-index:300;
+  background:var(--ink);border-bottom:3px solid var(--hot);
+  padding:.3rem 1.5rem;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:.3rem;
+  flex-shrink:0;z-index:300;
 }
-.brand-left{display:flex;align-items:center;gap:1rem;}
-.brand-logo{
-  font-family:var(--ft);font-size:2.2rem;color:var(--yellow);
-  letter-spacing:3px;line-height:1;cursor:pointer;
-  transition:transform .2s;
-}
+.brand-logo{font-family:var(--ft);font-size:2.2rem;color:var(--yellow);letter-spacing:3px;line-height:1;cursor:pointer;transition:transform .2s;}
 .brand-logo:hover{transform:scale(1.05);}
 .brand-logo span{color:var(--cyan);}
-.brand-meta{font-size:.72rem;color:#999;line-height:1.55;}
+.brand-meta{font-size:.72rem;color:#aaa;line-height:1.55;}
 .brand-meta strong{color:#eee;}
-.brand-meta a{color:var(--yellow);text-decoration:none;transition:color .2s;}
-.brand-meta a:hover{color:var(--hot);}
-.brand-right{display:flex;align-items:center;gap:.5rem;}
-.brand-badge{
-  display:inline-flex;align-items:center;gap:.4rem;
-  background:rgba(247,37,133,.12);border:1.5px solid rgba(247,37,133,.4);
-  border-radius:20px;padding:.2rem .75rem;
-  font-size:.7rem;color:#f9a8d4;font-weight:700;letter-spacing:.5px;
-}
-.site-hits{
-  display:inline-flex;align-items:center;gap:.4rem;
-  background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.3);
-  border-radius:20px;padding:.2rem .75rem;
-  font-size:.7rem;color:#6ee7b7;font-weight:700;
-}
+.brand-meta a{color:var(--yellow);text-decoration:none;}
+.brand-right{display:flex;align-items:center;gap:.7rem;}
+.live-pill{display:inline-flex;align-items:center;gap:.4rem;background:rgba(16,185,129,.12);border:1.5px solid rgba(16,185,129,.35);border-radius:20px;padding:.2rem .8rem;font-size:.7rem;color:#6ee7b7;font-weight:700;}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#10b981;animation:blink 1.5s ease-in-out infinite;flex-shrink:0;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
 
-/* ── TAB BAR ──────────────────────────────────────── */
+/* ── TAB BAR ── */
 .tab-bar{
-  background:linear-gradient(180deg,#0a0a18 0%,#1a1a2e 100%);
+  background:linear-gradient(180deg,#0a0a18,#1a1a2e);
   border-bottom:4px solid var(--yellow);
   display:flex;align-items:flex-end;
   padding:.55rem 1rem 0;gap:.3rem;
@@ -104,81 +90,62 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
   scrollbar-width:thin;scrollbar-color:var(--hot) #111;
 }
 .tab-bar::-webkit-scrollbar{height:4px;}
-.tab-bar::-webkit-scrollbar-track{background:#111;}
 .tab-bar::-webkit-scrollbar-thumb{background:var(--hot);border-radius:2px;}
-
 .tab{
   font-family:var(--ft);font-size:.95rem;letter-spacing:1.5px;
   padding:.45rem 1.1rem .62rem;
   border:2.5px solid rgba(255,255,255,.08);border-bottom:none;
   border-radius:10px 10px 0 0;
-  cursor:pointer;color:#8888aa;background:rgba(255,255,255,.05);
+  cursor:pointer;color:#9090b8;background:rgba(255,255,255,.06);
   transition:all .18s cubic-bezier(.34,1.56,.64,1);
   white-space:nowrap;position:relative;top:4px;outline:none;
-  display:inline-flex;align-items:center;gap:.35rem;
-  user-select:none;
+  display:inline-flex;align-items:center;gap:.35rem;user-select:none;
 }
-.tab:hover{background:rgba(255,255,255,.14);color:#ddd;top:2px;}
-
-/* active colour variants */
-.tab.act-y {background:var(--yellow);color:var(--ink);top:0;border-color:var(--yellow);box-shadow:0 -3px 0 var(--yellow),3px 0 0 var(--yellow),-3px 0 0 var(--yellow),inset 0 3px 0 rgba(255,255,255,.4);transform:scale(1.06);}
-.tab.act-b {background:var(--py);color:#fff;top:0;border-color:var(--py);box-shadow:0 -3px 0 var(--py),3px 0 0 var(--py),-3px 0 0 var(--py),inset 0 3px 0 rgba(255,255,255,.25);transform:scale(1.06);}
-.tab.act-p {background:var(--net);color:#fff;top:0;border-color:var(--net);box-shadow:0 -3px 0 var(--net),3px 0 0 var(--net),-3px 0 0 var(--net),inset 0 3px 0 rgba(255,255,255,.2);transform:scale(1.06);}
-.tab.act-h {background:var(--hot);color:#fff;top:0;border-color:var(--hot);box-shadow:0 -3px 0 var(--hot),3px 0 0 var(--hot),-3px 0 0 var(--hot),inset 0 3px 0 rgba(255,255,255,.2);transform:scale(1.06);}
-.tab.act-t {background:var(--teal);color:#fff;top:0;border-color:var(--teal);box-shadow:0 -3px 0 var(--teal),3px 0 0 var(--teal),-3px 0 0 var(--teal),inset 0 3px 0 rgba(255,255,255,.2);transform:scale(1.06);}
-.tab.act-o {background:var(--orange);color:var(--ink);top:0;border-color:var(--orange);box-shadow:0 -3px 0 var(--orange),3px 0 0 var(--orange),-3px 0 0 var(--orange),inset 0 3px 0 rgba(255,255,255,.3);transform:scale(1.06);}
-.tab.act-g {background:var(--green);color:#fff;top:0;border-color:var(--green);box-shadow:0 -3px 0 var(--green),3px 0 0 var(--green),-3px 0 0 var(--green),inset 0 3px 0 rgba(255,255,255,.2);transform:scale(1.06);}
-
-.tab .nbadge{
-  display:inline-block;background:var(--hot);color:#fff;
-  font-size:.48rem;padding:1px 5px;border-radius:10px;
-  font-family:var(--fb);font-weight:800;
-  border:1px solid rgba(255,255,255,.4);
-  animation:pulse-n 2s ease-in-out infinite;
-  vertical-align:middle;
-}
+.tab:hover{background:rgba(255,255,255,.1);color:#c8cce0;top:2px;}
+.tab.act-y{background:#d4a820;color:#1a1400;top:0;border-color:#d4a820;box-shadow:0 -3px 0 #d4a820;transform:scale(1.05);}
+.tab.act-b{background:#1e5fc8;color:#fff;top:0;border-color:#1e5fc8;box-shadow:0 -3px 0 #1e5fc8;transform:scale(1.05);}
+.tab.act-p{background:#6030c8;color:#fff;top:0;border-color:#6030c8;box-shadow:0 -3px 0 #6030c8;transform:scale(1.05);}
+.tab.act-h{background:#d81870;color:#fff;top:0;border-color:#d81870;box-shadow:0 -3px 0 #d81870;transform:scale(1.05);}
+.tab.act-t{background:#0a8878;color:#fff;top:0;border-color:#0a8878;box-shadow:0 -3px 0 #0a8878;transform:scale(1.05);}
+.tab.act-o{background:#d08010;color:#fff;top:0;border-color:#d08010;box-shadow:0 -3px 0 #d08010;transform:scale(1.05);}
+.tab.act-g{background:#0a9858;color:#fff;top:0;border-color:#0a9858;box-shadow:0 -3px 0 #0a9858;transform:scale(1.05);}
+.nbadge{display:inline-block;background:var(--hot);color:#fff;font-size:.48rem;padding:1px 5px;border-radius:10px;font-family:var(--fb);font-weight:800;border:1px solid rgba(255,255,255,.4);animation:pulse-n 2s ease-in-out infinite;vertical-align:middle;}
 @keyframes pulse-n{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
 
-/* ── IFRAME AREA ──────────────────────────────────── */
-.frame-wrap{flex:1;overflow:hidden;position:relative;background:#fef9e7;}
+/* ── MAIN AREA ── */
+.main-area{flex:1;overflow:hidden;display:flex;}
+.frame-wrap{flex:1;overflow:hidden;position:relative;background:var(--bg);}
 #cf{width:100%;height:100%;border:none;display:block;}
 
-/* ── LOADING SCREEN ───────────────────────────────── */
-.loader{
-  position:absolute;inset:0;
-  background:var(--ink);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:1.2rem;z-index:200;
-  transition:opacity .35s ease;
-}
+/* ── LOADING ── */
+.loader{position:absolute;inset:0;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;z-index:200;transition:opacity .35s ease;}
 .loader.gone{opacity:0;pointer-events:none;}
-.ld-logo{
-  font-family:var(--ft);font-size:4rem;color:var(--yellow);
-  letter-spacing:4px;
-  animation:pulse-n 1.4s ease-in-out infinite;
-}
+.ld-logo{font-family:var(--ft);font-size:4rem;color:var(--yellow);letter-spacing:4px;animation:pulse-n 1.4s ease-in-out infinite;}
 .ld-logo span{color:var(--cyan);}
 .ld-bar{width:220px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
 .ld-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--hot),var(--yellow),var(--cyan),var(--green));background-size:300% 100%;animation:bar-slide 1.3s ease-in-out infinite;}
 @keyframes bar-slide{0%{background-position:100% 0;}100%{background-position:-100% 0;}}
-.ld-txt{font-family:var(--fb);font-size:.82rem;color:#555;letter-spacing:1.5px;text-transform:uppercase;}
+.ld-txt{font-family:var(--fb);font-size:.82rem;color:#777;letter-spacing:1.5px;}
 
-/* ── RESPONSIVE ───────────────────────────────────── */
-@media(max-width:700px){
-  .brand-bar{padding:.25rem .8rem;}
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .brand-meta{display:none;}
   .brand-logo{font-size:1.6rem;}
-  .brand-meta,.brand-badge,.site-hits{display:none;}
   .tab{font-size:.72rem;padding:.3rem .6rem .45rem;letter-spacing:.5px;}
   .tab-bar{padding:.4rem .5rem 0;gap:.18rem;}
 }
 @media(max-width:480px){
   .tab{font-size:.65rem;padding:.28rem .45rem .4rem;}
 }
+
+.interview-pill{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,#0ea5e9,#6366f1);color:#fff;font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;padding:.18rem .85rem;border-radius:20px;cursor:pointer;transition:all .18s;white-space:nowrap;box-shadow:0 2px 8px rgba(14,165,233,.3);}
+.interview-pill:hover{transform:scale(1.05);box-shadow:0 3px 14px rgba(14,165,233,.5);}
+.ipill-new{background:rgba(255,255,255,.25);color:#fff;font-size:.55rem;font-weight:800;font-family:var(--fb);padding:1px 5px;border-radius:4px;letter-spacing:.05em;}
 </style>
 </head>
 <body>
 
-<!-- ── BRAND BAR ─────────────────────────────────── -->
+<!-- ═══ BRAND BAR ═══ -->
 <div class="brand-bar">
   <div class="brand-left">
     <div class="brand-logo" onclick="loadPage('home.html','act-y',0)">AI<span>Cycle</span></div>
@@ -188,13 +155,13 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
     </div>
   </div>
   <div class="brand-right">
-    <div class="site-hits"><span class="live-dot"></span> <span id="hit-count">...</span> visits</div>
-    <div class="brand-badge">🚀 Zero to AI Hero</div>
+    <div class="interview-pill" onclick="loadPage('interview.html','act-h',12)">🎤 AI Interview Q&amp;A <span class="ipill-new">NEW</span></div>
+    <div class="live-pill"><span class="live-dot"></span><span id="hit-count">...</span> visits</div>
   </div>
 </div>
 
-<!-- ── TAB NAV ────────────────────────────────────── -->
-<div class="tab-bar" id="tabBar">
+<!-- ═══ TAB BAR ═══ -->
+<div class="tab-bar">
   <button class="tab act-y" data-src="home.html"          data-ac="act-y" onclick="loadPage(this.dataset.src,this.dataset.ac,0)">🏠 HOME</button>
   <button class="tab"       data-src="intro.html"         data-ac="act-y" onclick="loadPage(this.dataset.src,this.dataset.ac,1)">🌱 INTRO</button>
   <button class="tab"       data-src="ml.html"            data-ac="act-b" onclick="loadPage(this.dataset.src,this.dataset.ac,2)">📊 ML</button>
@@ -207,17 +174,18 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
   <button class="tab"       data-src="qa-automation.html" data-ac="act-t" onclick="loadPage(this.dataset.src,this.dataset.ac,9)">🧪 QA AUTO</button>
   <button class="tab"       data-src="tools.html"         data-ac="act-o" onclick="loadPage(this.dataset.src,this.dataset.ac,10)">🛠️ TOOLS</button>
   <button class="tab"       data-src="career.html"        data-ac="act-g" onclick="loadPage(this.dataset.src,this.dataset.ac,11)">🎯 CAREER</button>
-  <button class="tab"       data-src="interview.html"     data-ac="act-h" onclick="loadPage(this.dataset.src,this.dataset.ac,12)">🎤 INTERVIEW Q&amp;A <span class="nbadge">NEW</span></button>
 </div>
 
-<!-- ── IFRAME ─────────────────────────────────────── -->
-<div class="frame-wrap">
-  <div class="loader" id="loader">
-    <div class="ld-logo">AI<span>Cycle</span></div>
-    <div class="ld-bar"><div class="ld-fill"></div></div>
-    <div class="ld-txt">Loading...</div>
+<!-- ═══ MAIN AREA ═══ -->
+<div class="main-area">
+  <div class="frame-wrap">
+    <div class="loader" id="loader">
+      <div class="ld-logo">AI<span>Cycle</span></div>
+      <div class="ld-bar"><div class="ld-fill"></div></div>
+      <div class="ld-txt">Loading...</div>
+    </div>
+    <iframe id="cf" src="home.html" title="AICycle Content" allowfullscreen></iframe>
   </div>
-  <iframe id="cf" src="home.html" title="AICycle Content" allowfullscreen></iframe>
 </div>
 
 <script>
@@ -225,77 +193,60 @@ const frame  = document.getElementById('cf');
 const loader = document.getElementById('loader');
 const tabs   = document.querySelectorAll('.tab');
 const ALL_ACS= ['act-y','act-b','act-p','act-h','act-t','act-o','act-g'];
-let   currentIdx = 0;
+let currentIdx = 0, currentSrc = 'home.html';
 
-/* ── LOAD A PAGE ──────────────────────────────────── */
 function loadPage(src, ac, idx){
-  // clear active
-  tabs.forEach(t => t.classList.remove(...ALL_ACS));
-  // set active on correct tab
-  if(typeof idx === 'number') tabs[idx]?.classList.add(ac);
-
-  // show loader
+  tabs.forEach(t=>t.classList.remove(...ALL_ACS));
+  if(typeof idx==='number') tabs[idx]?.classList.add(ac);
   loader.classList.remove('gone');
-
-  // load iframe
   frame.src = src;
-  currentIdx = idx;
-
-  // update URL hash (no reload)
+  currentIdx = idx; currentSrc = src;
   history.replaceState(null,'','#'+src.replace('.html',''));
 }
 
-/* ── HIDE LOADER WHEN IFRAME READY ───────────────── */
-frame.addEventListener('load', () => {
-  setTimeout(() => loader.classList.add('gone'), 250);
-});
+frame.addEventListener('load',()=>setTimeout(()=>loader.classList.add('gone'),250));
+window.addEventListener('load',()=>setTimeout(()=>loader.classList.add('gone'),400));
 
-/* ── LIVE VISIT COUNTER (localStorage approx) ─────── */
+/* ── VISIT COUNTER ── */
 (function(){
-  const k  = 'acyc_total';
-  const raw= localStorage.getItem(k);
-  const n  = raw ? parseInt(raw)+1 : 1482;
-  localStorage.setItem(k, n);
-  const el = document.getElementById('hit-count');
-  // Count up animation
-  let cur=n-30; const target=n;
-  const tick=setInterval(()=>{
-    cur+=3; if(cur>=target){cur=target;clearInterval(tick);}
-    el.textContent=cur.toLocaleString();
-  },40);
+  const k='acyc_v'; const n=parseInt(localStorage.getItem(k)||'2847')+1;
+  localStorage.setItem(k,n);
+  const el=document.getElementById('hit-count');
+  let c=n-40; const tick=setInterval(()=>{c+=4;if(c>=n){c=n;clearInterval(tick);}
+    if(el) el.textContent=c.toLocaleString();
+  },35);
 })();
 
-/* ── KEYBOARD SHORTCUTS ───────────────────────────── */
-document.addEventListener('keydown', e => {
-  // Alt+1-9 → load tab
-  if(e.altKey && !e.shiftKey && e.key>='1' && e.key<='9'){
-    const i = parseInt(e.key)-1;
-    if(tabs[i]){
-      const t=tabs[i];
-      loadPage(t.dataset.src, t.dataset.ac, i);
-    }
+/* ── GA4 ── */
+(function(){
+  const s=document.createElement('script');s.async=true;
+  s.src='https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+  document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());gtag('config','G-XXXXXXXXXX');
+})();
+
+/* ── KEYBOARD SHORTCUTS ── */
+document.addEventListener('keydown',e=>{
+  if(e.altKey&&!e.shiftKey&&e.key>='1'&&e.key<='9'){
+    const t=tabs[parseInt(e.key)-1];
+    if(t) loadPage(t.dataset.src,t.dataset.ac,parseInt(e.key)-1);
   }
-  // Alt+← → previous tab
-  if(e.altKey && e.key==='ArrowLeft' && currentIdx>0){
-    const t=tabs[currentIdx-1];
-    loadPage(t.dataset.src,t.dataset.ac,currentIdx-1);
+  if(e.altKey&&e.key==='ArrowLeft'&&currentIdx>0){
+    const t=tabs[currentIdx-1];loadPage(t.dataset.src,t.dataset.ac,currentIdx-1);
   }
-  // Alt+→ → next tab
-  if(e.altKey && e.key==='ArrowRight' && currentIdx<tabs.length-1){
-    const t=tabs[currentIdx+1];
-    loadPage(t.dataset.src,t.dataset.ac,currentIdx+1);
+  if(e.altKey&&e.key==='ArrowRight'&&currentIdx<tabs.length-1){
+    const t=tabs[currentIdx+1];loadPage(t.dataset.src,t.dataset.ac,currentIdx+1);
   }
 });
 
-/* ── HANDLE HASH ON LOAD ──────────────────────────── */
+/* ── HASH ROUTING ── */
 (function(){
-  const hash = window.location.hash.slice(1);
-  if(!hash) return;
-  const btn = Array.from(tabs).find(t=>t.dataset.src===hash+'.html');
-  if(btn){
-    const idx=Array.from(tabs).indexOf(btn);
-    loadPage(btn.dataset.src,btn.dataset.ac,idx);
-  }
+  const h=window.location.hash.slice(1);
+  if(!h) return;
+  const btn=Array.from(tabs).find(t=>t.dataset.src===h+'.html');
+  if(btn){const i=Array.from(tabs).indexOf(btn);loadPage(btn.dataset.src,btn.dataset.ac,i);}
 })();
 </script>
 </body>
