@@ -310,6 +310,39 @@ body{
 }
 .pk{color:#89b4fa;}.pf{color:#89dceb;}.ps{color:#a6e3a1;}.pc{color:#585b70;}.pn{color:#fab387;}.pm{color:#cba6f7;}
 
+/* ══ TTS SPEAKER BUTTON ══ */
+.tts-btn{
+  flex-shrink:0;
+  width:30px;height:30px;
+  border-radius:8px;
+  border:2px solid var(--ink);
+  background:linear-gradient(135deg,#e0e7ff,#c7d2fe);
+  color:var(--py);
+  font-size:.75rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:2px 2px 0 var(--ink);
+  transition:all .15s;
+  margin-left:.35rem;
+  padding:0;
+  line-height:1;
+}
+.tts-btn svg{width:15px;height:15px;display:block;pointer-events:none;}
+.tts-btn:hover{background:linear-gradient(135deg,var(--py),#4f46e5);box-shadow:3px 3px 0 var(--ink);}
+.tts-btn:hover svg{stroke:#fff;}
+.tts-btn.speaking{
+  background:linear-gradient(135deg,var(--hot),#db2777);
+  border-color:var(--hot);
+  box-shadow:2px 2px 0 var(--ink);
+  animation:tts-pulse .7s ease-in-out infinite alternate;
+}
+.tts-btn.speaking svg{stroke:#fff;}
+.tts-btn.speaking:hover{filter:brightness(1.1);}
+@keyframes tts-pulse{
+  from{box-shadow:2px 2px 0 var(--ink),0 0 0 0 rgba(194,24,91,.5);}
+  to{box-shadow:2px 2px 0 var(--ink),0 0 0 7px rgba(194,24,91,0);}
+}
+
 .diff{font-size:.58rem;font-weight:800;padding:2px 8px;border-radius:16px;border:1.5px solid var(--ink);margin-left:.35rem;vertical-align:middle;white-space:nowrap;display:inline-block;box-shadow:1px 1px 0 var(--ink);}
 .diff.easy,.diff.beginner{background:var(--green);color:#fff;}
 .diff.med,.diff.medium{background:var(--orange);color:#fff;}
@@ -1249,6 +1282,182 @@ function toggle(btn) {
   ans.classList.toggle('open', !isOpen);
   if (icon) icon.classList.toggle('open', !isOpen);
 }
+
+/* ══ TTS — WEB SPEECH API ══ */
+(function() {
+  var synth       = window.speechSynthesis;
+  var activeBtn   = null;
+  var voices      = [];
+
+  // Load voices (async on Chrome)
+  function loadVoices() {
+    voices = synth.getVoices();
+  }
+  loadVoices();
+  if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
+
+  // Pick best female English voice
+  function pickVoice() {
+    // Explicit female voices by name (cross-platform)
+    var femaleNames = [
+      'Google US English',      // Chrome — female by default
+      'Microsoft Aria Online (Natural) - English (United States)',
+      'Microsoft Aria - English (United States)',
+      'Samantha',               // macOS/iOS
+      'Karen',                  // macOS Australian
+      'Moira',                  // macOS Irish
+      'Tessa',                  // macOS South African
+      'Veena',                  // macOS Indian
+      'Victoria',               // macOS
+      'Microsoft Zira - English (United States)',
+      'Microsoft Zira Desktop - English (United States)',
+      'Google UK English Female',
+    ];
+    for (var i = 0; i < femaleNames.length; i++) {
+      var v = voices.find(function(v){ return v.name === femaleNames[i]; });
+      if (v) return v;
+    }
+    // Fallback: any voice with 'female' in name
+    var femaleAny = voices.find(function(v){
+      return v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('woman');
+    });
+    if (femaleAny) return femaleAny;
+    // Last resort: any English voice
+    return voices.find(function(v){ return v.lang.startsWith('en'); }) || null;
+  }
+
+  // Extract clean text from a DOM element (strips HTML, code blocks get labelled)
+  function extractText(el) {
+    if (!el) return '';
+    var clone = el.cloneNode(true);
+
+    // Label code blocks clearly instead of reading garbage
+    clone.querySelectorAll('.qa-code').forEach(function(code) {
+      var label = document.createElement('span');
+      label.textContent = ' [Code example] ';
+      code.replaceWith(label);
+    });
+    // Remove badges/diff/cat spans (clutter)
+    clone.querySelectorAll('.diff,.cat').forEach(function(s){ s.remove(); });
+
+    return (clone.innerText || clone.textContent || '')
+      .replace(/\s+/g, ' ')
+      .replace(/\[object Object\]/g, '')
+      .trim();
+  }
+
+  // Stop any current speech
+  function stopSpeech() {
+    synth.cancel();
+    if (activeBtn) {
+      activeBtn.innerHTML = iconPlay;
+      activeBtn.classList.remove('speaking');
+      activeBtn.title = 'Listen (female voice)';
+      activeBtn = null;
+    }
+  }
+
+  // Speak text
+  function speak(text, btn) {
+    stopSpeech();
+    if (!text) return;
+
+    var utter     = new SpeechSynthesisUtterance(text);
+    utter.voice   = pickVoice();
+    utter.rate    = 0.92;
+    utter.pitch   = 1.0;
+    utter.volume  = 1.0;
+
+    btn.innerHTML = iconStop;
+    btn.classList.add('speaking');
+    btn.title = 'Stop';
+    activeBtn = btn;
+
+    utter.onend = utter.onerror = function() {
+      btn.innerHTML = iconPlay;
+      btn.classList.remove('speaking');
+      btn.title = 'Listen (female voice)';
+      if (activeBtn === btn) activeBtn = null;
+    };
+
+    // Chrome bug: long utterances get cut off — chunk it
+    synth.speak(utter);
+  }
+
+  // Handle button click
+  function onTtsClick(e) {
+    e.stopPropagation();
+    var btn  = this;
+    var card = btn.closest('.qa-item');
+    if (!card) return;
+
+    // If already speaking this card — stop
+    if (btn.classList.contains('speaking')) { stopSpeech(); return; }
+
+    var qEl  = card.querySelector('.qa-q-text');
+    var aEl  = card.querySelector('.qa-a-inner');
+
+    var qText = extractText(qEl);
+    var aText = aEl ? extractText(aEl) : '';
+
+    // Open the answer if not already open
+    var ans = card.querySelector('.qa-a');
+    if (ans && !ans.classList.contains('open')) {
+      var toggleBtn = card.querySelector('.qa-q');
+      if (toggleBtn) toggle(toggleBtn);
+    }
+
+    var fullText = 'Question: ' + qText + '. Answer: ' + aText;
+    speak(fullText, btn);
+  }
+
+  // SVG icons
+  var iconPlay = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+  var iconStop = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>';
+
+  // Inject speaker button into every qa-item (runs once DOM ready)
+  function injectButtons() {
+    document.querySelectorAll('.qa-item').forEach(function(card) {
+      if (card.querySelector('.tts-btn')) return; // already injected
+      var qBtn = card.querySelector('.qa-q');
+      if (!qBtn) return;
+      var tts = document.createElement('button');
+      tts.className   = 'tts-btn';
+      tts.innerHTML   = iconPlay;
+      tts.title       = 'Listen (female voice)';
+      tts.type        = 'button';
+      tts.addEventListener('click', onTtsClick);
+      // Insert before the ▶ icon
+      var icon = qBtn.querySelector('.qa-q-icon');
+      if (icon) qBtn.insertBefore(tts, icon);
+      else qBtn.appendChild(tts);
+    });
+  }
+
+  // Stop speech when switching levels
+  var origShowLevel = window.showLevel;
+
+  // Run on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectButtons);
+  } else {
+    injectButtons();
+  }
+
+  // Also re-inject when level changes (panels become visible)
+  var _origShowLevel = window.showLevel;
+  window.showLevel = function(idx, btn, ac) {
+    stopSpeech();
+    _origShowLevel(idx, btn, ac);
+    setTimeout(injectButtons, 50);
+  };
+
+  // Stop on page hide
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) stopSpeech();
+  });
+
+})();
 
 /* ══ SYNC SCROLL ══ */
 var py     = document.getElementById('pyleft');
