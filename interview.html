@@ -12,245 +12,371 @@
 <meta property="og:title" content="AI Interview Questions & Answers 2025 – LLM, ML, Python, .NET | AICycle">
 <meta property="og:description" content="40+ AI interview questions with detailed answers. Covers LLMs, machine learning, RAG, Agentic AI, Python LangChain, .NET Semantic Kernel. Beginner to senior level.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://vsnotes.github.io/vsnotes-site/interview.html">
+<meta property="og:url" content="https://vsnotes.github.io/AICycle/interview.html">
 <meta property="og:site_name" content="AICycle">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AI Interview Questions & Answers 2025 – LLM, ML, Python, .NET | AICycle">
-<meta name="twitter:description" content="40+ AI interview questions with detailed answers. Covers LLMs, machine learning, RAG, Agentic AI, Python LangChain, .NET Semantic Kernel. Beginner to senior level.">
-<link rel="canonical" href="https://vsnotes.github.io/vsnotes-site/interview.html">
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-
-<title>AI Interview Questions & Answers 2025 – LLM, ML, Python, .NET | AICycle</title>
+<link rel="canonical" href="https://vsnotes.github.io/AICycle/interview.html">
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1a1a2e;--bg:#f0f4ff;--hot:#f72585;--yellow:#fbbf24;--cyan:#06b6d4;--green:#10b981;--py:#2563eb;--net:#7c3aed;--teal:#0d9488;--orange:#f59e0b;--border:3px solid #1a1a2e;--sh:5px 5px 0 #1a1a2e;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;}
+:root{
+  --ink:#1a1a2e;
+  --bg:#f0f4ff;
+  /* Softer, muted palette — easy on the eyes */
+  --hot:#c2185b;       /* deep rose instead of harsh magenta */
+  --yellow:#e6a817;    /* warm amber */
+  --cyan:#0891b2;      /* deep teal-cyan */
+  --green:#059669;     /* muted emerald */
+  --py:#1d4ed8;        /* deep blue */
+  --net:#6d28d9;       /* deep violet */
+  --teal:#0d9488;
+  --orange:#d97706;
+  --border:3px solid #1a1a2e;
+  --sh:5px 5px 0 #1a1a2e;
+  --ft:'Bangers',cursive;
+  --fb:'Nunito',sans-serif;
+  --fc:'Fira Code',monospace;
+  /* Hero softer gradient */
+  --hero-bg: linear-gradient(135deg,#1e3a5f 0%,#2d1b69 50%,#6b1a3d 100%);
+}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#d8e0ff 39px,#d8e0ff 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#d8e0ff 39px,#d8e0ff 40px);font-family:var(--fb);font-size:16px;color:#1e293b;min-height:100vh;}
+html,body{height:100%;overflow:hidden;}
+body{
+  background:var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,#d8e0ff 39px,#d8e0ff 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,#d8e0ff 39px,#d8e0ff 40px);
+  font-family:var(--fb);
+  font-size:16px;
+  color:#1e293b;
+  display:flex;
+  flex-direction:column;
+}
 
-/* HERO */
-.hero{background:linear-gradient(135deg,#1e40af,#7c3aed,#f72585);padding:2rem;text-align:center;position:relative;overflow:hidden;border-bottom:5px solid var(--ink);}
-.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1px);background-size:18px 18px;}
-.hbadge{display:inline-block;background:var(--yellow);color:var(--ink);font-family:var(--ft);font-size:.95rem;letter-spacing:2px;padding:.22rem 1rem;border-radius:20px;border:2px solid var(--ink);margin-bottom:.7rem;position:relative;box-shadow:3px 3px 0 var(--ink);}
-.hero h1{font-family:var(--ft);font-size:3rem;color:#fff;letter-spacing:3px;line-height:1.05;position:relative;}
-.hero h1 em{color:var(--yellow);font-style:normal;}
-.hero p{color:rgba(255,255,255,.9);font-size:1rem;max-width:660px;margin:.6rem auto 0;line-height:1.75;position:relative;}
-.hpills{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:.9rem;position:relative;}
-.hpill{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.4);border-radius:20px;padding:.28rem .85rem;font-size:.85rem;color:#fff;font-weight:700;}
+/* ══ SLIM HERO ══ */
+.hero{
+  background: var(--hero-bg);
+  padding:.65rem 1.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+  flex-shrink:0;
+  border-bottom:3px solid rgba(255,255,255,.1);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:20px 20px;
+  pointer-events:none;
+}
+.hero-left{position:relative;display:flex;align-items:center;gap:.9rem;}
+.hero-badge{
+  background:rgba(230,168,23,.15);
+  border:1.5px solid rgba(230,168,23,.4);
+  border-radius:20px;
+  padding:.18rem .8rem;
+  font-family:var(--ft);
+  font-size:.82rem;
+  letter-spacing:1.5px;
+  color:#f3d47a;
+  white-space:nowrap;
+}
+.hero-title{
+  font-family:var(--ft);
+  font-size:1.75rem;
+  color:#fff;
+  letter-spacing:2px;
+  line-height:1;
+  text-shadow:2px 2px 0 rgba(0,0,0,.3);
+  white-space:nowrap;
+}
+.hero-title em{color:#f3d47a;font-style:normal;}
+.hero-right{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  flex-wrap:wrap;
+  position:relative;
+}
+.hstat{
+  background:rgba(255,255,255,.1);
+  border:1.5px solid rgba(255,255,255,.2);
+  border-radius:8px;
+  padding:.3rem .7rem;
+  text-align:center;
+  min-width:60px;
+}
+.hstat-n{
+  font-family:var(--ft);
+  font-size:1.1rem;
+  color:#f3d47a;
+  line-height:1;
+  display:block;
+}
+.hstat-l{
+  font-size:.6rem;
+  color:rgba(255,255,255,.7);
+  font-weight:800;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+.hstat.py-s{background:rgba(29,78,216,.25);border-color:rgba(29,78,216,.4);}
+.hstat.net-s{background:rgba(109,40,217,.25);border-color:rgba(109,40,217,.4);}
+.hstat.langs{padding:.3rem 1rem;}
+.hstat.langs .hstat-l{color:rgba(255,255,255,.8);}
 
-/* STATS BAR */
-.stats-bar{background:linear-gradient(90deg,#1e40af,#7c3aed);border-bottom:3px solid var(--ink);display:flex;justify-content:center;gap:2.5rem;padding:.75rem 1rem;flex-wrap:wrap;}
-.stat .sn{font-family:var(--ft);font-size:1.9rem;color:var(--yellow);letter-spacing:1px;display:block;}
-.stat .sl{font-size:.75rem;color:rgba(255,255,255,.8);letter-spacing:1px;text-transform:uppercase;font-weight:800;}
+/* ══ LEVEL TABS ══ */
+.lvlbar{
+  background:linear-gradient(180deg,#0f172a,#1e1b4b);
+  border-bottom:3px solid var(--yellow);
+  display:flex;
+  padding:.45rem .8rem 0;
+  gap:.25rem;
+  overflow-x:auto;
+  flex-shrink:0;
+  scrollbar-width:thin;
+  scrollbar-color:var(--hot) #111;
+}
+.lvlbar::-webkit-scrollbar{height:3px;}
+.lvlbar::-webkit-scrollbar-thumb{background:var(--hot);}
+.lvl{
+  font-family:var(--ft);
+  font-size:.88rem;
+  letter-spacing:1.5px;
+  padding:.4rem 1.1rem .55rem;
+  border:2px solid rgba(255,255,255,.12);
+  border-bottom:none;
+  border-radius:8px 8px 0 0;
+  cursor:pointer;
+  color:rgba(255,255,255,.55);
+  background:rgba(255,255,255,.05);
+  transition:all .17s;
+  white-space:nowrap;
+  position:relative;top:3px;
+  outline:none;
+  user-select:none;
+}
+.lvl:hover{background:rgba(255,255,255,.12);color:#fff;top:1px;}
+.lvl.act-b{background:var(--green)!important;color:#fff!important;top:0;border-color:var(--green);box-shadow:0 -3px 0 var(--green);transform:scale(1.04);}
+.lvl.act-i{background:var(--py)!important;color:#fff!important;top:0;border-color:var(--py);box-shadow:0 -3px 0 var(--py);transform:scale(1.04);}
+.lvl.act-a{background:var(--hot)!important;color:#fff!important;top:0;border-color:var(--hot);box-shadow:0 -3px 0 var(--hot);transform:scale(1.04);}
+.lvl.act-p{background:var(--net)!important;color:#fff!important;top:0;border-color:var(--net);box-shadow:0 -3px 0 var(--net);transform:scale(1.04);}
+.cnt{font-size:.58rem;background:rgba(255,255,255,.18);padding:1px 5px;border-radius:6px;margin-left:.25rem;}
 
-/* LEVEL TABS */
-.lvlbar{background:linear-gradient(90deg,#0f172a,#1e1b4b);border-bottom:4px solid var(--yellow);display:flex;padding:.5rem 1rem 0;gap:.3rem;overflow-x:auto;flex-shrink:0;scrollbar-width:thin;scrollbar-color:var(--hot) #111;}
-.lvl{font-family:var(--ft);font-size:.9rem;letter-spacing:1.5px;padding:.45rem 1.2rem .6rem;border:2.5px solid rgba(255,255,255,.15);border-bottom:none;border-radius:10px 10px 0 0;cursor:pointer;color:rgba(255,255,255,.6);background:rgba(255,255,255,.05);transition:all .18s;white-space:nowrap;position:relative;top:4px;outline:none;}
-.lvl:hover{background:rgba(255,255,255,.15);color:#fff;top:2px;}
-.lvl.act-b{background:var(--green) !important;color:#fff !important;top:0;border-color:var(--green);box-shadow:0 -4px 0 var(--green);transform:scale(1.06);}
-.lvl.act-i{background:var(--py) !important;color:#fff !important;top:0;border-color:var(--py);box-shadow:0 -4px 0 var(--py);transform:scale(1.06);}
-.lvl.act-a{background:var(--hot) !important;color:#fff !important;top:0;border-color:var(--hot);box-shadow:0 -4px 0 var(--hot);transform:scale(1.06);}
-.lvl.act-p{background:var(--net) !important;color:#fff !important;top:0;border-color:var(--net);box-shadow:0 -4px 0 var(--net);transform:scale(1.06);}
-.cnt{font-size:.62rem;background:rgba(255,255,255,.2);padding:1px 5px;border-radius:8px;margin-left:.3rem;}
+/* ══ SPLIT VIEW WRAPPER ══ */
+.cwrap{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+.sv{display:flex;flex:1;overflow:hidden;}
+.sp{
+  flex:1;
+  overflow-y:auto;
+  padding:1rem;
+  display:flex;
+  flex-direction:column;
+  gap:.8rem;
+  min-width:0;
+  scrollbar-width:thin;
+}
+.sp::-webkit-scrollbar{width:5px;}
+.sp::-webkit-scrollbar-thumb{border-radius:3px;}
+.pyp{
+  background:linear-gradient(180deg,#dbeafe,#eff6ff);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#bfdbfe 31px,#bfdbfe 32px);
+}
+.pyp::-webkit-scrollbar-thumb{background:#93c5fd;}
+.netp{
+  background:linear-gradient(180deg,#ede9fe,#f5f3ff);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#ddd6fe 31px,#ddd6fe 32px);
+}
+.netp::-webkit-scrollbar-thumb{background:#c4b5fd;}
 
-/* LEVEL CONTENT PANELS */
-.lc{display:none;flex-direction:column;gap:.8rem;}
+/* ══ SPLITTER ══ */
+.spl{
+  width:12px;
+  flex-shrink:0;
+  background:linear-gradient(180deg,#1d4ed8,#6d28d9,#c2185b);
+  cursor:col-resize;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  user-select:none;
+  position:relative;
+  transition:filter .2s;
+}
+.spl:hover{filter:brightness(1.25);}
+.spl::after{
+  content:'⋮⋮';
+  color:rgba(255,255,255,.5);
+  font-size:.9rem;
+  letter-spacing:-4px;
+  writing-mode:horizontal-tb;
+}
+
+/* ══ LANGUAGE BADGE ══ */
+.lbadge{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.65rem 1rem;
+  border-radius:10px;
+  border:var(--border);
+  box-shadow:var(--sh);
+  margin-bottom:.7rem;
+  flex-shrink:0;
+}
+.lbadge.pyb{background:linear-gradient(135deg,#1e3a8a,#1d4ed8);}
+.lbadge.netb{background:linear-gradient(135deg,#3b0764,#6d28d9);}
+.lbi{font-size:1.6rem;}
+.lbt{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;color:#fff;}
+.lbs{font-size:.8rem;color:rgba(255,255,255,.8);}
+
+/* ══ LEVEL PANELS ══ */
+.lc{display:none;flex-direction:column;gap:.75rem;}
 .lc.act{display:flex;}
 
-/* SPLIT VIEW */
-.cwrap{display:flex;flex-direction:column;height:calc(100vh - 195px);min-height:600px;}
-.sv{display:flex;flex:1;overflow:hidden;}
-.sp{flex:1;overflow-y:auto;padding:1.2rem;display:flex;flex-direction:column;gap:.9rem;min-width:0;scrollbar-width:thin;}
-.pyp{background:linear-gradient(180deg,#dbeafe,#eff6ff);background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#bfdbfe 31px,#bfdbfe 32px);}
-.netp{background:linear-gradient(180deg,#ede9fe,#f5f3ff);background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#ddd6fe 31px,#ddd6fe 32px);}
-.spl{width:14px;background:linear-gradient(180deg,var(--hot),var(--net),var(--py));cursor:col-resize;flex-shrink:0;display:flex;align-items:center;justify-content:center;user-select:none;}
-.spl:hover{filter:brightness(1.2);}
-.spl::after{content:'⋮⋮';color:rgba(255,255,255,.6);font-size:1rem;letter-spacing:-4px;}
+/* ══ SECTION HEADER ══ */
+.sec-head{
+  font-family:var(--ft);
+  font-size:1rem;
+  letter-spacing:2px;
+  padding:.42rem .9rem;
+  border:2.5px solid var(--ink);
+  border-radius:7px;
+  box-shadow:3px 3px 0 var(--ink);
+  margin-bottom:.6rem;
+  display:inline-block;
+  color:#fff;
+  background:var(--ink);
+}
+.py-sec{background:var(--py)!important;border-color:var(--py);box-shadow:3px 3px 0 var(--ink);}
+.net-sec{background:var(--net)!important;border-color:var(--net);box-shadow:3px 3px 0 var(--ink);}
 
-/* LANGUAGE BADGE */
-.lbadge{display:flex;align-items:center;gap:.8rem;padding:.7rem 1.1rem;border-radius:10px;border:var(--border);box-shadow:var(--sh);margin-bottom:.8rem;}
-.lbadge.pyb{background:linear-gradient(135deg,#1e40af,#2563eb);}
-.lbadge.netb{background:linear-gradient(135deg,#4c1d95,#7c3aed);}
-.lbi{font-size:1.7rem;}.lbt{font-family:var(--ft);font-size:1.2rem;letter-spacing:1px;color:#fff;}.lbs{font-size:.83rem;color:rgba(255,255,255,.88);}
+/* ══ Q&A CARDS ══ */
+.qa-group{display:flex;flex-direction:column;gap:.65rem;margin-bottom:.8rem;}
+.qa-item{border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;transition:transform .15s,box-shadow .15s;}
+.qa-item:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.qa-item.easy  {background:linear-gradient(135deg,#ecfdf5,#d1fae5);}
+.qa-item.medium{background:linear-gradient(135deg,#fff7ed,#ffedd5);}
+.qa-item.hard  {background:linear-gradient(135deg,#fdf2f8,#fce7f3);}
+.qa-item.pro   {background:linear-gradient(135deg,#f5f0ff,#ede9fe);}
+.qa-item       {background:linear-gradient(135deg,#eff6ff,#dbeafe);}
 
-/* SECTION HEADER */
-
-
-/* Q&A GROUPS */
-.qa-group,.py-sec,.net-sec{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1rem;}
-
-/* Q&A CARD — game card style, colourful gradients */
-.qa-item{border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;transition:all .18s;position:relative;}
-.qa-item:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
-/* Cool colour gradients — no white, no dark */
-.qa-item.easy   {background:linear-gradient(135deg,#ecfdf5,#d1fae5);}
-.qa-item.medium {background:linear-gradient(135deg,#fff7ed,#ffedd5);}
-.qa-item.hard   {background:linear-gradient(135deg,#fdf2f8,#fce7f3);}
-.qa-item.pro    {background:linear-gradient(135deg,#f5f0ff,#ede9fe);}
-.qa-item        {background:linear-gradient(135deg,#eff6ff,#dbeafe);}
-
-/* Q row */
-.qa-q{padding:.85rem 1rem;display:flex;align-items:flex-start;gap:.7rem;cursor:pointer;background:transparent;border:none;width:100%;text-align:left;}
-.qa-q:hover{filter:brightness(.96);}
-
-/* Q number — coloured pill */
-.qa-q-num{font-family:var(--ft);font-size:.95rem;letter-spacing:1px;min-width:38px;height:38px;border-radius:10px;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;box-shadow:3px 3px 0 var(--ink);}
+.qa-q{
+  padding:.75rem .9rem;
+  display:flex;align-items:flex-start;gap:.65rem;
+  cursor:pointer;background:transparent;border:none;width:100%;text-align:left;
+}
+.qa-q-num{
+  font-family:var(--ft);font-size:.88rem;letter-spacing:1px;
+  min-width:34px;height:34px;border-radius:8px;
+  border:2px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:#fff;box-shadow:2px 2px 0 var(--ink);
+}
 .qa-item.easy   .qa-q-num{background:var(--green);}
 .qa-item.medium .qa-q-num{background:var(--orange);}
 .qa-item.hard   .qa-q-num{background:var(--hot);}
 .qa-item.pro    .qa-q-num{background:var(--net);}
 .qa-item        .qa-q-num{background:var(--py);}
-
-.qa-q-text{font-size:.97rem;font-weight:800;color:#1e293b;flex:1;line-height:1.55;}
-.qa-q-icon{font-size:.9rem;color:#64748b;flex-shrink:0;margin-top:.3rem;transition:transform .2s;}
+.qa-q-text{font-size:.93rem;font-weight:800;color:#1e293b;flex:1;line-height:1.5;}
+.qa-q-icon{font-size:.85rem;color:#64748b;flex-shrink:0;margin-top:.3rem;transition:transform .2s;}
 .qa-q-icon.open{transform:rotate(90deg);color:var(--hot);}
 
-/* ANSWER — game scroll reveal style */
-.qa-a{padding:1rem 1.1rem 1.1rem;font-size:.94rem;line-height:1.85;color:#1e293b;border-top:3px solid var(--ink);background:rgba(255,255,255,.6);display:none;}
+.qa-a{border-top:2.5px solid var(--ink);display:none;}
 .qa-a.open{display:block;}
-.qa-a strong{color:var(--hot);}
-.qa-a em{color:var(--py);font-style:italic;}
-.qa-a ul{padding-left:1.2rem;margin:.4rem 0;}
-.qa-a li{margin-bottom:.35rem;}
-.qa-a code{background:var(--ink);color:#a6e3a1;padding:1px 7px;border-radius:4px;font-family:var(--fc);font-size:.88rem;}
+.qa-a-inner{
+  padding:.85rem .95rem .95rem;
+  background:rgba(255,255,255,.55);
+  font-size:.91rem;line-height:1.82;color:#1e293b;
+}
+.qa-mascot{font-family:var(--ft);font-size:.82rem;letter-spacing:1px;color:var(--hot);margin-bottom:.45rem;display:flex;align-items:center;gap:.3rem;}
+.qa-a-inner strong{color:var(--hot);}
+.qa-a-inner em{color:var(--py);font-style:italic;}
+.qa-a-inner ul{padding-left:1.1rem;margin:.35rem 0;}
+.qa-a-inner li{margin-bottom:.3rem;}
+.qa-a-inner code{background:var(--ink);color:#a6e3a1;padding:1px 6px;border-radius:4px;font-family:var(--fc);font-size:.85rem;}
 
-/* TIP inside answer */
-.tip{display:block;background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:2px solid var(--green);border-radius:8px;padding:.5rem .8rem;margin-top:.6rem;font-size:.88rem;color:#065f46 !important;}
-.warn{display:block;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid var(--orange);border-radius:8px;padding:.5rem .8rem;margin-top:.6rem;font-size:.88rem;color:#92400e !important;}
+.tip{display:block;background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:2px solid var(--green);border-radius:7px;padding:.45rem .75rem;margin:.5rem 0 0;font-size:.85rem;color:#065f46!important;}
+.warn{display:block;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid var(--orange);border-radius:7px;padding:.45rem .75rem;margin:.5rem 0 0;font-size:.85rem;color:#92400e!important;}
+.hot{display:block;background:linear-gradient(135deg,#fdf2f8,#fce7f3);border:2px solid var(--hot);border-radius:7px;padding:.45rem .75rem;margin:.5rem 0 0;font-size:.85rem;color:#9d174d!important;}
 
-/* Code block */
-.qa-code{background:#1e1e2e;border:3px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 var(--ink);padding:.85rem 1rem;font-family:var(--fc);color:#cdd6f4;font-size:.84rem;line-height:1.8;white-space:pre;overflow-x:auto;margin:.7rem 0;}
+.qa-code{
+  background:#1e1e2e;border:2.5px solid var(--ink);border-radius:8px;
+  box-shadow:3px 3px 0 var(--ink);
+  padding:.75rem .9rem;
+  font-family:var(--fc);color:#cdd6f4;font-size:.8rem;line-height:1.75;
+  white-space:pre;overflow-x:auto;margin:.6rem 0;
+}
+.pk{color:#89b4fa;}.pf{color:#89dceb;}.ps{color:#a6e3a1;}.pc{color:#585b70;}.pn{color:#fab387;}.pm{color:#cba6f7;}
 
-/* DIFF badges */
-.diff{font-size:.62rem;font-weight:800;padding:2px 9px;border-radius:20px;border:2px solid var(--ink);margin-left:.4rem;vertical-align:middle;white-space:nowrap;display:inline-block;box-shadow:2px 2px 0 var(--ink);}
+.diff{font-size:.58rem;font-weight:800;padding:2px 8px;border-radius:16px;border:1.5px solid var(--ink);margin-left:.35rem;vertical-align:middle;white-space:nowrap;display:inline-block;box-shadow:1px 1px 0 var(--ink);}
 .diff.easy,.diff.beginner{background:var(--green);color:#fff;}
 .diff.med,.diff.medium{background:var(--orange);color:#fff;}
 .diff.hard,.diff.advanced{background:var(--hot);color:#fff;}
 .diff.pro,.diff.senior,.diff.professional{background:var(--net);color:#fff;}
+.cat{font-size:.57rem;font-weight:800;padding:2px 7px;border-radius:8px;background:var(--ink);color:var(--yellow);margin-left:.25rem;vertical-align:middle;white-space:nowrap;display:inline-block;}
 
-/* CAT badge */
-.cat{font-size:.6rem;font-weight:800;padding:2px 8px;border-radius:10px;background:var(--ink);color:var(--yellow);margin-left:.3rem;vertical-align:middle;white-space:nowrap;display:inline-block;}
-
-/* SIDEBAR */
-.sbox{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:var(--border);border-radius:8px;box-shadow:var(--sh);padding:1rem;}
-.sbox h4{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:#1e293b;margin-bottom:.6rem;}
-.sbox ul{list-style:none;padding:0;font-size:.93rem;color:#1e293b;line-height:1.9;}
-.sdark{background:linear-gradient(135deg,#0f172a,#1e1b4b);border:var(--border);border-radius:8px;padding:1rem;}
-.sdark h4{font-family:var(--ft);font-size:1.05rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.6rem;}
-.sdark dt{color:var(--cyan);font-weight:700;font-size:.92rem;}
-.sdark dd{color:#cbd5e1;font-size:.87rem;line-height:1.5;margin-left:.3rem;}
-
-/* HW layout */
-.hw{display:grid;grid-template-columns:1fr 230px;gap:2rem;align-items:start;}
-.hm{display:flex;flex-direction:column;gap:1.8rem;}
-.hs{display:flex;flex-direction:column;gap:1.2rem;}
-
-@media(max-width:900px){.hw{grid-template-columns:1fr;}.sv{flex-direction:column;}.spl{width:100%;height:12px;cursor:row-resize;}.cwrap{height:auto;min-height:0;}.sp{min-height:350px;}.hero h1{font-size:2.2rem;}.lvlbar{gap:.2rem;}.lvl{font-size:.78rem;padding:.35rem .7rem .5rem;}}
-
-/* Comic answer style */
-.qa-a { padding:0 !important; border-top:3px solid var(--ink) !important; }
-.qa-a-inner {
-  padding:.9rem 1rem 1rem;
-  background:rgba(255,255,255,.55);
-  font-size:.94rem;
-  line-height:1.85;
-  color:#1e293b;
-  position:relative;
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .hero{padding:.55rem 1rem;}
+  .hero-title{font-size:1.3rem;}
+  .sv{flex-direction:column;}
+  .spl{width:100%;height:10px;cursor:row-resize;}
+  .spl::after{writing-mode:horizontal-tb;content:'· · ·';}
+  .sp{min-height:300px;}
 }
-.qa-mascot {
-  font-family:var(--ft);
-  font-size:.85rem;
-  letter-spacing:1px;
-  color:var(--hot);
-  margin-bottom:.5rem;
-  display:flex;
-  align-items:center;
-  gap:.3rem;
+@media(max-width:600px){
+  .hero-right{display:none;}
+  .hero-title{font-size:1.1rem;}
 }
-.qa-a-inner strong { color:var(--hot); }
-.qa-a-inner em { color:var(--py); font-style:italic; }
-.qa-a-inner ul { padding-left:1.2rem; margin:.4rem 0; }
-.qa-a-inner li { margin-bottom:.35rem; }
-.qa-a-inner code { background:var(--ink); color:#a6e3a1; padding:1px 7px; border-radius:4px; font-family:var(--fc); font-size:.88rem; }
-.tip { display:block; background:linear-gradient(135deg,#ecfdf5,#d1fae5); border:2px solid var(--green); border-radius:8px; padding:.5rem .8rem; margin:.6rem 0 0; font-size:.88rem; color:#065f46 !important; }
-.warn { display:block; background:linear-gradient(135deg,#fffbeb,#fef3c7); border:2px solid var(--orange); border-radius:8px; padding:.5rem .8rem; margin:.6rem 0 0; font-size:.88rem; color:#92400e !important; }
-
-
-/* Section header - dark bg with coloured left border, NOT white text on light */
-.sec-head {
-  font-family:var(--ft);
-  font-size:1.1rem;
-  letter-spacing:2px;
-  padding:.5rem 1rem;
-  border:3px solid var(--ink);
-  border-radius:8px;
-  box-shadow:4px 4px 0 var(--ink);
-  margin-bottom:.8rem;
-  display:inline-block;
-  color:#fff !important;
-  background:var(--ink) !important;
-}
-.py-sec.sec-head { background:var(--py) !important; border-color:var(--py); box-shadow:4px 4px 0 var(--ink); }
-.net-sec.sec-head { background:var(--net) !important; border-color:var(--net); box-shadow:4px 4px 0 var(--ink); }
-
 </style>
 </head>
 <body>
 
-
-<!-- ═══ COMIC HERO ═══ -->
-<div style="background:linear-gradient(135deg,#1e40af,#7c3aed,#f72585);padding:1.5rem 2rem;position:relative;overflow:hidden;border-bottom:5px solid var(--ink);">
-  <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px);background-size:18px 18px;pointer-events:none;"></div>
-
-  <!-- Comic title box -->
-  <div style="position:relative;text-align:center;margin-bottom:1rem;">
-    <div style="display:inline-block;background:var(--yellow);border:3px solid var(--ink);border-radius:10px;box-shadow:5px 5px 0 var(--ink);padding:.3rem 1.2rem;font-family:var(--ft);font-size:.9rem;letter-spacing:2px;color:var(--ink);margin-bottom:.6rem;">&#127908; AI INTERVIEW PREP</div>
-    <h1 style="font-family:var(--ft);font-size:2.8rem;color:#fff;letter-spacing:3px;line-height:1.05;text-shadow:3px 3px 0 rgba(0,0,0,.3);">CRACK YOUR <em style="color:var(--yellow);font-style:normal;">AI INTERVIEW</em></h1>
-    <p style="color:rgba(255,255,255,.9);font-size:.97rem;margin:.5rem auto 0;max-width:600px;line-height:1.7;">120+ real questions asked at top tech companies. Python &amp; .NET answers side by side. Beginner to Senior level.</p>
+<!-- ══ SLIM HERO ══ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">🎤 AI INTERVIEW PREP</div>
+    <h1 class="hero-title">CRACK YOUR <em>AI INTERVIEW</em></h1>
   </div>
-
-  <!-- Comic stat boxes -->
-  <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative;">
-    <div style="background:linear-gradient(135deg,#10b981,#059669);border:3px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.6rem 1.2rem;text-align:center;min-width:90px;">
-      <div style="font-family:var(--ft);font-size:1.8rem;color:#fff;letter-spacing:1px;line-height:1;">120+</div>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.9);font-weight:800;letter-spacing:1px;text-transform:uppercase;">Questions</div>
+  <div class="hero-right">
+    <div class="hstat">
+      <span class="hstat-n">120+</span>
+      <span class="hstat-l">Questions</span>
     </div>
-    <div style="background:linear-gradient(135deg,#f72585,#db2777);border:3px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.6rem 1.2rem;text-align:center;min-width:90px;">
-      <div style="font-family:var(--ft);font-size:1.8rem;color:#fff;letter-spacing:1px;line-height:1;">4</div>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.9);font-weight:800;letter-spacing:1px;text-transform:uppercase;">Levels</div>
+    <div class="hstat">
+      <span class="hstat-n">4</span>
+      <span class="hstat-l">Levels</span>
     </div>
-    <div style="background:linear-gradient(135deg,#2563eb,#1d4ed8);border:3px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.6rem 1.2rem;text-align:center;min-width:90px;">
-      <div style="font-family:var(--ft);font-size:1.8rem;color:#fff;letter-spacing:1px;line-height:1;">2</div>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.9);font-weight:800;letter-spacing:1px;text-transform:uppercase;">Languages</div>
+    <div class="hstat py-s">
+      <span class="hstat-n">🐍</span>
+      <span class="hstat-l">Python</span>
     </div>
-    <div style="background:linear-gradient(135deg,#7c3aed,#6d28d9);border:3px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.6rem 1.2rem;text-align:center;min-width:90px;">
-      <div style="font-family:var(--ft);font-size:1.8rem;color:#fff;letter-spacing:1px;line-height:1;">8</div>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.9);font-weight:800;letter-spacing:1px;text-transform:uppercase;">Topics</div>
+    <div class="hstat net-s">
+      <span class="hstat-n">🟣</span>
+      <span class="hstat-l">.NET C#</span>
     </div>
-    <div style="background:linear-gradient(135deg,#0d9488,#0f766e);border:3px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.6rem 1.5rem;text-align:center;">
-      <div style="font-size:1.1rem;">&#128013; Python &middot; &#128011; .NET C#</div>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.9);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-top:.2rem;">Side by Side</div>
+    <div class="hstat">
+      <span class="hstat-n">8</span>
+      <span class="hstat-l">Topics</span>
     </div>
   </div>
 </div>
 
-
-
-</div>
-</div>
-
-<!-- LEVEL TABS -->
+<!-- ══ LEVEL TABS ══ -->
 <div class="lvlbar">
   <button class="lvl act-b" onclick="showLevel(0,this,'act-b')">🌱 BEGINNER <span class="cnt">40+</span></button>
-  <button class="lvl" onclick="showLevel(1,this,'act-i')">⚡ INTERMEDIATE <span class="cnt">35+</span></button>
-  <button class="lvl" onclick="showLevel(2,this,'act-a')">🔥 ADVANCED <span class="cnt">30</span></button>
-  <button class="lvl" onclick="showLevel(3,this,'act-p')">👑 PROFESSIONAL <span class="cnt">30</span></button>
+  <button class="lvl"       onclick="showLevel(1,this,'act-i')">⚡ INTERMEDIATE <span class="cnt">35+</span></button>
+  <button class="lvl"       onclick="showLevel(2,this,'act-a')">🔥 ADVANCED <span class="cnt">30</span></button>
+  <button class="lvl"       onclick="showLevel(3,this,'act-p')">👑 PROFESSIONAL <span class="cnt">30</span></button>
 </div>
 
-<!-- SPLIT VIEW -->
+<!-- ══ SPLIT VIEW ══ -->
 <div class="cwrap">
-<div class="sv">
+<div class="sv" id="sv">
 
-  <!-- ═══ LEFT: PYTHON ═══ -->
+  <!-- LEFT: PYTHON -->
   <div class="sp pyp" id="pyleft">
     <div class="lbadge pyb"><div class="lbi">🐍</div><div><div class="lbt">Python</div><div class="lbs">LangChain · LangGraph · PyTorch · FastAPI</div></div></div>
 
@@ -258,529 +384,373 @@ body{background:var(--bg);background-image:repeating-linear-gradient(0deg,transp
     <div class="lc act" id="py-l0">
       <div class="sec-head py-sec">🌱 ML & AI FUNDAMENTALS</div>
       <div class="qa-group">
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q1</span>
             <span class="qa-q-text">What is the difference between AI, Machine Learning, and Deep Learning?<span class="diff easy">Easy</span><span class="cat">ML</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>AI</strong> is the broadest field — any technique that makes machines "intelligent." <strong>ML</strong> is a subset where systems learn from data instead of explicit rules. <strong>Deep Learning</strong> is a subset of ML using multi-layer neural networks.<br><br>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>AI</strong> is the broadest field — any technique that makes machines "intelligent." <strong>ML</strong> is a subset where systems learn from data instead of explicit rules. <strong>Deep Learning</strong> is a subset of ML using multi-layer neural networks.<br><br>
             Think of it as: AI ⊃ ML ⊃ Deep Learning<br><br>
             <ul><li><strong>AI:</strong> Expert systems, rule-based bots, chess engines</li><li><strong>ML:</strong> Random Forest, XGBoost, scikit-learn models</li><li><strong>DL:</strong> CNNs, RNNs, Transformers (PyTorch/TensorFlow)</li></ul>
             <span class="tip">💡 Every LLM (GPT, Claude) is Deep Learning → ML → AI</span></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q2</span>
             <span class="qa-q-text">What are the 3 types of Machine Learning?<span class="diff easy">Easy</span><span class="cat">ML</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>1. Supervised Learning</strong> — labelled data (input + answer pairs). Model learns to predict labels for new inputs. Examples: email spam, house price prediction.<br><br>
-            <strong>2. Unsupervised Learning</strong> — no labels. Model finds hidden patterns. Examples: customer segmentation (K-Means), anomaly detection.<br><br>
-            <strong>3. Reinforcement Learning</strong> — agent takes actions, receives rewards/penalties. Examples: game playing (AlphaGo), robotics, trading bots.
-            <span class="tip">💡 In Python interviews: "sklearn for supervised, unsupervised; gymnasium for RL"</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>1. Supervised Learning</strong> — labelled data (input + answer pairs). Examples: email spam, house price prediction.<br><br>
+            <strong>2. Unsupervised Learning</strong> — no labels. Model finds hidden patterns. Examples: K-Means clustering, anomaly detection.<br><br>
+            <strong>3. Reinforcement Learning</strong> — agent takes actions, receives rewards/penalties. Examples: AlphaGo, robotics, trading bots.
+            <span class="tip">💡 In Python interviews: "sklearn for supervised/unsupervised; gymnasium for RL"</span></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q3</span>
             <span class="qa-q-text">What is overfitting and how do you prevent it in Python?<span class="diff easy">Easy</span><span class="cat">ML</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Overfitting</strong> = model memorises training data including noise, performs poorly on new data. High train accuracy, low test accuracy.<br><br>
-            <strong>Prevention in Python:</strong>
-            <ul><li><code>train_test_split</code> + cross-validation</li><li>Regularisation: <code>Ridge</code>, <code>Lasso</code>, <code>ElasticNet</code></li><li>Dropout layers in PyTorch: <code>nn.Dropout(0.3)</code></li><li>Early stopping, more training data, simpler model</li></ul>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Overfitting</strong> = model memorises training data including noise, performs poorly on new data.<br><br>
+            <strong>Prevention:</strong>
+            <ul><li><code>train_test_split</code> + cross-validation</li><li>Regularisation: <code>Ridge</code>, <code>Lasso</code>, <code>ElasticNet</code></li><li>Dropout in PyTorch: <code>nn.Dropout(0.3)</code></li><li>Early stopping, more training data, simpler model</li></ul>
             <div class="qa-code"><span class="pk">from</span> sklearn.model_selection <span class="pk">import</span> cross_val_score
 model = RandomForestClassifier(<span class="pn">100</span>)
-scores = cross_val_score(model, X, y, cv=<span class="pn">5</span>)
-<span class="pc"># 5-fold CV → reliable estimate of real performance</span></div></div>
-          </div>
+scores = cross_val_score(model, X, y, cv=<span class="pn">5</span>)</div></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q4</span>
             <span class="qa-q-text">What is a Neural Network and how does backpropagation work?<span class="diff easy">Easy</span><span class="cat">DL</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>A <strong>Neural Network</strong> is a series of layers (input → hidden → output), each applying a linear transform + activation function. Inspired loosely by neurons.<br><br>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>A <strong>Neural Network</strong> is a series of layers (input → hidden → output), each applying a linear transform + activation function.<br><br>
             <strong>Backpropagation:</strong> After a forward pass, compute loss. Use chain rule to calculate gradient of loss w.r.t. every weight. Gradient descent updates weights to reduce loss.
-            <div class="qa-code"><span class="pk">import</span> torch.nn <span class="pk">as</span> nn
-loss_fn = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=<span class="pn">0.001</span>)
-loss = loss_fn(outputs, labels)
+            <div class="qa-code">loss = loss_fn(outputs, labels)
 loss.backward()      <span class="pc"># compute gradients</span>
-optimizer.step()     <span class="pc"># update weights</span></div></div>
-          </div>
+optimizer.step()     <span class="pc"># update weights</span></div></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q5</span>
             <span class="qa-q-text">What is a Transformer and why is it important?<span class="diff easy">Easy</span><span class="cat">DL</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>A <strong>Transformer</strong> is a neural network architecture (2017, Google "Attention is All You Need") using <strong>self-attention</strong> to process all tokens in parallel, unlike RNNs which process sequentially.<br><br>
-            <strong>Why important:</strong> All modern LLMs (GPT, Claude, Gemini, BERT) are Transformers. Self-attention captures relationships between any two tokens regardless of distance, enabling understanding of context.
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>A <strong>Transformer</strong> is a neural network architecture (2017, "Attention is All You Need") using <strong>self-attention</strong> to process all tokens in parallel.<br><br>
+            All modern LLMs (GPT, Claude, Gemini, BERT) are Transformers. Self-attention captures relationships between any two tokens regardless of distance.
             <span class="tip">💡 Key components: Multi-head attention, positional encoding, feed-forward layers, LayerNorm</span></div></div>
         </div>
-
       </div>
 
       <div class="sec-head py-sec">💬 LLMs & PROMPT ENGINEERING</div>
       <div class="qa-group">
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q6</span>
             <span class="qa-q-text">What is an LLM and how does it generate text?<span class="diff easy">Easy</span><span class="cat">LLM</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>An <strong>LLM (Large Language Model)</strong> is a Transformer trained on trillions of text tokens to predict the next token. At inference, it:<br>
-            <ul><li>Tokenises input → converts to integer IDs</li><li>Embeds tokens → high-dim vectors</li><li>Passes through stacked Transformer blocks</li><li>Outputs probability distribution over all tokens</li><li>Samples next token (temperature controls creativity)</li><li>Repeats until end-of-sequence</li></ul>
-            <span class="tip">💡 temperature=0 = deterministic (same answer every time), best for agents</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>An <strong>LLM</strong> is a Transformer trained on trillions of tokens to predict the next token. At inference:<ul><li>Tokenises input → embeds → passes through Transformer blocks</li><li>Outputs probability distribution over all tokens</li><li>Samples next token (temperature controls creativity)</li><li>Repeats until end-of-sequence</li></ul>
+            <span class="tip">💡 temperature=0 = deterministic, best for agents</span></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q7</span>
             <span class="qa-q-text">What is prompt engineering? Name 3 key techniques.<span class="diff easy">Easy</span><span class="cat">LLM</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Prompt engineering</strong> = crafting inputs to get the best LLM outputs.<br><br>
-            <strong>3 Key techniques:</strong><br>
-            <ul><li><strong>Zero-shot:</strong> Direct question, no examples</li><li><strong>Few-shot:</strong> Provide 2–3 examples before the question</li><li><strong>Chain-of-Thought (CoT):</strong> "Think step by step" — dramatically improves reasoning</li></ul>
-            <div class="qa-code"><span class="pc"># Few-shot example in LangChain</span>
-prompt = <span class="ps">"""Classify sentiment. Positive/Negative:
-"Great product!" → Positive
-"Terrible service" → Negative
-"It was okay" → """</span></div></div>
-          </div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Prompt engineering</strong> = crafting inputs to get the best LLM outputs.<br><br>
+            <ul><li><strong>Zero-shot:</strong> Direct question, no examples</li><li><strong>Few-shot:</strong> Provide 2–3 examples before the question</li><li><strong>Chain-of-Thought (CoT):</strong> "Think step by step" — dramatically improves reasoning</li></ul></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q8</span>
             <span class="qa-q-text">What is RAG and why is it better than fine-tuning for most use cases?<span class="diff easy">Easy</span><span class="cat">RAG</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>RAG (Retrieval-Augmented Generation)</strong> = retrieve relevant docs from a vector store → inject as context → LLM answers from that context. No retraining needed.<br><br>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>RAG</strong> = retrieve relevant docs from a vector store → inject as context → LLM answers from context. No retraining needed.<br><br>
             <strong>RAG vs Fine-tuning:</strong>
-            <ul><li>RAG: updatable (add docs anytime), cheaper, no GPU needed, cites sources</li><li>Fine-tuning: bakes knowledge into weights, expensive, can't update without retraining, may hallucinate confidently</li></ul>
-            <span class="tip">💡 Rule of thumb: RAG for factual retrieval, fine-tuning for style/behaviour changes</span></div></div>
+            <ul><li>RAG: updatable, cheaper, no GPU, cites sources</li><li>Fine-tuning: bakes knowledge into weights, expensive, can't update without retraining</li></ul>
+            <span class="tip">💡 RAG for factual retrieval; fine-tuning for style/behaviour changes</span></div></div>
         </div>
-
       </div>
 
-      <div class="sec-head py-sec">🐍 PYTHON & LANGCHAIN BASICS</div>
+      <div class="sec-head py-sec">🐍 PYTHON & LANGCHAIN</div>
       <div class="qa-group">
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q9</span>
             <span class="qa-q-text">What is LangChain and what problems does it solve?<span class="diff easy">Easy</span><span class="cat">LangChain</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>LangChain</strong> is a Python framework that simplifies building LLM-powered applications. It solves:<br>
-            <ul><li><strong>Prompt management:</strong> Templates, variables, few-shot examples</li><li><strong>LLM abstraction:</strong> Switch between OpenAI/Anthropic/local models easily</li><li><strong>Tool integration:</strong> @tool decorator makes any function AI-callable</li><li><strong>Memory:</strong> Conversation history management</li><li><strong>RAG pipelines:</strong> Document loaders, text splitters, retrievers</li></ul>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>LangChain</strong> is a Python framework that simplifies building LLM-powered apps. It solves:<ul><li>Prompt management, LLM abstraction, tool integration</li><li>Memory / conversation history management</li><li>RAG pipelines: loaders, splitters, retrievers</li></ul>
             <span class="tip">💡 LangChain = "glue code" so you write business logic, not boilerplate HTTP calls</span></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q10</span>
             <span class="qa-q-text">What is a vector embedding and why does it enable semantic search?<span class="diff easy">Easy</span><span class="cat">RAG</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>A <strong>vector embedding</strong> converts text into a list of numbers (e.g. 1536 floats for OpenAI's model) where similar meanings → similar vectors (close in vector space).<br><br>
-            <strong>Why semantic search works:</strong> "How do I get a refund?" and "refund policy 30 days" have no overlapping words but similar vectors → FAISS finds them with cosine similarity.<br><br>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>A <strong>vector embedding</strong> converts text into a list of numbers where similar meanings → similar vectors.<br><br>
+            "How do I get a refund?" and "refund policy 30 days" have no overlapping words but similar vectors → FAISS finds them with cosine similarity.
             <div class="qa-code"><span class="pk">from</span> langchain_openai <span class="pk">import</span> OpenAIEmbeddings
 emb = OpenAIEmbeddings()
 vec = emb.embed_query(<span class="ps">"What is RAG?"</span>)
-<span class="pc"># vec = [0.023, -0.145, 0.892, ...] 1536 floats</span></div></div>
-          </div>
+<span class="pc"># vec = [0.023, -0.145, ...] 1536 floats</span></div></div></div>
         </div>
-
+        <div class="qa-item easy">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q11</span>
+            <span class="qa-q-text">What is the difference between GPT-4o and o1/o3 models?<span class="diff easy">Easy</span><span class="cat">LLM 2025</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>GPT-4o</strong> — fast, multimodal, good at coding. Best for real-time apps and agentic tool calling.<br><br>
+            <strong>o1/o3</strong> — "reasoning models" that think step-by-step internally before responding. Slower but dramatically better at complex math, science, multi-step logic.
+            <span class="tip">💡 Use GPT-4o for speed; o3 for hard thinking tasks</span></div></div>
+        </div>
+        <div class="qa-item easy">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q12</span>
+            <span class="qa-q-text">What is Model Context Protocol (MCP)?<span class="diff easy">Easy</span><span class="cat">MCP 2025</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>MCP</strong> is Anthropic's open standard for connecting AI models to external tools — like a <em>USB standard for AI tools</em>.<br><br>
+            Build a tool once → works with Claude, GPT, any MCP-compatible model. Huge ecosystem in 2025: GitHub, Slack, databases all have MCP servers.</div></div>
+        </div>
+        <div class="qa-item easy">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q13</span>
+            <span class="qa-q-text">What is multimodal AI? Give a Python example.<span class="diff easy">Easy</span><span class="cat">Multimodal</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Multimodal AI</strong> processes text + images + audio + video. GPT-4o, Claude 3.5, Gemini 1.5 are multimodal.
+            <div class="qa-code">llm = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>)
+img = base64.b64encode(open(<span class="ps">"chart.png"</span>,<span class="ps">"rb"</span>).read()).decode()
+result = llm.invoke([
+  {<span class="ps">"type"</span>:<span class="ps">"image_url"</span>,<span class="ps">"image_url"</span>:{<span class="ps">"url"</span>:<span class="ps">f"data:image/png;base64,{img}"</span>}},
+  {<span class="ps">"type"</span>:<span class="ps">"text"</span>,<span class="ps">"text"</span>:<span class="ps">"What trends do you see?"</span>}
+])</div></div></div>
+        </div>
+        <div class="qa-item easy">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q14</span>
+            <span class="qa-q-text">LangChain vs LlamaIndex — when would you choose each?<span class="diff easy">Easy</span><span class="cat">Frameworks</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>LangChain</strong> — general-purpose LLM framework. Best for agents, multi-step workflows, custom logic.<br><br>
+            <strong>LlamaIndex</strong> — specialized for data indexing and retrieval. Better out-of-the-box RAG, advanced chunking, knowledge graphs.
+            <span class="tip">💡 Use LlamaIndex for retrieval + LangChain for agent orchestration — they work well together</span></div></div>
+        </div>
+        <div class="qa-item easy">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q15</span>
+            <span class="qa-q-text">What is AI guardrails / content moderation in Python?<span class="diff easy">Easy</span><span class="cat">Safety</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Guardrails</strong> = safety filters preventing harmful/off-topic LLM output.
+            <div class="qa-code">response = client.moderations.create(input=user_input)
+<span class="pk">if</span> response.results[<span class="pn">0</span>].flagged:
+    <span class="pk">return</span> <span class="ps">"Content flagged — cannot process"</span></div>
+            <strong>Also:</strong> NeMo Guardrails, LLM Guard, Rebuff for prompt injection detection</div></div>
+        </div>
       </div>
-
-        <div class="sec-head py-sec">🐍 PYTHON & LANGCHAIN EXTRA</div>
-        <div class="qa-group">
-
-          <div class="qa-item easy">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q11</span>
-              <span class="qa-q-text">What is the difference between GPT-4o and o1/o3 models? When would you use each?<span class="diff easy">Easy</span><span class="cat">LLM 2025</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>GPT-4o</strong> — fast, multimodal (text+image+audio), good at coding and general tasks. Best for real-time applications and agentic tool calling.<br><br>
-              <strong>o1 / o3</strong> — "reasoning models" that think step-by-step internally before responding. Much slower but dramatically better at complex math, science, and multi-step logic.<br><br>
-              <ul><li><strong>GPT-4o:</strong> Chat apps, agents, code generation, quick answers</li><li><strong>o1/o3:</strong> Hard math problems, complex coding puzzles, scientific reasoning, anything where accuracy beats speed</li></ul>
-              <span class="tip">💡 o3 scored 87.7% on ARC-AGI benchmark — considered a big leap toward reasoning. Use GPT-4o for speed, o3 for hard thinking.</span></div></div>
-          </div>
-
-          <div class="qa-item easy">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q12</span>
-              <span class="qa-q-text">What is Model Context Protocol (MCP)? Why is everyone talking about it in 2025?<span class="diff easy">Easy</span><span class="cat">MCP 2025</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>MCP (Model Context Protocol)</strong> is Anthropic's open standard for connecting AI models to external tools and data sources. Think of it as a <em>USB standard for AI tools</em> — any LLM can plug into any tool that implements MCP.<br><br>
-              <strong>Why it matters:</strong><ul><li>Before MCP: every app had custom integrations for every AI model</li><li>After MCP: build a tool once → works with Claude, GPT, any MCP-compatible model</li><li>Huge ecosystem growing in 2025 — GitHub, Slack, databases, APIs all have MCP servers</li></ul>
-              <div class="qa-code"><span class="pc"># Connect Claude to your local filesystem via MCP</span>
-<span class="pc"># In Claude Desktop config.json:</span>
-{{
-  <span class="ps">"mcpServers"</span>: {{
-    <span class="ps">"filesystem"</span>: {{
-      <span class="ps">"command"</span>: <span class="ps">"npx"</span>,
-      <span class="ps">"args"</span>: [<span class="ps">"@modelcontextprotocol/server-filesystem"</span>, <span class="ps">"/Users/you/docs"</span>]
-    }}
-  }}
-}}</div></div>
-            </div>
-          </div>
-
-          <div class="qa-item easy">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q13</span>
-              <span class="qa-q-text">What is multimodal AI? Give real examples of Python code using vision + LLM.<span class="diff easy">Easy</span><span class="cat">Multimodal</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Multimodal AI</strong> can process multiple types of input simultaneously — text + images + audio + video. GPT-4o, Claude 3.5, and Gemini 1.5 are all multimodal.<br><br>
-              <div class="qa-code"><span class="pk">import</span> base64
-<span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI
-
-llm = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>)
-img = base64.b64encode(open(<span class="ps">"chart.png"</span>, <span class="ps">"rb"</span>).read()).decode()
-
-result = llm.invoke([{{
-    <span class="ps">"type"</span>: <span class="ps">"image_url"</span>,
-    <span class="ps">"image_url"</span>: {{<span class="ps">"url"</span>: <span class="ps">f"data:image/png;base64,{{img}}"</span>}}
-}}, {{
-    <span class="ps">"type"</span>: <span class="ps">"text"</span>,
-    <span class="ps">"text"</span>: <span class="ps">"What trends do you see in this chart?"</span>
-}}])
-print(result.content)</div>
-              <span class="tip">💡 Real uses: document parsing (invoices, forms), chart analysis, screenshot debugging, medical imaging, self-healing test selectors</span></div></div>
-          </div>
-
-          <div class="qa-item easy">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q14</span>
-              <span class="qa-q-text">What is the difference between LangChain and LlamaIndex? When would you choose each?<span class="diff easy">Easy</span><span class="cat">Frameworks</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>LangChain</strong> — general-purpose LLM framework. Chains, agents, tools, memory. Best for: building full applications with custom logic, agents, multi-step workflows.<br><br>
-              <strong>LlamaIndex</strong> — specialized for <em>data indexing and retrieval</em>. Better out-of-the-box RAG, advanced chunking strategies, knowledge graphs, document parsing.<br><br>
-              <ul><li>Use <strong>LangChain</strong>: building an agent with tools + memory + API</li><li>Use <strong>LlamaIndex</strong>: complex RAG over many document types with fine-tuned retrieval</li><li>Use <strong>both</strong>: LlamaIndex for retrieval + LangChain for agent orchestration</li></ul>
-              <span class="tip">💡 In 2025 both are converging — LlamaIndex added agents, LangChain improved RAG. Choose based on your primary use case.</span></div></div>
-          </div>
-
-          <div class="qa-item easy">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q15</span>
-              <span class="qa-q-text">What is AI guardrails / content moderation? How do you implement it in Python?<span class="diff easy">Easy</span><span class="cat">Safety</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Guardrails</strong> = safety filters that prevent LLMs from generating harmful, off-topic, or inappropriate content. Essential for production AI apps.<br><br>
-              <div class="qa-code"><span class="pk">from</span> openai <span class="pk">import</span> OpenAI
-client = OpenAI()
-
-<span class="pc"># OpenAI Moderation API — free to use</span>
-response = client.moderations.create(
-    input=<span class="ps">"I want to hurt someone"</span>
-)
-result = response.results[<span class="pn">0</span>]
-<span class="pk">if</span> result.flagged:
-    print(<span class="ps">"⚠️ Content flagged!"</span>, result.categories)
-    <span class="pc"># Don't send to main LLM</span>
-<span class="pk">else</span>:
-    <span class="pc"># Safe — proceed with main call</span>
-    pass</div>
-              <strong>Also:</strong> NeMo Guardrails (NVIDIA), LLM Guard, Rebuff for prompt injection detection</div></div>
-          </div>
-
-        </div>
     </div><!-- end py-l0 -->
 
     <!-- INTERMEDIATE PYTHON -->
     <div class="lc" id="py-l1">
       <div class="sec-head py-sec">⚡ LANGCHAIN & LANGGRAPH</div>
       <div class="qa-group">
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q1</span>
             <span class="qa-q-text">Explain the ReAct pattern and how LangGraph implements it.<span class="diff med">Medium</span><span class="cat">Agents</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>ReAct (Reasoning + Acting)</strong> = agent loop: Think → Act (call tool) → Observe result → Think again → until done.<br><br>
-            <strong>LangGraph implementation:</strong> StateGraph with nodes (functions) and edges (transitions). MemorySaver persists state across turns. <code>create_react_agent</code> handles the loop automatically.
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>ReAct</strong> = agent loop: Think → Act (call tool) → Observe → Think again → until done.<br><br>
+            LangGraph's <code>create_react_agent</code> handles the loop with MemorySaver for state persistence.
             <div class="qa-code"><span class="pk">from</span> langgraph.prebuilt <span class="pk">import</span> create_react_agent
-<span class="pk">from</span> langgraph.checkpoint.memory <span class="pk">import</span> MemorySaver
-
 agent = create_react_agent(llm, tools, checkpointer=MemorySaver())
 result = agent.invoke(
-    {<span class="ps">"messages"</span>: [HumanMessage(<span class="ps">"Search for AI news"</span>)]},
-    config={<span class="ps">"configurable"</span>: {<span class="ps">"thread_id"</span>: <span class="ps">"s1"</span>}}
-)</div></div>
-          </div>
+  {<span class="ps">"messages"</span>:[HumanMessage(<span class="ps">"Search for AI news"</span>)]},
+  config={<span class="ps">"configurable"</span>:{<span class="ps">"thread_id"</span>:<span class="ps">"s1"</span>}}
+)</div></div></div>
         </div>
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q2</span>
-            <span class="qa-q-text">How do you implement tool calling in LangChain? What makes a good tool description?<span class="diff med">Medium</span><span class="cat">LangChain</span></span>
+            <span class="qa-q-text">How do you implement tool calling in LangChain?<span class="diff med">Medium</span><span class="cat">LangChain</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Use the <code>@tool</code> decorator. The <strong>docstring IS the tool description</strong> — the LLM reads it to decide when to call the tool.
-            <div class="qa-code"><span class="pk">from</span> langchain_core.tools <span class="pk">import</span> tool
-
-<span class="pf">@tool</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Use the <code>@tool</code> decorator. The <strong>docstring IS the tool description</strong> — the LLM reads it to decide when to call the tool.
+            <div class="qa-code"><span class="pf">@tool</span>
 <span class="pk">def</span> <span class="pf">get_stock_price</span>(ticker: str) -> str:
-    <span class="ps">"""Get the current stock price for a ticker symbol.
-    Use when the user asks about stock prices or financial data.
-    Example: 'AAPL', 'GOOGL', 'MSFT'"""</span>
+    <span class="ps">"""Get the current stock price for a ticker.
+    Use when user asks about stock prices. Example: 'AAPL'"""</span>
     <span class="pk">return</span> <span class="pf">fetch_price</span>(ticker)</div>
-            <strong>Good description:</strong> States WHEN to use it, gives examples of input format, is specific not vague.
-            <span class="warn warn">⚠️ Vague docstring = LLM won't know when to call it!</span></div></div>
+            <span class="warn">⚠️ Vague docstring = LLM won't know when to call it!</span></div></div>
         </div>
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q3</span>
-            <span class="qa-q-text">What is the difference between FAISS and ChromaDB? When would you use each?<span class="diff med">Medium</span><span class="cat">RAG</span></span>
+            <span class="qa-q-text">FAISS vs ChromaDB — when would you use each?<span class="diff med">Medium</span><span class="cat">RAG</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>FAISS:</strong> Facebook's in-memory vector library. No server, blazing fast, pure Python/C++. Best for: prototyping, single-machine deployments, read-heavy workloads.<br><br>
-            <strong>ChromaDB:</strong> Embedded/client-server vector DB with persistence, metadata filtering, and REST API. Best for: local persistent storage, multi-user apps, metadata-rich queries.<br><br>
-            <ul><li>Use <strong>FAISS</strong>: "Load once, query many times" — e.g. docs Q&A app</li><li>Use <strong>Chroma</strong>: Need to add/delete docs at runtime, need filtering</li><li>Use <strong>Qdrant/Pinecone</strong>: Production, multi-tenant, billions of vectors</li></ul></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>FAISS:</strong> In-memory, no server, blazing fast. Best for prototyping and read-heavy single-machine workloads.<br><br>
+            <strong>ChromaDB:</strong> Persistent, metadata filtering, REST API. Best for local storage and multi-user apps.<br><br>
+            Use <strong>Qdrant/Pinecone</strong> for production multi-tenant scenarios at scale.</div></div>
         </div>
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q4</span>
             <span class="qa-q-text">How does chunk_size and chunk_overlap affect RAG quality?<span class="diff med">Medium</span><span class="cat">RAG</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>chunk_size</strong> controls how much text per chunk. Too small = loses context. Too large = irrelevant text dilutes the answer.<br><br>
-            <strong>chunk_overlap</strong> ensures sentences spanning chunk boundaries aren't cut in half. 10–15% overlap is typical.<br><br>
-            <ul><li>512 tokens, 64 overlap → good general-purpose default</li><li>256 tokens → precise factual retrieval</li><li>1024 tokens → richer context but slower, more noise</li></ul>
-            <span class="tip">💡 Always test retrieval quality with your specific documents — no universal best value!</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>chunk_size:</strong> Too small = loses context. Too large = irrelevant text dilutes the answer.<br><br>
+            <strong>chunk_overlap:</strong> Ensures sentences spanning boundaries aren't split. 10–15% overlap is typical.<br><br>
+            <ul><li>512 tokens, 64 overlap → good general default</li><li>256 → precise factual retrieval</li><li>1024 → richer but slower, more noise</li></ul>
+            <span class="tip">💡 Always test with your specific documents — no universal best value!</span></div></div>
         </div>
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q5</span>
-            <span class="qa-q-text">What is LangGraph StateGraph? How is it different from a simple chain?<span class="diff med">Medium</span><span class="cat">LangGraph</span></span>
+            <span class="qa-q-text">What is LangGraph StateGraph? How is it different from a chain?<span class="diff med">Medium</span><span class="cat">LangGraph</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>A <strong>LangChain chain</strong> is linear: A → B → C → output. No loops, no branching, no state.<br><br>
-            A <strong>LangGraph StateGraph</strong> is a directed graph where:<ul><li>Nodes = functions that transform state</li><li>Edges = transitions (can be conditional)</li><li>State = TypedDict shared between all nodes</li><li>Supports cycles (loops) — essential for agents!</li></ul>
-            <div class="qa-code"><span class="pk">from</span> langgraph.graph <span class="pk">import</span> StateGraph, END
-<span class="pk">from</span> typing <span class="pk">import</span> TypedDict
-
-<span class="pk">class</span> <span class="pf">AgentState</span>(TypedDict): messages: list
-g = StateGraph(AgentState)
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>A <strong>chain</strong> is linear: A → B → C → output. No loops, no state.<br><br>
+            A <strong>StateGraph</strong> is a directed graph: nodes = functions, edges = transitions, shared TypedDict state, supports cycles (loops) — essential for agents.
+            <div class="qa-code">g = StateGraph(AgentState)
 g.add_node(<span class="ps">"agent"</span>, agent_fn)
 g.add_node(<span class="ps">"tools"</span>, tools_fn)
-g.add_conditional_edges(<span class="ps">"agent"</span>, should_continue)</div></div>
-          </div>
+g.add_conditional_edges(<span class="ps">"agent"</span>, should_continue)</div></div></div>
         </div>
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q6</span>
             <span class="qa-q-text">How do you serve a LangGraph agent as a REST API?<span class="diff med">Medium</span><span class="cat">Deployment</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Use <strong>FastAPI</strong> with async endpoints. Each request gets its own <code>thread_id</code> for session isolation.
-            <div class="qa-code"><span class="pk">from</span> fastapi <span class="pk">import</span> FastAPI
-<span class="pk">from</span> pydantic <span class="pk">import</span> BaseModel
-
-app = FastAPI()
-<span class="pk">class</span> <span class="pf">Q</span>(BaseModel): question: str; session: str = <span class="ps">"default"</span>
-
-<span class="pf">@app.post</span>(<span class="ps">"/ask"</span>)
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Use <strong>FastAPI</strong> with async endpoints. Each request gets its own <code>thread_id</code> for session isolation.
+            <div class="qa-code"><span class="pf">@app.post</span>(<span class="ps">"/ask"</span>)
 <span class="pk">async def</span> <span class="pf">ask</span>(q: Q):
-    cfg = {<span class="ps">"configurable"</span>: {<span class="ps">"thread_id"</span>: q.session}}
-    r = agent.invoke({<span class="ps">"messages"</span>: [HumanMessage(q.question)]}, cfg)
-    <span class="pk">return</span> {<span class="ps">"answer"</span>: r[<span class="ps">"messages"</span>][-<span class="pn">1</span>].content}
-<span class="pc"># Run: uvicorn api:app --reload</span></div></div>
-          </div>
+    cfg = {<span class="ps">"configurable"</span>:{<span class="ps">"thread_id"</span>:q.session}}
+    r = agent.invoke({<span class="ps">"messages"</span>:[HumanMessage(q.question)]},cfg)
+    <span class="pk">return</span> {<span class="ps">"answer"</span>:r[<span class="ps">"messages"</span>][-<span class="pn">1</span>].content}</div></div></div>
         </div>
-
-      </div>
-
-          <div class="qa-item medium">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q7</span>
-              <span class="qa-q-text">What is LangSmith and why is it essential for production LLM apps?<span class="diff med">Medium</span><span class="cat">Observability</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>LangSmith</strong> is LangChain's observability platform — it traces every LLM call, tool invocation, token count, latency, and cost. Think of it as <em>Datadog for your AI agents</em>.<br><br>
-              <div class="qa-code"><span class="pc"># Enable with just 2 env vars — traces automatically!</span>
-import os
-os.environ[<span class="ps">"LANGCHAIN_TRACING_V2"</span>] = <span class="ps">"true"</span>
-os.environ[<span class="ps">"LANGCHAIN_API_KEY"</span>]    = <span class="ps">"ls_..."</span>
-
-<span class="pc"># Now every LangChain/LangGraph call is automatically traced</span>
-<span class="pc"># Visit smith.langchain.com to see full trace tree</span></div>
-              <strong>What you see:</strong> Full chain trace tree, which tools were called, tokens used per step, latency per node, errors with full stack traces, cost per run
-              <span class="tip">💡 LangSmith is free for dev, paid for production. Essential for debugging "why did my agent do that?" questions.</span></div></div>
-          </div>
-
-          <div class="qa-item medium">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q8</span>
-              <span class="qa-q-text">How do you implement streaming responses with LangChain in a FastAPI endpoint?<span class="diff med">Medium</span><span class="cat">Streaming</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Use <code>StreamingResponse</code> in FastAPI + <code>.astream()</code> in LangChain for real ChatGPT-style token streaming.<br><br>
-              <div class="qa-code"><span class="pk">from</span> fastapi <span class="pk">import</span> FastAPI
-<span class="pk">from</span> fastapi.responses <span class="pk">import</span> StreamingResponse
-<span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI
-
-app = FastAPI()
-llm = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>, streaming=<span class="pk">True</span>)
-
-<span class="pf">@app.get</span>(<span class="ps">"/stream"</span>)
+        <div class="qa-item medium">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q7</span>
+            <span class="qa-q-text">What is LangSmith and why is it essential for production?<span class="diff med">Medium</span><span class="cat">Observability</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>LangSmith</strong> traces every LLM call, tool invocation, token count, latency, and cost. Think of it as <em>Datadog for your AI agents</em>.
+            <div class="qa-code">os.environ[<span class="ps">"LANGCHAIN_TRACING_V2"</span>] = <span class="ps">"true"</span>
+os.environ[<span class="ps">"LANGCHAIN_API_KEY"</span>]    = <span class="ps">"ls_..."</span></div>
+            <span class="tip">💡 Free for dev. Essential for debugging "why did my agent do that?" questions.</span></div></div>
+        </div>
+        <div class="qa-item medium">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q8</span>
+            <span class="qa-q-text">How do you implement streaming responses in LangChain + FastAPI?<span class="diff med">Medium</span><span class="cat">Streaming</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Use <code>StreamingResponse</code> + <code>.astream()</code> for real ChatGPT-style token streaming.
+            <div class="qa-code"><span class="pf">@app.get</span>(<span class="ps">"/stream"</span>)
 <span class="pk">async def</span> <span class="pf">stream</span>(q: str):
-    <span class="pk">async def</span> <span class="pf">generator</span>():
+    <span class="pk">async def</span> <span class="pf">gen</span>():
         <span class="pk">async for</span> chunk <span class="pk">in</span> llm.astream(q):
             <span class="pk">yield</span> chunk.content
-    <span class="pk">return</span> StreamingResponse(generator(), media_type=<span class="ps">"text/plain"</span>)</div></div>
-            </div>
-          </div>
-
-          <div class="qa-item medium">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q9</span>
-              <span class="qa-q-text">What is LangGraph's interrupt/human-in-the-loop feature? Give a code example.<span class="diff med">Medium</span><span class="cat">LangGraph 2025</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Human-in-the-loop</strong> pauses the agent at a specific node and waits for human approval before continuing. Critical for production agents that might take irreversible actions (send emails, delete files, charge credit cards).<br><br>
-              <div class="qa-code"><span class="pk">from</span> langgraph.graph <span class="pk">import</span> StateGraph, END
-<span class="pk">from</span> langgraph.checkpoint.memory <span class="pk">import</span> MemorySaver
-
-<span class="pk">def</span> <span class="pf">risky_action</span>(state):
-    <span class="pc"># This node requires human approval</span>
-    <span class="pk">return</span> state
-
-graph = StateGraph(AgentState)
-graph.add_node(<span class="ps">"risky"</span>, risky_action)
-
-<span class="pc"># interrupt_before pauses BEFORE executing this node</span>
-app = graph.compile(
+    <span class="pk">return</span> StreamingResponse(gen(),media_type=<span class="ps">"text/plain"</span>)</div></div></div>
+        </div>
+        <div class="qa-item medium">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q9</span>
+            <span class="qa-q-text">What is LangGraph's human-in-the-loop feature?<span class="diff med">Medium</span><span class="cat">LangGraph 2025</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Pauses the agent at a specific node and waits for human approval before continuing. Critical for irreversible actions (send emails, delete files, charge cards).
+            <div class="qa-code">app = graph.compile(
     checkpointer=MemorySaver(),
-    interrupt_before=[<span class="ps">"risky"</span>]  <span class="pc"># ← pauses here!</span>
+    interrupt_before=[<span class="ps">"risky"</span>]  <span class="pc"># pauses here!</span>
 )
-
-<span class="pc"># Agent pauses → human reviews → then resume:</span>
 app.invoke(<span class="pk">None</span>, config)  <span class="pc"># resume after approval</span></div>
-              <span class="tip">💡 Always use interrupt for: sending emails, making purchases, deleting data, posting to social media</span></div></div>
-          </div>
+            <span class="tip">💡 Always use interrupt for: sending emails, purchases, deleting data</span></div></div>
+        </div>
+      </div>
     </div><!-- end py-l1 -->
 
     <!-- ADVANCED PYTHON -->
     <div class="lc" id="py-l2">
       <div class="sec-head py-sec">🔥 ADVANCED AGENTIC AI</div>
       <div class="qa-group">
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q1</span>
             <span class="qa-q-text">Design a multi-agent system with LangGraph. How do you pass state between agents?<span class="diff hard">Hard</span><span class="cat">Multi-Agent</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Each agent is a <strong>node</strong> in the StateGraph. State (TypedDict) is passed between nodes — agents read from it and write back to it.
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Each agent is a <strong>node</strong> in the StateGraph. TypedDict state is passed between nodes — agents read and write to it.
             <div class="qa-code"><span class="pk">class</span> <span class="pf">CrewState</span>(TypedDict):
-    messages: list
-    research_results: str
-    draft_content: str
-    quality_score: float
-
-<span class="pc"># Each agent has its own tools but shares state</span>
-researcher = create_react_agent(llm, [search, rag_tool])
-writer     = create_react_agent(llm, [])
-critic     = create_react_agent(llm, [])
+    messages: list; research_results: str
+    draft_content: str; quality_score: float
 
 g = StateGraph(CrewState)
 g.add_node(<span class="ps">"research"</span>, <span class="pk">lambda</span> s: researcher.invoke(s))
 g.add_node(<span class="ps">"write"</span>,    <span class="pk">lambda</span> s: writer.invoke(s))
-g.add_node(<span class="ps">"critique"</span>, <span class="pk">lambda</span> s: critic.invoke(s))
-g.add_edge(<span class="ps">"research"</span>, <span class="ps">"write"</span>)
-g.add_edge(<span class="ps">"write"</span>, <span class="ps">"critique"</span>)
-g.add_edge(<span class="ps">"critique"</span>, END)</div>
-            <span class="tip">💡 Use conditional edges to loop back — e.g. if quality_score &lt; 0.8, write again</span></div></div>
+g.add_edge(<span class="ps">"research"</span>, <span class="ps">"write"</span>)</div>
+            <span class="tip">💡 Use conditional edges to loop back if quality_score &lt; 0.8</span></div></div>
         </div>
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q2</span>
-            <span class="qa-q-text">How do you implement self-healing selectors in an AI test agent using GPT-4o Vision?<span class="diff hard">Hard</span><span class="cat">QA/Agents</span></span>
+            <span class="qa-q-text">How do you implement self-healing test selectors using GPT-4o Vision?<span class="diff hard">Hard</span><span class="cat">QA/Agents</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>When a Playwright selector fails: take screenshot → send to GPT-4o Vision → ask it to locate the element → get new selector → retry.
-            <div class="qa-code"><span class="pk">import</span> base64
-<span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI
-
-vision = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>)
-
-<span class="pk">def</span> <span class="pf">heal_selector</span>(page, purpose: str) -> str:
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>When a Playwright selector fails: take screenshot → send to GPT-4o Vision → ask it to locate the element → get new selector → retry.
+            <div class="qa-code"><span class="pk">def</span> <span class="pf">heal_selector</span>(page, purpose: str) -> str:
     img = base64.b64encode(page.screenshot()).decode()
-    r = vision.invoke([{
-        <span class="ps">"type"</span>: <span class="ps">"image_url"</span>,
-        <span class="ps">"image_url"</span>: {<span class="ps">"url"</span>: <span class="ps">f"data:image/png;base64,{img}"</span>}
-    },{
-        <span class="ps">"type"</span>: <span class="ps">"text"</span>,
-        <span class="ps">"text"</span>: <span class="ps">f"Find '{purpose}'. Return only Playwright selector."</span>
-    }])
-    <span class="pk">return</span> r.content.strip()</div></div>
-          </div>
+    r = vision.invoke([
+        {<span class="ps">"type"</span>:<span class="ps">"image_url"</span>,<span class="ps">"image_url"</span>:{<span class="ps">"url"</span>:<span class="ps">f"data:image/png;base64,{img}"</span>}},
+        {<span class="ps">"type"</span>:<span class="ps">"text"</span>,<span class="ps">"text"</span>:<span class="ps">f"Find '{purpose}'. Return Playwright selector only."</span>}
+    ])
+    <span class="pk">return</span> r.content.strip()</div></div></div>
         </div>
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q3</span>
-            <span class="qa-q-text">What is the difference between semantic search and hybrid search? When would you use hybrid?<span class="diff hard">Hard</span><span class="cat">RAG</span></span>
+            <span class="qa-q-text">Semantic search vs hybrid search — when would you use hybrid?<span class="diff hard">Hard</span><span class="cat">RAG</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Semantic search:</strong> Cosine similarity on embeddings. Finds meaning-similar text even with different words.<br><br>
-            <strong>Keyword search (BM25):</strong> TF-IDF style. Exact word matches, great for names, codes, IDs.<br><br>
-            <strong>Hybrid search:</strong> Combines both with a weighted score (Reciprocal Rank Fusion). Best of both worlds.<br><br>
-            <strong>Use hybrid when:</strong> Users search for product codes (PROD-1234) + descriptions ("comfortable running shoe"). Semantic alone misses exact codes; keyword alone misses descriptions.
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Semantic:</strong> Cosine similarity on embeddings. Finds meaning-similar text even with different words.<br><br>
+            <strong>Keyword (BM25):</strong> Exact word matches, great for names, codes, IDs.<br><br>
+            <strong>Hybrid:</strong> Combines both with Reciprocal Rank Fusion.<br><br>
+            Use hybrid when users search for product codes (PROD-1234) AND descriptions ("comfortable running shoe").
             <span class="tip">💡 Qdrant and Azure AI Search both support hybrid search natively</span></div></div>
         </div>
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q4</span>
-            <span class="qa-q-text">Explain agent memory types: short-term vs long-term vs episodic.<span class="diff hard">Hard</span><span class="cat">Agents</span></span>
+            <span class="qa-q-text">Explain agent memory: short-term vs long-term vs episodic.<span class="diff hard">Hard</span><span class="cat">Agents</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Short-term (in-context):</strong> The current conversation messages in the LLM context window. Lost when session ends. Managed by <code>MemorySaver</code> + <code>thread_id</code>.<br><br>
-            <strong>Long-term (vector memory):</strong> Important facts stored in a vector DB (FAISS/Qdrant). Retrieved semantically when relevant. Persists across sessions.<br><br>
-            <strong>Episodic memory:</strong> Summaries of past interactions stored and retrieved when similar context arises. Enables the agent to "remember" previous conversations with a user.<br><br>
-            <span class="hot">🔥 Advanced pattern: Summarise old messages and store in vector DB when context window fills up → seamless infinite memory</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Short-term:</strong> Current conversation in context window. Lost when session ends. Managed by MemorySaver + thread_id.<br><br>
+            <strong>Long-term:</strong> Important facts stored in vector DB. Retrieved semantically. Persists across sessions.<br><br>
+            <strong>Episodic:</strong> Summaries of past interactions, retrieved when similar context arises.</div></div>
         </div>
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q5</span>
-            <span class="qa-q-text">How do you evaluate RAG quality? What metrics do you use?<span class="diff hard">Hard</span><span class="cat">RAG</span></span>
+            <span class="qa-q-text">How do you evaluate RAG quality? What metrics?<span class="diff hard">Hard</span><span class="cat">RAG</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Retrieval metrics:</strong><ul><li>Context Precision — are retrieved chunks actually relevant?</li><li>Context Recall — are all relevant chunks retrieved?</li></ul>
-            <strong>Generation metrics:</strong><ul><li>Faithfulness — does the answer only use retrieved context (no hallucination)?</li><li>Answer Relevance — does the answer address the question?</li></ul>
-            <strong>Tools:</strong> <code>RAGAS</code> library automates all of these using LLM-as-judge.
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Retrieval:</strong> Context Precision, Context Recall<br>
+            <strong>Generation:</strong> Faithfulness (no hallucination), Answer Relevance<br><br>
+            The <code>RAGAS</code> library automates all using LLM-as-judge.
             <div class="qa-code"><span class="pk">from</span> ragas <span class="pk">import</span> evaluate
 <span class="pk">from</span> ragas.metrics <span class="pk">import</span> faithfulness, answer_relevancy
-results = evaluate(dataset, metrics=[faithfulness, answer_relevancy])</div></div>
-          </div>
+results = evaluate(dataset, metrics=[faithfulness, answer_relevancy])</div></div></div>
         </div>
-
       </div>
     </div><!-- end py-l2 -->
 
@@ -788,70 +758,81 @@ results = evaluate(dataset, metrics=[faithfulness, answer_relevancy])</div></div
     <div class="lc" id="py-l3">
       <div class="sec-head py-sec">👑 SYSTEM DESIGN & ARCHITECTURE</div>
       <div class="qa-group">
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q1</span>
-            <span class="qa-q-text">Design a production-grade multi-tenant RAG system. What are the key architectural decisions?<span class="diff pro">Pro</span><span class="cat">System Design</span></span>
+            <span class="qa-q-text">Design a production multi-tenant RAG system. Key architectural decisions?<span class="diff pro">Pro</span><span class="cat">System Design</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Key decisions:</strong><br><br>
-            <strong>1. Tenant isolation:</strong> Separate Qdrant collections per tenant OR single collection with tenant_id metadata filter. Collections = stronger isolation; metadata = cheaper but risk of cross-tenant leaks.<br><br>
-            <strong>2. Vector store:</strong> Qdrant (self-hosted for cost) or Pinecone (managed). At scale → Qdrant on Kubernetes with persistence.<br><br>
-            <strong>3. Ingestion pipeline:</strong> Async queue (Celery/Redis) for document processing. Chunking, embedding, and upserting shouldn't block API responses.<br><br>
-            <strong>4. Caching:</strong> Semantic caching (GPTCache) — if similar question asked before, return cached answer. 60-80% cost reduction at scale.<br><br>
-            <strong>5. Observability:</strong> LangSmith or LangFuse for trace every agent call — essential for debugging and cost monitoring.
-            <span class="hot">🔥 Interview tip: Always mention tenant isolation, async ingestion, and observability — shows production thinking</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>Tenant isolation:</strong> Separate Qdrant collections per tenant OR single collection with tenant_id filter</li>
+            <li><strong>Vector store:</strong> Qdrant on Kubernetes for cost; Pinecone for managed</li>
+            <li><strong>Ingestion:</strong> Async queue (Celery/Redis) — chunking/embedding shouldn't block API</li>
+            <li><strong>Caching:</strong> Semantic caching (GPTCache) — 60-80% cost reduction</li>
+            <li><strong>Observability:</strong> LangSmith or LangFuse for every agent call</li>
+            </ul>
+            <span class="hot">🔥 Always mention tenant isolation, async ingestion, and observability</span></div></div>
         </div>
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q2</span>
-            <span class="qa-q-text">How do you prevent prompt injection attacks in an agentic AI system?<span class="diff pro">Pro</span><span class="cat">Security</span></span>
+            <span class="qa-q-text">How do you prevent prompt injection attacks in agentic AI?<span class="diff pro">Pro</span><span class="cat">Security</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Prompt injection</strong> = malicious text in user input or retrieved docs tries to override the system prompt or exfiltrate data.<br><br>
-            <strong>Defences:</strong><ul><li><strong>Input sanitisation:</strong> Strip or escape prompt-like patterns before injection</li><li><strong>Privilege separation:</strong> Use separate LLM calls for untrusted content and trusted instructions</li><li><strong>Tool sandboxing:</strong> Limit what tools can do — read-only by default, explicit approval for writes</li><li><strong>Output validation:</strong> Validate agent output before executing (especially code execution)</li><li><strong>LLM guard:</strong> Use a classifier LLM to detect injection attempts before main call</li></ul>
-            <span class="warn warn">⚠️ Never run code returned by an LLM without sandboxing (Docker, subprocess with timeout)</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>Input sanitisation:</strong> Strip or escape prompt-like patterns</li>
+            <li><strong>Privilege separation:</strong> Separate LLM calls for untrusted content vs trusted instructions</li>
+            <li><strong>Tool sandboxing:</strong> Read-only by default, explicit approval for writes</li>
+            <li><strong>Output validation:</strong> Validate agent output before executing</li>
+            <li><strong>LLM guard:</strong> Classifier LLM to detect injection before main call</li>
+            </ul>
+            <span class="warn">⚠️ Never run LLM-returned code without sandboxing (Docker, subprocess with timeout)</span></div></div>
         </div>
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q3</span>
-            <span class="qa-q-text">How would you reduce LLM API costs by 70% without sacrificing quality?<span class="diff pro">Pro</span><span class="cat">Cost</span></span>
+            <span class="qa-q-text">How would you reduce LLM API costs by 70%?<span class="diff pro">Pro</span><span class="cat">Cost</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Strategy stack:</strong><br>
-            <ul><li><strong>Semantic caching (GPTCache):</strong> 40-60% reduction. Similar questions → cached answer, no API call</li><li><strong>Model routing:</strong> Use GPT-4o only for complex reasoning; GPT-4o-mini for simple classification/extraction (10x cheaper)</li><li><strong>Prompt compression:</strong> LLMLingua — compress long context by 4-20x while preserving meaning</li><li><strong>Streaming + early stop:</strong> Stop generation when answer complete, don't generate max_tokens</li><li><strong>Batch API:</strong> OpenAI Batch API = 50% cheaper for non-realtime workloads</li><li><strong>Chunking optimisation:</strong> Retrieve fewer, better chunks → shorter context → lower cost</li></ul>
-            <span class="tip">💡 At 1M daily queries: semantic caching alone saves ~$15,000/month on GPT-4o pricing</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>Semantic caching (GPTCache):</strong> 40-60% reduction</li>
+            <li><strong>Model routing:</strong> GPT-4o for complex tasks; GPT-4o-mini for simple ones (10x cheaper)</li>
+            <li><strong>Prompt compression (LLMLingua):</strong> Compress context 4-20x</li>
+            <li><strong>Batch API:</strong> OpenAI Batch = 50% cheaper for non-realtime</li>
+            <li><strong>Better chunking:</strong> Fewer, better chunks → shorter context → lower cost</li>
+            </ul>
+            <span class="tip">💡 At 1M daily queries: semantic caching alone saves ~$15k/month</span></div></div>
         </div>
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q4</span>
-            <span class="qa-q-text">You're building a coding assistant agent. Walk through your complete architecture.<span class="diff pro">Pro</span><span class="cat">System Design</span></span>
+            <span class="qa-q-text">You're building a coding assistant agent — walk through your architecture.<span class="diff pro">Pro</span><span class="cat">System Design</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Architecture layers:</strong><br>
-            <ul><li><strong>Input:</strong> User's code question + repo context (tree-sitter parsed code chunks in FAISS)</li><li><strong>Planner node:</strong> Classifies intent — debug, explain, generate, refactor</li><li><strong>Code retriever:</strong> Semantic search on codebase for relevant files/functions</li><li><strong>Code executor tool:</strong> Docker sandbox, 30s timeout, resource limits, captures stdout/stderr</li><li><strong>Generator node:</strong> Writes/fixes code using context + retrieved snippets</li><li><strong>Validator node:</strong> Runs linting (ruff, mypy) on generated code, loops if errors</li><li><strong>Response:</strong> Code + explanation + diff from original</li></ul>
-            <strong>Stack:</strong> LangGraph StateGraph + FAISS + FastAPI + Docker executor + Redis for session state</div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>Input:</strong> Code question + repo context (tree-sitter parsed chunks in FAISS)</li>
+            <li><strong>Planner:</strong> Classifies intent — debug/explain/generate/refactor</li>
+            <li><strong>Retriever:</strong> Semantic search on codebase for relevant files</li>
+            <li><strong>Executor:</strong> Docker sandbox, 30s timeout, captures stdout/stderr</li>
+            <li><strong>Generator:</strong> Writes/fixes code using context</li>
+            <li><strong>Validator:</strong> Runs ruff/mypy, loops if errors</li>
+            </ul>
+            <strong>Stack:</strong> LangGraph + FAISS + FastAPI + Docker + Redis</div></div>
         </div>
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q5</span>
-            <span class="qa-q-text">How do you implement observability and debugging for a production LangGraph agent?<span class="diff pro">Pro</span><span class="cat">MLOps</span></span>
+            <span class="qa-q-text">How do you implement observability for a production LangGraph agent?<span class="diff pro">Pro</span><span class="cat">MLOps</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Full observability stack:</strong><br>
-            <ul><li><strong>LangSmith:</strong> Every LLM call, tool call, token count, latency, cost traced automatically. Set <code>LANGCHAIN_TRACING_V2=true</code></li><li><strong>Structured logging:</strong> Log thread_id, user_id, tool called, tokens used as JSON to CloudWatch/Datadog</li><li><strong>Metrics:</strong> Track P95 latency, tokens/request, tool success rate, hallucination rate (RAGAS)</li><li><strong>Alerts:</strong> PagerDuty on P95 &gt; 5s, error rate &gt; 2%, tool failure rate &gt; 10%</li><li><strong>A/B testing:</strong> Shadow mode — run new agent alongside old, compare outputs before full rollout</li></ul>
-            <div class="qa-code"><span class="pc"># Enable LangSmith tracing — 1 line!</span>
-import os
-os.environ[<span class="ps">"LANGCHAIN_TRACING_V2"</span>] = <span class="ps">"true"</span>
-os.environ[<span class="ps">"LANGCHAIN_API_KEY"</span>] = <span class="ps">"ls_..."</span></div></div>
-          </div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>LangSmith:</strong> Auto-traces all LLM/tool calls, tokens, latency, cost</li>
+            <li><strong>Structured logging:</strong> thread_id, user_id, tool, tokens as JSON → CloudWatch/Datadog</li>
+            <li><strong>Metrics:</strong> P95 latency, tokens/request, tool success rate, hallucination rate</li>
+            <li><strong>Alerts:</strong> P95 &gt; 5s, error rate &gt; 2%, tool failure &gt; 10%</li>
+            <li><strong>A/B testing:</strong> Shadow mode — run new agent alongside old before full rollout</li>
+            </ul></div></div>
         </div>
-
       </div>
     </div><!-- end py-l3 -->
 
@@ -860,7 +841,7 @@ os.environ[<span class="ps">"LANGCHAIN_API_KEY"</span>] = <span class="ps">"ls_.
   <!-- SPLITTER -->
   <div class="spl" id="spl"></div>
 
-  <!-- ═══ RIGHT: .NET ═══ -->
+  <!-- RIGHT: .NET -->
   <div class="sp netp" id="netright">
     <div class="lbadge netb"><div class="lbi">🟣</div><div><div class="lbt">.NET / C#</div><div class="lbs">Semantic Kernel · Azure OpenAI · NUnit · Playwright</div></div></div>
 
@@ -868,455 +849,287 @@ os.environ[<span class="ps">"LANGCHAIN_API_KEY"</span>] = <span class="ps">"ls_.
     <div class="lc act" id="net-l0">
       <div class="sec-head net-sec">🌱 .NET AI FUNDAMENTALS</div>
       <div class="qa-group">
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q1</span>
             <span class="qa-q-text">What is Semantic Kernel and how does it compare to LangChain?<span class="diff easy">Easy</span><span class="cat">SK</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Semantic Kernel (SK)</strong> is Microsoft's open-source SDK for building LLM-powered applications in C#/.NET (also Python/Java). It provides:<ul><li>Kernel = central orchestration object</li><li>Plugins = tool collections ([KernelFunction] methods)</li><li>Planners = autonomous step-by-step reasoning</li><li>Memory = semantic vector storage</li></ul>
-            <strong>vs LangChain:</strong>
-            <ul><li>SK = Microsoft/enterprise-first, Azure-native, C# idioms, strong typing</li><li>LangChain = Python-first, larger ecosystem, faster iteration</li><li>Concepts mirror each other: @tool ≈ [KernelFunction], LangGraph ≈ SK Planner</li></ul>
-            <span class="tip">💡 If your team is .NET/Azure-heavy → Semantic Kernel. Python-first prototyping → LangChain.</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Semantic Kernel (SK)</strong> is Microsoft's SDK for LLM apps in C#/.NET. It provides Kernel (orchestration), Plugins ([KernelFunction] methods), Planners, and Memory.<br><br>
+            <strong>vs LangChain:</strong> SK = Microsoft/Azure-native, C# idioms, strong typing. LangChain = Python-first, larger ecosystem.
+            <span class="tip">💡 .NET/Azure team → Semantic Kernel. Python prototyping → LangChain.</span></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q2</span>
             <span class="qa-q-text">How do you build and configure a Semantic Kernel in C#?<span class="diff easy">Easy</span><span class="cat">SK</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Use the builder pattern — very C# idiomatic. Add LLM service, then call <code>.Build()</code>.
-            <div class="qa-code"><span class="pk">using</span> Microsoft.SemanticKernel;
-
-<span class="pk">var</span> kernel = Kernel.CreateBuilder()
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Use the builder pattern — very C# idiomatic.
+            <div class="qa-code"><span class="pk">var</span> kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion(
-        modelId:  <span class="ps">"gpt-4o"</span>,
-        apiKey:   config[<span class="ps">"OpenAI:ApiKey"</span>]!)
+        modelId: <span class="ps">"gpt-4o"</span>,
+        apiKey:  config[<span class="ps">"OpenAI:ApiKey"</span>]!)
     .Build();
 
-<span class="pc">// Simple prompt call</span>
 <span class="pk">var</span> result = <span class="pk">await</span> kernel.InvokePromptAsync(
-    <span class="ps">"Explain RAG in one sentence."</span>);
-Console.WriteLine(result);</div>
-            <strong>For Azure OpenAI:</strong> Replace <code>AddOpenAIChatCompletion</code> with <code>AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey)</code></div></div>
+    <span class="ps">"Explain RAG in one sentence."</span>);</div></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q3</span>
             <span class="qa-q-text">What is a KernelPlugin and how do you define a KernelFunction?<span class="diff easy">Easy</span><span class="cat">SK</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>A <strong>KernelPlugin</strong> is a C# class whose methods tagged <code>[KernelFunction]</code> become AI-callable tools. The <code>[Description]</code> attribute = the docstring the LLM reads.
-            <div class="qa-code"><span class="pk">public class</span> WeatherPlugin
-{
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>A <strong>KernelPlugin</strong> is a C# class whose methods tagged <code>[KernelFunction]</code> become AI-callable tools.
+            <div class="qa-code"><span class="pk">public class</span> WeatherPlugin {
     [KernelFunction]
     [Description(<span class="ps">"Get current weather for a city"</span>)]
     <span class="pk">public string</span> GetWeather(
         [Description(<span class="ps">"The city name"</span>)] <span class="pk">string</span> city)
         => <span class="ps">$"Weather in {city}: 22°C, Sunny"</span>;
 }
-
-<span class="pc">// Register with kernel</span>
 kernel.Plugins.AddFromType&lt;WeatherPlugin&gt;(<span class="ps">"weather"</span>);</div>
             <span class="tip">💡 Be specific in [Description] — the LLM reads it to decide WHEN to call this function</span></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q4</span>
-            <span class="qa-q-text">What is the difference between OpenAI and Azure OpenAI in Semantic Kernel?<span class="diff easy">Easy</span><span class="cat">Azure</span></span>
+            <span class="qa-q-text">OpenAI vs Azure OpenAI in Semantic Kernel — key differences?<span class="diff easy">Easy</span><span class="cat">Azure</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>OpenAI direct:</strong> Uses OpenAI's API endpoint. Simpler setup, just API key. Good for prototyping.
-            <div class="qa-code"><span class="pk">var</span> kernel = Kernel.CreateBuilder()
-    .AddOpenAIChatCompletion(<span class="ps">"gpt-4o"</span>, apiKey)
-    .Build();</div>
-            <strong>Azure OpenAI:</strong> Deployed on your Azure subscription. Enterprise features: VNET isolation, managed identity, compliance, data residency, SLA.
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>OpenAI direct:</strong> Simple setup, just API key. Good for prototyping.<br><br>
+            <strong>Azure OpenAI:</strong> Your Azure subscription. VNET isolation, managed identity, compliance, data residency, SLA.
             <div class="qa-code"><span class="pk">var</span> kernel = Kernel.CreateBuilder()
     .AddAzureOpenAIChatCompletion(
         deploymentName: <span class="ps">"gpt-4o-deployment"</span>,
         endpoint:       <span class="ps">"https://myco.openai.azure.com"</span>,
         apiKey:         azureKey)
     .Build();</div>
-            <span class="tip">💡 Enterprise answer: Always recommend Azure OpenAI for compliance, data sovereignty, and Azure AD integration</span></div></div>
+            <span class="tip">💡 Enterprise: Always recommend Azure OpenAI for compliance and Azure AD integration</span></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q5</span>
             <span class="qa-q-text">How does RAG work in .NET with Semantic Kernel and Qdrant?<span class="diff easy">Easy</span><span class="cat">RAG</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Steps in .NET:</strong><ul><li>Load PDF with PdfPig</li><li>Chunk with SK's TextChunker</li><li>Embed with OpenAI text-embedding-3-small</li><li>Store in Qdrant (VolatileMemoryStore for local)</li><li>At query time: embed question → find similar chunks → inject into prompt</li></ul>
-            <div class="qa-code"><span class="pc">// Search and inject context</span>
-<span class="pk">var</span> results = <span class="pk">await</span> memory.SearchAsync(
-    collection: <span class="ps">"documents"</span>,
-    query: userQuestion,
-    limit: 4).ToListAsync();
-
-<span class="pk">var</span> context = <span class="pk">string</span>.Join(<span class="ps">"\n\n"</span>,
-    results.Select(r => r.Metadata.Text));
-
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Load PDF → Chunk with TextChunker → Embed with OpenAI → Store in Qdrant → At query: embed question → find similar chunks → inject into prompt.
+            <div class="qa-code"><span class="pk">var</span> results = <span class="pk">await</span> memory.SearchAsync(
+    collection: <span class="ps">"docs"</span>, query: userQuestion, limit: <span class="pn">4</span>).ToListAsync();
+<span class="pk">var</span> context = <span class="pk">string</span>.Join(<span class="ps">"\n\n"</span>, results.Select(r=>r.Metadata.Text));
 <span class="pk">var</span> answer = <span class="pk">await</span> kernel.InvokePromptAsync(
-    <span class="ps">$"Context: {context}\n\nQuestion: {userQuestion}"</span>);</div></div>
-          </div>
+    <span class="ps">$"Context: {context}\n\nQuestion: {userQuestion}"</span>);</div></div></div>
         </div>
-
-      </div>
-
-      <div class="sec-head net-sec">🟣 AZURE & ENTERPRISE</div>
-      <div class="qa-group">
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q6</span>
-            <span class="qa-q-text">What is Azure AI Search and how does it differ from FAISS for enterprise RAG?<span class="diff easy">Easy</span><span class="cat">Azure</span></span>
+            <span class="qa-q-text">Azure AI Search vs FAISS for enterprise RAG?<span class="diff easy">Easy</span><span class="cat">Azure</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>FAISS:</strong> Local in-memory library. No auth, no scale, no management. Great for dev/prototyping.<br><br>
-            <strong>Azure AI Search:</strong> Fully managed cloud service with: <ul><li>Hybrid search (vector + keyword + semantic ranking)</li><li>Azure AD authentication + RBAC</li><li>Automatic indexing, backups, SLA</li><li>Integrated with Azure OpenAI for RAG patterns</li><li>Scales to billions of documents</li></ul>
-            <span class="tip">💡 For enterprise: Always recommend Azure AI Search. For prototyping: Qdrant locally or VolatileMemoryStore.</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>FAISS:</strong> Local in-memory. No auth, no scale. Great for dev/prototyping.<br><br>
+            <strong>Azure AI Search:</strong> Managed cloud service with hybrid search, Azure AD auth, RBAC, SLA, scales to billions of documents.
+            <span class="tip">💡 Enterprise → Azure AI Search. Prototyping → Qdrant locally or VolatileMemoryStore.</span></div></div>
         </div>
-
         <div class="qa-item easy">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q7</span>
-            <span class="qa-q-text">How do you secure API keys in a .NET production application?<span class="diff easy">Easy</span><span class="cat">Security</span></span>
+            <span class="qa-q-text">How do you secure API keys in .NET production?<span class="diff easy">Easy</span><span class="cat">Security</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Never hardcode keys in code or appsettings.json!</strong><br><br>
-            <strong>Development:</strong> <code>dotnet user-secrets set "OpenAI:ApiKey" "sk-..."</code> — stored outside the project, never in Git<br><br>
-            <strong>Production options (in order of preference):</strong><ul><li><strong>Azure Key Vault + Managed Identity:</strong> No keys stored anywhere — app authenticates with its Azure identity</li><li><strong>Environment variables:</strong> Set in App Service/Container Apps configuration</li><li><strong>Azure App Configuration:</strong> Centralised config management with Key Vault references</li></ul>
-            <div class="qa-code"><span class="pc">// Managed Identity — no key needed!</span>
-<span class="pk">var</span> credential = <span class="pk">new</span> DefaultAzureCredential();
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Never hardcode keys!</strong><br><br>
+            <strong>Dev:</strong> <code>dotnet user-secrets set "OpenAI:ApiKey" "sk-..."</code><br><br>
+            <strong>Production (best to acceptable):</strong><ul><li>Azure Key Vault + Managed Identity — no keys stored anywhere</li><li>Environment variables in App Service config</li><li>Azure App Configuration with Key Vault references</li></ul>
+            <div class="qa-code"><span class="pk">var</span> credential = <span class="pk">new</span> DefaultAzureCredential();
 <span class="pk">var</span> client = <span class="pk">new</span> SecretClient(
-    <span class="pk">new</span> Uri(<span class="ps">"https://myvault.vault.azure.net"</span>),
-    credential);</div></div>
-          </div>
+    <span class="pk">new</span> Uri(<span class="ps">"https://myvault.vault.azure.net"</span>), credential);</div></div></div>
         </div>
-
-      </div>
-
-        <div class="sec-head net-sec">🟣 .NET EXTRA QUESTIONS</div>
-        <div class="qa-group">
-
-          <div class="qa-item easy">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q8</span>
-              <span class="qa-q-text">What is the difference between OpenAI SDK and Semantic Kernel in .NET?<span class="diff easy">Easy</span><span class="cat">SDK</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Azure.AI.OpenAI SDK</strong> — low-level C# client. Direct API calls to OpenAI/Azure OpenAI. No abstraction. Best for simple completions or when you need full control.<br><br>
-              <strong>Semantic Kernel</strong> — high-level orchestration framework built on top of the SDK. Adds plugins, planners, memory, multi-agent support. Best for building full AI applications.<br><br>
-              <div class="qa-code"><span class="pc">// Raw SDK — low level</span>
-<span class="pk">var</span> client = <span class="pk">new</span> OpenAIClient(<span class="ps">"sk-..."</span>);
-<span class="pk">var</span> chat   = client.GetChatClient(<span class="ps">"gpt-4o"</span>);
-<span class="pk">var</span> result = <span class="pk">await</span> chat.CompleteChatAsync(<span class="ps">"Hello!"</span>);
-
-<span class="pc">// Semantic Kernel — high level orchestration</span>
-<span class="pk">var</span> kernel = Kernel.CreateBuilder()
-    .AddOpenAIChatCompletion(<span class="ps">"gpt-4o"</span>, apiKey)
-    .Build();
-<span class="pk">var</span> result = <span class="pk">await</span> kernel.InvokePromptAsync(<span class="ps">"Hello!"</span>);</div>
-              <span class="tip">💡 Rule of thumb: use raw SDK for simple one-off calls; use Semantic Kernel when you need plugins, memory, or multi-step planning</span></div></div>
-          </div>
-
-          <div class="qa-item easy">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q9</span>
-              <span class="qa-q-text">What is Microsoft.Extensions.AI and why was it introduced in .NET 9?<span class="diff easy">Easy</span><span class="cat">.NET 9</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Microsoft.Extensions.AI</strong> is a new unified abstraction layer introduced in .NET 9 (late 2024) that provides standard interfaces for AI services — similar to how ILogger abstracts logging.<br><br>
-              <strong>Key interfaces:</strong> <code>IChatClient</code>, <code>IEmbeddingGenerator</code><br><br>
-              <div class="qa-code"><span class="pk">using</span> Microsoft.Extensions.AI;
-
-<span class="pc">// Works with OpenAI, Azure OpenAI, Ollama — same interface!</span>
-IChatClient client = <span class="pk">new</span> OpenAIChatClient(<span class="ps">"gpt-4o"</span>, apiKey);
-
-ChatResponse response = <span class="pk">await</span> client.GetResponseAsync(
-    <span class="ps">"What is RAG?"</span>);
-Console.WriteLine(response.Text);</div>
-              <strong>Why important:</strong> Switch between OpenAI, Azure, or local Ollama models by changing one line — your app code stays the same!</div></div>
-          </div>
-
-          <div class="qa-item easy">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q10</span>
-              <span class="qa-q-text">How do you run a local LLM in .NET using Ollama? Why would you want to?<span class="diff easy">Easy</span><span class="cat">Local LLM</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Ollama</strong> runs open-source LLMs (Llama 3, Mistral, Phi-3) locally on your machine — no API key, no cost, full privacy.<br><br>
-              <div class="qa-code"><span class="pc">// 1. Install Ollama: https://ollama.com</span>
-<span class="pc">// 2. Pull a model: ollama pull llama3.2</span>
-<span class="pc">// 3. Use in .NET with Microsoft.Extensions.AI:</span>
-
-<span class="pk">using</span> Microsoft.Extensions.AI;
-<span class="pk">using</span> OllamaSharp;
-
+        <div class="qa-item easy">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q8</span>
+            <span class="qa-q-text">OpenAI SDK vs Semantic Kernel in .NET — when to use each?<span class="diff easy">Easy</span><span class="cat">SDK</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>OpenAI SDK:</strong> Low-level client, direct API calls, full control. Best for simple completions.<br><br>
+            <strong>Semantic Kernel:</strong> High-level orchestration, adds plugins, planners, memory, multi-agent support. Best for full AI applications.
+            <span class="tip">💡 Use raw SDK for simple one-off calls; use SK when you need plugins, memory, or planning</span></div></div>
+        </div>
+        <div class="qa-item easy">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q9</span>
+            <span class="qa-q-text">What is Microsoft.Extensions.AI (.NET 9)?<span class="diff easy">Easy</span><span class="cat">.NET 9</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>A unified abstraction layer with standard interfaces (<code>IChatClient</code>, <code>IEmbeddingGenerator</code>) — like ILogger but for AI. Switch between OpenAI, Azure, or Ollama by changing one line.
+            <div class="qa-code">IChatClient client = <span class="pk">new</span> OpenAIChatClient(<span class="ps">"gpt-4o"</span>, apiKey);
+ChatResponse response = <span class="pk">await</span> client.GetResponseAsync(<span class="ps">"What is RAG?"</span>);</div></div></div>
+        </div>
+        <div class="qa-item easy">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q10</span>
+            <span class="qa-q-text">How do you run a local LLM in .NET using Ollama?<span class="diff easy">Easy</span><span class="cat">Local LLM</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Ollama</strong> runs open-source LLMs locally — no API key, no cost, full privacy.
+            <div class="qa-code"><span class="pc">// ollama pull llama3.2 — then in .NET:</span>
 IChatClient client = <span class="pk">new</span> OllamaApiClient(
     <span class="pk">new</span> Uri(<span class="ps">"http://localhost:11434"</span>), <span class="ps">"llama3.2"</span>);
-
-<span class="pk">var</span> response = <span class="pk">await</span> client.GetResponseAsync(<span class="ps">"Hello Llama!"</span>);
-Console.WriteLine(response.Text);</div>
-              <strong>Use local LLMs when:</strong> sensitive data (healthcare, finance), no internet, cost control, low latency requirements, or testing without API bills</div></div>
-          </div>
-
+<span class="pk">var</span> r = <span class="pk">await</span> client.GetResponseAsync(<span class="ps">"Hello Llama!"</span>);</div>
+            Use when: sensitive data, no internet, cost control, testing without API bills</div></div>
         </div>
+      </div>
     </div><!-- end net-l0 -->
 
     <!-- INTERMEDIATE .NET -->
     <div class="lc" id="net-l1">
       <div class="sec-head net-sec">⚡ SEMANTIC KERNEL DEEP DIVE</div>
       <div class="qa-group">
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q1</span>
-            <span class="qa-q-text">Explain FunctionCallingStepwisePlanner. How is it equivalent to LangGraph's ReAct agent?<span class="diff med">Medium</span><span class="cat">SK Planner</span></span>
+            <span class="qa-q-text">Explain FunctionCallingStepwisePlanner — how is it like LangGraph's ReAct?<span class="diff med">Medium</span><span class="cat">SK Planner</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>FunctionCallingStepwisePlanner</strong> decomposes a goal into steps and calls KernelFunctions autonomously in a loop until the goal is reached — exactly the ReAct pattern.<br><br>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>FunctionCallingStepwisePlanner</strong> decomposes a goal into steps and calls KernelFunctions autonomously in a loop — exactly the ReAct pattern.
             <div class="qa-code"><span class="pk">var</span> planner = <span class="pk">new</span> FunctionCallingStepwisePlanner(
-    <span class="pk">new</span> FunctionCallingStepwisePlannerOptions {
-        MaxIterations = <span class="pn">10</span>,
-        MaxTokens = <span class="pn">4000</span>
-    });
-
-<span class="pk">var</span> result = <span class="pk">await</span> planner.ExecuteAsync(
-    kernel,
+    <span class="pk">new</span> FunctionCallingStepwisePlannerOptions { MaxIterations=<span class="pn">10</span> });
+<span class="pk">var</span> result = <span class="pk">await</span> planner.ExecuteAsync(kernel,
     <span class="ps">"Search for recent AI news and write a summary"</span>);
-
-Console.WriteLine(result.FinalAnswer);</div>
-            <strong>Mapping:</strong> LangGraph <code>create_react_agent</code> ≈ SK <code>FunctionCallingStepwisePlanner</code><br>
-            LangGraph <code>StateGraph</code> ≈ SK <code>ProcessBuilder</code> (SK v1.x Process Framework)</div></div>
+Console.WriteLine(result.FinalAnswer);</div></div></div>
         </div>
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q2</span>
             <span class="qa-q-text">How do you implement streaming responses in Semantic Kernel?<span class="diff med">Medium</span><span class="cat">SK</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Use <code>InvokePromptStreamingAsync</code> which returns <code>IAsyncEnumerable</code> — very idiomatic .NET async.
-            <div class="qa-code"><span class="pc">// Streaming in SK</span>
-<span class="pk">await foreach</span> (<span class="pk">var</span> chunk <span class="pk">in</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Use <code>InvokePromptStreamingAsync</code> which returns <code>IAsyncEnumerable</code>.
+            <div class="qa-code"><span class="pk">await foreach</span> (<span class="pk">var</span> chunk <span class="pk">in</span>
     kernel.InvokePromptStreamingAsync(<span class="ps">"Explain LangGraph"</span>))
 {
     Console.Write(chunk);
-}
-
-<span class="pc">// In ASP.NET Core — stream to browser</span>
-<span class="pk">async</span> IAsyncEnumerable&lt;<span class="pk">string</span>&gt; StreamAnswer(<span class="pk">string</span> q)
-{
-    <span class="pk">await foreach</span> (<span class="pk">var</span> chunk <span class="pk">in</span> kernel.InvokePromptStreamingAsync(q))
-        <span class="pk">yield return</span> chunk.ToString();
 }</div>
-            <span class="tip">💡 Server-Sent Events (SSE) in ASP.NET Core + IAsyncEnumerable = real-time streaming to browser like ChatGPT</span></div></div>
+            <span class="tip">💡 SSE in ASP.NET Core + IAsyncEnumerable = real-time browser streaming like ChatGPT</span></div></div>
         </div>
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q3</span>
             <span class="qa-q-text">How do you build an ASP.NET Core Web API for a Semantic Kernel agent?<span class="diff med">Medium</span><span class="cat">API</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Use minimal API or controllers. Register Kernel as singleton via DI. Each request creates a new planner call.
-            <div class="qa-code"><span class="pc">// Program.cs</span>
-<span class="pk">var</span> builder = WebApplication.CreateBuilder(args);
-<span class="pk">var</span> kernel = Kernel.CreateBuilder()
-    .AddOpenAIChatCompletion(<span class="ps">"gpt-4o"</span>, apiKey)
-    .Build();
-kernel.Plugins.AddFromType&lt;SearchPlugin&gt;();
-kernel.Plugins.AddFromType&lt;RagPlugin&gt;();
-
-builder.Services.AddSingleton(kernel);
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Register Kernel as singleton via DI. Each request calls the planner.
+            <div class="qa-code">builder.Services.AddSingleton(kernel);
 builder.Services.AddSingleton&lt;AgentService&gt;();
 
-<span class="pk">var</span> app = builder.Build();
 app.MapPost(<span class="ps">"/ask"</span>, <span class="pk">async</span> (AskRequest req, AgentService svc)
     => Results.Ok(<span class="pk">await</span> svc.AskAsync(req.Question)));
-app.Run();
 
-record AskRequest(<span class="pk">string</span> Question);</div></div>
-          </div>
+record AskRequest(<span class="pk">string</span> Question);</div></div></div>
         </div>
-
         <div class="qa-item medium">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q4</span>
-            <span class="qa-q-text">How do you write effective Playwright .NET tests using the Page Object Model?<span class="diff med">Medium</span><span class="cat">QA</span></span>
+            <span class="qa-q-text">How do you write Playwright .NET tests using Page Object Model?<span class="diff med">Medium</span><span class="cat">QA</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Page Object Model (POM)</strong>: Each page = one C# class. Tests call methods, never raw selectors. When UI changes, update one class only.
-            <div class="qa-code"><span class="pk">public class</span> LoginPage(IPage page)
-{
-    <span class="pk">public async Task</span> LoginAsync(<span class="pk">string</span> user, <span class="pk">string</span> pwd)
-    {
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Each page = one C# class. Tests call methods, never raw selectors.
+            <div class="qa-code"><span class="pk">public class</span> LoginPage(IPage page) {
+    <span class="pk">public async Task</span> LoginAsync(<span class="pk">string</span> u, <span class="pk">string</span> p) {
         <span class="pk">await</span> page.GotoAsync(<span class="ps">"/login"</span>);
-        <span class="pk">await</span> page.GetByLabel(<span class="ps">"Username"</span>).FillAsync(user);
-        <span class="pk">await</span> page.GetByLabel(<span class="ps">"Password"</span>).FillAsync(pwd);
+        <span class="pk">await</span> page.GetByLabel(<span class="ps">"Username"</span>).FillAsync(u);
+        <span class="pk">await</span> page.GetByLabel(<span class="ps">"Password"</span>).FillAsync(p);
         <span class="pk">await</span> page.GetByRole(AriaRole.Button,
-            <span class="pk">new</span> { Name = <span class="ps">"Login"</span> }).ClickAsync();
+            <span class="pk">new</span> { Name=<span class="ps">"Login"</span> }).ClickAsync();
     }
-}
-
-<span class="pc">// Test using POM</span>
-[Test]
-<span class="pk">public async Task</span> LoginTest()
-{
-    <span class="pk">var</span> loginPage = <span class="pk">new</span> LoginPage(Page);
-    <span class="pk">await</span> loginPage.LoginAsync(<span class="ps">"admin"</span>, <span class="ps">"pass123"</span>);
-    <span class="pk">await</span> Expect(Page).ToHaveURLAsync(<span class="ps">"*/dashboard"</span>);
-}</div></div>
-          </div>
+}</div></div></div>
         </div>
-
-      </div>
-
-          <div class="qa-item medium">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q5</span>
-              <span class="qa-q-text">What is SK Process Framework vs AgentGroupChat? When do you use each?<span class="diff med">Medium</span><span class="cat">SK 2025</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>AgentGroupChat</strong> — dynamic, conversational multi-agent. Agents collaborate in a free-form chat. Good for open-ended creative tasks: research → write → review.<br><br>
-              <strong>SK Process Framework</strong> — deterministic workflow engine. Steps connect via typed events. Auditable, persistent, good for compliance-heavy processes with explicit stages.<br><br>
-              <div class="qa-code"><span class="pc">// AgentGroupChat — dynamic collaboration</span>
-<span class="pk">var</span> chat = <span class="pk">new</span> AgentGroupChat(researcher, writer, critic);
-<span class="pk">await foreach</span> (<span class="pk">var</span> msg <span class="pk">in</span> chat.InvokeAsync())
-    Console.WriteLine(msg.Content);
-
-<span class="pc">// Process Framework — deterministic pipeline</span>
-<span class="pk">var</span> process = <span class="pk">new</span> ProcessBuilder(<span class="ps">"DocumentReview"</span>);
-<span class="pk">var</span> step1 = process.AddStepFromType&lt;ExtractStep&gt;();
-<span class="pk">var</span> step2 = process.AddStepFromType&lt;ReviewStep&gt;();
-step1.OnEvent(<span class="ps">"Extracted"</span>).SendEventTo(step2);</div></div>
-            </div>
-          </div>
-
-          <div class="qa-item medium">
-            <div class="qa-q" onclick="toggle(this)">
-              <span class="qa-q-num">Q6</span>
-              <span class="qa-q-text">How do you implement RAG with Azure AI Search hybrid search in Semantic Kernel?<span class="diff med">Medium</span><span class="cat">Azure RAG</span></span>
-              <span class="qa-q-icon">▶</span>
-            </div>
-            <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Azure AI Search supports <strong>hybrid search</strong> — vector similarity + keyword BM25 + semantic reranking in one query. SK connects natively via <code>AzureAISearchVectorStore</code>.<br><br>
-              <div class="qa-code"><span class="pk">using</span> Microsoft.SemanticKernel.Connectors.AzureAISearch;
-
-<span class="pk">var</span> vectorStore = <span class="pk">new</span> AzureAISearchVectorStore(
+        <div class="qa-item medium">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q5</span>
+            <span class="qa-q-text">SK Process Framework vs AgentGroupChat — when to use each?<span class="diff med">Medium</span><span class="cat">SK 2025</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>AgentGroupChat</strong> — dynamic, conversational multi-agent collaboration. Good for open-ended creative tasks.<br><br>
+            <strong>Process Framework</strong> — deterministic workflow, steps connect via typed events. Good for compliance-heavy processes with explicit auditable stages.</div></div>
+        </div>
+        <div class="qa-item medium">
+          <button class="qa-q" onclick="toggle(this)">
+            <span class="qa-q-num">Q6</span>
+            <span class="qa-q-text">How do you implement hybrid search RAG with Azure AI Search in SK?<span class="diff med">Medium</span><span class="cat">Azure RAG</span></span>
+            <span class="qa-q-icon">▶</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Azure AI Search supports vector + keyword + semantic reranking. SK connects via <code>AzureAISearchVectorStore</code>.
+            <div class="qa-code"><span class="pk">var</span> vectorStore = <span class="pk">new</span> AzureAISearchVectorStore(
     <span class="pk">new</span> Uri(searchEndpoint), <span class="pk">new</span> DefaultAzureCredential());
-
-<span class="pk">var</span> collection = vectorStore.GetCollection&lt;<span class="pk">string</span>, Doc&gt;(<span class="ps">"docs"</span>);
-
-<span class="pc">// Hybrid search: vector + keyword + semantic reranker</span>
 <span class="pk">var</span> results = <span class="pk">await</span> collection
-    .VectorizedSearchAsync(queryVector, <span class="pk">new</span> VectorSearchOptions
-    {{
-        Top = <span class="pn">5</span>,
-        IncludeTotalCount = <span class="pk">true</span>
-    }}).ToListAsync();</div>
-              <span class="tip">💡 Azure AI Search's semantic reranker (Bing-powered) dramatically improves result quality over pure vector search for enterprise RAG</span></div></div>
-          </div>
+    .VectorizedSearchAsync(queryVector, <span class="pk">new</span> VectorSearchOptions { Top=<span class="pn">5</span> })
+    .ToListAsync();</div>
+            <span class="tip">💡 Azure AI Search's semantic reranker dramatically improves result quality over pure vector search</span></div></div>
+        </div>
+      </div>
     </div><!-- end net-l1 -->
 
     <!-- ADVANCED .NET -->
     <div class="lc" id="net-l2">
       <div class="sec-head net-sec">🔥 ADVANCED SK & AZURE</div>
       <div class="qa-group">
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q1</span>
-            <span class="qa-q-text">Design a multi-agent system in Semantic Kernel. What is AgentGroupChat?<span class="diff hard">Hard</span><span class="cat">Multi-Agent</span></span>
+            <span class="qa-q-text">Design a multi-agent system in Semantic Kernel — what is AgentGroupChat?<span class="diff hard">Hard</span><span class="cat">Multi-Agent</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>AgentGroupChat</strong> (SK v1.x) enables multiple SK agents to collaborate in a conversation, each with their own persona, tools, and instructions.
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>AgentGroupChat</strong> lets multiple SK agents collaborate in a conversation, each with their own persona, tools, and instructions.
             <div class="qa-code"><span class="pk">var</span> researcher = <span class="pk">new</span> ChatCompletionAgent {
-    Name = <span class="ps">"Researcher"</span>, Kernel = kernel,
-    Instructions = <span class="ps">"Search and gather information. Be factual."</span>
+    Name=<span class="ps">"Researcher"</span>, Kernel=kernel,
+    Instructions=<span class="ps">"Search and gather information. Be factual."</span>
 };
 <span class="pk">var</span> writer = <span class="pk">new</span> ChatCompletionAgent {
-    Name = <span class="ps">"Writer"</span>, Kernel = kernel,
-    Instructions = <span class="ps">"Write engaging content from research."</span>
+    Name=<span class="ps">"Writer"</span>, Kernel=kernel,
+    Instructions=<span class="ps">"Write engaging content from research."</span>
 };
-<span class="pk">var</span> chat = <span class="pk">new</span> AgentGroupChat(researcher, writer) {
-    ExecutionSettings = <span class="pk">new</span> {
-        TerminationStrategy = <span class="pk">new</span> ApprovalTerminationStrategy()
-    }
-};
+<span class="pk">var</span> chat = <span class="pk">new</span> AgentGroupChat(researcher, writer);
 <span class="pk">await foreach</span> (<span class="pk">var</span> msg <span class="pk">in</span> chat.InvokeAsync())
-    Console.WriteLine(msg.Content);</div>
-            <span class="tip">💡 TerminationStrategy controls when to stop — by keyword, score, or fixed iterations</span></div></div>
+    Console.WriteLine(msg.Content);</div></div></div>
         </div>
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q2</span>
-            <span class="qa-q-text">How do you implement AI-powered self-healing test selectors in Playwright .NET?<span class="diff hard">Hard</span><span class="cat">QA</span></span>
+            <span class="qa-q-text">How do you implement self-healing test selectors in Playwright .NET?<span class="diff hard">Hard</span><span class="cat">QA</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Take screenshot → encode as base64 → send to GPT-4o Vision via SK → get new selector.
-            <div class="qa-code"><span class="pk">public async Task</span>&lt;<span class="pk">string</span>&gt; HealSelectorAsync(
-    IPage page, <span class="pk">string</span> elementPurpose)
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Screenshot → encode base64 → send to GPT-4o Vision via SK → get new selector.
+            <div class="qa-code"><span class="pk">public async Task</span>&lt;<span class="pk">string</span>&gt; HealSelectorAsync(IPage page, <span class="pk">string</span> purpose)
 {
-    <span class="pk">var</span> shot = <span class="pk">await</span> page.ScreenshotAsync();
-    <span class="pk">var</span> b64  = Convert.ToBase64String(shot);
-
-    <span class="pk">var</span> result = <span class="pk">await</span> _kernel.InvokePromptAsync(<span class="ps">$"""
-        Analyse this screenshot (base64: {b64[:100]}...)
-        Find the '{elementPurpose}' element.
-        Return ONLY a Playwright .NET selector string.
-        """</span>);
-    <span class="pk">return</span> result.ToString().Trim();
-}
-
-<span class="pc">// Usage in test</span>
-<span class="pk">try</span> { <span class="pk">await</span> page.ClickAsync(<span class="ps">"#old-btn"</span>); }
-<span class="pk">catch</span> {
-    <span class="pk">var</span> sel = <span class="pk">await</span> healer.HealSelectorAsync(page, <span class="ps">"Submit button"</span>);
-    <span class="pk">await</span> page.ClickAsync(sel);
-}</div></div>
-          </div>
+    <span class="pk">var</span> b64 = Convert.ToBase64String(<span class="pk">await</span> page.ScreenshotAsync());
+    <span class="pk">var</span> r   = <span class="pk">await</span> _kernel.InvokePromptAsync(
+        <span class="ps">$"Screenshot base64: {b64[..100]}... Find '{purpose}'. Return Playwright selector only."</span>);
+    <span class="pk">return</span> r.ToString().Trim();
+}</div></div></div>
         </div>
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q3</span>
-            <span class="qa-q-text">What is Semantic Kernel Process Framework and when would you use it over AgentGroupChat?<span class="diff hard">Hard</span><span class="cat">SK</span></span>
+            <span class="qa-q-text">SK Process Framework vs AgentGroupChat — deep comparison?<span class="diff hard">Hard</span><span class="cat">SK</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>SK Process Framework</strong> (v1.x) is a workflow engine where Steps connect via typed events — similar to LangGraph's StateGraph but with more explicit event routing.<br><br>
-            <strong>Use Process Framework when:</strong><ul><li>You need deterministic, auditable workflows (compliance, finance)</li><li>Steps are long-running (minutes/hours) with persistence</li><li>You need explicit error handling and compensation steps</li><li>Business process automation with clear stages</li></ul>
-            <strong>Use AgentGroupChat when:</strong><ul><li>Dynamic, conversational collaboration between agents</li><li>You don't know the exact steps upfront (open-ended reasoning)</li><li>Creative tasks: research → write → review</li></ul></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Process Framework:</strong> deterministic, auditable, typed events, long-running with persistence. Use for compliance/finance workflows, explicit error handling.<br><br>
+            <strong>AgentGroupChat:</strong> Dynamic conversational collaboration, open-ended reasoning, creative tasks like research → write → review.</div></div>
         </div>
-
         <div class="qa-item hard">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q4</span>
-            <span class="qa-q-text">How do you implement RAG with hybrid search in Azure AI Search + Semantic Kernel?<span class="diff hard">Hard</span><span class="cat">RAG/Azure</span></span>
+            <span class="qa-q-text">Hybrid RAG with Azure AI Search + Semantic Kernel in depth?<span class="diff hard">Hard</span><span class="cat">RAG/Azure</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div>Azure AI Search supports <strong>hybrid search</strong> (vector + keyword + semantic reranking) natively. SK connects via <code>AzureAISearchMemoryStore</code>.
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Hybrid = vector + keyword + semantic reranking in one query.
             <div class="qa-code"><span class="pk">var</span> memory = <span class="pk">new</span> MemoryBuilder()
-    .WithAzureOpenAITextEmbeddingGeneration(
-        deploymentName, endpoint, apiKey)
-    .WithMemoryStore(<span class="pk">new</span> AzureAISearchMemoryStore(
-        searchEndpoint, searchApiKey))
+    .WithAzureOpenAITextEmbeddingGeneration(deploy,endpoint,key)
+    .WithMemoryStore(<span class="pk">new</span> AzureAISearchMemoryStore(searchEndpoint,searchKey))
     .Build();
-
-<span class="pc">// Hybrid search: vector + keyword</span>
 <span class="pk">var</span> results = memory.SearchAsync(
-    collection: <span class="ps">"documents"</span>,
-    query: userQuestion,
-    limit: <span class="pn">5</span>,
-    minRelevanceScore: <span class="pn">0.75</span>);</div>
-            <span class="tip">💡 Azure AI Search's semantic reranker (powered by Bing) dramatically improves result quality over pure vector search</span></div></div>
+    <span class="ps">"documents"</span>, userQuestion, limit:<span class="pn">5</span>, minRelevanceScore:<span class="pn">0.75</span>);</div></div></div>
         </div>
-
       </div>
     </div><!-- end net-l2 -->
 
@@ -1324,198 +1137,184 @@ step1.OnEvent(<span class="ps">"Extracted"</span>).SendEventTo(step2);</div></di
     <div class="lc" id="net-l3">
       <div class="sec-head net-sec">👑 ENTERPRISE ARCHITECTURE</div>
       <div class="qa-group">
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q1</span>
-            <span class="qa-q-text">Design a production enterprise RAG system on Azure using .NET. Walk through your architecture decisions.<span class="diff pro">Pro</span><span class="cat">System Design</span></span>
+            <span class="qa-q-text">Design a production enterprise RAG system on Azure .NET — architecture decisions?<span class="diff pro">Pro</span><span class="cat">System Design</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Full Azure AI architecture:</strong><br>
-            <ul><li><strong>Ingestion:</strong> Azure Functions (triggered by Blob Storage upload) → PdfPig → TextChunker → Azure OpenAI embeddings → Azure AI Search index</li><li><strong>API layer:</strong> ASP.NET Core minimal API on Azure Container Apps (auto-scale 0→N)</li><li><strong>AI layer:</strong> Semantic Kernel + FunctionCallingPlanner + custom plugins</li><li><strong>Auth:</strong> Azure AD B2C + Managed Identity (no keys in code)</li><li><strong>Secrets:</strong> Azure Key Vault with Key Vault references in App Configuration</li><li><strong>Monitoring:</strong> Application Insights for traces, Azure Monitor for metrics, Log Analytics for queries</li><li><strong>Multi-tenancy:</strong> Separate Azure AI Search indexes per tenant OR row-level security with tenant_id filter</li><li><strong>Cost control:</strong> Azure OpenAI token quota per tenant, GPT-4o-mini for classification, GPT-4o for generation</li></ul>
-            <span class="hot">🔥 Interview tip: mention "Azure Well-Architected Framework pillars" — Reliability, Security, Cost, Performance, Operations</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>Ingestion:</strong> Azure Functions → PdfPig → TextChunker → Azure OpenAI embeddings → Azure AI Search</li>
+            <li><strong>API:</strong> ASP.NET Core minimal API on Azure Container Apps (auto-scale 0→N)</li>
+            <li><strong>AI layer:</strong> Semantic Kernel + FunctionCallingPlanner + custom plugins</li>
+            <li><strong>Auth:</strong> Azure AD B2C + Managed Identity (no keys in code)</li>
+            <li><strong>Monitoring:</strong> Application Insights, Azure Monitor, Log Analytics</li>
+            <li><strong>Multi-tenancy:</strong> Separate Azure AI Search indexes per tenant</li>
+            </ul>
+            <span class="hot">🔥 Mention "Azure Well-Architected Framework pillars" — Reliability, Security, Cost, Performance, Operations</span></div></div>
         </div>
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q2</span>
-            <span class="qa-q-text">How do you implement CI/CD for an AI-powered .NET application? How do you test AI outputs in a pipeline?<span class="diff pro">Pro</span><span class="cat">MLOps</span></span>
+            <span class="qa-q-text">How do you implement CI/CD for an AI-powered .NET application?<span class="diff pro">Pro</span><span class="cat">MLOps</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Azure DevOps pipeline stages:</strong><br>
-            <ul><li><strong>Build:</strong> <code>dotnet build</code>, static analysis (Roslyn analyzers), SAST (SonarQube)</li><li><strong>Unit tests:</strong> <code>dotnet test</code> — mock LLM responses using IKernel abstraction</li><li><strong>Integration tests:</strong> Playwright .NET against staging environment, real LLM calls</li><li><strong>AI quality gate:</strong> Run RAGAS evaluation against golden dataset — block deploy if faithfulness &lt; 0.85</li><li><strong>Deploy:</strong> Azure Container Registry → Container Apps with slot swapping (blue/green)</li><li><strong>Post-deploy:</strong> Smoke tests, canary traffic (10% → 50% → 100%), auto-rollback on error spike</li></ul>
-            <div class="qa-code"><span class="pc">// Mock LLM in unit tests</span>
-<span class="pk">var</span> mockKernel = <span class="pk">new</span> Mock&lt;Kernel&gt;();
-mockKernel.Setup(k => k.InvokePromptAsync(<span class="pn">It</span>.IsAny&lt;<span class="pk">string</span>&gt;()))
-    .ReturnsAsync(<span class="ps">"Mocked AI response"</span>);
-<span class="pc">// No real API calls in unit tests = fast, free, deterministic</span></div></div>
-          </div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>Build:</strong> dotnet build, Roslyn analyzers, SonarQube</li>
+            <li><strong>Unit tests:</strong> Mock LLM via IKernel abstraction — fast, free, deterministic</li>
+            <li><strong>Integration tests:</strong> Playwright against staging, real LLM calls</li>
+            <li><strong>AI quality gate:</strong> RAGAS eval against golden dataset — block if faithfulness &lt; 0.85</li>
+            <li><strong>Deploy:</strong> Azure Container Registry → Container Apps with blue/green</li>
+            </ul>
+            <div class="qa-code"><span class="pc">// Mock in unit tests — no real API calls</span>
+mockKernel.Setup(k => k.InvokePromptAsync(It.IsAny&lt;<span class="pk">string</span>&gt;()))
+    .ReturnsAsync(<span class="ps">"Mocked AI response"</span>);</div></div></div>
         </div>
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q3</span>
             <span class="qa-q-text">How do you handle LLM non-determinism in .NET test automation?<span class="diff pro">Pro</span><span class="cat">QA/MLOps</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Strategies:</strong><br>
-            <ul><li><strong>temperature=0:</strong> Makes responses deterministic for the same input — use for agent decisions and tool calls</li><li><strong>Semantic assertions:</strong> Instead of exact string match, use another LLM call to check if answer is semantically correct</li><li><strong>Snapshot testing:</strong> Store expected outputs, flag changes for human review — not auto-fail</li><li><strong>Retry with jitter:</strong> LLM calls are network I/O — use Polly for retry with exponential backoff</li></ul>
-            <div class="qa-code"><span class="pc">// Polly retry for LLM calls</span>
-<span class="pk">var</span> pipeline = <span class="pk">new</span> ResiliencePipelineBuilder()
-    .AddRetry(<span class="pk">new</span> RetryStrategyOptions {
-        MaxRetryAttempts = <span class="pn">3</span>,
-        Delay = TimeSpan.FromSeconds(<span class="pn">2</span>),
-        BackoffType = DelayBackoffType.Exponential
-    })
-    .Build();</div></div>
-          </div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>temperature=0:</strong> Deterministic for same input — use for agent decisions</li>
+            <li><strong>Semantic assertions:</strong> LLM-as-judge to check semantic correctness, not exact match</li>
+            <li><strong>Snapshot testing:</strong> Flag changes for human review, not auto-fail</li>
+            <li><strong>Polly retry:</strong> Exponential backoff for transient LLM failures</li>
+            </ul></div></div>
         </div>
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q4</span>
-            <span class="qa-q-text">You've been asked to migrate a Python LangChain agent to .NET Semantic Kernel. What's your approach?<span class="diff pro">Pro</span><span class="cat">Migration</span></span>
+            <span class="qa-q-text">Migrating Python LangChain agent to .NET Semantic Kernel — your approach?<span class="diff pro">Pro</span><span class="cat">Migration</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Migration map (Python → .NET):</strong><br>
-            <ul><li><code>@tool</code> decorator → <code>[KernelFunction]</code> attribute</li><li><code>ChatOpenAI</code> → <code>AddOpenAIChatCompletion</code></li><li><code>create_react_agent</code> → <code>FunctionCallingStepwisePlanner</code></li><li><code>LangGraph StateGraph</code> → <code>SK Process Framework</code> or <code>AgentGroupChat</code></li><li><code>FAISS</code> → <code>VolatileMemoryStore</code> or Qdrant connector</li><li><code>MemorySaver</code> → SK ChatHistory + custom persistence</li><li><code>FastAPI</code> → ASP.NET Core minimal API</li></ul>
-            <strong>Approach:</strong> 1) Map concepts, 2) Port tools/plugins first, 3) Migrate planner, 4) Add Azure-specific features (Key Vault, AI Search), 5) Integration tests with same golden dataset to verify parity
-            <span class="tip">💡 The business logic and prompts transfer directly — only the orchestration API changes</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Migration map:</strong><ul>
+            <li><code>@tool</code> → <code>[KernelFunction]</code></li>
+            <li><code>ChatOpenAI</code> → <code>AddOpenAIChatCompletion</code></li>
+            <li><code>create_react_agent</code> → <code>FunctionCallingStepwisePlanner</code></li>
+            <li><code>LangGraph StateGraph</code> → SK Process Framework</li>
+            <li><code>FAISS</code> → VolatileMemoryStore or Qdrant connector</li>
+            <li><code>FastAPI</code> → ASP.NET Core minimal API</li>
+            </ul>
+            <span class="tip">💡 Business logic and prompts transfer directly — only orchestration API changes</span></div></div>
         </div>
-
         <div class="qa-item pro">
-          <div class="qa-q" onclick="toggle(this)">
+          <button class="qa-q" onclick="toggle(this)">
             <span class="qa-q-num">Q5</span>
-            <span class="qa-q-text">What are the main compliance and governance considerations for an enterprise AI system on Azure?<span class="diff pro">Pro</span><span class="cat">Governance</span></span>
+            <span class="qa-q-text">Enterprise AI governance and compliance on Azure — key considerations?<span class="diff pro">Pro</span><span class="cat">Governance</span></span>
             <span class="qa-q-icon">▶</span>
-          </div>
-          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">&#128161; Answer:</div><strong>Key governance pillars:</strong><br>
-            <ul><li><strong>Data residency:</strong> Azure OpenAI regions ensure data stays in geography (EU, UK, US)</li><li><strong>Content filtering:</strong> Azure OpenAI built-in content filters — configure thresholds per use case</li><li><strong>Audit logging:</strong> All LLM calls logged to Azure Monitor + Log Analytics — immutable audit trail</li><li><strong>PII handling:</strong> Azure AI Language for PII detection/redaction before sending to LLM</li><li><strong>Model access control:</strong> Azure RBAC — only authorised service principals call Azure OpenAI</li><li><strong>Responsible AI:</strong> Microsoft's 6 principles built into Azure AI services — fairness, reliability, privacy, inclusiveness, transparency, accountability</li><li><strong>GDPR:</strong> Right to erasure — implement document deletion from vector index when user requests data removal</li></ul>
-            <span class="hot">🔥 For regulated industries (finance, healthcare): mention ISO 27001, SOC 2, HIPAA compliance on Azure</span></div></div>
+          </button>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><ul>
+            <li><strong>Data residency:</strong> Azure OpenAI regions ensure data stays in geography</li>
+            <li><strong>Content filtering:</strong> Azure OpenAI built-in filters — configure per use case</li>
+            <li><strong>Audit logging:</strong> All LLM calls → Azure Monitor immutable audit trail</li>
+            <li><strong>PII handling:</strong> Azure AI Language for PII detection/redaction</li>
+            <li><strong>RBAC:</strong> Only authorised service principals call Azure OpenAI</li>
+            <li><strong>GDPR:</strong> Implement document deletion from vector index on user request</li>
+            </ul>
+            <span class="hot">🔥 Regulated industries: mention ISO 27001, SOC 2, HIPAA compliance on Azure</span></div></div>
         </div>
-
       </div>
     </div><!-- end net-l3 -->
 
   </div><!-- end netright -->
 </div><!-- end sv -->
-</div><!-- end wrap -->
-
-
-
-
-
+</div><!-- end cwrap -->
 
 <script>
-// ── LEVEL SWITCHING ──────────────────────────────────────────
+/* ══ LEVEL SWITCHING ══ */
 function showLevel(idx, btn, activeClass) {
   document.querySelectorAll('.lvl').forEach(b =>
     b.classList.remove('act-b','act-i','act-a','act-p'));
   btn.classList.add(activeClass);
-
   ['py','net'].forEach(side => {
-    for(let i=0;i<4;i++){
-      const el=document.getElementById(side+'-l'+i);
-      if(el){el.classList.toggle('act',i===idx);}
+    for(let i = 0; i < 4; i++){
+      const el = document.getElementById(side + '-l' + i);
+      if(el) el.classList.toggle('act', i === idx);
     }
   });
-  ['pyleft','netright'].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.scrollTop=0;
-  });
-  if(window._resetSyncLastRef) window._resetSyncLastRef();
+  // Reset scroll position
+  document.getElementById('pyleft').scrollTop = 0;
+  document.getElementById('netright').scrollTop = 0;
+  pyLast = 0; netLast = 0;
 }
 
-// ── ACCORDION ────────────────────────────────────────────────
-function toggle(el){
-  var ans = el.nextElementSibling;
-  var icon = el.querySelector('.qa-q-icon');
-  if(!ans) return;
-  if(ans.classList.contains('open')){
-    ans.classList.remove('open');
-    if(icon) icon.classList.remove('open');
-  } else {
-    ans.classList.add('open');
-    if(icon) icon.classList.add('open');
-  }
+/* ══ ACCORDION ══ */
+function toggle(btn) {
+  var ans  = btn.nextElementSibling;
+  var icon = btn.querySelector('.qa-q-icon');
+  if (!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  if (icon) icon.classList.toggle('open', !isOpen);
 }
-</script>
-<script src="analytics.js"></script>
-<script src="widgets.js">
-/* ═══ SYNC SCROLL ═══ */
-(function(){
-  var py  = document.getElementById('pyleft');
-  var net = document.getElementById('netright');
-  if(!py || !net) return;
 
-  var lock = false, pyLast = 0, netLast = 0;
+/* ══ SYNC SCROLL ══ */
+var py     = document.getElementById('pyleft');
+var net    = document.getElementById('netright');
+var lock   = false;
+var pyLast = 0, netLast = 0;
 
-  py.addEventListener('scroll', function(){
-    if(lock) return;
-    lock = true;
-    var delta = py.scrollTop - pyLast;
-    net.scrollTop += delta;
-    pyLast  = py.scrollTop;
-    netLast = net.scrollTop;
-    requestAnimationFrame(function(){ lock = false; });
-  });
+py.addEventListener('scroll', function() {
+  if (lock) return;
+  lock = true;
+  var delta = py.scrollTop - pyLast;
+  net.scrollTop += delta;
+  pyLast  = py.scrollTop;
+  netLast = net.scrollTop;
+  requestAnimationFrame(function(){ lock = false; });
+});
 
-  net.addEventListener('scroll', function(){
-    if(lock) return;
-    lock = true;
-    var delta = net.scrollTop - netLast;
-    py.scrollTop += delta;
-    netLast = net.scrollTop;
-    pyLast  = py.scrollTop;
-    requestAnimationFrame(function(){ lock = false; });
-  });
+net.addEventListener('scroll', function() {
+  if (lock) return;
+  lock = true;
+  var delta = net.scrollTop - netLast;
+  py.scrollTop += delta;
+  netLast = net.scrollTop;
+  pyLast  = py.scrollTop;
+  requestAnimationFrame(function(){ lock = false; });
+});
 
-  /* Reset sync refs when level changes */
-  window._resetSyncLastRef = function(){
-    pyLast = 0; netLast = 0;
-    py.scrollTop = 0; net.scrollTop = 0;
-  };
-})();
-
-/* ═══ DRAGGABLE SPLITTER ═══ */
-(function(){
+/* ══ DRAGGABLE SPLITTER ══ */
+(function() {
   var spl  = document.getElementById('spl');
-  var drag = false;
-  if(!spl) return;
+  var sv   = document.getElementById('sv');
+  var dragging = false;
 
-  spl.addEventListener('mousedown', function(e){
-    drag = true; document.body.style.cursor='col-resize'; e.preventDefault();
-  });
-  document.addEventListener('mousemove', function(e){
-    if(!drag) return;
-    var sv = document.querySelector('.sv');
-    if(!sv) return;
-    var r  = sv.getBoundingClientRect();
-    var lw = Math.max(200, Math.min(e.clientX - r.left, r.width - 200));
-    var rw = r.width - lw - 14;
-    var lp = document.getElementById('pyleft');
-    var rp = document.getElementById('netright');
-    if(lp){ lp.style.flex='none'; lp.style.width=lw+'px'; }
-    if(rp){ rp.style.flex='none'; rp.style.width=rw+'px'; }
-  });
-  document.addEventListener('mouseup', function(){ drag=false; document.body.style.cursor=''; });
+  function onMove(clientX) {
+    if (!dragging) return;
+    var rect = sv.getBoundingClientRect();
+    var splW = spl.offsetWidth;
+    var lw   = Math.max(180, Math.min(clientX - rect.left, rect.width - splW - 180));
+    var rw   = rect.width - lw - splW;
+    py.style.flex  = 'none';
+    py.style.width = lw + 'px';
+    net.style.flex  = 'none';
+    net.style.width = rw + 'px';
+  }
 
-  spl.addEventListener('touchstart', function(e){ drag=true; e.preventDefault(); },{passive:false});
-  document.addEventListener('touchmove', function(e){
-    if(!drag) return;
-    var t=e.touches[0];
-    var sv=document.querySelector('.sv');
-    if(!sv) return;
-    var r=sv.getBoundingClientRect();
-    var lw=Math.max(150,Math.min(t.clientX-r.left,r.width-150));
-    var rw=r.width-lw-14;
-    var lp=document.getElementById('pyleft');
-    var rp=document.getElementById('netright');
-    if(lp){lp.style.flex='none';lp.style.width=lw+'px';}
-    if(rp){rp.style.flex='none';rp.style.width=rw+'px';}
-  },{passive:true});
-  document.addEventListener('touchend', function(){ drag=false; });
+  spl.addEventListener('mousedown', function(e) {
+    dragging = true;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) { onMove(e.clientX); });
+  document.addEventListener('mouseup',   function()  {
+    dragging = false;
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+  });
+
+  spl.addEventListener('touchstart', function(e) {
+    dragging = true; e.preventDefault();
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e) {
+    onMove(e.touches[0].clientX);
+  }, { passive: true });
+  document.addEventListener('touchend', function() { dragging = false; });
 })();
-
 </script>
 </body>
 </html>
