@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for HR Professionals – AICycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--accent:#7c2d12;--accent2:#b45309;--yellow:#e6a817;--hot:#c2185b;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#fffbf5;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#fed7aa 39px,#fed7aa 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#fed7aa 39px,#fed7aa 40px);font-family:var(--fb);color:#1e293b;min-height:100vh;}
+.hero{background:linear-gradient(135deg,#3b0764 0%,#7c2d12 55%,#b45309 100%);padding:1.5rem 2rem 1.2rem;border-bottom:4px solid var(--ink);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(230,168,23,.15);border:1.5px solid rgba(230,168,23,.4);border-radius:20px;padding:.2rem .85rem;font-family:var(--ft);font-size:.85rem;letter-spacing:1.5px;color:#fde68a;margin-bottom:.6rem;}
+.hero h1{font-family:var(--ft);font-size:2.4rem;color:#fff;letter-spacing:2px;line-height:1.05;text-shadow:2px 2px 0 rgba(0,0,0,.3);}
+.hero h1 em{color:#fde68a;font-style:normal;}
+.hero-sub{color:rgba(255,255,255,.85);font-size:.95rem;margin:.5rem 0 1rem;max-width:580px;line-height:1.7;}
+.hero-stats{display:flex;gap:.7rem;flex-wrap:wrap;}
+.hstat{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:.45rem .9rem;text-align:center;}
+.hstat-n{font-family:var(--ft);font-size:1.3rem;color:#fde68a;display:block;line-height:1;}
+.hstat-l{font-size:.62rem;color:rgba(255,255,255,.7);font-weight:800;letter-spacing:.8px;text-transform:uppercase;}
+.speak-hero{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:.25rem .85rem;color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.8rem;transition:all .15s;}
+.speak-hero:hover{background:rgba(255,255,255,.2);}
+.speak-hero svg{width:14px;height:14px;}
+.page{max-width:900px;margin:0 auto;padding:1.5rem 1.2rem;}
+.sec{font-family:var(--ft);font-size:1.1rem;letter-spacing:2px;color:#fff;background:var(--accent);border:2.5px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--ink);padding:.4rem .9rem;display:inline-block;margin-bottom:.9rem;}
+.myth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.myth-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.myth-top{padding:.7rem .9rem .5rem;display:flex;align-items:center;gap:.5rem;}
+.myth-icon{font-size:1.5rem;}
+.myth-title{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:var(--ink);}
+.myth-label{font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:auto;}
+.myth-label.fear{background:#fce7f3;color:var(--hot);}
+.myth-label.fact{background:#fef3c7;color:#92400e;}
+.myth-body{padding:.5rem .9rem .85rem;font-size:.88rem;line-height:1.7;color:#374151;}
+.myth-body strong{color:var(--accent);}
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.9rem;margin-bottom:1.5rem;}
+.uc-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.9rem 1rem;transition:transform .15s,box-shadow .15s;}
+.uc-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.uc-head{display:flex;align-items:center;gap:.55rem;margin-bottom:.5rem;}
+.uc-emoji{font-size:1.4rem;}
+.uc-name{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:var(--ink);}
+.uc-desc{font-size:.85rem;color:#374151;line-height:1.65;}
+.uc-tag{display:inline-block;background:#fef3c7;color:#92400e;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:8px;margin-top:.4rem;border:1px solid #fcd34d;}
+.speak-btn{margin-top:.5rem;display:inline-flex;align-items:center;gap:.3rem;background:rgba(124,45,18,.08);border:1.5px solid rgba(124,45,18,.2);border-radius:8px;padding:.22rem .6rem;font-size:.72rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all .15s;}
+.speak-btn:hover{background:rgba(124,45,18,.15);}
+.speak-btn svg{width:12px;height:12px;}
+.roadmap{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem;}
+.rm-step{display:flex;align-items:flex-start;gap:.8rem;background:#fff;border:2.5px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);padding:.75rem .9rem;}
+.rm-num{font-family:var(--ft);font-size:1.1rem;min-width:32px;height:32px;border-radius:8px;background:var(--accent);color:#fff;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:2px 2px 0 var(--ink);}
+.rm-content strong{font-size:.92rem;color:var(--ink);display:block;margin-bottom:.2rem;}
+.rm-content p{font-size:.83rem;color:#475569;line-height:1.6;}
+.cta-box{background:linear-gradient(135deg,#3b0764,#7c2d12);border:2.5px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;text-align:center;margin-top:1.5rem;}
+.cta-box h3{font-family:var(--ft);font-size:1.5rem;color:#fde68a;letter-spacing:2px;margin-bottom:.4rem;}
+.cta-box p{color:rgba(255,255,255,.8);font-size:.88rem;line-height:1.6;margin-bottom:.8rem;}
+.cta-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--yellow);color:var(--ink);font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;padding:.4rem 1.2rem;border-radius:10px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:all .15s;text-decoration:none;}
+.cta-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);}
+@media(max-width:600px){.hero h1{font-size:1.7rem;}.page{padding:1rem .8rem;}.myth-grid,.uc-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🤝 FOR HR PROFESSIONALS</div>
+    <h1>AI Handles the Paperwork.<br><em>You Handle the People.</em></h1>
+    <p class="hero-sub">HR has always been about humans. AI takes the repetitive admin off your plate so you can do what only you can — build culture, develop talent, and lead people.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">75%</span><span class="hstat-l">Faster Screening</span></div>
+      <div class="hstat"><span class="hstat-n">50%</span><span class="hstat-l">Less Admin Time</span></div>
+      <div class="hstat"><span class="hstat-n">100%</span><span class="hstat-l">More Human Time</span></div>
+      <div class="hstat"><span class="hstat-n">0</span><span class="hstat-l">Code Needed</span></div>
+    </div>
+    <button class="speak-hero" onclick="speak('AI handles the paperwork. You handle the people. HR has always been about humans. AI takes the repetitive admin off your plate so you can do what only you can — build culture, develop talent, and lead people.')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      🔈 Listen to this page intro
+    </button>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sec">😨 MYTHS vs REALITY</div>
+  <div class="myth-grid">
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😰</span><span class="myth-title">AI will make HR impersonal</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">AI removes the <strong>impersonal parts</strong> — like manually sorting 500 CVs. The deeply human parts — difficult conversations, empathy, culture — <strong>cannot be automated</strong>. Ever.</div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😤</span><span class="myth-title">AI is biased in hiring</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">Poorly configured AI can be biased — but so can humans. <strong>Properly used AI removes bias</strong> by focusing on skills and anonymising demographics. You stay in control of the criteria.</div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">✅</span><span class="myth-title">AI frees HR for strategic work</span><span class="myth-label fact">FACT</span></div>
+      <div class="myth-body">HR teams using AI spend <strong>less time on scheduling and paperwork</strong>, and more time on <strong>succession planning, leadership development, and employee wellbeing</strong> — the real HR.</div>
+    </div>
+  </div>
+
+  <div class="sec">⚡ WHAT YOU CAN DO WITH AI — TODAY</div>
+  <div class="uc-grid">
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📄</span><span class="uc-name">CV Screening</span></div>
+      <p class="uc-desc">Upload 200 CVs → AI ranks candidates by fit, highlights key skills, and flags red flags — in 2 minutes instead of 2 days.</p>
+      <span class="uc-tag">RAG + LLM</span>
+      <br><button class="speak-btn" onclick="speak('CV Screening. Upload 200 CVs and AI ranks candidates by fit, highlights key skills, and flags red flags in 2 minutes instead of 2 days.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">✍️</span><span class="uc-name">Job Description Writing</span></div>
+      <p class="uc-desc">Tell AI the role, team, and culture → it writes an inclusive, compelling JD that attracts diverse talent and passes bias checkers.</p>
+      <span class="uc-tag">ChatGPT / Copilot</span>
+      <br><button class="speak-btn" onclick="speak('Job Description Writing. Tell AI the role, team, and culture and it writes an inclusive, compelling job description that attracts diverse talent.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📅</span><span class="uc-name">Interview Scheduling</span></div>
+      <p class="uc-desc">AI agents coordinate calendars across candidates and interviewers automatically — no more 15-email back-and-forths.</p>
+      <span class="uc-tag">Agentic AI</span>
+      <br><button class="speak-btn" onclick="speak('Interview Scheduling. AI agents coordinate calendars across candidates and interviewers automatically, no more 15-email back and forths.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📊</span><span class="uc-name">Employee Survey Analysis</span></div>
+      <p class="uc-desc">500 open-text survey responses → AI identifies themes, sentiment trends, and urgent signals in your workforce in seconds.</p>
+      <span class="uc-tag">NLP + LLM</span>
+      <br><button class="speak-btn" onclick="speak('Employee Survey Analysis. 500 open-text survey responses — AI identifies themes, sentiment trends, and urgent signals in your workforce in seconds.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🎓</span><span class="uc-name">Learning Path Builder</span></div>
+      <p class="uc-desc">AI analyses skill gaps per employee and generates personalised learning plans linking to real resources — at scale.</p>
+      <span class="uc-tag">Personalised L&D</span>
+      <br><button class="speak-btn" onclick="speak('Learning Path Builder. AI analyses skill gaps per employee and generates personalised learning plans linking to real resources, at scale.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🤖</span><span class="uc-name">HR Policy Chatbot</span></div>
+      <p class="uc-desc">Build a chatbot on your HR handbook — employees ask "how many days annual leave?" and get instant, accurate answers 24/7.</p>
+      <span class="uc-tag">RAG Pipeline</span>
+      <br><button class="speak-btn" onclick="speak('HR Policy Chatbot. Build a chatbot on your HR handbook so employees get instant accurate answers to policy questions 24 hours a day.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+  </div>
+
+  <div class="sec">🗺️ YOUR AI LEARNING ROADMAP</div>
+  <div class="roadmap">
+    <div class="rm-step"><div class="rm-num">1</div><div class="rm-content"><strong>Start Using ChatGPT for HR Tasks (Week 1)</strong><p>Ask it to write a job description, generate interview questions, or summarise a policy document. Free, instant, no signup needed for basics.</p></div></div>
+    <div class="rm-step"><div class="rm-num">2</div><div class="rm-content"><strong>Explore AI HR Tools (Week 2–3)</strong><p>Try Workday AI, HireVue, or LinkedIn Recruiter AI features — many you already pay for but haven't activated the AI layer.</p></div></div>
+    <div class="rm-step"><div class="rm-num">3</div><div class="rm-content"><strong>Understand RAG for Policy Bots (Month 1)</strong><p>Read the RAG tab to understand how to build a chatbot on your HR handbook. No coding required to understand the concept.</p></div></div>
+    <div class="rm-step"><div class="rm-num">4</div><div class="rm-content"><strong>Analyse Your People Data (Month 2)</strong><p>Export engagement survey data → use ChatGPT to find themes and patterns you'd spend weeks manually coding. Transform your L&D strategy.</p></div></div>
+    <div class="rm-step"><div class="rm-num">5</div><div class="rm-content"><strong>Champion AI Ethics in Your Org (Month 3)</strong><p>HR is perfectly placed to lead responsible AI adoption — bias auditing, transparency, and human-in-the-loop hiring practices.</p></div></div>
+  </div>
+
+  <div class="cta-box">
+    <h3>🤝 READY TO GO?</h3>
+    <p>See the Agentic AI section to understand how AI assistants can handle scheduling, follow-ups, and onboarding workflows for your team.</p>
+    <a class="cta-btn" href="agentic.html">⚡ EXPLORE AGENTIC AI</a>
+  </div>
+</div>
+
+<script>
+var synth=window.speechSynthesis,voices=[];
+function loadVoices(){voices=synth.getVoices();}
+loadVoices();
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=loadVoices;
+function pickFemale(){var names=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Aria - English (United States)','Samantha','Karen','Microsoft Zira - English (United States)','Google UK English Female'];for(var i=0;i<names.length;i++){var v=voices.find(function(v){return v.name===names[i];});if(v)return v;}return voices.find(function(v){return v.lang&&v.lang.startsWith('en');})||null;}
+function speak(text){synth.cancel();var u=new SpeechSynthesisUtterance(text);u.voice=pickFemale();u.rate=0.92;u.pitch=1.0;u.volume=1.0;synth.speak(u);}
+</script>
+</body>
+</html>

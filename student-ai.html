@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Students – AICycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--accent:#1e3a8a;--accent2:#1d4ed8;--yellow:#e6a817;--hot:#c2185b;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#f0f7ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#bfdbfe 39px,#bfdbfe 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#bfdbfe 39px,#bfdbfe 40px);font-family:var(--fb);color:#1e293b;min-height:100vh;}
+.hero{background:linear-gradient(135deg,#0c1445 0%,#1e3a8a 55%,#1d4ed8 100%);padding:1.5rem 2rem 1.2rem;border-bottom:4px solid var(--ink);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(230,168,23,.15);border:1.5px solid rgba(230,168,23,.4);border-radius:20px;padding:.2rem .85rem;font-family:var(--ft);font-size:.85rem;letter-spacing:1.5px;color:#fde68a;margin-bottom:.6rem;}
+.hero h1{font-family:var(--ft);font-size:2.4rem;color:#fff;letter-spacing:2px;line-height:1.05;text-shadow:2px 2px 0 rgba(0,0,0,.3);}
+.hero h1 em{color:#fde68a;font-style:normal;}
+.hero-sub{color:rgba(255,255,255,.85);font-size:.95rem;margin:.5rem 0 1rem;max-width:580px;line-height:1.7;}
+.hero-stats{display:flex;gap:.7rem;flex-wrap:wrap;}
+.hstat{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:.45rem .9rem;text-align:center;}
+.hstat-n{font-family:var(--ft);font-size:1.3rem;color:#fde68a;display:block;line-height:1;}
+.hstat-l{font-size:.62rem;color:rgba(255,255,255,.7);font-weight:800;letter-spacing:.8px;text-transform:uppercase;}
+.speak-hero{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:.25rem .85rem;color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.8rem;transition:all .15s;}
+.speak-hero:hover{background:rgba(255,255,255,.2);}
+.speak-hero svg{width:14px;height:14px;}
+.page{max-width:900px;margin:0 auto;padding:1.5rem 1.2rem;}
+.sec{font-family:var(--ft);font-size:1.1rem;letter-spacing:2px;color:#fff;background:var(--accent);border:2.5px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--ink);padding:.4rem .9rem;display:inline-block;margin-bottom:.9rem;}
+
+/* career path cards */
+.path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem;margin-bottom:1.5rem;}
+.path-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.9rem 1rem;transition:transform .15s,box-shadow .15s;}
+.path-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.path-head{display:flex;align-items:center;gap:.55rem;margin-bottom:.5rem;}
+.path-emoji{font-size:1.5rem;}
+.path-name{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:var(--ink);}
+.path-desc{font-size:.83rem;color:#374151;line-height:1.6;}
+.path-sal{display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:8px;margin-top:.4rem;border:1px solid #93c5fd;}
+.speak-btn{margin-top:.5rem;display:inline-flex;align-items:center;gap:.3rem;background:rgba(30,58,138,.08);border:1.5px solid rgba(30,58,138,.2);border-radius:8px;padding:.22rem .6rem;font-size:.72rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all .15s;}
+.speak-btn:hover{background:rgba(30,58,138,.15);}
+.speak-btn svg{width:12px;height:12px;}
+
+.myth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.myth-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.myth-top{padding:.7rem .9rem .5rem;display:flex;align-items:center;gap:.5rem;}
+.myth-icon{font-size:1.5rem;}
+.myth-title{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:var(--ink);}
+.myth-label{font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:auto;}
+.myth-label.fear{background:#fce7f3;color:var(--hot);}
+.myth-label.fact{background:#dbeafe;color:#1d4ed8;}
+.myth-body{padding:.5rem .9rem .85rem;font-size:.88rem;line-height:1.7;color:#374151;}
+.myth-body strong{color:var(--accent);}
+
+.roadmap{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem;}
+.rm-step{display:flex;align-items:flex-start;gap:.8rem;background:#fff;border:2.5px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);padding:.75rem .9rem;}
+.rm-num{font-family:var(--ft);font-size:1.1rem;min-width:32px;height:32px;border-radius:8px;background:var(--accent);color:#fff;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:2px 2px 0 var(--ink);}
+.rm-content strong{font-size:.92rem;color:var(--ink);display:block;margin-bottom:.2rem;}
+.rm-content p{font-size:.83rem;color:#475569;line-height:1.6;}
+
+/* motivational quote */
+.quote-box{background:linear-gradient(135deg,#1e3a8a,#1d4ed8);border:2.5px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;margin:1.2rem 0;text-align:center;}
+.quote-box p{font-family:var(--ft);font-size:1.4rem;color:#fde68a;letter-spacing:1px;line-height:1.3;margin-bottom:.4rem;}
+.quote-box span{font-size:.8rem;color:rgba(255,255,255,.6);}
+
+.cta-box{background:linear-gradient(135deg,#0c1445,#1e3a8a);border:2.5px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;text-align:center;margin-top:1.5rem;}
+.cta-box h3{font-family:var(--ft);font-size:1.5rem;color:#fde68a;letter-spacing:2px;margin-bottom:.4rem;}
+.cta-box p{color:rgba(255,255,255,.8);font-size:.88rem;line-height:1.6;margin-bottom:.8rem;}
+.cta-btns{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;}
+.cta-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--yellow);color:var(--ink);font-family:var(--ft);font-size:.95rem;letter-spacing:1.5px;padding:.4rem 1.1rem;border-radius:10px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:all .15s;text-decoration:none;}
+.cta-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);}
+.cta-btn.sec-btn{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3);}
+@media(max-width:600px){.hero h1{font-size:1.7rem;}.page{padding:1rem .8rem;}.myth-grid,.path-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🎓 FOR STUDENTS</div>
+    <h1>You Are Learning AI<br><em>At Exactly the Right Time.</em></h1>
+    <p class="hero-sub">The students who learn AI now will be the leaders in 5 years. Every field — medicine, law, art, engineering — needs people who can work with AI. That's you.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">97%</span><span class="hstat-l">Jobs Will Use AI</span></div>
+      <div class="hstat"><span class="hstat-n">40%</span><span class="hstat-l">Higher Salary</span></div>
+      <div class="hstat"><span class="hstat-n">Free</span><span class="hstat-l">This Entire Course</span></div>
+      <div class="hstat"><span class="hstat-n">0→∞</span><span class="hstat-l">Start from Zero</span></div>
+    </div>
+    <button class="speak-hero" onclick="speak('You are learning AI at exactly the right time. The students who learn AI now will be the leaders in 5 years. Every field — medicine, law, art, engineering — needs people who can work with AI. That is you.')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      🔈 Listen to this page intro
+    </button>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="sec">😨 MYTHS STOPPING STUDENTS</div>
+  <div class="myth-grid">
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😰</span><span class="myth-title">I need to be a maths genius</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">Modern AI development is <strong>mostly software engineering</strong>, not maths. Tools like LangChain and LlamaIndex let you build powerful AI apps with <strong>basic Python</strong> — learned in weeks.</div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😤</span><span class="myth-title">AI jobs are only for CS grads</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">Companies desperately need AI-skilled people in <strong>every department</strong> — marketing, finance, product, HR, legal. Your domain knowledge + AI skills = <strong>extremely rare and valuable</strong>.</div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">✅</span><span class="myth-title">You can start today for free</span><span class="myth-label fact">FACT</span></div>
+      <div class="myth-body">This entire site is free. Python is free. ChatGPT free tier. Hugging Face free. <strong>Everything you need to go from zero to building real AI applications costs nothing</strong> except your time.</div>
+    </div>
+  </div>
+
+  <div class="sec">🚀 CAREER PATHS IN AI</div>
+  <div class="path-grid">
+    <div class="path-card">
+      <div class="path-head"><span class="path-emoji">🤖</span><span class="path-name">AI/ML Engineer</span></div>
+      <p class="path-desc">Build and deploy machine learning models. Python, PyTorch, MLOps. Most in-demand role in tech right now.</p>
+      <span class="path-sal">💰 £70k–£150k</span>
+      <br><button class="speak-btn" onclick="speak('AI and ML Engineer. Build and deploy machine learning models using Python, PyTorch, and MLOps. The most in-demand role in tech right now.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="path-card">
+      <div class="path-head"><span class="path-emoji">💬</span><span class="path-name">Prompt Engineer</span></div>
+      <p class="path-desc">Design prompts and AI workflows that get the best results from LLMs. Creativity + logic. No heavy coding required.</p>
+      <span class="path-sal">💰 £50k–£100k</span>
+      <br><button class="speak-btn" onclick="speak('Prompt Engineer. Design prompts and AI workflows that get the best results from large language models. Creativity plus logic, no heavy coding required.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="path-card">
+      <div class="path-head"><span class="path-emoji">🔍</span><span class="path-name">AI Product Manager</span></div>
+      <p class="path-desc">Define what AI products should do and why. Bridge between business needs and technical teams. Strategy + AI literacy.</p>
+      <span class="path-sal">💰 £65k–£130k</span>
+      <br><button class="speak-btn" onclick="speak('AI Product Manager. Define what AI products should do and why. Bridge between business needs and technical teams. Strategy plus AI literacy.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="path-card">
+      <div class="path-head"><span class="path-emoji">🛡️</span><span class="path-name">AI Ethics & Policy</span></div>
+      <p class="path-desc">Ensure AI is used fairly and safely. Law, philosophy, social science + AI understanding. Hugely needed in government and enterprise.</p>
+      <span class="path-sal">💰 £55k–£110k</span>
+      <br><button class="speak-btn" onclick="speak('AI Ethics and Policy. Ensure AI is used fairly and safely. Law, philosophy, social science combined with AI understanding. Hugely needed in government and enterprise.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="path-card">
+      <div class="path-head"><span class="path-emoji">📊</span><span class="path-name">Data Scientist</span></div>
+      <p class="path-desc">Find insights in data. Statistics, Python, visualisation. Every industry needs data scientists who understand AI.</p>
+      <span class="path-sal">💰 £55k–£120k</span>
+      <br><button class="speak-btn" onclick="speak('Data Scientist. Find insights in data using statistics, Python, and visualisation. Every industry needs data scientists who understand AI.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="path-card">
+      <div class="path-head"><span class="path-emoji">🎨</span><span class="path-name">AI in Your Field</span></div>
+      <p class="path-desc">Medicine, law, art, journalism — every profession will need AI specialists. Your domain + AI = a career nobody else has yet.</p>
+      <span class="path-sal">💰 Premium in every field</span>
+      <br><button class="speak-btn" onclick="speak('AI in Your Field. Medicine, law, art, journalism — every profession will need AI specialists. Your domain combined with AI equals a career nobody else has yet.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>"The best time to learn AI was 2020. The second best time is right now."</p>
+    <span>— Every tech hiring manager in 2025</span>
+  </div>
+
+  <div class="sec">🗺️ YOUR LEARNING ROADMAP (Zero to Hired)</div>
+  <div class="roadmap">
+    <div class="rm-step"><div class="rm-num">1</div><div class="rm-content"><strong>Understand AI Concepts (Week 1–2)</strong><p>Read INTRO → ML → LLMs on this site. No code yet. Just build an accurate mental model of what AI actually is. Takes about 2 hours total.</p></div></div>
+    <div class="rm-step"><div class="rm-num">2</div><div class="rm-content"><strong>Learn Python Basics (Month 1)</strong><p>100 Days of Code on Udemy (£10) or Python.org free tutorial. Focus on: variables, loops, functions, lists. That's 80% of what you need for AI.</p></div></div>
+    <div class="rm-step"><div class="rm-num">3</div><div class="rm-content"><strong>Build Your First AI App (Month 2)</strong><p>Use LangChain + OpenAI API to build a simple Q&A chatbot. Follow the Python RAG tab on this site. You'll have something to show employers.</p></div></div>
+    <div class="rm-step"><div class="rm-num">4</div><div class="rm-content"><strong>Build a Portfolio Project (Month 3)</strong><p>Pick a problem in your field → solve it with AI → document it on GitHub. "I built an AI tool for X" is more powerful than any certificate.</p></div></div>
+    <div class="rm-step"><div class="rm-num">5</div><div class="rm-content"><strong>Apply & Network (Month 4+)</strong><p>LinkedIn posts about your projects, AI meetups, open source contributions. The AI community is welcoming to newcomers. Show your work.</p></div></div>
+  </div>
+
+  <div class="cta-box">
+    <h3>🎓 START YOUR JOURNEY NOW</h3>
+    <p>The INTRO tab gives you a 30-minute overview of everything AI — designed for complete beginners. No maths. No jargon. Just clarity.</p>
+    <div class="cta-btns">
+      <a class="cta-btn" href="intro.html">🌱 START WITH INTRO</a>
+      <a class="cta-btn sec-btn" href="career.html">🎯 CAREER GUIDE</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var synth=window.speechSynthesis,voices=[];
+function loadVoices(){voices=synth.getVoices();}
+loadVoices();
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=loadVoices;
+function pickFemale(){var names=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Aria - English (United States)','Samantha','Karen','Microsoft Zira - English (United States)','Google UK English Female'];for(var i=0;i<names.length;i++){var v=voices.find(function(v){return v.name===names[i];});if(v)return v;}return voices.find(function(v){return v.lang&&v.lang.startsWith('en');})||null;}
+function speak(text){synth.cancel();var u=new SpeechSynthesisUtterance(text);u.voice=pickFemale();u.rate=0.92;u.pitch=1.0;u.volume=1.0;synth.speak(u);}
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Doctors & Clinicians – AICycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--accent:#0f4c5c;--accent2:#0891b2;--yellow:#e6a817;--hot:#c2185b;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#f0fdff;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#cffafe 39px,#cffafe 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#cffafe 39px,#cffafe 40px);font-family:var(--fb);color:#1e293b;min-height:100vh;}
+
+.hero{background:linear-gradient(135deg,#042f3e 0%,#0f4c5c 50%,#0891b2 100%);padding:1.5rem 2rem 1.2rem;border-bottom:4px solid var(--ink);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(230,168,23,.15);border:1.5px solid rgba(230,168,23,.4);border-radius:20px;padding:.2rem .85rem;font-family:var(--ft);font-size:.85rem;letter-spacing:1.5px;color:#fde68a;margin-bottom:.6rem;}
+.hero h1{font-family:var(--ft);font-size:2.4rem;color:#fff;letter-spacing:2px;line-height:1.05;text-shadow:2px 2px 0 rgba(0,0,0,.3);}
+.hero h1 em{color:#fde68a;font-style:normal;}
+.hero-sub{color:rgba(255,255,255,.85);font-size:.95rem;margin:.5rem 0 1rem;max-width:580px;line-height:1.7;}
+.hero-stats{display:flex;gap:.7rem;flex-wrap:wrap;}
+.hstat{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:.45rem .9rem;text-align:center;}
+.hstat-n{font-family:var(--ft);font-size:1.3rem;color:#fde68a;display:block;line-height:1;}
+.hstat-l{font-size:.62rem;color:rgba(255,255,255,.7);font-weight:800;letter-spacing:.8px;text-transform:uppercase;}
+.speak-hero{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:.25rem .85rem;color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.8rem;transition:all .15s;}
+.speak-hero:hover{background:rgba(255,255,255,.2);}
+.speak-hero svg{width:14px;height:14px;}
+
+.page{max-width:900px;margin:0 auto;padding:1.5rem 1.2rem;}
+.sec{font-family:var(--ft);font-size:1.1rem;letter-spacing:2px;color:#fff;background:var(--accent);border:2.5px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--ink);padding:.4rem .9rem;display:inline-block;margin-bottom:.9rem;}
+
+/* Important notice box */
+.notice{background:linear-gradient(135deg,#fefce8,#fef9c3);border:2.5px solid #d97706;border-radius:10px;box-shadow:3px 3px 0 var(--ink);padding:.85rem 1rem;margin-bottom:1.4rem;display:flex;gap:.7rem;align-items:flex-start;}
+.notice-icon{font-size:1.4rem;flex-shrink:0;}
+.notice-text{font-size:.85rem;line-height:1.65;color:#78350f;}
+.notice-text strong{color:#92400e;}
+
+.myth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.myth-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.myth-top{padding:.7rem .9rem .5rem;display:flex;align-items:center;gap:.5rem;}
+.myth-icon{font-size:1.5rem;}
+.myth-title{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:var(--ink);}
+.myth-label{font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:auto;}
+.myth-label.fear{background:#fce7f3;color:var(--hot);}
+.myth-label.fact{background:#cffafe;color:#0e7490;}
+.myth-body{padding:.5rem .9rem .85rem;font-size:.88rem;line-height:1.7;color:#374151;}
+.myth-body strong{color:var(--accent);}
+
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.9rem;margin-bottom:1.5rem;}
+.uc-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.9rem 1rem;transition:transform .15s,box-shadow .15s;}
+.uc-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.uc-head{display:flex;align-items:center;gap:.55rem;margin-bottom:.5rem;}
+.uc-emoji{font-size:1.4rem;}
+.uc-name{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:var(--ink);}
+.uc-desc{font-size:.85rem;color:#374151;line-height:1.65;}
+.uc-tag{display:inline-block;background:#cffafe;color:#0e7490;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:8px;margin-top:.4rem;border:1px solid #a5f3fc;}
+.speak-btn{margin-top:.5rem;display:inline-flex;align-items:center;gap:.3rem;background:rgba(15,76,92,.08);border:1.5px solid rgba(15,76,92,.2);border-radius:8px;padding:.22rem .6rem;font-size:.72rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all .15s;}
+.speak-btn:hover{background:rgba(15,76,92,.15);}
+.speak-btn svg{width:12px;height:12px;}
+
+.roadmap{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem;}
+.rm-step{display:flex;align-items:flex-start;gap:.8rem;background:#fff;border:2.5px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);padding:.75rem .9rem;}
+.rm-num{font-family:var(--ft);font-size:1.1rem;min-width:32px;height:32px;border-radius:8px;background:var(--accent);color:#fff;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:2px 2px 0 var(--ink);}
+.rm-content strong{font-size:.92rem;color:var(--ink);display:block;margin-bottom:.2rem;}
+.rm-content p{font-size:.83rem;color:#475569;line-height:1.6;}
+
+.cta-box{background:linear-gradient(135deg,#042f3e,#0f4c5c);border:2.5px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--ink);padding:1.2rem 1.4rem;text-align:center;margin-top:1.5rem;}
+.cta-box h3{font-family:var(--ft);font-size:1.5rem;color:#fde68a;letter-spacing:2px;margin-bottom:.4rem;}
+.cta-box p{color:rgba(255,255,255,.8);font-size:.88rem;line-height:1.6;margin-bottom:.8rem;}
+.cta-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--yellow);color:var(--ink);font-family:var(--ft);font-size:1rem;letter-spacing:1.5px;padding:.4rem 1.2rem;border-radius:10px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:all .15s;text-decoration:none;}
+.cta-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);}
+
+@media(max-width:600px){.hero h1{font-size:1.7rem;}.page{padding:1rem .8rem;}.myth-grid,.uc-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🩺 FOR DOCTORS & CLINICIANS</div>
+    <h1>AI Reads the Scan.<br><em>You Make the Decision.</em></h1>
+    <p class="hero-sub">Clinical judgment, empathy, and the doctor-patient relationship cannot be programmed. AI is a powerful second opinion — never a replacement. Here's what that actually means for your practice.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">40%</span><span class="hstat-l">Less Admin Time</span></div>
+      <div class="hstat"><span class="hstat-n">2x</span><span class="hstat-l">Faster Diagnosis Support</span></div>
+      <div class="hstat"><span class="hstat-n">30%</span><span class="hstat-l">Fewer Missed Findings</span></div>
+      <div class="hstat"><span class="hstat-n">100%</span><span class="hstat-l">Doctor Still Decides</span></div>
+    </div>
+    <button class="speak-hero" onclick="speak('AI reads the scan. You make the decision. Clinical judgment, empathy, and the doctor-patient relationship cannot be programmed. AI is a powerful second opinion — never a replacement.')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      🔈 Listen to this page intro
+    </button>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="notice">
+    <span class="notice-icon">⚕️</span>
+    <p class="notice-text"><strong>Important:</strong> AI tools in healthcare are decision <strong>support</strong> systems — not replacements for clinical judgment, diagnosis, or treatment decisions. All AI outputs must be reviewed and validated by a qualified clinician. Regulatory compliance (MHRA, FDA, CE marking) applies to clinical AI tools.</p>
+  </div>
+
+  <div class="sec">😨 MYTHS vs REALITY</div>
+  <div class="myth-grid">
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😰</span><span class="myth-title">AI will replace doctors</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">Medicine requires <strong>touch, intuition, contextual judgment, and human connection</strong>. AI excels at pattern recognition in data — not at sitting with a frightened patient or navigating clinical complexity. <strong>Doctors who use AI will outperform those who don't.</strong></div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😤</span><span class="myth-title">AI diagnoses are unreliable</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">FDA-approved AI tools like <strong>IDx-DR for diabetic retinopathy</strong> and AI ECG interpretation have demonstrated accuracy matching or exceeding specialists in specific tasks. The key is <strong>narrow, validated, well-regulated applications</strong> — not general AI.</div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">✅</span><span class="myth-title">AI saves clinical time for patients</span><span class="myth-label fact">FACT</span></div>
+      <div class="myth-body">Doctors spend up to <strong>50% of their time on documentation</strong>. AI ambient scribes (like Nuance DAX) listen to the consultation and write the clinical note automatically — giving that time <strong>back to patients</strong>.</div>
+    </div>
+  </div>
+
+  <div class="sec">⚡ HOW AI IS HELPING CLINICIANS — TODAY</div>
+  <div class="uc-grid">
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📝</span><span class="uc-name">Ambient Clinical Scribing</span></div>
+      <p class="uc-desc">AI listens to the doctor-patient conversation and automatically generates structured clinical notes — SOAP format, coded diagnoses, and referral letters. Doctor reviews and approves.</p>
+      <span class="uc-tag">Nuance DAX · Suki AI</span>
+      <br><button class="speak-btn" onclick="speak('Ambient Clinical Scribing. AI listens to the doctor-patient conversation and automatically generates structured clinical notes. The doctor reviews and approves — saving up to 2 hours of documentation per day.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🫁</span><span class="uc-name">Radiology AI Assistance</span></div>
+      <p class="uc-desc">AI flags abnormalities in X-rays, CT scans, and MRIs — acting as a tireless second reader that never misses a finding due to fatigue. Radiologist makes the final call.</p>
+      <span class="uc-tag">Validated · FDA Cleared</span>
+      <br><button class="speak-btn" onclick="speak('Radiology AI Assistance. AI flags abnormalities in X-rays, CT scans, and MRIs, acting as a tireless second reader. The radiologist makes the final clinical decision.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">💊</span><span class="uc-name">Drug Interaction Checking</span></div>
+      <p class="uc-desc">AI instantly cross-references a patient's full medication list against new prescriptions — catching dangerous interactions that can be missed in complex polypharmacy cases.</p>
+      <span class="uc-tag">Safety · Prescribing</span>
+      <br><button class="speak-btn" onclick="speak('Drug Interaction Checking. AI instantly cross-references a patient full medication list against new prescriptions, catching dangerous interactions in complex polypharmacy cases.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🔬</span><span class="uc-name">Clinical Literature Search</span></div>
+      <p class="uc-desc">Ask AI "what's the latest evidence on X treatment for Y condition?" — it searches PubMed, synthesises findings, and presents relevant studies in 10 seconds instead of 40 minutes.</p>
+      <span class="uc-tag">RAG + PubMed</span>
+      <br><button class="speak-btn" onclick="speak('Clinical Literature Search. Ask AI for the latest evidence on a treatment and it searches PubMed, synthesises findings, and presents relevant studies in 10 seconds instead of 40 minutes.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📊</span><span class="uc-name">Patient Risk Stratification</span></div>
+      <p class="uc-desc">AI analyses patient records to identify who is at highest risk of deterioration, readmission, or developing complications — enabling proactive rather than reactive care.</p>
+      <span class="uc-tag">Predictive · EHR</span>
+      <br><button class="speak-btn" onclick="speak('Patient Risk Stratification. AI analyses patient records to identify who is at highest risk of deterioration or readmission, enabling proactive rather than reactive care.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🧬</span><span class="uc-name">Genomic Analysis</span></div>
+      <p class="uc-desc">AI interprets genomic sequencing data to identify mutations, predict drug response, and suggest targeted therapy options — in oncology, rare diseases, and pharmacogenomics.</p>
+      <span class="uc-tag">Precision Medicine</span>
+      <br><button class="speak-btn" onclick="speak('Genomic Analysis. AI interprets genomic sequencing data to identify mutations, predict drug response, and suggest targeted therapy options in oncology and precision medicine.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+  </div>
+
+  <div class="sec">🗺️ YOUR AI LEARNING ROADMAP</div>
+  <div class="roadmap">
+    <div class="rm-step"><div class="rm-num">1</div><div class="rm-content"><strong>Understand What AI Actually Is (Week 1)</strong><p>Read the INTRO and LLMs tabs on this site. Understanding what AI can and cannot do is the foundation for safe, effective clinical use. Takes 30 minutes.</p></div></div>
+    <div class="rm-step"><div class="rm-num">2</div><div class="rm-content"><strong>Try an AI Scribe in Practice (Week 2–3)</strong><p>Many trusts and practices now offer Nuance DAX or similar tools. Even trying it in one clinic session reveals the time savings immediately. Your EHR team can help.</p></div></div>
+    <div class="rm-step"><div class="rm-num">3</div><div class="rm-content"><strong>Use AI for Literature Review (Month 1)</strong><p>Next time you have a clinical question, ask ChatGPT or Perplexity alongside PubMed. Compare the speed and quality. Always verify sources — AI can hallucinate citations.</p></div></div>
+    <div class="rm-step"><div class="rm-num">4</div><div class="rm-content"><strong>Understand RAG for Clinical Knowledge (Month 2)</strong><p>RAG (Retrieval Augmented Generation) is how hospitals build AI systems over their own guidelines and protocols. See the RAG tab — understanding this helps you evaluate vendor AI tools critically.</p></div></div>
+    <div class="rm-step"><div class="rm-num">5</div><div class="rm-content"><strong>Lead AI Governance in Your Department (Month 3+)</strong><p>Clinicians must be at the table when AI tools are evaluated and deployed. Your patient safety perspective is irreplaceable in procurement, ethics review, and staff training.</p></div></div>
+  </div>
+
+  <div class="cta-box">
+    <h3>🩺 WANT TO GO DEEPER?</h3>
+    <p>The LLMs section explains how tools like ChatGPT and clinical AI assistants actually work under the hood — helping you evaluate them critically and safely.</p>
+    <a class="cta-btn" href="llms.html">💬 UNDERSTAND LLMs</a>
+  </div>
+
+</div>
+
+<script>
+var synth=window.speechSynthesis,voices=[];
+function loadVoices(){voices=synth.getVoices();}
+loadVoices();
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=loadVoices;
+function pickFemale(){
+  var names=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Aria - English (United States)','Samantha','Karen','Moira','Microsoft Zira - English (United States)','Google UK English Female'];
+  for(var i=0;i<names.length;i++){var v=voices.find(function(v){return v.name===names[i];});if(v)return v;}
+  return voices.find(function(v){return v.lang&&v.lang.startsWith('en');})||null;
+}
+function speak(text){synth.cancel();var u=new SpeechSynthesisUtterance(text);u.voice=pickFemale();u.rate=0.92;u.pitch=1.0;u.volume=1.0;synth.speak(u);}
+</script>
+</body>
+</html>
