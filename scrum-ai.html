@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Scrum Masters – AICycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--bg:#faf5ff;--accent:#5b21b6;--accent2:#7c3aed;--yellow:#e6a817;--hot:#c2185b;--green:#059669;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#ede9fe 39px,#ede9fe 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#ede9fe 39px,#ede9fe 40px);font-family:var(--fb);color:#1e293b;min-height:100vh;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#1e1b4b 0%,#5b21b6 55%,#7c3aed 100%);padding:1.4rem 2rem 1.1rem;border-bottom:4px solid var(--ink);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
+.hero-inner{max-width:960px;margin:0 auto;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(230,168,23,.15);border:1.5px solid rgba(230,168,23,.4);border-radius:20px;padding:.2rem .85rem;font-family:var(--ft);font-size:.85rem;letter-spacing:1.5px;color:#fde68a;margin-bottom:.55rem;}
+.hero h1{font-family:var(--ft);font-size:2.3rem;color:#fff;letter-spacing:2px;line-height:1.05;text-shadow:2px 2px 0 rgba(0,0,0,.3);}
+.hero h1 em{color:#fde68a;font-style:normal;}
+.hero-sub{color:rgba(255,255,255,.85);font-size:.93rem;margin:.45rem 0 .9rem;max-width:600px;line-height:1.7;}
+.hero-stats{display:flex;gap:.6rem;flex-wrap:wrap;}
+.hstat{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:.4rem .85rem;text-align:center;}
+.hstat-n{font-family:var(--ft);font-size:1.25rem;color:#fde68a;display:block;line-height:1;}
+.hstat-l{font-size:.6rem;color:rgba(255,255,255,.7);font-weight:800;letter-spacing:.8px;text-transform:uppercase;}
+.speak-hero{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:.25rem .85rem;color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.75rem;transition:all .15s;}
+.speak-hero:hover{background:rgba(255,255,255,.2);}
+.speak-hero svg{width:13px;height:13px;}
+
+/* ── PAGE ── */
+.page{max-width:960px;margin:0 auto;padding:1.4rem 1.2rem;}
+
+/* ── SECTION HEADER ── */
+.sec{font-family:var(--ft);font-size:1.05rem;letter-spacing:2px;color:#fff;background:var(--accent);border:2.5px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--ink);padding:.38rem .85rem;display:inline-block;margin-bottom:.85rem;}
+
+/* ── MYTH CARDS ── */
+.myth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.9rem;margin-bottom:1.4rem;}
+.myth-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.myth-top{padding:.65rem .9rem .45rem;display:flex;align-items:center;gap:.5rem;}
+.myth-icon{font-size:1.4rem;}
+.myth-title{font-family:var(--ft);font-size:.95rem;letter-spacing:1px;color:var(--ink);flex:1;}
+.myth-label{font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:10px;flex-shrink:0;}
+.myth-label.fear{background:#fce7f3;color:var(--hot);}
+.myth-label.fact{background:#ede9fe;color:#5b21b6;}
+.myth-body{padding:.45rem .9rem .8rem;font-size:.86rem;line-height:1.7;color:#374151;}
+.myth-body strong{color:var(--accent);}
+
+/* ── USE CASE GRID ── */
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.85rem;margin-bottom:1.4rem;}
+.uc-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.85rem .95rem;transition:transform .15s,box-shadow .15s;}
+.uc-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.uc-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem;}
+.uc-emoji{font-size:1.35rem;}
+.uc-name{font-family:var(--ft);font-size:.95rem;letter-spacing:1px;color:var(--ink);}
+.uc-desc{font-size:.84rem;color:#374151;line-height:1.65;}
+.uc-tag{display:inline-block;background:#ede9fe;color:#5b21b6;font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:8px;margin-top:.38rem;border:1px solid #c4b5fd;}
+.speak-btn{margin-top:.45rem;display:inline-flex;align-items:center;gap:.28rem;background:rgba(91,33,182,.08);border:1.5px solid rgba(91,33,182,.2);border-radius:8px;padding:.2rem .55rem;font-size:.7rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all .15s;}
+.speak-btn:hover{background:rgba(91,33,182,.15);}
+.speak-btn svg{width:11px;height:11px;}
+
+/* ── COURSE MODULE CARDS ── */
+.course-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.9rem;margin-bottom:1.4rem;}
+.course-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.course-card-head{padding:.7rem .9rem .5rem;background:linear-gradient(135deg,#5b21b6,#7c3aed);display:flex;align-items:center;gap:.55rem;}
+.course-num{font-family:var(--ft);font-size:1rem;color:#fde68a;letter-spacing:1px;min-width:28px;}
+.course-title{font-family:var(--ft);font-size:.95rem;color:#fff;letter-spacing:1px;flex:1;}
+.course-dur{font-size:.6rem;color:rgba(255,255,255,.7);font-weight:800;background:rgba(255,255,255,.15);padding:2px 7px;border-radius:8px;white-space:nowrap;}
+.course-body{padding:.6rem .9rem .85rem;}
+.course-topics{list-style:none;padding:0;}
+.course-topics li{font-size:.82rem;color:#374151;padding:.2rem 0;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;gap:.4rem;line-height:1.5;}
+.course-topics li:last-child{border-bottom:none;}
+.course-topics li::before{content:'▸';color:var(--accent);font-size:.7rem;margin-top:.15rem;flex-shrink:0;}
+.course-speak{display:inline-flex;align-items:center;gap:.28rem;background:rgba(91,33,182,.07);border:1.5px solid rgba(91,33,182,.18);border-radius:8px;padding:.22rem .55rem;font-size:.7rem;font-weight:700;color:var(--accent);cursor:pointer;margin-top:.55rem;transition:all .15s;}
+.course-speak:hover{background:rgba(91,33,182,.14);}
+.course-speak svg{width:11px;height:11px;}
+
+/* ── ROADMAP ── */
+.roadmap{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.4rem;}
+.rm-step{display:flex;align-items:flex-start;gap:.75rem;background:#fff;border:2.5px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);padding:.7rem .85rem;}
+.rm-num{font-family:var(--ft);font-size:1rem;min-width:30px;height:30px;border-radius:7px;background:var(--accent);color:#fff;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:2px 2px 0 var(--ink);}
+.rm-content strong{font-size:.9rem;color:var(--ink);display:block;margin-bottom:.18rem;}
+.rm-content p{font-size:.82rem;color:#475569;line-height:1.6;}
+
+/* ── PROMPT EXAMPLES ── */
+.prompt-box{background:#1e1e2e;border:2.5px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 var(--ink);padding:.8rem 1rem;margin:.7rem 0 1.4rem;font-family:var(--fc);color:#cdd6f4;font-size:.79rem;line-height:1.8;overflow-x:auto;}
+.prompt-box .pc{color:#585b70;}
+.prompt-box .ps{color:#a6e3a1;}
+.prompt-box .py{color:#fde68a;}
+
+/* ── CTA ── */
+.cta-box{background:linear-gradient(135deg,#1e1b4b,#5b21b6);border:2.5px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--ink);padding:1.1rem 1.3rem;text-align:center;margin-top:1.4rem;}
+.cta-box h3{font-family:var(--ft);font-size:1.45rem;color:#fde68a;letter-spacing:2px;margin-bottom:.35rem;}
+.cta-box p{color:rgba(255,255,255,.8);font-size:.86rem;line-height:1.6;margin-bottom:.75rem;}
+.cta-btns{display:flex;gap:.55rem;justify-content:center;flex-wrap:wrap;}
+.cta-btn{display:inline-flex;align-items:center;gap:.35rem;background:var(--yellow);color:var(--ink);font-family:var(--ft);font-size:.95rem;letter-spacing:1.5px;padding:.38rem 1.1rem;border-radius:10px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:all .15s;text-decoration:none;}
+.cta-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);}
+.cta-btn.outline{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3);}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.7rem;}
+  .page{padding:1rem .8rem;}
+  .myth-grid,.uc-grid,.course-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🔄 FOR SCRUM MASTERS</div>
+    <h1>AI Won't Run Your Standup.<br><em>But It'll Make Every Sprint Count.</em></h1>
+    <p class="hero-sub">You remove blockers and protect the team. AI removes the noise — repetitive reporting, meeting summaries, backlog grooming admin — so you can focus on culture, flow, and delivery.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">60%</span><span class="hstat-l">Less Reporting Time</span></div>
+      <div class="hstat"><span class="hstat-n">2x</span><span class="hstat-l">Faster Retrospectives</span></div>
+      <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">Course Modules</span></div>
+      <div class="hstat"><span class="hstat-n">Free</span><span class="hstat-l">All Content</span></div>
+    </div>
+    <button class="speak-hero" onclick="speak('AI will not run your standup. But it will make every sprint count. You remove blockers and protect the team. AI removes the noise — repetitive reporting, meeting summaries, backlog admin — so you can focus on culture, flow, and delivery.')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      🔈 Listen to this page intro
+    </button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- MYTHS -->
+  <div class="sec">😨 MYTHS vs REALITY</div>
+  <div class="myth-grid">
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😰</span><span class="myth-title">AI will automate the Scrum Master role</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">Agile is fundamentally about <strong>people, trust, and continuous improvement</strong>. No AI can facilitate a difficult retrospective, coach a dysfunctional team, or build psychological safety. <strong>Human judgment is the core of the role.</strong></div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😤</span><span class="myth-title">AI tools don't understand Agile</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">Modern LLMs are trained on the Scrum Guide, SAFe, Kanban, and thousands of Agile case studies. They can <strong>generate user stories, identify impediments, suggest retrospective formats</strong>, and analyse sprint metrics fluently.</div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">✅</span><span class="myth-title">AI frees you for high-value coaching</span><span class="myth-label fact">FACT</span></div>
+      <div class="myth-body">Scrum Masters spend huge time on <strong>status updates, Jira grooming, and meeting notes</strong>. AI handles all of that, giving you more time for <strong>team coaching, stakeholder management, and process improvement</strong>.</div>
+    </div>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="sec">⚡ WHAT AI CAN DO FOR YOU — TODAY</div>
+  <div class="uc-grid">
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📝</span><span class="uc-name">User Story Generator</span></div>
+      <p class="uc-desc">Describe a feature in plain English → AI generates well-formatted user stories with acceptance criteria, edge cases, and Definition of Done in seconds.</p>
+      <span class="uc-tag">ChatGPT / Copilot</span>
+      <br><button class="speak-btn" onclick="speak('User Story Generator. Describe a feature in plain English and AI generates well-formatted user stories with acceptance criteria, edge cases, and Definition of Done in seconds.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🔁</span><span class="uc-name">Retrospective Facilitator</span></div>
+      <p class="uc-desc">Paste your team's retro notes → AI clusters themes, identifies recurring impediments, and suggests actionable improvements ranked by impact.</p>
+      <span class="uc-tag">RAG + LLM</span>
+      <br><button class="speak-btn" onclick="speak('Retrospective Facilitator. Paste your team retro notes and AI clusters themes, identifies recurring impediments, and suggests actionable improvements ranked by impact.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📊</span><span class="uc-name">Sprint Report Writer</span></div>
+      <p class="uc-desc">Feed AI your velocity, completed stories, and blockers → it writes a clear, stakeholder-ready sprint report with highlights and risks in 30 seconds.</p>
+      <span class="uc-tag">Time Saver</span>
+      <br><button class="speak-btn" onclick="speak('Sprint Report Writer. Feed AI your velocity, completed stories, and blockers and it writes a clear stakeholder-ready sprint report with highlights and risks in 30 seconds.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🚧</span><span class="uc-name">Impediment Analyser</span></div>
+      <p class="uc-desc">Describe a team blocker → AI suggests root causes using 5-Whys, offers resolution strategies, and identifies which Scrum value is being violated.</p>
+      <span class="uc-tag">Agile Coaching</span>
+      <br><button class="speak-btn" onclick="speak('Impediment Analyser. Describe a team blocker and AI suggests root causes using 5 Whys, offers resolution strategies, and identifies which Scrum value is being violated.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🎤</span><span class="uc-name">Meeting Summariser</span></div>
+      <p class="uc-desc">Paste meeting transcript or notes → AI extracts decisions, action items, owners, and due dates into a structured summary — ready to share instantly.</p>
+      <span class="uc-tag">Productivity</span>
+      <br><button class="speak-btn" onclick="speak('Meeting Summariser. Paste meeting transcript or notes and AI extracts decisions, action items, owners, and due dates into a structured summary ready to share instantly.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🤖</span><span class="uc-name">AI Agile Coach Bot</span></div>
+      <p class="uc-desc">Build a RAG chatbot over the Scrum Guide, SAFe docs, and your team's process docs — anyone can ask "what should we do when..." and get expert answers.</p>
+      <span class="uc-tag">RAG Pipeline</span>
+      <br><button class="speak-btn" onclick="speak('AI Agile Coach Bot. Build a chatbot over the Scrum Guide and your team process docs so anyone can ask agile questions and get expert answers instantly.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+  </div>
+
+  <!-- PROMPT EXAMPLES -->
+  <div class="sec">💬 READY-TO-USE AI PROMPTS</div>
+  <p style="font-size:.86rem;color:#475569;margin-bottom:.6rem;">Copy and paste these directly into ChatGPT right now:</p>
+  <div class="prompt-box"><span class="pc"># 1. Generate user stories</span>
+<span class="py">"Write 5 user stories for a mobile app feature that lets users</span>
+<span class="py"> track their daily water intake. Include acceptance criteria</span>
+<span class="py"> and Definition of Done for each story."</span>
+
+<span class="pc"># 2. Sprint retrospective analysis</span>
+<span class="py">"Here are our retrospective notes: [paste notes]</span>
+<span class="py"> Identify the top 3 themes, the root cause of each,</span>
+<span class="py"> and suggest one actionable improvement per theme."</span>
+
+<span class="pc"># 3. Backlog refinement</span>
+<span class="py">"Review these user stories and identify which are</span>
+<span class="py"> not INVEST criteria compliant. Suggest how to fix each one."</span>
+
+<span class="pc"># 4. Impediment coaching</span>
+<span class="py">"Our team keeps missing sprint goals because of last-minute</span>
+<span class="py"> scope changes from the PO. Using Scrum principles,</span>
+<span class="py"> what should I do as Scrum Master?"</span></div>
+
+  <!-- COURSE MODULES -->
+  <div class="sec">📚 AI FOR SCRUM MASTERS — COURSE</div>
+  <p style="font-size:.86rem;color:#475569;margin-bottom:.9rem;">5 modules designed specifically for Scrum Masters and Agile practitioners. No coding required.</p>
+
+  <div class="course-grid">
+
+    <div class="course-card">
+      <div class="course-card-head">
+        <span class="course-num">M1</span>
+        <span class="course-title">What AI Actually Is</span>
+        <span class="course-dur">⏱ 30 min</span>
+      </div>
+      <div class="course-body">
+        <ul class="course-topics">
+          <li>AI vs ML vs LLM — the real difference</li>
+          <li>How ChatGPT and Copilot actually work</li>
+          <li>Why AI sounds confident but can be wrong</li>
+          <li>The 3 things AI is great at vs terrible at</li>
+          <li>How to think about AI as a team member</li>
+        </ul>
+        <button class="course-speak" onclick="speak('Module 1: What AI Actually Is. Learn the real difference between AI, Machine Learning, and LLMs. Understand how ChatGPT works, why it can be wrong, and how to think about AI as a team tool.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to module overview</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-head">
+        <span class="course-num">M2</span>
+        <span class="course-title">AI in the Scrum Framework</span>
+        <span class="course-dur">⏱ 45 min</span>
+      </div>
+      <div class="course-body">
+        <ul class="course-topics">
+          <li>Using AI in Sprint Planning — story generation</li>
+          <li>Daily Standup: AI summarisation tools</li>
+          <li>Sprint Review: auto-generating demo notes</li>
+          <li>Retrospective: theme clustering with AI</li>
+          <li>Backlog refinement prompts that work</li>
+        </ul>
+        <button class="course-speak" onclick="speak('Module 2: AI in the Scrum Framework. Learn how to use AI in every Scrum ceremony — from sprint planning and user story generation to retrospective theme clustering and backlog refinement.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to module overview</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-head">
+        <span class="course-num">M3</span>
+        <span class="course-title">Prompt Engineering for Agile</span>
+        <span class="course-dur">⏱ 40 min</span>
+      </div>
+      <div class="course-body">
+        <ul class="course-topics">
+          <li>How to write prompts that get useful results</li>
+          <li>Role-playing AI as a Scrum coach</li>
+          <li>Chain-of-thought for impediment analysis</li>
+          <li>Few-shot prompting for user stories</li>
+          <li>Building a personal prompt library</li>
+        </ul>
+        <button class="course-speak" onclick="speak('Module 3: Prompt Engineering for Agile. Learn how to write prompts that get useful results, role-play AI as a Scrum coach, and build a personal library of agile prompts.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to module overview</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-head">
+        <span class="course-num">M4</span>
+        <span class="course-title">Build an Agile Knowledge Bot</span>
+        <span class="course-dur">⏱ 60 min</span>
+      </div>
+      <div class="course-body">
+        <ul class="course-topics">
+          <li>What is RAG? (Plain English for non-coders)</li>
+          <li>Loading the Scrum Guide into a chatbot</li>
+          <li>Adding your team's Definition of Ready/Done</li>
+          <li>Tools: Notion AI, Confluence AI, custom RAG</li>
+          <li>Testing and improving your bot's answers</li>
+        </ul>
+        <button class="course-speak" onclick="speak('Module 4: Build an Agile Knowledge Bot. Learn what RAG is in plain English, then build a chatbot over the Scrum Guide and your team documents so anyone can ask agile questions.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to module overview</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-head">
+        <span class="course-num">M5</span>
+        <span class="course-title">Leading AI Adoption in Your Team</span>
+        <span class="course-dur">⏱ 45 min</span>
+      </div>
+      <div class="course-body">
+        <ul class="course-topics">
+          <li>Introducing AI to a resistant team</li>
+          <li>Setting healthy boundaries — what AI should NOT decide</li>
+          <li>Running an "AI experiment" sprint</li>
+          <li>Measuring the impact: time saved, quality improved</li>
+          <li>AI ethics in Agile — transparency and trust</li>
+        </ul>
+        <button class="course-speak" onclick="speak('Module 5: Leading AI Adoption in Your Team. Learn how to introduce AI to a resistant team, set healthy boundaries, run an AI experiment sprint, and measure the impact on delivery and quality.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to module overview</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="sec">🗺️ YOUR AI LEARNING ROADMAP</div>
+  <div class="roadmap">
+    <div class="rm-step"><div class="rm-num">1</div><div class="rm-content"><strong>Start With Module 1 — No Code, No Jargon (Week 1)</strong><p>Read the INTRO tab on AICycle. Understand what AI is and isn't. Takes 30 minutes and completely changes how you'll evaluate AI tools your team encounters.</p></div></div>
+    <div class="rm-step"><div class="rm-num">2</div><div class="rm-content"><strong>Use AI in Your Next Sprint (Week 2)</strong><p>Pick ONE ceremony — try using ChatGPT to generate user stories in Sprint Planning or to summarise retro notes. Measure the time saved. Share with your team.</p></div></div>
+    <div class="rm-step"><div class="rm-num">3</div><div class="rm-content"><strong>Build Your Prompt Library (Week 3–4)</strong><p>After trying 5–10 prompts, save the ones that work into a Notion or Confluence page. Your personal Agile AI toolkit grows every sprint.</p></div></div>
+    <div class="rm-step"><div class="rm-num">4</div><div class="rm-content"><strong>Understand RAG for Knowledge Management (Month 2)</strong><p>Read the RAG tab on AICycle. Then explore Notion AI or Confluence AI to turn your team's process documents into a queryable knowledge base.</p></div></div>
+    <div class="rm-step"><div class="rm-num">5</div><div class="rm-content"><strong>Champion Responsible AI in Your Organisation (Month 3)</strong><p>As a Scrum Master you're perfectly placed to define how AI is used in your team — transparently, ethically, and in service of people — not instead of them.</p></div></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h3>🔄 READY TO LEVEL UP?</h3>
+    <p>Start with the INTRO tab for a 30-minute AI overview, then explore RAG to understand how to build knowledge bots from your Agile documentation.</p>
+    <div class="cta-btns">
+      <a class="cta-btn" href="intro.html">🌱 START WITH INTRO</a>
+      <a class="cta-btn outline" href="rag.html">🔍 EXPLORE RAG</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var synth=window.speechSynthesis,voices=[];
+function loadVoices(){voices=synth.getVoices();}
+loadVoices();
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=loadVoices;
+function pickFemale(){
+  var names=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Aria - English (United States)','Samantha','Karen','Moira','Microsoft Zira - English (United States)','Google UK English Female'];
+  for(var i=0;i<names.length;i++){var v=voices.find(function(v){return v.name===names[i];});if(v)return v;}
+  return voices.find(function(v){return v.lang&&v.lang.startsWith('en');})||null;
+}
+function speak(text){synth.cancel();var u=new SpeechSynthesisUtterance(text);u.voice=pickFemale();u.rate=0.92;u.pitch=1.0;u.volume=1.0;synth.speak(u);}
+</script>
+</body>
+</html>
