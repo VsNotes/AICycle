@@ -38,6 +38,7 @@
   --teacher-c:#4c1d95;
   --student-c:#1e3a8a;
   --doctor-c:#0f4c5c;
+  --scrum-c:#5b21b6;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
@@ -186,6 +187,7 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
 .pro-item[data-role="teacher"] {--rc:var(--teacher-c);}
 .pro-item[data-role="student"] {--rc:var(--student-c);}
 .pro-item[data-role="doctor"]  {--rc:var(--doctor-c);}
+.pro-item[data-role="scrum"]   {--rc:var(--scrum-c);}
 
 .pro-item.active{background:rgba(255,255,255,.05);}
 .pro-item.active .pro-icon-wrap{box-shadow:0 0 0 2px var(--rc);}
@@ -455,6 +457,15 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
         </div>
       </div>
 
+      <!-- Scrum Master -->
+      <div class="pro-item" data-role="scrum" data-src="scrum-ai.html" data-ac="act-p" onclick="loadProPage(this)">
+        <div class="pro-icon-wrap">🔄</div>
+        <div class="pro-text">
+          <span class="pro-label">Scrum Master</span>
+          <span class="pro-sub">AI for Agile Teams</span>
+        </div>
+      </div>
+
     </nav>
 
     <!-- Author footer -->
@@ -524,6 +535,9 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
   </div>
   <div class="pmb-item" data-src="doctor-ai.html" data-ac="act-t" onclick="loadProMobile(this)">
     <span class="pmb-icon">🩺</span><span class="pmb-label">DOCTOR</span>
+  </div>
+  <div class="pmb-item" data-src="scrum-ai.html" data-ac="act-p" onclick="loadProMobile(this)">
+    <span class="pmb-icon">🔄</span><span class="pmb-label">SCRUM</span>
   </div>
 </div>
 
