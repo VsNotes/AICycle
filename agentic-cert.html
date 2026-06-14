@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -256,7 +257,7 @@ body{background:#faf5ff;background-image:repeating-linear-gradient(0deg,transpar
       <div class="result-breakdown" id="resultBreakdown"></div>
       <div id="passActions"></div>
       <div id="failActions" style="display:none;">
-        <button class="retry-btn" onclick="location.reload()">🔄 Retake Exam</button>
+        <button class="retry-btn" onclick="retakeExam()">🔄 Retake Exam</button>
       </div>
     </div>
 
@@ -304,6 +305,7 @@ body{background:#faf5ff;background-image:repeating-linear-gradient(0deg,transpar
    shuffled into random A/B/C/D positions every attempt without
    breaking verification, and plain answers never appear in source. */
 const SALT = "aicycle-agentic-cert-2026-v1";
+const STORAGE_KEY = "aicycle_agentic_exam_v1";
 const QUESTION_POOL = 
 [
 {idx:0,q:"What does the 'A' in Agentic AI primarily refer to?",opts:["An AI that can act autonomously to achieve goals", "An AI that only answers questions", "An AI that stores data in a database", "An AI that generates images"],h:"00d16bf3a5ef6b1114832f303a82fde67ad288d16ec76f3fae88ca776256067d",d:"Easy"},
@@ -370,6 +372,53 @@ function shuffle(arr){
   return a;
 }
 
+/* ═══ SESSION PERSISTENCE ═══
+   Saves in-progress exam (or completed result) to sessionStorage so
+   switching tabs / the page reloading mid-exam doesn't lose progress —
+   on reload we restore the exact same questions, order, answers and screen. */
+function saveState(extra){
+  try{
+    const state = Object.assign({
+      phase: 'exam',
+      candidateName,
+      QUESTIONS,
+      answers,
+      currentQ
+    }, extra || {});
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }catch(e){ console.warn('Could not save exam state', e); }
+}
+
+function clearState(){
+  try{ sessionStorage.removeItem(STORAGE_KEY); }catch(e){}
+}
+
+function restoreState(){
+  let raw;
+  try{ raw = sessionStorage.getItem(STORAGE_KEY); }catch(e){ return; }
+  if(!raw) return;
+
+  let state;
+  try{ state = JSON.parse(raw); }catch(e){ return; }
+  if(!state || !state.QUESTIONS || !state.QUESTIONS.length) return;
+
+  candidateName = state.candidateName || '';
+  QUESTIONS = state.QUESTIONS;
+  answers = state.answers || new Array(QUESTIONS.length).fill(null);
+  currentQ = state.currentQ || 0;
+
+  document.getElementById('startScreen').style.display = 'none';
+
+  if(state.phase === 'result' && state.resultData){
+    document.getElementById('examWrap').classList.remove('active');
+    restoreResultView(state.resultData);
+  } else {
+    document.getElementById('examWrap').classList.add('active');
+    renderQuestion();
+    scrollToExam();
+  }
+}
+
 function startExam(){
   const nameInput = document.getElementById('candidateName');
   candidateName = nameInput.value.trim();
@@ -394,6 +443,7 @@ function startExam(){
   document.getElementById('startScreen').style.display = 'none';
   document.getElementById('examWrap').classList.add('active');
   renderQuestion();
+  saveState();
 }
 
 function renderQuestion(){
@@ -424,6 +474,7 @@ function selectOpt(i){
   answers[currentQ] = q.shuffledOpts[i];   // store the option TEXT
   renderQuestion();
   scrollToExam();
+  saveState();
 }
 
 function navQ(dir){
@@ -432,6 +483,7 @@ function navQ(dir){
   if(currentQ >= QUESTIONS.length) currentQ = QUESTIONS.length - 1;
   renderQuestion();
   scrollToExam();
+  saveState();
 }
 
 /* Keep the question area in view — scroll the exam panel (progress bar +
@@ -545,7 +597,49 @@ function showResult(correct, breakdown){
     document.getElementById('failActions').style.display = 'block';
   }
 
+  saveState({
+    phase: 'result',
+    resultData: { correct, total, breakdown, passed, pct, certData }
+  });
+
   window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* Re-render the result + certificate screen from saved state — used when
+   restoring a completed exam after a tab reload (no re-scoring needed). */
+function restoreResultView(rd){
+  document.getElementById('resultWrap').classList.add('active');
+
+  const { correct, total, breakdown, passed, pct } = rd;
+
+  document.getElementById('resultIcon').textContent = passed ? '🎉' : '📚';
+  document.getElementById('resultTitle').textContent = passed ? 'CONGRATULATIONS!' : 'KEEP LEARNING!';
+  document.getElementById('resultTitle').className = 'result-title ' + (passed ? 'pass' : 'fail');
+  document.getElementById('resultScore').textContent = `${correct}/${total} (${pct}%)`;
+  document.getElementById('resultScore').className = 'result-score ' + (passed ? 'pass' : 'fail');
+  document.getElementById('resultSub').textContent = passed
+    ? `Well done, ${candidateName}! You passed the AICycle Agentic AI Certification exam. Your certificate is ready below.`
+    : `You scored ${pct}%. You need 60% to pass. Review the Agentic AI tab on AICycle and try again — questions and answer order are shuffled every attempt!`;
+
+  const bd = document.getElementById('resultBreakdown');
+  bd.innerHTML = ['Easy','Medium','Hard'].map(d => `
+    <div class="rb-item">
+      <div class="rb-n">${breakdown[d].c}/${breakdown[d].t}</div>
+      <div class="rb-l">${d}</div>
+    </div>
+  `).join('');
+
+  if(passed && rd.certData){
+    certData = rd.certData;
+    document.getElementById('certPreview').classList.add('active');
+    document.getElementById('certName').textContent = certData.name;
+    document.getElementById('certScoreText').textContent = certData.score;
+    document.getElementById('certDate').textContent = certData.issueDate;
+    document.getElementById('certExpiry').textContent = certData.expiryDate;
+    document.getElementById('certId').textContent = certData.certId;
+  } else if(!passed){
+    document.getElementById('failActions').style.display = 'block';
+  }
 }
 
 let certData = null;
@@ -698,6 +792,18 @@ function downloadCert(){
 
   doc.save(`AICycle_Agentic_AI_Certificate_${certData.name.replace(/\s+/g,'_')}.pdf`);
 }
+
+/* Clear saved progress and start completely fresh */
+function retakeExam(){
+  clearState();
+  location.reload();
+}
+
+/* ── Restore any in-progress or completed exam on page load ──
+   Handles: switching tabs and coming back, mobile background tab
+   discard/reload, accidental refresh — the user always sees the
+   exact same questions, order, answers and screen they left. */
+restoreState();
 </script>
 </body>
 </html>
