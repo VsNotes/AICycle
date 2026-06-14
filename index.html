@@ -39,6 +39,8 @@
   --student-c:#1e3a8a;
   --doctor-c:#0f4c5c;
   --scrum-c:#5b21b6;
+  --account-c:#166534;
+  --design-c:#9d174d;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
@@ -48,11 +50,11 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
 .brand-bar{
   background:var(--ink);
   border-bottom:2px solid rgba(230,168,23,.3);
-  padding:.28rem 1rem .28rem 1rem;
+  padding:.32rem 1rem;
   display:flex;align-items:center;
   justify-content:space-between;
   gap:.5rem;flex-shrink:0;z-index:400;
-  min-height:44px;
+  min-height:56px;
 }
 .brand-left{display:flex;align-items:center;gap:.7rem;}
 .brand-logo{
@@ -96,6 +98,43 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
 }
 .interview-pill:hover{transform:scale(1.04);}
 .ipill-new{background:rgba(255,255,255,.25);color:#fff;font-size:.5rem;font-weight:800;padding:1px 4px;border-radius:3px;}
+
+/* Brand pill stack — interview + certificate */
+.brand-pills{display:flex;flex-direction:column;gap:.32rem;align-items:flex-end;}
+
+/* Certificate pill — fancy gold/purple shimmer */
+.cert-pill{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:linear-gradient(135deg,#7c3aed,#c2185b,#e6a817);
+  background-size:200% 200%;
+  color:#fff;font-family:var(--ft);font-size:.85rem;
+  letter-spacing:1px;padding:.2rem .7rem;
+  border-radius:16px;cursor:pointer;
+  white-space:nowrap;
+  border:1.5px solid rgba(255,255,255,.3);
+  box-shadow:0 2px 8px rgba(124,58,237,.4);
+  animation:cert-shimmer 4s ease infinite;
+  transition:transform .18s, box-shadow .18s;
+  position:relative;
+  overflow:hidden;
+}
+.cert-pill:hover{transform:scale(1.05);box-shadow:0 3px 14px rgba(230,168,23,.6);}
+.cert-pill::after{
+  content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);
+  transform:skewX(-20deg);
+  animation:cert-sweep 3s ease-in-out infinite;
+}
+@keyframes cert-shimmer{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+@keyframes cert-sweep{
+  0%{left:-60%;}
+  50%{left:130%;}
+  100%{left:130%;}
+}
+.cpill-free{background:rgba(255,255,255,.25);color:#fff;font-size:.5rem;font-weight:800;padding:1px 4px;border-radius:3px;}
 
 /* ══ LAYOUT: sidebar + content ══ */
 .app-body{flex:1;overflow:hidden;display:flex;position:relative;}
@@ -188,6 +227,8 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
 .pro-item[data-role="student"] {--rc:var(--student-c);}
 .pro-item[data-role="doctor"]  {--rc:var(--doctor-c);}
 .pro-item[data-role="scrum"]   {--rc:var(--scrum-c);}
+.pro-item[data-role="account"] {--rc:var(--account-c);}
+.pro-item[data-role="design"]  {--rc:var(--design-c);}
 
 .pro-item.active{background:rgba(255,255,255,.05);}
 .pro-item.active .pro-icon-wrap{box-shadow:0 0 0 2px var(--rc);}
@@ -369,7 +410,8 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
 }
 @media(max-width:400px){
   .tab{font-size:.65rem;padding:.25rem .4rem .38rem;}
-  .interview-pill{font-size:.75rem;padding:.15rem .5rem;}
+  .interview-pill,.cert-pill{font-size:.68rem;padding:.14rem .45rem;}
+  .ipill-new,.cpill-free{font-size:.46rem;}
   .live-pill{display:none;}
 }
 </style>
@@ -409,8 +451,13 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
     </div>
   </div>
   <div class="brand-right">
-    <div class="interview-pill" onclick="loadPage('interview.html','act-h',-1)">
-      🎤 Interview Q&amp;A <span class="ipill-new">NEW</span>
+    <div class="brand-pills">
+      <div class="interview-pill" onclick="loadPage('interview.html','act-h',-1)">
+        🎤 Interview Q&amp;A <span class="ipill-new">NEW</span>
+      </div>
+      <div class="cert-pill" onclick="loadPage('agentic-cert.html','act-p',-1)">
+        🏆 Agentic AI Certificate <span class="cpill-free">FREE</span>
+      </div>
     </div>
     <div class="live-pill"><span class="live-dot"></span><span id="hit-count">...</span> visits</div>
   </div>
@@ -511,6 +558,24 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
         </div>
       </div>
 
+      <!-- Accountant -->
+      <div class="pro-item" data-role="account" data-src="account-ai.html" data-ac="act-g" onclick="loadProPage(this)">
+        <div class="pro-icon-wrap">🧮</div>
+        <div class="pro-text">
+          <span class="pro-label">Accountant</span>
+          <span class="pro-sub">AI for Bookkeeping & Tax</span>
+        </div>
+      </div>
+
+      <!-- UI/UX Designer -->
+      <div class="pro-item" data-role="design" data-src="design-ai.html" data-ac="act-h" onclick="loadProPage(this)">
+        <div class="pro-icon-wrap">🎨</div>
+        <div class="pro-text">
+          <span class="pro-label">UI/UX Designer</span>
+          <span class="pro-sub">AI for Design Workflows</span>
+        </div>
+      </div>
+
     </nav>
 
     <!-- Author footer -->
@@ -583,6 +648,12 @@ body{background:var(--ink);font-family:var(--fb);display:flex;flex-direction:col
   </div>
   <div class="pmb-item" data-src="scrum-ai.html" data-ac="act-p" onclick="loadProMobile(this)">
     <span class="pmb-icon">🔄</span><span class="pmb-label">SCRUM</span>
+  </div>
+  <div class="pmb-item" data-src="account-ai.html" data-ac="act-g" onclick="loadProMobile(this)">
+    <span class="pmb-icon">🧮</span><span class="pmb-label">ACCOUNT</span>
+  </div>
+  <div class="pmb-item" data-src="design-ai.html" data-ac="act-h" onclick="loadProMobile(this)">
+    <span class="pmb-icon">🎨</span><span class="pmb-label">DESIGN</span>
   </div>
 </div>
 
