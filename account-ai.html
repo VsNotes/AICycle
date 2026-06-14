@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Accountants – AICycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--bg:#f0fdf4;--accent:#166534;--accent2:#16a34a;--yellow:#e6a817;--hot:#c2185b;--ft:'Bangers',cursive;--fb:'Nunito',sans-serif;--fc:'Fira Code',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#f7fef9;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#bbf7d0 39px,#bbf7d0 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#bbf7d0 39px,#bbf7d0 40px);font-family:var(--fb);color:#1e293b;min-height:100vh;}
+
+.hero{background:linear-gradient(135deg,#022c1a 0%,#166534 55%,#16a34a 100%);padding:1.4rem 2rem 1.1rem;border-bottom:4px solid var(--ink);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
+.hero-inner{max-width:960px;margin:0 auto;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(230,168,23,.15);border:1.5px solid rgba(230,168,23,.4);border-radius:20px;padding:.2rem .85rem;font-family:var(--ft);font-size:.85rem;letter-spacing:1.5px;color:#fde68a;margin-bottom:.55rem;}
+.hero h1{font-family:var(--ft);font-size:2.3rem;color:#fff;letter-spacing:2px;line-height:1.05;text-shadow:2px 2px 0 rgba(0,0,0,.3);}
+.hero h1 em{color:#fde68a;font-style:normal;}
+.hero-sub{color:rgba(255,255,255,.85);font-size:.93rem;margin:.45rem 0 .9rem;max-width:600px;line-height:1.7;}
+.hero-stats{display:flex;gap:.6rem;flex-wrap:wrap;}
+.hstat{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:.4rem .85rem;text-align:center;}
+.hstat-n{font-family:var(--ft);font-size:1.25rem;color:#fde68a;display:block;line-height:1;}
+.hstat-l{font-size:.6rem;color:rgba(255,255,255,.7);font-weight:800;letter-spacing:.8px;text-transform:uppercase;}
+.speak-hero{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:.25rem .85rem;color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.75rem;transition:all .15s;}
+.speak-hero:hover{background:rgba(255,255,255,.2);}
+.speak-hero svg{width:13px;height:13px;}
+
+.page{max-width:960px;margin:0 auto;padding:1.4rem 1.2rem;}
+.sec{font-family:var(--ft);font-size:1.05rem;letter-spacing:2px;color:#fff;background:var(--accent);border:2.5px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--ink);padding:.38rem .85rem;display:inline-block;margin-bottom:.85rem;}
+
+.myth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.9rem;margin-bottom:1.4rem;}
+.myth-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.myth-top{padding:.65rem .9rem .45rem;display:flex;align-items:center;gap:.5rem;}
+.myth-icon{font-size:1.4rem;}
+.myth-title{font-family:var(--ft);font-size:.95rem;letter-spacing:1px;color:var(--ink);flex:1;}
+.myth-label{font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:10px;flex-shrink:0;}
+.myth-label.fear{background:#fce7f3;color:var(--hot);}
+.myth-label.fact{background:#dcfce7;color:#166534;}
+.myth-body{padding:.45rem .9rem .8rem;font-size:.86rem;line-height:1.7;color:#374151;}
+.myth-body strong{color:var(--accent);}
+
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.85rem;margin-bottom:1.4rem;}
+.uc-card{background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:.85rem .95rem;transition:transform .15s,box-shadow .15s;}
+.uc-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.uc-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem;}
+.uc-emoji{font-size:1.35rem;}
+.uc-name{font-family:var(--ft);font-size:.95rem;letter-spacing:1px;color:var(--ink);}
+.uc-desc{font-size:.84rem;color:#374151;line-height:1.65;}
+.uc-tag{display:inline-block;background:#dcfce7;color:#166534;font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:8px;margin-top:.38rem;border:1px solid #86efac;}
+.speak-btn{margin-top:.45rem;display:inline-flex;align-items:center;gap:.28rem;background:rgba(22,101,52,.08);border:1.5px solid rgba(22,101,52,.2);border-radius:8px;padding:.2rem .55rem;font-size:.7rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all .15s;}
+.speak-btn:hover{background:rgba(22,101,52,.15);}
+.speak-btn svg{width:11px;height:11px;}
+
+.roadmap{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.4rem;}
+.rm-step{display:flex;align-items:flex-start;gap:.75rem;background:#fff;border:2.5px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);padding:.7rem .85rem;}
+.rm-num{font-family:var(--ft);font-size:1rem;min-width:30px;height:30px;border-radius:7px;background:var(--accent);color:#fff;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:2px 2px 0 var(--ink);}
+.rm-content strong{font-size:.9rem;color:var(--ink);display:block;margin-bottom:.18rem;}
+.rm-content p{font-size:.82rem;color:#475569;line-height:1.6;}
+
+.prompt-box{background:#1e1e2e;border:2.5px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 var(--ink);padding:.8rem 1rem;margin:.7rem 0 1.4rem;font-family:var(--fc);color:#cdd6f4;font-size:.79rem;line-height:1.8;overflow-x:auto;}
+.prompt-box .pc{color:#585b70;}
+.prompt-box .py{color:#fde68a;}
+
+/* ── CHAPTER TAB COURSE ── */
+.chapter-wrap{border:2.5px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin-bottom:1.4rem;background:#fff;}
+.chapter-tabs{display:flex;overflow-x:auto;background:linear-gradient(180deg,#022c1a,#0a3d23);scrollbar-width:thin;scrollbar-color:#16a34a #0a3d23;}
+.chapter-tabs::-webkit-scrollbar{height:4px;}
+.chapter-tabs::-webkit-scrollbar-thumb{background:#16a34a;}
+.ch-tab{
+  font-family:var(--ft);font-size:.78rem;letter-spacing:1px;
+  padding:.55rem .8rem;color:rgba(255,255,255,.55);
+  background:transparent;border:none;border-bottom:3px solid transparent;
+  cursor:pointer;white-space:nowrap;transition:all .15s;
+  display:flex;flex-direction:column;align-items:center;gap:2px;min-width:78px;
+}
+.ch-tab .ch-tab-emoji{font-size:1.1rem;}
+.ch-tab .ch-tab-num{font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:1px;}
+.ch-tab:hover{background:rgba(255,255,255,.05);color:#fff;}
+.ch-tab.active{color:#fff;border-bottom-color:#fde68a;background:rgba(255,255,255,.06);}
+.ch-tab.active .ch-tab-num{color:#fde68a;}
+
+.ch-panel{display:none;padding:1rem 1.1rem 1.2rem;}
+.ch-panel.active{display:block;}
+
+.ch-tool-banner{
+  display:flex;align-items:center;gap:.7rem;
+  background:linear-gradient(135deg,#166534,#16a34a);
+  border:2px solid var(--ink);border-radius:10px;
+  padding:.6rem .85rem;margin-bottom:.8rem;
+}
+.ch-tool-emoji{font-size:1.8rem;flex-shrink:0;}
+.ch-tool-name{font-family:var(--ft);font-size:1.05rem;color:#fff;letter-spacing:1px;}
+.ch-tool-tagline{font-size:.74rem;color:rgba(255,255,255,.8);margin-top:.1rem;}
+.ch-tool-link{
+  margin-left:auto;flex-shrink:0;
+  background:rgba(255,255,255,.15);color:#fff;
+  font-size:.68rem;font-weight:800;padding:.3rem .6rem;
+  border-radius:7px;text-decoration:none;border:1.5px solid rgba(255,255,255,.3);
+  white-space:nowrap;
+}
+.ch-tool-link:hover{background:rgba(255,255,255,.25);}
+
+.ch-desc{font-size:.85rem;color:#374151;line-height:1.7;margin-bottom:.8rem;}
+.ch-desc strong{color:var(--accent);}
+
+.ch-steps-title{font-family:var(--ft);font-size:.85rem;letter-spacing:1px;color:var(--accent);margin-bottom:.5rem;display:flex;align-items:center;gap:.35rem;}
+.ch-steps{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.8rem;}
+.ch-step{display:flex;align-items:flex-start;gap:.6rem;background:#f7fef9;border:1.5px solid #dcfce7;border-radius:9px;padding:.5rem .7rem;}
+.ch-step-num{font-family:var(--ft);font-size:.8rem;min-width:24px;height:24px;border-radius:6px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ch-step-text{font-size:.82rem;color:#374151;line-height:1.55;}
+.ch-step-text code{background:#1e1e2e;color:#a6e3a1;padding:1px 5px;border-radius:4px;font-family:var(--fc);font-size:.78rem;}
+
+.ch-try{
+  background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:2px solid var(--accent2);
+  border-radius:9px;padding:.6rem .8rem;font-size:.82rem;color:#166534;line-height:1.6;margin-bottom:.6rem;
+}
+.ch-try strong{display:block;font-family:var(--ft);font-size:.78rem;letter-spacing:1px;margin-bottom:.25rem;color:#15803d;}
+
+.ch-nav{display:flex;justify-content:space-between;gap:.6rem;margin-top:.8rem;}
+.ch-nav-btn{
+  font-family:var(--ft);font-size:.85rem;letter-spacing:1px;
+  background:var(--accent);color:#fff;border:2px solid var(--ink);
+  border-radius:9px;padding:.4rem .9rem;cursor:pointer;
+  box-shadow:2px 2px 0 var(--ink);transition:all .15s;
+}
+.ch-nav-btn:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink);}
+.ch-nav-btn:disabled{opacity:.35;cursor:default;box-shadow:none;}
+.ch-nav-btn.next{margin-left:auto;}
+
+.chapter-speak{display:inline-flex;align-items:center;gap:.3rem;background:rgba(22,101,52,.08);border:1.5px solid rgba(22,101,52,.2);border-radius:8px;padding:.25rem .65rem;font-size:.74rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all .15s;}
+.chapter-speak:hover{background:rgba(22,101,52,.15);}
+.chapter-speak svg{width:12px;height:12px;}
+
+@media(max-width:600px){
+  .ch-tab{min-width:64px;padding:.45rem .55rem;font-size:.66rem;}
+  .ch-tool-banner{flex-wrap:wrap;}
+  .ch-tool-link{margin-left:0;}
+}
+
+.cta-box{background:linear-gradient(135deg,#022c1a,#166534);border:2.5px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--ink);padding:1.1rem 1.3rem;text-align:center;margin-top:1.4rem;}
+.cta-box h3{font-family:var(--ft);font-size:1.45rem;color:#fde68a;letter-spacing:2px;margin-bottom:.35rem;}
+.cta-box p{color:rgba(255,255,255,.8);font-size:.86rem;line-height:1.6;margin-bottom:.75rem;}
+.cta-btns{display:flex;gap:.55rem;justify-content:center;flex-wrap:wrap;}
+.cta-btn{display:inline-flex;align-items:center;gap:.35rem;background:var(--yellow);color:var(--ink);font-family:var(--ft);font-size:.95rem;letter-spacing:1.5px;padding:.38rem 1.1rem;border-radius:10px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:all .15s;text-decoration:none;}
+.cta-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);}
+.cta-btn.outline{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3);}
+
+@media(max-width:600px){.hero h1{font-size:1.7rem;}.page{padding:1rem .8rem;}.myth-grid,.uc-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🧮 FOR ACCOUNTANTS</div>
+    <h1>AI Reconciles the Ledger.<br><em>You Advise the Client.</em></h1>
+    <p class="hero-sub">Bookkeeping, data entry, and reconciliation are exactly what AI is built for. That frees you to do the part clients actually pay for — advice, planning, and trust.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">80%</span><span class="hstat-l">Less Data Entry</span></div>
+      <div class="hstat"><span class="hstat-n">5x</span><span class="hstat-l">Faster Reconciliation</span></div>
+      <div class="hstat"><span class="hstat-n">0</span><span class="hstat-l">Coding Needed</span></div>
+      <div class="hstat"><span class="hstat-n">100%</span><span class="hstat-l">You Sign Off</span></div>
+    </div>
+    <button class="speak-hero" onclick="speak('AI reconciles the ledger. You advise the client. Bookkeeping, data entry, and reconciliation are exactly what AI is built for. That frees you to do the part clients actually pay for — advice, planning, and trust.')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      🔈 Listen to this page intro
+    </button>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="sec">😨 MYTHS vs REALITY</div>
+  <div class="myth-grid">
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😰</span><span class="myth-title">AI will replace accountants</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">AI automates <strong>transaction categorisation and data entry</strong> — not professional judgment, tax strategy, audit sign-off, or client trust. Accountants who use AI become <strong>advisors</strong>, not just bookkeepers.</div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">😤</span><span class="myth-title">AI can't be trusted with numbers</span><span class="myth-label fear">FEAR</span></div>
+      <div class="myth-body">AI tools like <strong>Xero, QuickBooks AI, and Dext</strong> are already used by thousands of firms for receipt capture and bank reconciliation — with the accountant reviewing exceptions, not every line.</div>
+    </div>
+    <div class="myth-card">
+      <div class="myth-top"><span class="myth-icon">✅</span><span class="myth-title">AI makes advisory work scalable</span><span class="myth-label fact">FACT</span></div>
+      <div class="myth-body">When compliance work is automated, accountants can serve <strong>more clients with higher-value advisory services</strong> — cash flow forecasting, tax planning, business strategy — the work that actually grows a practice.</div>
+    </div>
+  </div>
+
+  <div class="sec">⚡ WHAT YOU CAN DO WITH AI — TODAY</div>
+  <div class="uc-grid">
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🧾</span><span class="uc-name">Receipt & Invoice Capture</span></div>
+      <p class="uc-desc">Photograph a receipt → AI extracts vendor, amount, date, VAT, and category, and posts it directly to the ledger. Tools like Dext and Hubdoc do this today.</p>
+      <span class="uc-tag">Dext · QuickBooks AI</span>
+      <br><button class="speak-btn" onclick="speak('Receipt and Invoice Capture. Photograph a receipt and AI extracts vendor, amount, date, VAT, and category, then posts it directly to the ledger.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🔄</span><span class="uc-name">Bank Reconciliation</span></div>
+      <p class="uc-desc">AI matches bank transactions to invoices automatically, learning your client's patterns over time and flagging only genuine exceptions for review.</p>
+      <span class="uc-tag">Xero · QuickBooks</span>
+      <br><button class="speak-btn" onclick="speak('Bank Reconciliation. AI matches bank transactions to invoices automatically, learning patterns over time and flagging only genuine exceptions for review.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📈</span><span class="uc-name">Cash Flow Forecasting</span></div>
+      <p class="uc-desc">AI analyses historical transactions and predicts future cash flow — helping you advise clients on hiring, spending, or investment timing with confidence.</p>
+      <span class="uc-tag">Predictive Analytics</span>
+      <br><button class="speak-btn" onclick="speak('Cash Flow Forecasting. AI analyses historical transactions and predicts future cash flow, helping you advise clients on hiring, spending, or investment timing.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">📋</span><span class="uc-name">Tax Query Drafting</span></div>
+      <p class="uc-desc">Describe a client's situation → AI drafts a first-pass tax position summary with relevant rules cited, which you then verify and finalise.</p>
+      <span class="uc-tag">RAG + Tax Rules</span>
+      <br><button class="speak-btn" onclick="speak('Tax Query Drafting. Describe a client situation and AI drafts a first-pass tax position summary with relevant rules cited, which you then verify and finalise.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">💬</span><span class="uc-name">Client Email Drafting</span></div>
+      <p class="uc-desc">Paste rough notes → AI writes a clear, professional client update explaining their numbers in plain language — saving 15 minutes per email.</p>
+      <span class="uc-tag">ChatGPT / Copilot</span>
+      <br><button class="speak-btn" onclick="speak('Client Email Drafting. Paste rough notes and AI writes a clear professional client update explaining their numbers in plain language.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+    <div class="uc-card">
+      <div class="uc-head"><span class="uc-emoji">🔍</span><span class="uc-name">Anomaly & Fraud Detection</span></div>
+      <p class="uc-desc">AI scans thousands of transactions for unusual patterns — duplicate payments, round-number anomalies, out-of-policy expenses — that manual review misses.</p>
+      <span class="uc-tag">Audit Support</span>
+      <br><button class="speak-btn" onclick="speak('Anomaly and Fraud Detection. AI scans thousands of transactions for unusual patterns like duplicate payments and out of policy expenses that manual review misses.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen</button>
+    </div>
+  </div>
+
+  <div class="sec">💬 READY-TO-USE AI PROMPTS</div>
+  <p style="font-size:.86rem;color:#475569;margin-bottom:.6rem;">Copy and paste these into ChatGPT right now:</p>
+  <div class="prompt-box"><span class="pc"># 1. Client update email</span>
+<span class="py">"Turn these rough notes into a professional client email:</span>
+<span class="py"> Revenue up 12% this quarter, expenses up 8%, mainly due</span>
+<span class="py"> to new hire. Cash position healthy. VAT return due 15th."</span>
+
+<span class="pc"># 2. Explain a financial concept simply</span>
+<span class="py">"Explain what 'deferred revenue' means to a small</span>
+<span class="py"> business client who has no accounting background,</span>
+<span class="py"> using a simple real-world example."</span>
+
+<span class="pc"># 3. Spot anomalies</span>
+<span class="py">"Here is a list of transactions: [paste data]</span>
+<span class="py"> Identify any that look unusual, duplicated,</span>
+<span class="py"> or potentially miscategorised."</span></div>
+
+  <!-- CHAPTER COURSE -->
+  <div class="sec">📚 AI FOR ACCOUNTANTS — CHAPTER COURSE</div>
+  <p style="font-size:.86rem;color:#475569;margin-bottom:.9rem;">6 chapters. Each chapter teaches ONE real tool — what it does, how to set it up, and a task to try today.</p>
+
+  <div class="chapter-wrap">
+    <div class="chapter-tabs" id="chTabs">
+      <button class="ch-tab active" data-ch="0" onclick="showCh(0)"><span class="ch-tab-emoji">🧠</span><span>AI Basics</span><span class="ch-tab-num">Ch 1</span></button>
+      <button class="ch-tab" data-ch="1" onclick="showCh(1)"><span class="ch-tab-emoji">🧾</span><span>Dext</span><span class="ch-tab-num">Ch 2</span></button>
+      <button class="ch-tab" data-ch="2" onclick="showCh(2)"><span class="ch-tab-emoji">🔄</span><span>Xero AI</span><span class="ch-tab-num">Ch 3</span></button>
+      <button class="ch-tab" data-ch="3" onclick="showCh(3)"><span class="ch-tab-emoji">💬</span><span>ChatGPT</span><span class="ch-tab-num">Ch 4</span></button>
+      <button class="ch-tab" data-ch="4" onclick="showCh(4)"><span class="ch-tab-emoji">🔍</span><span>Tax Bot (RAG)</span><span class="ch-tab-num">Ch 5</span></button>
+      <button class="ch-tab" data-ch="5" onclick="showCh(5)"><span class="ch-tab-emoji">🚀</span><span>Advisory Shift</span><span class="ch-tab-num">Ch 6</span></button>
+    </div>
+
+    <!-- CH1: AI Basics -->
+    <div class="ch-panel active" id="ch0">
+      <div class="ch-tool-banner">
+        <span class="ch-tool-emoji">🧠</span>
+        <div>
+          <div class="ch-tool-name">Understanding AI (Foundation)</div>
+          <div class="ch-tool-tagline">No tool yet — build the mental model first</div>
+        </div>
+      </div>
+      <p class="ch-desc">Before touching any AI tool, you need 30 minutes to understand <strong>what AI actually is</strong> and — more importantly — <strong>what it gets wrong</strong>. AI is confident even when incorrect, so for finance work, you are always the final check.</p>
+      <div class="ch-steps-title">📋 What to do</div>
+      <div class="ch-steps">
+        <div class="ch-step"><div class="ch-step-num">1</div><div class="ch-step-text">Open the <strong>INTRO</strong> and <strong>LLMs</strong> tabs on AICycle (top menu). Read both — 30 minutes total.</div></div>
+        <div class="ch-step"><div class="ch-step-num">2</div><div class="ch-step-text">Note the difference between AI <strong>categorising</strong> data (very reliable) vs AI <strong>calculating/predicting</strong> (always verify).</div></div>
+        <div class="ch-step"><div class="ch-step-num">3</div><div class="ch-step-text">Understand: AI never sees client data unless YOU upload it. This matters for confidentiality decisions in later chapters.</div></div>
+      </div>
+      <div class="ch-try"><strong>🎯 TRY THIS TODAY</strong>Open ChatGPT (free) and ask: "Explain what a balance sheet is to someone with no finance background." Notice how clear and fast it is — that's the foundation skill for Chapter 4.</div>
+      <button class="chapter-speak" onclick="speak('Chapter 1: Understanding AI. Before touching any tool, spend 30 minutes on the Intro and LLMs tabs. Remember AI is confident even when wrong — for finance work, you are always the final check. AI only sees data you upload yourself.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to this chapter</button>
+      <div class="ch-nav"><button class="ch-nav-btn" disabled>← Previous</button><button class="ch-nav-btn next" onclick="showCh(1)">Next: Dext →</button></div>
+    </div>
+
+    <!-- CH2: Dext -->
+    <div class="ch-panel" id="ch1">
+      <div class="ch-tool-banner">
+        <span class="ch-tool-emoji">🧾</span>
+        <div>
+          <div class="ch-tool-name">Dext (Receipt Bank)</div>
+          <div class="ch-tool-tagline">AI-powered receipt and invoice capture</div>
+        </div>
+        <a class="ch-tool-link" href="https://dext.com" target="_blank">dext.com ↗</a>
+      </div>
+      <p class="ch-desc"><strong>Dext</strong> uses AI to read photos of receipts and invoices — extracting supplier, date, amount, and VAT automatically, then publishing the data to Xero, QuickBooks, or Sage. Most firms already have access to this through their software bundle.</p>
+      <div class="ch-steps-title">📋 How to set it up</div>
+      <div class="ch-steps">
+        <div class="ch-step"><div class="ch-step-num">1</div><div class="ch-step-text">Check if Dext is already included in your Xero/QuickBooks subscription — many plans bundle it free.</div></div>
+        <div class="ch-step"><div class="ch-step-num">2</div><div class="ch-step-text">Install the <strong>Dext mobile app</strong>. Photograph a real receipt — AI extracts the data in seconds.</div></div>
+        <div class="ch-step"><div class="ch-step-num">3</div><div class="ch-step-text">Set up the <code>email forwarding</code> address — forward supplier invoice emails directly, no photo needed.</div></div>
+        <div class="ch-step"><div class="ch-step-num">4</div><div class="ch-step-text">Review the AI's "publish" suggestions for the first week before trusting auto-publish.</div></div>
+      </div>
+      <div class="ch-try"><strong>🎯 TRY THIS TODAY</strong>Take a photo of any receipt with the Dext app (free trial available) and watch it extract supplier, amount, and date automatically. Time it — compare to manual entry.</div>
+      <button class="chapter-speak" onclick="speak('Chapter 2: Dext. This tool uses AI to read receipts and invoices from photos, extracting supplier, date, amount, and VAT automatically. Check if it is already bundled with your Xero or QuickBooks subscription, then try photographing a receipt today.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to this chapter</button>
+      <div class="ch-nav"><button class="ch-nav-btn" onclick="showCh(0)">← Previous</button><button class="ch-nav-btn next" onclick="showCh(2)">Next: Xero AI →</button></div>
+    </div>
+
+    <!-- CH3: Xero AI -->
+    <div class="ch-panel" id="ch2">
+      <div class="ch-tool-banner">
+        <span class="ch-tool-emoji">🔄</span>
+        <div>
+          <div class="ch-tool-name">Xero (Bank Rules + AI Reconciliation)</div>
+          <div class="ch-tool-tagline">Automated bank matching that learns patterns</div>
+        </div>
+        <a class="ch-tool-link" href="https://xero.com" target="_blank">xero.com ↗</a>
+      </div>
+      <p class="ch-desc">Xero's AI-assisted reconciliation <strong>suggests matches</strong> between bank transactions and invoices, and learns from your corrections. Over time, "Find & Match" suggestions become highly accurate for repeat suppliers.</p>
+      <div class="ch-steps-title">📋 How to use it</div>
+      <div class="ch-steps">
+        <div class="ch-step"><div class="ch-step-num">1</div><div class="ch-step-text">Go to <strong>Accounting → Bank Accounts → Reconcile</strong>. Xero shows AI-suggested matches on the right.</div></div>
+        <div class="ch-step"><div class="ch-step-num">2</div><div class="ch-step-text">Create <strong>Bank Rules</strong> for recurring transactions (rent, subscriptions) — set conditions once, AI applies them forever.</div></div>
+        <div class="ch-step"><div class="ch-step-num">3</div><div class="ch-step-text">Each time you confirm or correct a suggestion, the AI model improves for that client's patterns.</div></div>
+        <div class="ch-step"><div class="ch-step-num">4</div><div class="ch-step-text">Use <strong>"Cash summary"</strong> reports — Xero's AI flags unusual spikes automatically.</div></div>
+      </div>
+      <div class="ch-try"><strong>🎯 TRY THIS TODAY</strong>Open a client file → Reconcile tab. Count how many transactions already have a green "match found" suggestion. Confirm 5 of them and notice how fast it is.</div>
+      <button class="chapter-speak" onclick="speak('Chapter 3: Xero AI Reconciliation. Xero suggests matches between bank transactions and invoices, learning from your corrections over time. Set up bank rules for recurring transactions like rent and subscriptions so AI applies them automatically forever.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to this chapter</button>
+      <div class="ch-nav"><button class="ch-nav-btn" onclick="showCh(1)">← Previous</button><button class="ch-nav-btn next" onclick="showCh(3)">Next: ChatGPT →</button></div>
+    </div>
+
+    <!-- CH4: ChatGPT -->
+    <div class="ch-panel" id="ch3">
+      <div class="ch-tool-banner">
+        <span class="ch-tool-emoji">💬</span>
+        <div>
+          <div class="ch-tool-name">ChatGPT (Client Communication)</div>
+          <div class="ch-tool-tagline">Turn numbers into plain-English client updates</div>
+        </div>
+        <a class="ch-tool-link" href="https://chat.openai.com" target="_blank">chat.openai.com ↗</a>
+      </div>
+      <p class="ch-desc">ChatGPT's free tier is enough for this. The skill is <strong>prompting</strong> — giving it your numbers/notes and asking for a specific output format (email, summary, explanation).</p>
+      <div class="ch-steps-title">📋 How to use it</div>
+      <div class="ch-steps">
+        <div class="ch-step"><div class="ch-step-num">1</div><div class="ch-step-text">Create a free account at chat.openai.com (no card needed for free tier).</div></div>
+        <div class="ch-step"><div class="ch-step-num">2</div><div class="ch-step-text"><strong>Never paste client names or identifying details</strong> — use placeholders like "[Client A]" or round figures.</div></div>
+        <div class="ch-step"><div class="ch-step-num">3</div><div class="ch-step-text">Use this exact prompt structure: <em>"Turn these notes into a [professional email / simple explanation / summary]: [your notes]"</em></div></div>
+        <div class="ch-step"><div class="ch-step-num">4</div><div class="ch-step-text">Always re-read the output — check no numbers were changed or invented by the AI.</div></div>
+      </div>
+      <div class="ch-try"><strong>🎯 TRY THIS TODAY</strong>Paste this into ChatGPT: <em>"Turn these rough notes into a professional client email: Revenue up 12% this quarter, expenses up 8% due to new hire, cash position healthy, VAT return due 15th."</em> — then personalise the result.</div>
+      <button class="chapter-speak" onclick="speak('Chapter 4: ChatGPT for client communication. Use the free tier to turn rough notes into professional emails. Never paste real client names — use placeholders. Always re-read the output to check no numbers were changed.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to this chapter</button>
+      <div class="ch-nav"><button class="ch-nav-btn" onclick="showCh(2)">← Previous</button><button class="ch-nav-btn next" onclick="showCh(4)">Next: Tax Bot →</button></div>
+    </div>
+
+    <!-- CH5: RAG Tax Bot -->
+    <div class="ch-panel" id="ch4">
+      <div class="ch-tool-banner">
+        <span class="ch-tool-emoji">🔍</span>
+        <div>
+          <div class="ch-tool-name">RAG — Build a Tax Knowledge Bot</div>
+          <div class="ch-tool-tagline">AI that answers from YOUR documents, not the internet</div>
+        </div>
+        <a class="ch-tool-link" href="rag.html">AICycle RAG ↗</a>
+      </div>
+      <p class="ch-desc"><strong>RAG (Retrieval Augmented Generation)</strong> means: upload your firm's tax guidance docs → AI searches THOSE docs first → answers based only on what's there. This avoids generic/outdated answers and keeps answers grounded in your actual rules.</p>
+      <div class="ch-steps-title">📋 Easiest starting point (no coding)</div>
+      <div class="ch-steps">
+        <div class="ch-step"><div class="ch-step-num">1</div><div class="ch-step-text">Try <strong>Notion AI</strong> or <strong>Microsoft Copilot</strong> — both let you "ask questions" about uploaded documents/pages already.</div></div>
+        <div class="ch-step"><div class="ch-step-num">2</div><div class="ch-step-text">Upload last year's HMRC/IRS guidance PDF + your firm's internal policy doc into Notion.</div></div>
+        <div class="ch-step"><div class="ch-step-num">3</div><div class="ch-step-text">Ask: "According to these documents, what is the VAT threshold?" — it answers FROM your file, with a citation.</div></div>
+        <div class="ch-step"><div class="ch-step-num">4</div><div class="ch-step-text">For a firm-wide bot, read the full <strong>RAG tab</strong> on AICycle — it explains the technical version for IT/dev teams to build.</div></div>
+      </div>
+      <div class="ch-try"><strong>🎯 TRY THIS TODAY</strong>Open Microsoft Copilot or Notion AI → upload one PDF (any tax guidance doc) → ask it a specific question about that document. See how it answers from the file, not generic training data.</div>
+      <button class="chapter-speak" onclick="speak('Chapter 5: RAG Tax Knowledge Bot. RAG means uploading your firm tax guidance documents so AI answers from those files specifically, not generic internet knowledge. Start with Notion AI or Microsoft Copilot — both let you ask questions about uploaded documents today.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to this chapter</button>
+      <div class="ch-nav"><button class="ch-nav-btn" onclick="showCh(3)">← Previous</button><button class="ch-nav-btn next" onclick="showCh(5)">Next: Advisory Shift →</button></div>
+    </div>
+
+    <!-- CH6: Advisory -->
+    <div class="ch-panel" id="ch5">
+      <div class="ch-tool-banner">
+        <span class="ch-tool-emoji">🚀</span>
+        <div>
+          <div class="ch-tool-name">From Compliance to Advisory</div>
+          <div class="ch-tool-tagline">Using AI-freed time to grow your practice</div>
+        </div>
+      </div>
+      <p class="ch-desc">Once Chapters 2-5 save you hours per week, the real opportunity is repositioning. Clients don't pay extra for faster bookkeeping — but they <strong>do</strong> pay for forecasts, planning, and advice.</p>
+      <div class="ch-steps-title">📋 What to do next</div>
+      <div class="ch-steps">
+        <div class="ch-step"><div class="ch-step-num">1</div><div class="ch-step-text">Use Xero's <strong>"Short-term cash flow"</strong> AI forecast (Business → Short-term cash flow) — show this to ONE client this month.</div></div>
+        <div class="ch-step"><div class="ch-step-num">2</div><div class="ch-step-text">Ask ChatGPT: <em>"Based on this cash flow forecast [paste data], what 3 questions should I discuss with this client?"</em></div></div>
+        <div class="ch-step"><div class="ch-step-num">3</div><div class="ch-step-text">Track time saved per week from Chapters 2-4 — use this number when discussing fee restructuring (compliance vs advisory tiers).</div></div>
+        <div class="ch-step"><div class="ch-step-num">4</div><div class="ch-step-text">Tell clients transparently: "We use AI tools to handle routine work faster — giving us more time for [advisory area]."</div></div>
+      </div>
+      <div class="ch-try"><strong>🎯 TRY THIS TODAY</strong>Pick your most engaged client. Open their Xero cash flow forecast and prepare ONE proactive insight to share with them this week — that's advisory work in action.</div>
+      <button class="chapter-speak" onclick="speak('Chapter 6: From Compliance to Advisory. Once AI tools save you hours per week, reposition that time toward forecasts, planning, and advice — the work clients actually pay extra for. Use Xero short-term cash flow forecasts as your starting point with clients.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Listen to this chapter</button>
+      <div class="ch-nav"><button class="ch-nav-btn" onclick="showCh(4)">← Previous</button><button class="ch-nav-btn next" disabled>Course Complete ✓</button></div>
+    </div>
+
+  </div>
+
+  <div class="sec">🗺️ YOUR AI LEARNING ROADMAP</div>
+  <div class="roadmap">
+    <div class="rm-step"><div class="rm-num">1</div><div class="rm-content"><strong>Understand AI Basics (Week 1)</strong><p>Read the INTRO and LLMs tabs on AICycle. 30 minutes to understand what AI can and can't do — essential before trusting it with client data.</p></div></div>
+    <div class="rm-step"><div class="rm-num">2</div><div class="rm-content"><strong>Turn On AI in Your Existing Tools (Week 2)</strong><p>Xero, QuickBooks, and Sage all have AI features you may not have enabled — bank rule suggestions, receipt scanning, anomaly flags. Check settings first.</p></div></div>
+    <div class="rm-step"><div class="rm-num">3</div><div class="rm-content"><strong>Use ChatGPT for Client Communication (Week 3)</strong><p>Draft client emails and explanations with AI, then personalise. Most accountants save hours per week here alone.</p></div></div>
+    <div class="rm-step"><div class="rm-num">4</div><div class="rm-content"><strong>Understand RAG for Tax Knowledge (Month 2)</strong><p>See the RAG tab — this is how firms build internal tools that answer tax questions from up-to-date HMRC/IRS guidance documents.</p></div></div>
+    <div class="rm-step"><div class="rm-num">5</div><div class="rm-content"><strong>Reposition as an Advisor (Month 3+)</strong><p>As compliance work shrinks with AI, market your advisory services — forecasting, planning, strategy. This is where firms are growing revenue.</p></div></div>
+  </div>
+
+  <div class="cta-box">
+    <h3>🧮 READY TO GO?</h3>
+    <p>Explore the RAG section to understand how AI can answer questions from your firm's own tax guidance and client documents.</p>
+    <div class="cta-btns">
+      <a class="cta-btn" href="rag.html">🔍 EXPLORE RAG</a>
+      <a class="cta-btn outline" href="intro.html">🌱 START WITH INTRO</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var synth=window.speechSynthesis,voices=[];
+function loadVoices(){voices=synth.getVoices();}
+loadVoices();
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=loadVoices;
+function pickFemale(){
+  var names=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Aria - English (United States)','Samantha','Karen','Microsoft Zira - English (United States)','Google UK English Female'];
+  for(var i=0;i<names.length;i++){var v=voices.find(function(v){return v.name===names[i];});if(v)return v;}
+  return voices.find(function(v){return v.lang&&v.lang.startsWith('en');})||null;
+}
+function speak(text){synth.cancel();var u=new SpeechSynthesisUtterance(text);u.voice=pickFemale();u.rate=0.92;u.pitch=1.0;u.volume=1.0;synth.speak(u);}
+
+/* ── CHAPTER TAB SWITCHER ── */
+function showCh(idx){
+  synth.cancel();
+  document.querySelectorAll('.ch-tab').forEach(function(t,i){ t.classList.toggle('active', i===idx); });
+  document.querySelectorAll('.ch-panel').forEach(function(p,i){ p.classList.toggle('active', i===idx); });
+  var wrap = document.querySelector('.chapter-wrap');
+  if(wrap) wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+</body>
+</html>
