@@ -19,42 +19,45 @@
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#1a1a2e;
-  --bg:#f0f4ff;
-  /* Softer, muted palette — easy on the eyes */
-  --hot:#c2185b;       /* deep rose instead of harsh magenta */
-  --yellow:#e6a817;    /* warm amber */
-  --cyan:#0891b2;      /* deep teal-cyan */
-  --green:#059669;     /* muted emerald */
-  --py:#1d4ed8;        /* deep blue */
-  --net:#6d28d9;       /* deep violet */
-  --teal:#0d9488;
-  --orange:#d97706;
-  --border:3px solid #1a1a2e;
-  --sh:5px 5px 0 #1a1a2e;
+  --ink:#1e2235;
+  --bg:#eef0f6;
+
+  /* ── Muted, desaturated palette ── */
+  --hot:#8b3a5a;        /* dusty rose — was harsh magenta */
+  --yellow:#9a7a2e;     /* antique gold — was bright amber */
+  --cyan:#2a6b7c;       /* slate teal — was vivid cyan */
+  --green:#2d6b52;      /* forest green — was bright emerald */
+  --py:#2b4fa3;         /* slate blue — was vivid blue */
+  --net:#4e2d8a;        /* muted violet — was bright purple */
+  --teal:#226b65;
+  --orange:#8a5a1e;     /* warm brown-orange */
+
+  --border:2.5px solid #2a2d3e;
+  --sh:4px 4px 0 #2a2d3e;
   --ft:'Bangers',cursive;
   --fb:'Nunito',sans-serif;
   --fc:'Fira Code',monospace;
-  /* Hero softer gradient */
-  --hero-bg: linear-gradient(135deg,#1e3a5f 0%,#2d1b69 50%,#6b1a3d 100%);
+
+  /* Hero — much darker, less saturated */
+  --hero-bg: linear-gradient(135deg,#141c2e 0%,#1e1a35 50%,#2d162a 100%);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
 body{
-  background:var(--bg);
+  background:#e8eaf2;
   background-image:
-    repeating-linear-gradient(0deg,transparent,transparent 39px,#d8e0ff 39px,#d8e0ff 40px),
-    repeating-linear-gradient(90deg,transparent,transparent 39px,#d8e0ff 39px,#d8e0ff 40px);
+    repeating-linear-gradient(0deg,transparent,transparent 39px,#d4d8e8 39px,#d4d8e8 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,#d4d8e8 39px,#d4d8e8 40px);
   font-family:var(--fb);
   font-size:16px;
-  color:#1e293b;
+  color:#2a2d3e;
   display:flex;
   flex-direction:column;
 }
 
 /* ══ SLIM HERO ══ */
 .hero{
-  background: var(--hero-bg);
+  background:var(--hero-bg);
   padding:.65rem 1.5rem;
   display:flex;
   align-items:center;
@@ -62,174 +65,120 @@ body{
   gap:1rem;
   flex-wrap:wrap;
   flex-shrink:0;
-  border-bottom:3px solid rgba(255,255,255,.1);
+  border-bottom:2px solid rgba(255,255,255,.06);
   position:relative;
   overflow:hidden;
 }
 .hero::before{
-  content:'';
-  position:absolute;inset:0;
-  background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:20px 20px;
-  pointer-events:none;
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:22px 22px;pointer-events:none;
 }
 .hero-left{position:relative;display:flex;align-items:center;gap:.9rem;}
 .hero-badge{
-  background:rgba(230,168,23,.15);
-  border:1.5px solid rgba(230,168,23,.4);
-  border-radius:20px;
-  padding:.18rem .8rem;
-  font-family:var(--ft);
-  font-size:.82rem;
-  letter-spacing:1.5px;
-  color:#f3d47a;
+  background:rgba(154,122,46,.12);
+  border:1.5px solid rgba(154,122,46,.3);
+  border-radius:20px;padding:.18rem .8rem;
+  font-family:var(--ft);font-size:.82rem;
+  letter-spacing:1.5px;color:#c9a84c;
   white-space:nowrap;
 }
 .hero-title{
-  font-family:var(--ft);
-  font-size:1.75rem;
-  color:#fff;
-  letter-spacing:2px;
-  line-height:1;
-  text-shadow:2px 2px 0 rgba(0,0,0,.3);
+  font-family:var(--ft);font-size:1.75rem;
+  color:#c8cce0;letter-spacing:2px;line-height:1;
+  text-shadow:1px 1px 0 rgba(0,0,0,.4);
   white-space:nowrap;
 }
-.hero-title em{color:#f3d47a;font-style:normal;}
-.hero-right{
-  display:flex;
-  align-items:center;
-  gap:.55rem;
-  flex-wrap:wrap;
-  position:relative;
-}
+.hero-title em{color:#c9a84c;font-style:normal;}
+.hero-right{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;position:relative;}
 .hstat{
-  background:rgba(255,255,255,.1);
-  border:1.5px solid rgba(255,255,255,.2);
-  border-radius:8px;
-  padding:.3rem .7rem;
-  text-align:center;
-  min-width:60px;
+  background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:.3rem .7rem;
+  text-align:center;min-width:60px;
 }
-.hstat-n{
-  font-family:var(--ft);
-  font-size:1.1rem;
-  color:#f3d47a;
-  line-height:1;
-  display:block;
-}
-.hstat-l{
-  font-size:.6rem;
-  color:rgba(255,255,255,.7);
-  font-weight:800;
-  letter-spacing:.8px;
-  text-transform:uppercase;
-}
-.hstat.py-s{background:rgba(29,78,216,.25);border-color:rgba(29,78,216,.4);}
-.hstat.net-s{background:rgba(109,40,217,.25);border-color:rgba(109,40,217,.4);}
-.hstat.langs{padding:.3rem 1rem;}
-.hstat.langs .hstat-l{color:rgba(255,255,255,.8);}
+.hstat-n{font-family:var(--ft);font-size:1.1rem;color:#c9a84c;line-height:1;display:block;}
+.hstat-l{font-size:.6rem;color:rgba(255,255,255,.5);font-weight:800;letter-spacing:.8px;text-transform:uppercase;}
+.hstat.py-s{background:rgba(43,79,163,.18);border-color:rgba(43,79,163,.3);}
+.hstat.net-s{background:rgba(78,45,138,.18);border-color:rgba(78,45,138,.3);}
 
 /* ══ LEVEL TABS ══ */
 .lvlbar{
-  background:linear-gradient(180deg,#0f172a,#1e1b4b);
-  border-bottom:3px solid var(--yellow);
-  display:flex;
-  padding:.45rem .8rem 0;
-  gap:.25rem;
-  overflow-x:auto;
-  flex-shrink:0;
-  scrollbar-width:thin;
-  scrollbar-color:var(--hot) #111;
+  background:linear-gradient(180deg,#0e1020,#181530);
+  border-bottom:2px solid rgba(154,122,46,.35);
+  display:flex;padding:.45rem .8rem 0;gap:.25rem;
+  overflow-x:auto;flex-shrink:0;
+  scrollbar-width:thin;scrollbar-color:rgba(139,58,90,.5) #111;
 }
 .lvlbar::-webkit-scrollbar{height:3px;}
-.lvlbar::-webkit-scrollbar-thumb{background:var(--hot);}
+.lvlbar::-webkit-scrollbar-thumb{background:rgba(139,58,90,.5);}
 .lvl{
-  font-family:var(--ft);
-  font-size:.88rem;
-  letter-spacing:1.5px;
+  font-family:var(--ft);font-size:.88rem;letter-spacing:1.5px;
   padding:.4rem 1.1rem .55rem;
-  border:2px solid rgba(255,255,255,.12);
-  border-bottom:none;
-  border-radius:8px 8px 0 0;
-  cursor:pointer;
-  color:rgba(255,255,255,.55);
-  background:rgba(255,255,255,.05);
-  transition:all .17s;
-  white-space:nowrap;
-  position:relative;top:3px;
-  outline:none;
-  user-select:none;
+  border:1.5px solid rgba(255,255,255,.08);border-bottom:none;
+  border-radius:8px 8px 0 0;cursor:pointer;
+  color:rgba(255,255,255,.38);background:rgba(255,255,255,.04);
+  transition:all .17s;white-space:nowrap;
+  position:relative;top:3px;outline:none;user-select:none;
 }
-.lvl:hover{background:rgba(255,255,255,.12);color:#fff;top:1px;}
-.lvl.act-b{background:var(--green)!important;color:#fff!important;top:0;border-color:var(--green);box-shadow:0 -3px 0 var(--green);transform:scale(1.04);}
-.lvl.act-i{background:var(--py)!important;color:#fff!important;top:0;border-color:var(--py);box-shadow:0 -3px 0 var(--py);transform:scale(1.04);}
-.lvl.act-a{background:var(--hot)!important;color:#fff!important;top:0;border-color:var(--hot);box-shadow:0 -3px 0 var(--hot);transform:scale(1.04);}
-.lvl.act-p{background:var(--net)!important;color:#fff!important;top:0;border-color:var(--net);box-shadow:0 -3px 0 var(--net);transform:scale(1.04);}
-.cnt{font-size:.58rem;background:rgba(255,255,255,.18);padding:1px 5px;border-radius:6px;margin-left:.25rem;}
+.lvl:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);top:1px;}
+.lvl.act-b{background:rgba(45,107,82,.7)!important;color:#c8e6da!important;top:0;border-color:rgba(45,107,82,.6);transform:scale(1.04);}
+.lvl.act-i{background:rgba(43,79,163,.7)!important;color:#c0d0f0!important;top:0;border-color:rgba(43,79,163,.6);transform:scale(1.04);}
+.lvl.act-a{background:rgba(139,58,90,.7)!important;color:#f0c4d2!important;top:0;border-color:rgba(139,58,90,.6);transform:scale(1.04);}
+.lvl.act-p{background:rgba(78,45,138,.7)!important;color:#d0c0f0!important;top:0;border-color:rgba(78,45,138,.6);transform:scale(1.04);}
+.cnt{font-size:.58rem;background:rgba(255,255,255,.1);padding:1px 5px;border-radius:6px;margin-left:.25rem;}
 
 /* ══ SPLIT VIEW WRAPPER ══ */
 .cwrap{flex:1;overflow:hidden;display:flex;flex-direction:column;}
 .sv{display:flex;flex:1;overflow:hidden;}
 .sp{
-  flex:1;
-  overflow-y:auto;
-  padding:1rem;
-  display:flex;
-  flex-direction:column;
-  gap:.8rem;
-  min-width:0;
-  scrollbar-width:thin;
+  flex:1;overflow-y:auto;padding:1rem;
+  display:flex;flex-direction:column;gap:.8rem;
+  min-width:0;scrollbar-width:thin;
 }
 .sp::-webkit-scrollbar{width:5px;}
 .sp::-webkit-scrollbar-thumb{border-radius:3px;}
+
+/* Cooler, lower-saturation panel backgrounds */
 .pyp{
-  background:linear-gradient(180deg,#dbeafe,#eff6ff);
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#bfdbfe 31px,#bfdbfe 32px);
+  background:linear-gradient(180deg,#dde4f0,#e8edf8);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#ccd4e8 31px,#ccd4e8 32px);
 }
-.pyp::-webkit-scrollbar-thumb{background:#93c5fd;}
+.pyp::-webkit-scrollbar-thumb{background:#a8b8d8;}
 .netp{
-  background:linear-gradient(180deg,#ede9fe,#f5f3ff);
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#ddd6fe 31px,#ddd6fe 32px);
+  background:linear-gradient(180deg,#e4e0f0,#ede9f8);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#d4cee8 31px,#d4cee8 32px);
 }
-.netp::-webkit-scrollbar-thumb{background:#c4b5fd;}
+.netp::-webkit-scrollbar-thumb{background:#b8a8d8;}
 
 /* ══ SPLITTER ══ */
 .spl{
-  width:12px;
-  flex-shrink:0;
-  background:linear-gradient(180deg,#1d4ed8,#6d28d9,#c2185b);
+  width:10px;flex-shrink:0;
+  background:linear-gradient(180deg,#2b4fa3,#4e2d8a,#8b3a5a);
+  opacity:.6;
   cursor:col-resize;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  user-select:none;
-  position:relative;
-  transition:filter .2s;
+  display:flex;align-items:center;justify-content:center;
+  user-select:none;position:relative;transition:opacity .2s;
 }
-.spl:hover{filter:brightness(1.25);}
+.spl:hover{opacity:.9;}
 .spl::after{
-  content:'⋮⋮';
-  color:rgba(255,255,255,.5);
-  font-size:.9rem;
-  letter-spacing:-4px;
-  writing-mode:horizontal-tb;
+  content:'⋮⋮';color:rgba(255,255,255,.4);
+  font-size:.9rem;letter-spacing:-4px;
 }
 
 /* ══ LANGUAGE BADGE ══ */
 .lbadge{
   display:flex;align-items:center;gap:.75rem;
-  padding:.65rem 1rem;
-  border-radius:10px;
-  border:var(--border);
-  box-shadow:var(--sh);
-  margin-bottom:.7rem;
-  flex-shrink:0;
+  padding:.6rem .9rem;border-radius:10px;
+  border:2px solid rgba(0,0,0,.25);
+  box-shadow:3px 3px 0 rgba(0,0,0,.2);
+  margin-bottom:.7rem;flex-shrink:0;
 }
-.lbadge.pyb{background:linear-gradient(135deg,#1e3a8a,#1d4ed8);}
-.lbadge.netb{background:linear-gradient(135deg,#3b0764,#6d28d9);}
-.lbi{font-size:1.6rem;}
-.lbt{font-family:var(--ft);font-size:1.1rem;letter-spacing:1px;color:#fff;}
-.lbs{font-size:.8rem;color:rgba(255,255,255,.8);}
+.lbadge.pyb{background:linear-gradient(135deg,#1a2d5a,#2b4fa3);}
+.lbadge.netb{background:linear-gradient(135deg,#261040,#4e2d8a);}
+.lbi{font-size:1.5rem;}
+.lbt{font-family:var(--ft);font-size:1.05rem;letter-spacing:1px;color:#dde4f4;}
+.lbs{font-size:.78rem;color:rgba(255,255,255,.55);}
 
 /* ══ LEVEL PANELS ══ */
 .lc{display:none;flex-direction:column;gap:.75rem;}
@@ -237,125 +186,116 @@ body{
 
 /* ══ SECTION HEADER ══ */
 .sec-head{
-  font-family:var(--ft);
-  font-size:1rem;
-  letter-spacing:2px;
-  padding:.42rem .9rem;
-  border:2.5px solid var(--ink);
-  border-radius:7px;
-  box-shadow:3px 3px 0 var(--ink);
-  margin-bottom:.6rem;
-  display:inline-block;
-  color:#fff;
-  background:var(--ink);
+  font-family:var(--ft);font-size:.95rem;letter-spacing:2px;
+  padding:.38rem .85rem;border:2px solid rgba(0,0,0,.25);
+  border-radius:7px;box-shadow:2px 2px 0 rgba(0,0,0,.2);
+  margin-bottom:.55rem;display:inline-block;color:#e0e4f0;
+  background:#2a2d3e;
 }
-.py-sec{background:var(--py)!important;border-color:var(--py);box-shadow:3px 3px 0 var(--ink);}
-.net-sec{background:var(--net)!important;border-color:var(--net);box-shadow:3px 3px 0 var(--ink);}
+.py-sec{background:rgba(43,79,163,.75)!important;border-color:rgba(43,79,163,.5);}
+.net-sec{background:rgba(78,45,138,.75)!important;border-color:rgba(78,45,138,.5);}
 
-/* ══ Q&A CARDS ══ */
-.qa-group{display:flex;flex-direction:column;gap:.65rem;margin-bottom:.8rem;}
-.qa-item{border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;transition:transform .15s,box-shadow .15s;}
-.qa-item:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
-.qa-item.easy  {background:linear-gradient(135deg,#ecfdf5,#d1fae5);}
-.qa-item.medium{background:linear-gradient(135deg,#fff7ed,#ffedd5);}
-.qa-item.hard  {background:linear-gradient(135deg,#fdf2f8,#fce7f3);}
-.qa-item.pro   {background:linear-gradient(135deg,#f5f0ff,#ede9fe);}
-.qa-item       {background:linear-gradient(135deg,#eff6ff,#dbeafe);}
+/* ══ Q&A CARDS — all muted, no bright gradients ══ */
+.qa-item{
+  border:2px solid rgba(42,45,62,.4);border-radius:11px;
+  box-shadow:3px 3px 0 rgba(42,45,62,.25);
+  overflow:hidden;transition:transform .15s,box-shadow .15s;
+  background:#f2f4fa;
+}
+.qa-item:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 rgba(42,45,62,.3);}
+.qa-item.easy  {background:linear-gradient(135deg,#e8f2ec,#ddeee5);}
+.qa-item.medium{background:linear-gradient(135deg,#f2eddf,#ede5d0);}
+.qa-item.hard  {background:linear-gradient(135deg,#f0e8ee,#e8dce6);}
+.qa-item.pro   {background:linear-gradient(135deg,#eae6f4,#e0daf0);}
+
+.qa-group{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.8rem;}
 
 .qa-q{
-  padding:.75rem .9rem;
-  display:flex;align-items:flex-start;gap:.65rem;
-  cursor:pointer;background:transparent;border:none;width:100%;text-align:left;
+  padding:.7rem .85rem;
+  display:flex;align-items:flex-start;gap:.6rem;
+  cursor:pointer;background:transparent;border:none;
+  width:100%;text-align:left;
 }
 .qa-q-num{
-  font-family:var(--ft);font-size:.88rem;letter-spacing:1px;
-  min-width:34px;height:34px;border-radius:8px;
-  border:2px solid var(--ink);
+  font-family:var(--ft);font-size:.85rem;letter-spacing:1px;
+  min-width:32px;height:32px;border-radius:7px;
+  border:1.5px solid rgba(0,0,0,.25);
   display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;color:#fff;box-shadow:2px 2px 0 var(--ink);
+  flex-shrink:0;color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.2);
 }
-.qa-item.easy   .qa-q-num{background:var(--green);}
-.qa-item.medium .qa-q-num{background:var(--orange);}
-.qa-item.hard   .qa-q-num{background:var(--hot);}
-.qa-item.pro    .qa-q-num{background:var(--net);}
-.qa-item        .qa-q-num{background:var(--py);}
-.qa-q-text{font-size:.93rem;font-weight:800;color:#1e293b;flex:1;line-height:1.5;}
-.qa-q-icon{font-size:.85rem;color:#64748b;flex-shrink:0;margin-top:.3rem;transition:transform .2s;}
-.qa-q-icon.open{transform:rotate(90deg);color:var(--hot);}
+.qa-item.easy   .qa-q-num{background:#2d6b52;}
+.qa-item.medium .qa-q-num{background:#7a5018;}
+.qa-item.hard   .qa-q-num{background:#7a3050;}
+.qa-item.pro    .qa-q-num{background:#4e2d8a;}
+.qa-item        .qa-q-num{background:#2b4fa3;}
 
-.qa-a{border-top:2.5px solid var(--ink);display:none;}
+.qa-q-text{font-size:.91rem;font-weight:800;color:#1e2235;flex:1;line-height:1.5;}
+.qa-q-icon{font-size:.8rem;color:#8890a8;flex-shrink:0;margin-top:.3rem;transition:transform .2s;}
+.qa-q-icon.open{transform:rotate(90deg);color:#8b3a5a;}
+
+.qa-a{border-top:1.5px solid rgba(42,45,62,.2);display:none;}
 .qa-a.open{display:block;}
 .qa-a-inner{
-  padding:.85rem .95rem .95rem;
-  background:rgba(255,255,255,.55);
-  font-size:.91rem;line-height:1.82;color:#1e293b;
+  padding:.8rem .9rem .9rem;
+  background:rgba(255,255,255,.45);
+  font-size:.89rem;line-height:1.82;color:#2a2d3e;
 }
-.qa-mascot{font-family:var(--ft);font-size:.82rem;letter-spacing:1px;color:var(--hot);margin-bottom:.45rem;display:flex;align-items:center;gap:.3rem;}
-.qa-a-inner strong{color:var(--hot);}
-.qa-a-inner em{color:var(--py);font-style:italic;}
+.qa-mascot{font-family:var(--ft);font-size:.8rem;letter-spacing:1px;color:#7a3050;margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem;}
+.qa-a-inner strong{color:#7a3050;}
+.qa-a-inner em{color:#2b4fa3;font-style:italic;}
 .qa-a-inner ul{padding-left:1.1rem;margin:.35rem 0;}
 .qa-a-inner li{margin-bottom:.3rem;}
-.qa-a-inner code{background:var(--ink);color:#a6e3a1;padding:1px 6px;border-radius:4px;font-family:var(--fc);font-size:.85rem;}
+.qa-a-inner code{background:#252840;color:#a0c8a0;padding:1px 6px;border-radius:4px;font-family:var(--fc);font-size:.83rem;}
 
-.tip{display:block;background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:2px solid var(--green);border-radius:7px;padding:.45rem .75rem;margin:.5rem 0 0;font-size:.85rem;color:#065f46!important;}
-.warn{display:block;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid var(--orange);border-radius:7px;padding:.45rem .75rem;margin:.5rem 0 0;font-size:.85rem;color:#92400e!important;}
-.hot{display:block;background:linear-gradient(135deg,#fdf2f8,#fce7f3);border:2px solid var(--hot);border-radius:7px;padding:.45rem .75rem;margin:.5rem 0 0;font-size:.85rem;color:#9d174d!important;}
+.tip{display:block;background:#deeee8;border:1.5px solid #4a8a6a;border-radius:6px;padding:.4rem .7rem;margin:.5rem 0 0;font-size:.83rem;color:#1a4a32!important;}
+.warn{display:block;background:#eee8d8;border:1.5px solid #8a6a1e;border-radius:6px;padding:.4rem .7rem;margin:.5rem 0 0;font-size:.83rem;color:#5a3c0a!important;}
+.hot{display:block;background:#ecdde8;border:1.5px solid #8a3a5a;border-radius:6px;padding:.4rem .7rem;margin:.5rem 0 0;font-size:.83rem;color:#5a1a30!important;}
 
 .qa-code{
-  background:#1e1e2e;border:2.5px solid var(--ink);border-radius:8px;
-  box-shadow:3px 3px 0 var(--ink);
-  padding:.75rem .9rem;
-  font-family:var(--fc);color:#cdd6f4;font-size:.8rem;line-height:1.75;
-  white-space:pre;overflow-x:auto;margin:.6rem 0;
+  background:#1a1c2e;border:2px solid rgba(42,45,62,.5);border-radius:7px;
+  box-shadow:2px 2px 0 rgba(42,45,62,.2);
+  padding:.7rem .85rem;font-family:var(--fc);
+  color:#b8c0d8;font-size:.78rem;line-height:1.75;
+  white-space:pre;overflow-x:auto;margin:.55rem 0;
 }
-.pk{color:#89b4fa;}.pf{color:#89dceb;}.ps{color:#a6e3a1;}.pc{color:#585b70;}.pn{color:#fab387;}.pm{color:#cba6f7;}
+.pk{color:#6888c8;}.pf{color:#68b8c8;}.ps{color:#88a868;}.pc{color:#505468;}.pn{color:#c8906a;}.pm{color:#9878c8;}
 
 /* ══ TTS SPEAKER BUTTON ══ */
 .tts-btn{
-  flex-shrink:0;
-  width:30px;height:30px;
-  border-radius:8px;
-  border:2px solid var(--ink);
-  background:linear-gradient(135deg,#e0e7ff,#c7d2fe);
-  color:var(--py);
-  font-size:.75rem;
-  cursor:pointer;
+  flex-shrink:0;width:28px;height:28px;border-radius:7px;
+  border:1.5px solid rgba(42,45,62,.3);
+  background:rgba(43,79,163,.1);
+  color:#2b4fa3;font-size:.75rem;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:2px 2px 0 var(--ink);
-  transition:all .15s;
-  margin-left:.35rem;
-  padding:0;
-  line-height:1;
+  box-shadow:1px 1px 0 rgba(42,45,62,.2);
+  transition:all .15s;margin-left:.3rem;padding:0;line-height:1;
 }
-.tts-btn svg{width:15px;height:15px;display:block;pointer-events:none;}
-.tts-btn:hover{background:linear-gradient(135deg,var(--py),#4f46e5);box-shadow:3px 3px 0 var(--ink);}
-.tts-btn:hover svg{stroke:#fff;}
+.tts-btn svg{width:14px;height:14px;display:block;pointer-events:none;}
+.tts-btn:hover{background:rgba(43,79,163,.25);border-color:rgba(43,79,163,.5);}
+.tts-btn:hover svg{stroke:#2b4fa3;}
 .tts-btn.speaking{
-  background:linear-gradient(135deg,var(--hot),#db2777);
-  border-color:var(--hot);
-  box-shadow:2px 2px 0 var(--ink);
+  background:rgba(139,58,90,.2);border-color:rgba(139,58,90,.5);
   animation:tts-pulse .7s ease-in-out infinite alternate;
 }
-.tts-btn.speaking svg{stroke:#fff;}
-.tts-btn.speaking:hover{filter:brightness(1.1);}
+.tts-btn.speaking svg{stroke:#8b3a5a;}
 @keyframes tts-pulse{
-  from{box-shadow:2px 2px 0 var(--ink),0 0 0 0 rgba(194,24,91,.5);}
-  to{box-shadow:2px 2px 0 var(--ink),0 0 0 7px rgba(194,24,91,0);}
+  from{box-shadow:1px 1px 0 rgba(42,45,62,.2),0 0 0 0 rgba(139,58,90,.3);}
+  to{box-shadow:1px 1px 0 rgba(42,45,62,.2),0 0 0 6px rgba(139,58,90,0);}
 }
 
-.diff{font-size:.58rem;font-weight:800;padding:2px 8px;border-radius:16px;border:1.5px solid var(--ink);margin-left:.35rem;vertical-align:middle;white-space:nowrap;display:inline-block;box-shadow:1px 1px 0 var(--ink);}
-.diff.easy,.diff.beginner{background:var(--green);color:#fff;}
-.diff.med,.diff.medium{background:var(--orange);color:#fff;}
-.diff.hard,.diff.advanced{background:var(--hot);color:#fff;}
-.diff.pro,.diff.senior,.diff.professional{background:var(--net);color:#fff;}
-.cat{font-size:.57rem;font-weight:800;padding:2px 7px;border-radius:8px;background:var(--ink);color:var(--yellow);margin-left:.25rem;vertical-align:middle;white-space:nowrap;display:inline-block;}
+.diff{font-size:.56rem;font-weight:800;padding:2px 7px;border-radius:12px;border:1.5px solid rgba(0,0,0,.2);margin-left:.3rem;vertical-align:middle;white-space:nowrap;display:inline-block;box-shadow:1px 1px 0 rgba(0,0,0,.1);}
+.diff.easy,.diff.beginner{background:#2d6b52;color:#e0f0e8;}
+.diff.med,.diff.medium{background:#7a5018;color:#f0e0c8;}
+.diff.hard,.diff.advanced{background:#7a3050;color:#f0d0dc;}
+.diff.pro,.diff.senior,.diff.professional{background:#4e2d8a;color:#ddd0f4;}
+.cat{font-size:.55rem;font-weight:800;padding:2px 6px;border-radius:6px;background:#2a2d3e;color:rgba(201,168,76,.8);margin-left:.22rem;vertical-align:middle;white-space:nowrap;display:inline-block;}
 
 /* ══ RESPONSIVE ══ */
 @media(max-width:900px){
   .hero{padding:.55rem 1rem;}
   .hero-title{font-size:1.3rem;}
   .sv{flex-direction:column;}
-  .spl{width:100%;height:10px;cursor:row-resize;}
+  .spl{width:100%;height:8px;cursor:row-resize;}
   .spl::after{writing-mode:horizontal-tb;content:'· · ·';}
   .sp{min-height:300px;}
 }
@@ -374,26 +314,11 @@ body{
     <h1 class="hero-title">CRACK YOUR <em>AI INTERVIEW</em></h1>
   </div>
   <div class="hero-right">
-    <div class="hstat">
-      <span class="hstat-n">120+</span>
-      <span class="hstat-l">Questions</span>
-    </div>
-    <div class="hstat">
-      <span class="hstat-n">4</span>
-      <span class="hstat-l">Levels</span>
-    </div>
-    <div class="hstat py-s">
-      <span class="hstat-n">🐍</span>
-      <span class="hstat-l">Python</span>
-    </div>
-    <div class="hstat net-s">
-      <span class="hstat-n">🟣</span>
-      <span class="hstat-l">.NET C#</span>
-    </div>
-    <div class="hstat">
-      <span class="hstat-n">8</span>
-      <span class="hstat-l">Topics</span>
-    </div>
+    <div class="hstat"><span class="hstat-n">120+</span><span class="hstat-l">Questions</span></div>
+    <div class="hstat"><span class="hstat-n">4</span><span class="hstat-l">Levels</span></div>
+    <div class="hstat py-s"><span class="hstat-n">🐍</span><span class="hstat-l">Python</span></div>
+    <div class="hstat net-s"><span class="hstat-n">🟣</span><span class="hstat-l">.NET C#</span></div>
+    <div class="hstat"><span class="hstat-n">8</span><span class="hstat-l">Topics</span></div>
   </div>
 </div>
 
@@ -589,7 +514,7 @@ result = llm.invoke([
             <strong>Also:</strong> NeMo Guardrails, LLM Guard, Rebuff for prompt injection detection</div></div>
         </div>
       </div>
-    </div><!-- end py-l0 -->
+    </div>
 
     <!-- INTERMEDIATE PYTHON -->
     <div class="lc" id="py-l1">
@@ -705,13 +630,13 @@ os.environ[<span class="ps">"LANGCHAIN_API_KEY"</span>]    = <span class="ps">"l
           <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div>Pauses the agent at a specific node and waits for human approval before continuing. Critical for irreversible actions (send emails, delete files, charge cards).
             <div class="qa-code">app = graph.compile(
     checkpointer=MemorySaver(),
-    interrupt_before=[<span class="ps">"risky"</span>]  <span class="pc"># pauses here!</span>
+    interrupt_before=[<span class="ps">"risky"</span>]
 )
-app.invoke(<span class="pk">None</span>, config)  <span class="pc"># resume after approval</span></div>
+app.invoke(<span class="pk">None</span>, config)</div>
             <span class="tip">💡 Always use interrupt for: sending emails, purchases, deleting data</span></div></div>
         </div>
       </div>
-    </div><!-- end py-l1 -->
+    </div>
 
     <!-- ADVANCED PYTHON -->
     <div class="lc" id="py-l2">
@@ -785,7 +710,7 @@ g.add_edge(<span class="ps">"research"</span>, <span class="ps">"write"</span>)<
 results = evaluate(dataset, metrics=[faithfulness, answer_relevancy])</div></div></div>
         </div>
       </div>
-    </div><!-- end py-l2 -->
+    </div>
 
     <!-- PROFESSIONAL PYTHON -->
     <div class="lc" id="py-l3">
@@ -867,7 +792,7 @@ results = evaluate(dataset, metrics=[faithfulness, answer_relevancy])</div></div
             </ul></div></div>
         </div>
       </div>
-    </div><!-- end py-l3 -->
+    </div>
 
   </div><!-- end pyleft -->
 
@@ -972,7 +897,7 @@ kernel.Plugins.AddFromType&lt;WeatherPlugin&gt;(<span class="ps">"weather"</span
           </button>
           <div class="qa-a"><div class="qa-a-inner"><div class="qa-mascot">💡 Answer:</div><strong>Never hardcode keys!</strong><br><br>
             <strong>Dev:</strong> <code>dotnet user-secrets set "OpenAI:ApiKey" "sk-..."</code><br><br>
-            <strong>Production (best to acceptable):</strong><ul><li>Azure Key Vault + Managed Identity — no keys stored anywhere</li><li>Environment variables in App Service config</li><li>Azure App Configuration with Key Vault references</li></ul>
+            <strong>Production:</strong><ul><li>Azure Key Vault + Managed Identity — no keys stored anywhere</li><li>Environment variables in App Service config</li><li>Azure App Configuration with Key Vault references</li></ul>
             <div class="qa-code"><span class="pk">var</span> credential = <span class="pk">new</span> DefaultAzureCredential();
 <span class="pk">var</span> client = <span class="pk">new</span> SecretClient(
     <span class="pk">new</span> Uri(<span class="ps">"https://myvault.vault.azure.net"</span>), credential);</div></div></div>
@@ -1011,7 +936,7 @@ IChatClient client = <span class="pk">new</span> OllamaApiClient(
             Use when: sensitive data, no internet, cost control, testing without API bills</div></div>
         </div>
       </div>
-    </div><!-- end net-l0 -->
+    </div>
 
     <!-- INTERMEDIATE .NET -->
     <div class="lc" id="net-l1">
@@ -1100,7 +1025,7 @@ record AskRequest(<span class="pk">string</span> Question);</div></div></div>
             <span class="tip">💡 Azure AI Search's semantic reranker dramatically improves result quality over pure vector search</span></div></div>
         </div>
       </div>
-    </div><!-- end net-l1 -->
+    </div>
 
     <!-- ADVANCED .NET -->
     <div class="lc" id="net-l2">
@@ -1164,7 +1089,7 @@ record AskRequest(<span class="pk">string</span> Question);</div></div></div>
     <span class="ps">"documents"</span>, userQuestion, limit:<span class="pn">5</span>, minRelevanceScore:<span class="pn">0.75</span>);</div></div></div>
         </div>
       </div>
-    </div><!-- end net-l2 -->
+    </div>
 
     <!-- PROFESSIONAL .NET -->
     <div class="lc" id="net-l3">
@@ -1249,14 +1174,13 @@ mockKernel.Setup(k => k.InvokePromptAsync(It.IsAny&lt;<span class="pk">string</s
             <span class="hot">🔥 Regulated industries: mention ISO 27001, SOC 2, HIPAA compliance on Azure</span></div></div>
         </div>
       </div>
-    </div><!-- end net-l3 -->
+    </div>
 
   </div><!-- end netright -->
 </div><!-- end sv -->
 </div><!-- end cwrap -->
 
 <script>
-/* ══ LEVEL SWITCHING ══ */
 function showLevel(idx, btn, activeClass) {
   document.querySelectorAll('.lvl').forEach(b =>
     b.classList.remove('act-b','act-i','act-a','act-p'));
@@ -1267,13 +1191,11 @@ function showLevel(idx, btn, activeClass) {
       if(el) el.classList.toggle('act', i === idx);
     }
   });
-  // Reset scroll position
   document.getElementById('pyleft').scrollTop = 0;
   document.getElementById('netright').scrollTop = 0;
   pyLast = 0; netLast = 0;
 }
 
-/* ══ ACCORDION ══ */
 function toggle(btn) {
   var ans  = btn.nextElementSibling;
   var icon = btn.querySelector('.qa-q-icon');
@@ -1283,226 +1205,142 @@ function toggle(btn) {
   if (icon) icon.classList.toggle('open', !isOpen);
 }
 
-/* ══ TTS — WEB SPEECH API ══ */
 (function() {
-  var synth       = window.speechSynthesis;
-  var activeBtn   = null;
-  var voices      = [];
-
-  // Load voices (async on Chrome)
-  function loadVoices() {
-    voices = synth.getVoices();
-  }
+  var synth = window.speechSynthesis;
+  var activeBtn = null;
+  var voices = [];
+  function loadVoices() { voices = synth.getVoices(); }
   loadVoices();
   if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
-
-  // Pick best female English voice
   function pickVoice() {
-    // Explicit female voices by name (cross-platform)
-    var femaleNames = [
-      'Google US English',      // Chrome — female by default
-      'Microsoft Aria Online (Natural) - English (United States)',
-      'Microsoft Aria - English (United States)',
-      'Samantha',               // macOS/iOS
-      'Karen',                  // macOS Australian
-      'Moira',                  // macOS Irish
-      'Tessa',                  // macOS South African
-      'Veena',                  // macOS Indian
-      'Victoria',               // macOS
-      'Microsoft Zira - English (United States)',
-      'Microsoft Zira Desktop - English (United States)',
-      'Google UK English Female',
-    ];
+    var femaleNames = ['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Aria - English (United States)','Samantha','Karen','Moira','Tessa','Victoria','Microsoft Zira - English (United States)','Google UK English Female'];
     for (var i = 0; i < femaleNames.length; i++) {
       var v = voices.find(function(v){ return v.name === femaleNames[i]; });
       if (v) return v;
     }
-    // Fallback: any voice with 'female' in name
-    var femaleAny = voices.find(function(v){
-      return v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('woman');
-    });
-    if (femaleAny) return femaleAny;
-    // Last resort: any English voice
-    return voices.find(function(v){ return v.lang.startsWith('en'); }) || null;
+    return voices.find(function(v){ return v.lang && v.lang.startsWith('en'); }) || null;
   }
-
-  // Extract clean text from a DOM element (strips HTML, code blocks get labelled)
   function extractText(el) {
     if (!el) return '';
     var clone = el.cloneNode(true);
-
-    // Label code blocks clearly instead of reading garbage
     clone.querySelectorAll('.qa-code').forEach(function(code) {
       var label = document.createElement('span');
       label.textContent = ' [Code example] ';
       code.replaceWith(label);
     });
-    // Remove badges/diff/cat spans (clutter)
     clone.querySelectorAll('.diff,.cat').forEach(function(s){ s.remove(); });
-
-    return (clone.innerText || clone.textContent || '')
-      .replace(/\s+/g, ' ')
-      .replace(/\[object Object\]/g, '')
-      .trim();
+    return (clone.innerText || clone.textContent || '').replace(/\s+/g, ' ').replace(/\[object Object\]/g, '').trim();
   }
-
-  // Stop any current speech
   function stopSpeech() {
     synth.cancel();
     if (activeBtn) {
       activeBtn.innerHTML = iconPlay;
       activeBtn.classList.remove('speaking');
-      activeBtn.title = 'Listen (female voice)';
+      activeBtn.title = 'Listen';
       activeBtn = null;
     }
   }
-
-  // Speak text
   function speak(text, btn) {
     stopSpeech();
     if (!text) return;
-
-    var utter     = new SpeechSynthesisUtterance(text);
-    utter.voice   = pickVoice();
-    utter.rate    = 0.92;
-    utter.pitch   = 1.0;
-    utter.volume  = 1.0;
-
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.voice = pickVoice();
+    utter.rate = 0.92; utter.pitch = 1.0; utter.volume = 1.0;
     btn.innerHTML = iconStop;
     btn.classList.add('speaking');
     btn.title = 'Stop';
     activeBtn = btn;
-
     utter.onend = utter.onerror = function() {
       btn.innerHTML = iconPlay;
       btn.classList.remove('speaking');
-      btn.title = 'Listen (female voice)';
+      btn.title = 'Listen';
       if (activeBtn === btn) activeBtn = null;
     };
-
-    // Chrome bug: long utterances get cut off — chunk it
     synth.speak(utter);
   }
-
-  // Handle button click
   function onTtsClick(e) {
     e.stopPropagation();
     var btn  = this;
     var card = btn.closest('.qa-item');
     if (!card) return;
-
-    // If already speaking this card — stop
     if (btn.classList.contains('speaking')) { stopSpeech(); return; }
-
     var qEl  = card.querySelector('.qa-q-text');
     var aEl  = card.querySelector('.qa-a-inner');
-
     var qText = extractText(qEl);
     var aText = aEl ? extractText(aEl) : '';
-
-    // Open the answer if not already open
     var ans = card.querySelector('.qa-a');
     if (ans && !ans.classList.contains('open')) {
       var toggleBtn = card.querySelector('.qa-q');
       if (toggleBtn) toggle(toggleBtn);
     }
-
-    var fullText = 'Question: ' + qText + '. Answer: ' + aText;
-    speak(fullText, btn);
+    speak('Question: ' + qText + '. Answer: ' + aText, btn);
   }
-
-  // SVG icons
   var iconPlay = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
   var iconStop = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>';
-
-  // Inject speaker button into every qa-item (runs once DOM ready)
   function injectButtons() {
     document.querySelectorAll('.qa-item').forEach(function(card) {
-      if (card.querySelector('.tts-btn')) return; // already injected
+      if (card.querySelector('.tts-btn')) return;
       var qBtn = card.querySelector('.qa-q');
       if (!qBtn) return;
       var tts = document.createElement('button');
-      tts.className   = 'tts-btn';
-      tts.innerHTML   = iconPlay;
-      tts.title       = 'Listen (female voice)';
-      tts.type        = 'button';
+      tts.className = 'tts-btn';
+      tts.innerHTML = iconPlay;
+      tts.title = 'Listen';
+      tts.type = 'button';
       tts.addEventListener('click', onTtsClick);
-      // Insert before the ▶ icon
       var icon = qBtn.querySelector('.qa-q-icon');
       if (icon) qBtn.insertBefore(tts, icon);
       else qBtn.appendChild(tts);
     });
   }
-
-  // Stop speech when switching levels
-  var origShowLevel = window.showLevel;
-
-  // Run on load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', injectButtons);
   } else {
     injectButtons();
   }
-
-  // Also re-inject when level changes (panels become visible)
   var _origShowLevel = window.showLevel;
   window.showLevel = function(idx, btn, ac) {
     stopSpeech();
     _origShowLevel(idx, btn, ac);
     setTimeout(injectButtons, 50);
   };
-
-  // Stop on page hide
   document.addEventListener('visibilitychange', function(){
     if (document.hidden) stopSpeech();
   });
-
 })();
 
-/* ══ SYNC SCROLL ══ */
 var py     = document.getElementById('pyleft');
 var net    = document.getElementById('netright');
 var lock   = false;
 var pyLast = 0, netLast = 0;
-
 py.addEventListener('scroll', function() {
-  if (lock) return;
-  lock = true;
+  if (lock) return; lock = true;
   var delta = py.scrollTop - pyLast;
   net.scrollTop += delta;
-  pyLast  = py.scrollTop;
-  netLast = net.scrollTop;
+  pyLast = py.scrollTop; netLast = net.scrollTop;
   requestAnimationFrame(function(){ lock = false; });
 });
-
 net.addEventListener('scroll', function() {
-  if (lock) return;
-  lock = true;
+  if (lock) return; lock = true;
   var delta = net.scrollTop - netLast;
   py.scrollTop += delta;
-  netLast = net.scrollTop;
-  pyLast  = py.scrollTop;
+  netLast = net.scrollTop; pyLast = py.scrollTop;
   requestAnimationFrame(function(){ lock = false; });
 });
 
-/* ══ DRAGGABLE SPLITTER ══ */
 (function() {
-  var spl  = document.getElementById('spl');
-  var sv   = document.getElementById('sv');
+  var spl = document.getElementById('spl');
+  var sv  = document.getElementById('sv');
   var dragging = false;
-
   function onMove(clientX) {
     if (!dragging) return;
     var rect = sv.getBoundingClientRect();
     var splW = spl.offsetWidth;
-    var lw   = Math.max(180, Math.min(clientX - rect.left, rect.width - splW - 180));
-    var rw   = rect.width - lw - splW;
-    py.style.flex  = 'none';
-    py.style.width = lw + 'px';
-    net.style.flex  = 'none';
-    net.style.width = rw + 'px';
+    var lw = Math.max(180, Math.min(clientX - rect.left, rect.width - splW - 180));
+    var rw = rect.width - lw - splW;
+    py.style.flex = 'none'; py.style.width = lw + 'px';
+    net.style.flex = 'none'; net.style.width = rw + 'px';
   }
-
   spl.addEventListener('mousedown', function(e) {
     dragging = true;
     document.body.style.cursor = 'col-resize';
@@ -1510,18 +1348,13 @@ net.addEventListener('scroll', function() {
     e.preventDefault();
   });
   document.addEventListener('mousemove', function(e) { onMove(e.clientX); });
-  document.addEventListener('mouseup',   function()  {
+  document.addEventListener('mouseup', function() {
     dragging = false;
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
   });
-
-  spl.addEventListener('touchstart', function(e) {
-    dragging = true; e.preventDefault();
-  }, { passive: false });
-  document.addEventListener('touchmove', function(e) {
-    onMove(e.touches[0].clientX);
-  }, { passive: true });
+  spl.addEventListener('touchstart', function(e) { dragging = true; e.preventDefault(); }, { passive: false });
+  document.addEventListener('touchmove', function(e) { onMove(e.touches[0].clientX); }, { passive: true });
   document.addEventListener('touchend', function() { dragging = false; });
 })();
 </script>
