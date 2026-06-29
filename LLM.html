@@ -1,355 +1,1566 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Large Language Models (LLMs)</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Architects+Daughter&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-
+<title>LLMs Tutorial — OpenAI, LangChain & Semantic Kernel | AICycle by Ashish Sinha</title>
+<meta name="description" content="Learn Large Language Models from scratch. GPT-4o, Claude, Gemini explained. Python LangChain and .NET Semantic Kernel side by side.">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-    --panel-bg: #000000;
-    --page-bg: #000000;
-    --ink-black: #9e9e9e;
-    --ai-blue: #4da3ff;
-    --border-width: 3px;
+/* ── SOFTER PALETTE (reduced saturation ~25%) ── */
+:root{
+  --ink:#1a1a2e;
+  --bg:#0f1318;                 /* slightly lighter than pure dark */
+  --hot:#c4336a;                /* was f72585 — softer pink/red */
+  --yellow:#d4a520;             /* was fbbf24 — amber, less glare */
+  --cyan:#2aa0b8;               /* was 06b6d4 — softer teal */
+  --green:#1a9e72;              /* was 10b981 */
+  --py:#1a7ab5;                 /* was 0284c7 — softer blue */
+  --net:#1a8a7a;                /* was 0d9488 — softer teal */
+  --teal:#1a8a7a;
+  --orange:#c4891a;             /* was f59e0b */
+  --txt:#ccd4de;                /* was e2e8f0 — slightly dimmer */
+  --txt2:#7a8fa5;               /* was 94a3b8 */
+  --ft:'Bangers',cursive;
+  --fb:'Nunito',sans-serif;
+  --fc:'Fira Code',monospace;
+  --card-bg:rgba(255,255,255,.04);
+  --border:rgba(255,255,255,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.018) 39px,rgba(255,255,255,.018) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.018) 39px,rgba(255,255,255,.018) 40px);
+  font-family:var(--fb);
+  font-size:16px;
+  color:var(--txt);
+  min-height:100vh;
+  -webkit-text-size-adjust:100%;
 }
 
-body {
-    background-color: var(--page-bg);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 18px;
-    color: #e0e0e0;
-    margin: 0;
-    padding: 0;
+/* ── TOP HERO BAR ── */
+.hero-bar{
+  background:#0d1117;
+  border-bottom:3px solid var(--cyan);
+  padding:.55rem 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:.4rem;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.hero-left{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.chapter-pill{
+  background:var(--cyan);
+  color:#0d1117;
+  font-family:var(--ft);
+  font-size:.72rem;
+  letter-spacing:2px;
+  padding:.18rem .7rem;
+  border-radius:20px;
+  border:2px solid rgba(255,255,255,.15);
+  white-space:nowrap;
+}
+.hero-name{
+  font-family:var(--ft);
+  font-size:1.3rem;
+  color:#fff;
+  letter-spacing:2px;
+  line-height:1;
+}
+.hero-name em{color:var(--yellow);font-style:normal;}
+.hero-tags{display:flex;gap:.3rem;flex-wrap:wrap;}
+.hero-pill{
+  border:1.5px solid rgba(255,255,255,.15);
+  border-radius:20px;
+  padding:.14rem .55rem;
+  font-size:.65rem;
+  font-weight:700;
+}
+.hp-py{background:rgba(26,122,181,.15);border-color:rgba(26,122,181,.4);color:#7ec8f0;}
+.hp-net{background:rgba(26,138,122,.15);border-color:rgba(26,138,122,.4);color:#6edfd0;}
+.hp-ai{background:rgba(196,51,106,.15);border-color:rgba(196,51,106,.4);color:#f0a0c0;}
+
+/* ── MAIN TABS ── */
+.mt-bar{
+  background:linear-gradient(180deg,#080c10,#0f1318);
+  border-bottom:3px solid rgba(255,255,255,.05);
+  display:flex;
+  padding:.35rem .75rem 0;
+  gap:.25rem;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.mt-bar::-webkit-scrollbar{display:none;}
+.mt{
+  font-family:var(--ft);
+  font-size:.88rem;
+  letter-spacing:1.5px;
+  padding:.38rem 1rem .5rem;
+  border:2px solid rgba(255,255,255,.12);
+  border-bottom:none;
+  border-radius:10px 10px 0 0;
+  cursor:pointer;
+  color:var(--txt);
+  background:rgba(255,255,255,.05);
+  transition:all .18s;
+  white-space:nowrap;
+  position:relative;
+  top:4px;
+  outline:none;
+  flex-shrink:0;
+}
+.mt:hover{background:rgba(255,255,255,.1);color:#fff;top:2px;}
+.mt.act{background:var(--cyan);color:#fff;top:0;border-color:var(--cyan);transform:scale(1.04);}
+
+/* ── LAYOUT ── */
+#th{display:block;}
+#tp{display:none;flex-direction:column;}
+.pg{max-width:1100px;margin:0 auto;padding:1.1rem 1rem 3rem;}
+.hw{display:grid;grid-template-columns:1fr 200px;gap:1.5rem;align-items:start;}
+.hm{display:flex;flex-direction:column;gap:1.5rem;}
+.hs{display:flex;flex-direction:column;gap:1rem;}
+
+/* ── SECTION TITLE ── */
+.stitle{
+  font-family:var(--ft);
+  font-size:1.3rem;
+  letter-spacing:2px;
+  padding:.28rem .75rem;
+  border:2px solid rgba(255,255,255,.12);
+  display:inline-block;
+  box-shadow:3px 3px 0 rgba(0,0,0,.4);
+  border-radius:6px;
+  margin-bottom:.75rem;
+  color:#fff;
 }
 
-.comic-canvas {
-    max-width: 100%;
-    margin: 0;
-    background: var(--panel-bg);
-    padding: 40px;
+/* ── STORY BOX ── */
+.story-box{border:2px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:4px 4px 0 rgba(0,0,0,.4);}
+.story-head{background:linear-gradient(90deg,var(--cyan),var(--teal));padding:.45rem .85rem;font-family:var(--ft);font-size:.78rem;letter-spacing:2px;color:#fff;}
+.story-body{background:linear-gradient(135deg,#071520,#081a16);padding:.85rem .95rem;font-size:.9rem;line-height:1.85;color:var(--txt);}
+.story-body strong{color:var(--yellow);}
+
+/* ── TYPE CARDS ── */
+.cstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.75rem;}
+.cp{border:2px solid var(--border);border-radius:10px;padding:.9rem;position:relative;transition:transform .15s;}
+.cp:hover{transform:translate(-2px,-2px);}
+.cp:nth-child(1){background:linear-gradient(135deg,#0a3a58,#1a6a9a);}
+.cp:nth-child(2){background:linear-gradient(135deg,#0d3830,#1a7a6a);}
+.cp:nth-child(3){background:linear-gradient(135deg,#182a6a,#3a3890);}
+.cp:nth-child(4){background:linear-gradient(135deg,#3a1a7a,#5a2a9a);}
+.cpn{position:absolute;top:-11px;left:9px;color:#fff;font-family:var(--ft);font-size:.9rem;width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;}
+.cp h3{font-family:var(--ft);font-size:.95rem;letter-spacing:1px;color:#fff;margin:.25rem 0 .25rem;}
+.cp p{font-size:.82rem;line-height:1.6;color:rgba(255,255,255,.82);}
+.cpi{font-size:1.5rem;margin-bottom:.1rem;}
+
+/* ── MODEL CARDS ── */
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:.75rem;}
+.mc{border:2px solid var(--border);border-radius:12px;padding:.85rem .9rem;transition:transform .15s;position:relative;}
+.mc:hover{transform:translate(-2px,-2px);}
+.mc:nth-child(1){background:linear-gradient(135deg,#073830,#1a7a58);}
+.mc:nth-child(2){background:linear-gradient(135deg,#5a2010,#a04020);}
+.mc:nth-child(3){background:linear-gradient(135deg,#182a6a,#1a3a9a);}
+.mc:nth-child(4){background:linear-gradient(135deg,#181540,#3028a0);}
+.mc:nth-child(5){background:linear-gradient(135deg,#2d0550,#5a1a9a);}
+.mc:nth-child(6){background:linear-gradient(135deg,#0d3830,#1a6060);}
+.mc-icon{font-size:1.7rem;margin-bottom:.25rem;}
+.mc-name{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:#fff;margin-bottom:.15rem;}
+.mc-by{font-size:.7rem;color:rgba(255,255,255,.6);margin-bottom:.35rem;}
+.mc-strength{font-size:.8rem;color:rgba(255,255,255,.88);line-height:1.55;}
+.mc-tag{font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:20px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.82);background:rgba(255,255,255,.1);display:inline-block;margin-top:.35rem;margin-right:2px;}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;border:2px solid var(--border);border-radius:8px;overflow:hidden;}
+.tbl th{background:linear-gradient(90deg,#0a3a58,#1a6a9a);color:var(--yellow);font-family:var(--ft);font-size:.78rem;letter-spacing:1px;padding:.45rem .75rem;text-align:left;}
+.tbl td{padding:.4rem .75rem;border-bottom:1px solid rgba(255,255,255,.05);color:var(--txt);background:rgba(255,255,255,.02);}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.035);}
+.tbl tr:last-child td{border-bottom:none;}
+
+/* ── SIDEBAR ── */
+.sbox{background:linear-gradient(135deg,#071520,#081a16);border:2px solid rgba(42,160,184,.18);border-radius:8px;padding:.8rem;}
+.sbox h4{font-family:var(--ft);font-size:.9rem;letter-spacing:1px;color:var(--yellow);margin-bottom:.45rem;}
+.sbox ul{list-style:none;padding:0;font-size:.85rem;color:var(--txt2);line-height:1.9;}
+.sbox a{color:var(--cyan);text-decoration:none;font-size:.85rem;display:block;line-height:2;}
+.sdark{background:linear-gradient(135deg,#080c12,#071014);border:2px solid rgba(255,255,255,.07);border-radius:8px;padding:.8rem;}
+.sdark h4{font-family:var(--ft);font-size:.9rem;color:var(--yellow);letter-spacing:1px;margin-bottom:.45rem;}
+.sdark dt{color:var(--cyan);font-weight:700;font-size:.85rem;}
+.sdark dd{color:var(--txt2);font-size:.8rem;line-height:1.5;margin-left:.3rem;margin-bottom:.3rem;}
+
+/* ── CTA ── */
+.cta{background:linear-gradient(135deg,#071218,#091e2e,#0a3a58);border:2px solid rgba(42,160,184,.25);border-radius:12px;padding:1.2rem;text-align:center;position:relative;overflow:hidden;}
+.cta::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(42,160,184,.03) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.cta-title{font-family:var(--ft);font-size:1.1rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.35rem;position:relative;}
+.cta p{color:rgba(255,255,255,.75);font-size:.88rem;margin-bottom:.8rem;position:relative;}
+.cta-btn{font-family:var(--ft);font-size:.9rem;letter-spacing:2px;padding:.45rem 1.3rem;background:var(--cyan);color:#fff;border:2px solid rgba(255,255,255,.18);border-radius:8px;box-shadow:3px 3px 0 rgba(0,0,0,.4);cursor:pointer;transition:transform .15s;position:relative;}
+.cta-btn:hover{transform:translate(-2px,-2px);}
+
+/* ── TOOLTIP ── */
+.tt{border-bottom:2px dashed rgba(212,165,32,.6);cursor:help;color:inherit;font-weight:inherit;position:relative;display:inline;}
+.tt::after{
+  content:attr(data-tip);
+  position:absolute;
+  bottom:calc(100% + 10px);
+  left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,#181500,#222000);
+  border:2px solid var(--yellow);
+  border-radius:12px;
+  padding:.6rem .9rem;
+  font-size:.82rem;
+  color:#e8d070;
+  white-space:normal;
+  width:200px;
+  line-height:1.6;
+  box-shadow:4px 4px 0 rgba(0,0,0,.5);
+  z-index:200;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .2s;
+  font-family:var(--fb);
+  font-weight:600;
+  text-align:center;
+}
+.tt::before{
+  content:'';position:absolute;
+  bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--yellow);
+  z-index:201;opacity:0;transition:opacity .2s;pointer-events:none;
+}
+.tt:hover::after,.tt:hover::before{opacity:1;}
+
+/* ── CHAPTER NAV ── */
+#qanav{
+  background:linear-gradient(180deg,#080c10,#0f1318);
+  border-bottom:3px solid var(--yellow);
+  display:none;
+  align-items:flex-end;
+  padding:.4rem .75rem 0;
+  gap:.18rem;
+  overflow-x:auto;
+  flex-shrink:0;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(212,165,32,.3) transparent;
+}
+#qanav::-webkit-scrollbar{height:3px;}
+#qanav::-webkit-scrollbar-thumb{background:rgba(212,165,32,.3);border-radius:3px;}
+.cnb{
+  font-family:var(--ft);font-size:.7rem;letter-spacing:1.2px;
+  padding:.35rem .7rem .48rem;
+  border:2px solid rgba(255,255,255,.1);border-bottom:none;
+  border-radius:10px 10px 0 0;
+  cursor:pointer;color:var(--txt);
+  background:rgba(255,255,255,.05);
+  transition:all .15s;white-space:nowrap;
+  position:relative;top:3px;outline:none;flex-shrink:0;
+}
+.cnb:hover{background:rgba(255,255,255,.12);color:#fff;top:1px;}
+#qanav .cnb:nth-child(1){border-color:rgba(212,165,32,.4);color:#c8a840;background:rgba(212,165,32,.08);}
+#qanav .cnb:nth-child(2){border-color:rgba(42,160,184,.4);color:#60c8e0;background:rgba(42,160,184,.08);}
+#qanav .cnb:nth-child(3){border-color:rgba(40,185,130,.4);color:#60c8a0;background:rgba(40,185,130,.08);}
+#qanav .cnb:nth-child(4){border-color:rgba(210,50,110,.4);color:#e090b0;background:rgba(210,50,110,.08);}
+#qanav .cnb:nth-child(5){border-color:rgba(80,140,230,.4);color:#80b0e8;background:rgba(80,140,230,.08);}
+#qanav .cnb:nth-child(6){border-color:rgba(140,110,210,.4);color:#b090e0;background:rgba(140,110,210,.08);}
+#qanav .cnb:nth-child(7){border-color:rgba(200,130,60,.4);color:#e0b070;background:rgba(200,130,60,.08);}
+#qanav .cnb:nth-child(8){border-color:rgba(40,185,165,.4);color:#58c8c0;background:rgba(40,185,165,.08);}
+#qanav .cnb:nth-child(9){border-color:rgba(210,80,160,.4);color:#e0a0c8;background:rgba(210,80,160,.08);}
+#qanav .cnb:nth-child(10){border-color:rgba(110,120,220,.4);color:#9098e0;background:rgba(110,120,220,.08);}
+.cnb.act-ch{background:var(--yellow)!important;color:#1a1400!important;border-color:var(--yellow)!important;top:0;transform:scale(1.05);}
+
+/* ── SPLIT VIEW / COURSE ── */
+.cwrap{display:flex;flex-direction:column;height:calc(100vh - 162px);min-height:500px;}
+.sv{display:flex;flex:1;overflow:hidden;}
+.sp{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:1rem;min-width:0;scrollbar-width:thin;}
+.pyp{background:#040c14;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(26,122,181,.08) 31px,rgba(26,122,181,.08) 32px);}
+.netp{background:#04100e;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(26,138,122,.08) 31px,rgba(26,138,122,.08) 32px);}
+.spl{width:12px;background:linear-gradient(180deg,var(--cyan),var(--teal),var(--green),var(--yellow));cursor:col-resize;flex-shrink:0;display:flex;align-items:center;justify-content:center;user-select:none;}
+.spl:hover{filter:brightness(1.2);}
+.spl::after{content:'⋮⋮';color:rgba(255,255,255,.45);font-size:.95rem;letter-spacing:-4px;}
+
+/* ── MOBILE TAB SWITCHER (for course) ── */
+.mobile-lang-tabs{display:none;background:#080c10;border-bottom:2px solid var(--border);padding:.4rem .75rem 0;gap:.3rem;overflow-x:auto;}
+.mlt{font-family:var(--ft);font-size:.8rem;letter-spacing:1px;padding:.35rem .9rem .45rem;border:2px solid rgba(255,255,255,.12);border-bottom:none;border-radius:8px 8px 0 0;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;top:2px;position:relative;outline:none;}
+.mlt.py-tab{color:#7ec8f0;background:rgba(26,122,181,.1);}
+.mlt.net-tab{color:#6edfd0;background:rgba(26,138,122,.1);}
+.mlt.active-tab{top:0;transform:scale(1.05);}
+.mlt.py-tab.active-tab{background:var(--py);color:#fff;}
+.mlt.net-tab.active-tab{background:var(--net);color:#fff;}
+
+/* ── LANG BADGE ── */
+.lbadge{display:flex;align-items:center;gap:.6rem;padding:.55rem .9rem;border-radius:10px;border:2px solid var(--border);margin-bottom:.7rem;}
+.lbadge.pyb{background:linear-gradient(135deg,#0a3a58,#1a6a9a);}
+.lbadge.netb{background:linear-gradient(135deg,#0d3830,#1a7a6a);}
+.lbi{font-size:1.4rem;}
+.lbt{font-family:var(--ft);font-size:1rem;letter-spacing:1px;color:#fff;}
+.lbs{font-size:.74rem;color:rgba(255,255,255,.8);}
+
+/* ── CHAPTER CONTENT ── */
+.cc{display:none;flex-direction:column;gap:1rem;}
+.cc.act{display:flex;}
+.chero{border:2px solid var(--border);border-radius:12px;padding:.9rem 1.1rem;position:relative;overflow:hidden;}
+.chero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);background-size:12px 12px;pointer-events:none;}
+.pyh{background:linear-gradient(135deg,#0a3a58,#1a6a9a);}
+.neth{background:linear-gradient(135deg,#0d3830,#1a7a6a);}
+.chn{font-size:.7rem;font-weight:800;color:rgba(255,255,255,.6);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.18rem;position:relative;}
+.cht{font-family:var(--ft);font-size:1.35rem;letter-spacing:2px;color:#fff;margin-bottom:.18rem;position:relative;}
+.chd{font-size:.85rem;color:rgba(255,255,255,.78);line-height:1.6;position:relative;}
+.csum{background:linear-gradient(135deg,#060c14,#071814);border:2px solid rgba(255,255,255,.09);border-radius:10px;padding:.9rem;position:relative;overflow:hidden;}
+.pys{border-color:rgba(42,160,184,.35);}
+.nets{border-color:rgba(26,138,122,.35);}
+.cst{font-family:var(--ft);font-size:.95rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.45rem;position:relative;}
+.csum ul{padding-left:.9rem;position:relative;}
+.csum ul li{font-size:.84rem;color:rgba(255,255,255,.85);line-height:1.8;margin-bottom:.1rem;}
+.nxtch{margin-top:.65rem;font-family:var(--ft);font-size:.82rem;letter-spacing:2px;padding:.35rem 1rem;color:#fff;border:2px solid rgba(255,255,255,.18);border-radius:8px;cursor:pointer;transition:transform .15s;display:inline-block;}
+.nxtch.pyn{background:var(--py);}
+.nxtch.netn{background:var(--net);}
+.nxtch:hover{transform:translate(-2px,-2px);}
+
+/* ── CODE BLOCKS ── */
+.cb{background:#181c22;border:2px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;margin:.1rem 0;}
+.ch2{padding:.35rem .8rem;display:flex;align-items:center;gap:.35rem;border-bottom:2px solid rgba(255,255,255,.05);}
+.pyh2{background:linear-gradient(90deg,#0a3a58,#1a6a9a);}
+.nethc{background:linear-gradient(90deg,#0d3830,#1a7a6a);}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+.vsc-tab{font-family:var(--fb);font-size:.78rem;font-weight:700;color:#60c8e0;}
+.nethc .vsc-tab{color:#58c8c0;}
+.cbody{display:grid;grid-template-columns:32px 1fr;overflow-x:auto;}
+.lnums{background:#141820;color:#3a4050;font-family:var(--fc);font-size:.72rem;line-height:1.8;padding:.65rem 0;text-align:right;padding-right:.45rem;user-select:none;border-right:1px solid #282c38;}
+.lnums div{height:1.8em;}
+.code-content{padding:.65rem .85rem;font-family:var(--fc);color:#b8c4d4;font-size:.78rem;line-height:1.8;white-space:pre;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.pk{color:#b090d8;}.ps{color:#88c488;}.pc{color:#525870;font-style:italic;}.pf{color:#7098d8;}.pn{color:#d87878;}.pcl{color:#d89878;}
+
+/* ── NEXT LINK BOXES ── */
+.con{background:linear-gradient(135deg,#060c14,#071814);border:2px solid var(--border);border-radius:8px;padding:.8rem .9rem;}
+.con h4{font-family:var(--ft);font-size:.85rem;letter-spacing:1px;color:var(--yellow);margin-bottom:.28rem;}
+.con ul{padding-left:.9rem;font-size:.84rem;line-height:1.75;color:var(--txt);}
+.con li{margin-bottom:.2rem;}
+.con strong{color:var(--hot);}
+.con code{background:rgba(0,0,0,.4);color:#88c488;padding:1px 5px;border-radius:3px;font-family:var(--fc);}
+
+/* ─────────────────────────────────────────
+   MOBILE RESPONSIVE
+───────────────────────────────────────── */
+@media(max-width:900px){
+  .hw{grid-template-columns:1fr;}
+  .hs{display:none;} /* sidebar hidden on mobile */
+  
+  .sv{flex-direction:column;height:auto;}
+  .spl{display:none;} /* hide drag splitter on mobile */
+  .cwrap{height:auto;}
+  .sp{min-height:300px;max-height:none;height:auto;}
+  
+  /* Show mobile lang tabs */
+  .mobile-lang-tabs{display:flex;}
+  
+  /* Hide one panel at a time on mobile */
+  #netright.hidden-mobile{display:none;}
+  #pyleft.hidden-mobile{display:none;}
 }
 
-.branch-title {
-    font-family: 'Bangers', cursive;
-    font-size: 36px;
-    background: #111;
-    color: #fff;
-    display: inline-block;
-    padding: 5px 20px;
-    transform: rotate(-1deg);
-    margin-bottom: 15px;
+@media(max-width:768px){
+  body{font-size:15px;}
+  
+  .hero-bar{padding:.45rem .75rem;}
+  .hero-name{font-size:1.1rem;}
+  .hero-tags{display:none;} /* hide tag pills on small screens */
+  
+  .mt-bar{padding:.3rem .5rem 0;}
+  .mt{font-size:.78rem;padding:.32rem .75rem .44rem;}
+  
+  .pg{padding:.85rem .75rem 2.5rem;}
+  
+  .stitle{font-size:1.1rem;padding:.22rem .6rem;}
+  
+  /* Stack before/after grids */
+  .bafter-grid{grid-template-columns:1fr!important;}
+  
+  /* Type cards → 2 col */
+  .cstrip{grid-template-columns:1fr 1fr;}
+  
+  /* Model cards → 2 col */
+  .mgrid{grid-template-columns:1fr 1fr;}
+  
+  /* Emergence grid → 2 col */
+  .emerge-grid{grid-template-columns:1fr 1fr!important;}
+  
+  /* Phase flow → wrap */
+  .phase-flow{flex-wrap:wrap!important;}
+  .phase-arrow{display:none!important;}
+  
+  /* Concept cards → 2 col */
+  .concept-grid{grid-template-columns:1fr 1fr!important;}
+  
+  /* RAG limit grid → 1 col */
+  .rag-grid{grid-template-columns:1fr!important;}
+  
+  /* Prompt cards → 2 col */
+  .prompt-grid{grid-template-columns:1fr 1fr!important;}
+  
+  /* Code block font */
+  .code-content{font-size:.72rem;}
+  
+  .cta-title{font-size:1rem;}
+  
+  /* Chapter nav */
+  .cnb{font-size:.65rem;padding:.3rem .55rem .42rem;}
 }
 
-.content-block {
-    background: #000;
-    border: 1px solid var(--ink-black);
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 5px 5px 0px #444;
-    white-space: pre-wrap;
+@media(max-width:480px){
+  .hero-name{font-size:.95rem;letter-spacing:1px;}
+  .chapter-pill{font-size:.62rem;}
+  
+  .pg{padding:.7rem .6rem 2rem;}
+  
+  /* Single column everything */
+  .cstrip{grid-template-columns:1fr;}
+  .mgrid{grid-template-columns:1fr;}
+  .concept-grid{grid-template-columns:1fr!important;}
+  .prompt-grid{grid-template-columns:1fr!important;}
+  
+  .stitle{font-size:1rem;letter-spacing:1px;}
+  
+  /* Token cards single column */
+  .token-grid{grid-template-columns:1fr!important;}
+  
+  .code-content{font-size:.68rem;}
+  .lnums{font-size:.65rem;}
 }
-
-.tree-line {
-    border-left: 2px dotted var(--ink-black);
-    margin-left: 20px;
-    padding-left: 30px;
-    margin-top: 20px;
-}
-
-strong { color: #ff6b6b; }
-b { color: var(--ai-blue); }
 </style>
 </head>
-
 <body>
-<div class="comic-canvas">
 
-<div class="branch-title">◆ Large Language Models (LLMs)</div>
-<div class="content-block">
-LLMs are AI systems trained to understand,
-generate, and reason with human language
-at a very large scale.
-
-<b>Simple feeling:</b>
-You talk.
-The system listens.
-It predicts what should come next.
-
-Not magic.
-Just experience — at massive scale.
+<!-- ── HERO BAR ── -->
+<div class="hero-bar">
+  <div class="hero-left">
+    <span class="chapter-pill">💬 CHAPTER 4</span>
+    <div class="hero-name">LARGE LANGUAGE <em>MODELS</em></div>
+  </div>
+  <div class="hero-tags">
+    <span class="hero-pill hp-py">🐍 OpenAI + LangChain</span>
+    <span class="hero-pill hp-net">🟣 Semantic Kernel</span>
+    <span class="hero-pill hp-ai">⚡ GPT-4o · Claude · Gemini</span>
+  </div>
 </div>
 
-<div class="branch-title">◇ First See the Whole Flow (Big Picture)</div>
-<div class="content-block">
-<p><b>Prompt → Break → Understand → Focus → Guess → Reply</b></p>
-Text you type (Prompt – what you ask)
-↓
-Tokenizer (text cutter – breaks sentence)
-↓
-Tokens (number pieces – AI language units)
-↓
-Vocabulary lookup (word dictionary AI knows)
-↓
-Embeddings (meaning map – words become meaning‑numbers)
-↓
-Transformer Layers (thinking steps – understanding in levels)
-↓
-Attention (focus mechanism – what matters more)
-↓
-Next‑token prediction (best next word guess)
-↓
-Text output (final readable answer)
-
-Everything else is detail.
-This flow never changes.
+<!-- ── MAIN TABS ── -->
+<div class="mt-bar">
+  <button class="mt act" id="btn-th" onclick="switchMain('h',this)">🏠 WHAT IS AN LLM?</button>
+  <button class="mt" id="btn-tp" onclick="switchMain('p',this)">📚 COURSE <span style="font-size:.52rem;background:var(--yellow);color:#1a1400;padding:1px 5px;border-radius:8px;margin-left:.25rem;">10 CH</span></button>
 </div>
 
-<div class="tree-line">
+<!-- ══════════════════════════════════════
+     HOME TAB
+══════════════════════════════════════ -->
+<div id="th">
+<div class="pg"><div class="hw"><div class="hm">
 
-<div class="branch-title">◇ Why LLMs Were Needed</div>
-<div class="content-block">
-Earlier systems:
-• Didn’t understand context well
-• Forgot long conversations
-• Needed task‑specific models
-
-<b>Problem:</b>
-Human language is long, messy, and contextual.
-
-<b>Human feeling:</b>
-🧑 “Don’t you remember what I said earlier?”
-🤖 Old AI: “No.”
-
-LLMs were created to handle:
-• Long context
-• Meaning across sentences
-• Natural conversation
-</div>
-
-<div class="branch-title">◇ Tokenizer, Token & Vocabulary</div>
-<div class="content-block">
-LLMs do not read letters.
-They read numbers.
-
-<b>Tokenizer:</b>
-Breaks text into parts (splitting sentence)
-
-<b>Token:</b>
-One such part (word or word‑piece)
-
-<b>Vocabulary:</b>
-All tokens the model knows
-
-Example:
-“Artificial Intelligence”
-→ ["Artificial", "Intelli", "gence"]
-
-<b>Human idea:</b>
-🧠 “If I can count it, I can learn it.”
-That’s how models think.
-</div>
-
-<div class="branch-title">◇ Embeddings (Where Meaning Appears)</div>
-<div class="content-block">
-Tokens alone have no meaning.
-Embeddings give meaning.
-
-An embedding is a list of numbers
-that represents a word’s meaning.
-
-<b>Example:</b>
-“Doctor” and “Hospital” → close
-“Doctor” and “Banana” → far
-
-Meaning becomes distance on a map.
-
-That map is called:
-<b>Embedding Space</b>
-</div>
-
-<div class="branch-title">◇ Layers (How Thinking Deepens)</div>
-<div class="content-block">
-LLMs have many layers.
-
-Each layer refines understanding.
-
-<b>Language layers roughly do:</b>
-Layer 1 → Word shapes  
-Layer 2 → Grammar  
-Layer 3 → Relationships  
-Layer 4 → Context  
-Later layers → Meaning & intent  
-
-<b>Human analogy:</b>
-First you hear words.
-Then you understand the sentence.
-Then you get the intention.
-</div>
-
-<div class="branch-title">◇ Transformer (The Core Brain)</div>
-<div class="content-block">
-LLMs are built using
-<b>Transformers</b> (introduced in 2017).
-
-<b>Why Transformers matter:</b>
-They look at all words at once.
-
-This is done via:
-<b>Attention Mechanism</b>
-
-Meaning:
-Each word pays attention
-to other relevant words.
-
-Example:
-“I saw a dog with a telescope”
-Attention decides:
-Who has the telescope?
-
-That ability changed everything.
-</div>
-
-<div class="branch-title">◇ CNN (Brief History)</div>
-<div class="content-block">
-CNNs were used heavily before Transformers.
-
-They worked well for:
-• Images
-• Local patterns
-
-But CNNs struggled with long text.
-
-Transformers replaced CNNs for language
-because language depends on
-long‑range relationships.
-</div>
-
-<div class="branch-title">◇ Where Knowledge Is Stored</div>
-<div class="content-block">
-All knowledge lives in:
-<b>Weights</b>
-
-Weights are learned numbers
-inside the layers.
-
-After seeing billions of sentences,
-weights encode:
-• Language patterns
-• Facts
-• Style
-• Reasoning habits
-
-No memory like humans.
-Only learned tendencies.
-</div>
-
-<div class="branch-title">◇ Training & Backpropagation</div>
-<div class="content-block">
-<b>Training process:</b>
-• Predict next token
-• Compare with correct token
-• Calculate mistake
-• Adjust weights slightly
-  (tiny self‑correction for next attempt)
-
-<b>Friendly idea:</b>
-Guess → check → fix → repeat
-
-Over time:
-Mistakes reduce.
-Understanding improves.
-</div>
-
-<div class="branch-title">◇ Output (What LLMs Actually Do)</div>
-<div class="content-block">
-LLMs always predict:
-<b>Next most likely token</b>
-
-They repeat this step many times,
-which becomes sentences.
-
-They do NOT “know” answers.
-They generate likely responses
-based on experience.
-
-Confidence ≠ correctness.
-</div>
-
-<div class="branch-title">◇ Vector Databases (Memory Extension)</div>
-<div class="content-block">
-LLMs have fixed training knowledge.
-They cannot remember new things.
-
-Vector Databases solve this.
-
-They store embeddings of:
-• Documents
-• PDFs
-• Company data
-
-During query:
-• Search similar meaning
-• Bring context
-• Feed back to LLM
-
-This is called:
-<b>Retrieval‑Augmented Generation (RAG)</b>
-</div>
-
-<div class="branch-title">◇ Azure AI & Real‑World Usage</div>
-<div class="content-block">
-Azure AI provides:
-• Hosted LLMs
-• Enterprise security
-• Vector search
-• RAG pipelines
-• Compliance
-
-Used by:
-• Enterprises
-• Banks
-• Healthcare
-• Governments
-
-Why Azure:
-Companies want AI
-without losing control.
-</div>
-
-<div class="branch-title">◇ Who Uses LLMs Today</div>
-<div class="content-block">
-• Developers → build AI features
-• QA → test behavior & safety
-• HR → screening & training
-• Managers → insights & decisions
-• Users → assistance & learning
-
-LLMs are horizontal tools —
-they fit everywhere.
-</div>
-
-<div class="branch-title">◇ Gentle Ending Thought</div>
-<div class="content-block">
-LLMs do not think.
-They predict.
-
-But prediction at scale
-looks like intelligence.
-
-They don’t replace humans.
-They amplify humans.
-
-The calm way forward:
-Understand the tool.
-Use it wisely.
-Stay responsible.
-</div>
-
+<!-- TOUCHING STORY -->
+<div>
+<div class="stitle" style="background:var(--hot);color:#fff">😮 THE MOMENT THAT CHANGED EVERYTHING</div>
+<div class="story-box">
+  <div class="story-head">📱 A REAL STORY — NOVEMBER 2022</div>
+  <div class="story-body">
+    <p>It's 3am. A nurse named Sarah is sitting with her dying father in a hospital. She's exhausted, scared, and doesn't understand the medical jargon in his chart.<br><br>
+    She opens a new website called ChatGPT that a colleague mentioned.<br><br>
+    She types: <strong>"My father has stage 4 pancreatic cancer with liver metastases. Can you explain what the next few weeks might look like, in simple language?"</strong><br><br>
+    For the next 2 hours, she asks questions. It answers every one. Clearly. Kindly. At 3am when no doctor was available.<br><br>
+    She later said: <em style="color:var(--cyan)">"It didn't replace the doctors. But it held my hand through the night."</em><br><br>
+    💡 <strong style="color:var(--yellow)">ChatGPT had 1 million users in 5 days. 100 million in 2 months. The fastest product adoption in history.</strong><br><br>
+    Not because of hype. Because for the first time, anyone could have a conversation with something that knew everything — and talked back like a human.</p>
+  </div>
 </div>
 </div>
 
+<!-- WHAT IS AN LLM -->
+<div>
+<div class="stitle" style="background:var(--cyan);color:#0d1117">🤔 WHAT IS AN LLM? — START FROM ZERO</div>
+
+<div style="background:linear-gradient(135deg,#080c14,#0a1520);border:2px solid rgba(42,160,184,.25);border-radius:12px;padding:.9rem 1rem;">
+  <div style="font-family:var(--ft);font-size:.9rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.6rem;">📖 LLM = LARGE LANGUAGE MODEL</div>
+  <div class="token-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:.7rem;">
+    <div style="background:rgba(196,51,106,.12);border:2px solid rgba(196,51,106,.35);border-radius:10px;padding:.55rem;text-align:center;">
+      <div style="font-family:var(--ft);font-size:1.4rem;color:#e090b0;">L</div>
+      <div style="font-family:var(--ft);font-size:.82rem;color:#fff;margin:.08rem 0;">LARGE</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.65);">Billions of params. Trillions of words.</div>
+    </div>
+    <div style="background:rgba(42,160,184,.12);border:2px solid rgba(42,160,184,.35);border-radius:10px;padding:.55rem;text-align:center;">
+      <div style="font-family:var(--ft);font-size:1.4rem;color:#60c8e0;">L</div>
+      <div style="font-family:var(--ft);font-size:.82rem;color:#fff;margin:.08rem 0;">LANGUAGE</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.65);">Reads, understands, writes human text.</div>
+    </div>
+    <div style="background:rgba(26,158,114,.12);border:2px solid rgba(26,158,114,.35);border-radius:10px;padding:.55rem;text-align:center;">
+      <div style="font-family:var(--ft);font-size:1.4rem;color:#60c8a0;">M</div>
+      <div style="font-family:var(--ft);font-size:.82rem;color:#fff;margin:.08rem 0;">MODEL</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.65);">A neural network — like Chapter 3!</div>
+    </div>
+  </div>
+  <div style="background:rgba(255,255,255,.035);border:1.5px solid rgba(255,255,255,.08);border-radius:10px;padding:.65rem .8rem;">
+    <div style="font-family:var(--ft);font-size:.8rem;color:var(--cyan);letter-spacing:1px;margin-bottom:.22rem;">🔬 WHERE IT COMES FROM — NLP</div>
+    <p style="font-size:.84rem;line-height:1.75;color:var(--txt);">LLMs are the latest milestone in <strong style="color:var(--yellow)">NLP — Natural Language Processing</strong>. NLP = teaching computers to understand and generate human language.<br><br>NLP has been around since the 1950s. Then in 2017, the <strong style="color:var(--yellow)">Transformer</strong> architecture arrived. LLMs are Transformers scaled up massively. NLP went from "translate a sentence" to "write a novel" overnight. 🚀</p>
+  </div>
+</div>
+
+<div style="height:10px"></div>
+
+<div style="background:linear-gradient(135deg,#181500,#222000);border:2px solid var(--yellow);border-radius:14px;padding:.8rem .95rem;">
+  <div style="font-family:var(--ft);font-size:.85rem;color:var(--yellow);margin-bottom:.28rem;">💬 Start simple — your phone already does this:</div>
+  <p style="font-size:.88rem;line-height:1.85;color:#d8c860;">
+    You know autocomplete on your phone? You type <strong>"I love you"</strong> and it suggests <strong>"too"</strong>.<br><br>
+    That's predicting the next word. Simple. Dumb. But the right idea.<br><br>
+    <strong>Now do that with ALL the text ever written on the internet.<br>
+    Train it for 6 months on 10,000 GPUs.<br>
+    That's an LLM. 🤯</strong>
+  </p>
+</div>
+
+<div style="height:10px"></div>
+
+<div style="background:linear-gradient(135deg,#080c10,#0f0f22);border:2px solid var(--border);border-radius:12px;padding:.95rem;">
+  <div style="font-family:var(--ft);font-size:.9rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:.75rem;">🧠 THE WILD PART — WHAT EMERGED</div>
+  <p style="font-size:.87rem;line-height:1.85;color:var(--txt);margin-bottom:.7rem;">Nobody programmed ChatGPT to understand medicine. Nobody taught it to write poetry. But to <em>predict text accurately</em> across ALL topics, it had to learn all of those things as <strong style="color:var(--yellow)">side effects</strong>:</p>
+  <div class="emerge-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.55rem;">
+    <div style="background:rgba(42,160,184,.1);border:1.5px solid rgba(42,160,184,.25);border-radius:10px;padding:.6rem .75rem;">
+      <div style="font-size:.72rem;font-weight:800;color:#60c8e0;letter-spacing:1px;margin-bottom:.28rem;">📚 READ WIKIPEDIA 1000×</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.8);">To predict Wikipedia sentences → learned world facts</div>
+    </div>
+    <div style="background:rgba(26,158,114,.1);border:1.5px solid rgba(26,158,114,.25);border-radius:10px;padding:.6rem .75rem;">
+      <div style="font-size:.72rem;font-weight:800;color:#60c8a0;letter-spacing:1px;margin-bottom:.28rem;">💻 READ GITHUB 1000×</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.8);">To predict code → learned every programming language</div>
+    </div>
+    <div style="background:rgba(196,51,106,.1);border:1.5px solid rgba(196,51,106,.25);border-radius:10px;padding:.6rem .75rem;">
+      <div style="font-size:.72rem;font-weight:800;color:#e090b0;letter-spacing:1px;margin-bottom:.28rem;">🧪 READ RESEARCH PAPERS</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.8);">To predict science text → learned logical reasoning</div>
+    </div>
+    <div style="background:rgba(212,165,32,.08);border:1.5px solid rgba(212,165,32,.25);border-radius:10px;padding:.6rem .75rem;">
+      <div style="font-size:.72rem;font-weight:800;color:#d8c860;letter-spacing:1px;margin-bottom:.28rem;">💬 READ HUMAN CHATS</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.8);">To predict conversation → learned empathy and social context</div>
+    </div>
+  </div>
+  <div style="margin-top:.7rem;background:rgba(196,51,106,.08);border:2px solid rgba(196,51,106,.3);border-radius:10px;padding:.7rem;text-align:center;">
+    <span style="font-size:.87rem;color:rgba(255,255,255,.88);">💡 <strong style="color:var(--yellow)">Intelligence wasn't programmed in. It fell out as a side effect of predicting text at scale.</strong><br>That surprised even the researchers who built it.</span>
+  </div>
+</div>
+
+<div style="height:10px"></div>
+
+<div style="background:linear-gradient(135deg,#080c10,#0f0f22);border:2px solid var(--border);border-radius:12px;padding:.95rem;">
+  <div style="font-family:var(--ft);font-size:.9rem;color:var(--yellow);letter-spacing:2px;text-align:center;margin-bottom:.75rem;">🏗️ HOW AN LLM IS BUILT — PLAIN ENGLISH</div>
+  <div class="phase-flow" style="display:flex;align-items:stretch;gap:.45rem;flex-wrap:wrap;">
+    <div style="background:rgba(42,160,184,.13);border:2px solid rgba(42,160,184,.35);border-radius:10px;padding:.7rem;flex:1;min-width:80px;text-align:center;">
+      <div style="font-size:1.2rem;">📚</div>
+      <div style="font-family:var(--ft);font-size:.75rem;color:#60c8e0;margin:.2rem 0 .25rem;">PHASE 1<br>PRE-TRAIN</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.72);line-height:1.5;">Feed it ALL the internet. Predict next word. Repeat 10 trillion times.</div>
+    </div>
+    <div class="phase-arrow" style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);align-self:center;flex-shrink:0;">→</div>
+    <div style="background:rgba(124,58,200,.13);border:2px solid rgba(124,58,200,.35);border-radius:10px;padding:.7rem;flex:1;min-width:80px;text-align:center;">
+      <div style="font-size:1.2rem;">🎯</div>
+      <div style="font-family:var(--ft);font-size:.75rem;color:#b090e0;margin:.2rem 0 .25rem;">PHASE 2<br>FINE-TUNE</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.72);line-height:1.5;">Teach it Q&A. "Be helpful, not harmful."</div>
+    </div>
+    <div class="phase-arrow" style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);align-self:center;flex-shrink:0;">→</div>
+    <div style="background:rgba(196,51,106,.1);border:2px solid rgba(196,51,106,.35);border-radius:10px;padding:.7rem;flex:1;min-width:80px;text-align:center;">
+      <div style="font-size:1.2rem;">👥</div>
+      <div style="font-family:var(--ft);font-size:.75rem;color:#e090b0;margin:.2rem 0 .25rem;">PHASE 3<br>RLHF</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.72);line-height:1.5;">Humans rate answers. Model learns what we prefer.</div>
+    </div>
+    <div class="phase-arrow" style="font-family:var(--ft);font-size:1.2rem;color:var(--yellow);align-self:center;flex-shrink:0;">→</div>
+    <div style="background:rgba(26,158,114,.1);border:2px solid rgba(26,158,114,.35);border-radius:10px;padding:.7rem;flex:1;min-width:80px;text-align:center;">
+      <div style="font-size:1.2rem;">🤖</div>
+      <div style="font-family:var(--ft);font-size:.75rem;color:#60c8a0;margin:.2rem 0 .25rem;">RESULT<br>CHATGPT</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.72);line-height:1.5;">100M users in 2 months. Changed everything.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- HOW LLMs GENERATE TEXT -->
+<div>
+<div class="stitle" style="background:linear-gradient(90deg,var(--cyan),var(--teal));color:#fff">⚙️ HOW LLMs GENERATE TEXT</div>
+
+<div style="background:linear-gradient(135deg,#181500,#222000);border:2px solid var(--yellow);border-radius:14px;padding:.8rem .95rem;margin-bottom:.9rem;">
+  <div style="font-family:var(--ft);font-size:.82rem;color:var(--yellow);margin-bottom:.25rem;">💬 LLM Bot — the magic loop:</div>
+  <p style="font-size:.88rem;line-height:1.85;color:#d8c860;">Every word you see from ChatGPT = this loop ran once. One token at a time. <strong>A 500-word answer = ~650 loops in ~3 seconds. 🤯</strong></p>
+</div>
+
+<div style="position:relative;padding:.5rem 0;">
+  <div style="position:absolute;left:33px;top:28px;bottom:28px;width:3px;background:linear-gradient(180deg,#1a7ab5,#1a8a7a,#5a2a9a,#a02060,#1a9e72);border-radius:3px;z-index:0;"></div>
+
+  <!-- Step 1 -->
+  <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.45rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:66px;display:flex;justify-content:center;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0a3a58,#1a6a9a);border:3px solid #60c8e0;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1rem;color:#fff;box-shadow:0 0 10px rgba(42,160,184,.4);">1</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#071220,#0c1e30);border:2px solid rgba(42,160,184,.3);border-left:4px solid #1a7ab5;border-radius:0 12px 12px 0;padding:.75rem .95rem;">
+      <div style="font-family:var(--ft);font-size:.98rem;letter-spacing:1.5px;color:#60c8e0;margin-bottom:.3rem;">🔢 TOKENISE</div>
+      <p style="font-size:.84rem;line-height:1.7;color:var(--txt);">"Hello World!" splits into integer IDs: <code style="background:rgba(0,0,0,.5);color:#88c488;padding:2px 6px;border-radius:4px;font-family:var(--fc);">[9906, 3146, 0]</code><br>The model <strong style="color:var(--yellow)">never reads letters</strong> — only numbers.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;margin-bottom:.45rem;padding-left:51px;">
+    <div style="width:18px;height:2px;background:rgba(255,255,255,.15);"></div>
+    <span style="font-family:var(--ft);font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:1px;margin-left:.35rem;">each number maps to...</span>
+  </div>
+
+  <!-- Step 2 -->
+  <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.45rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:66px;display:flex;justify-content:center;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0d3830,#1a7a6a);border:3px solid #58c8c0;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1rem;color:#fff;box-shadow:0 0 10px rgba(26,138,122,.4);">2</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#071a18,#0a2020);border:2px solid rgba(26,138,122,.3);border-left:4px solid #1a8a7a;border-radius:0 12px 12px 0;padding:.75rem .95rem;">
+      <div style="font-family:var(--ft);font-size:.98rem;letter-spacing:1.5px;color:#58c8c0;margin-bottom:.3rem;">🧮 EMBED</div>
+      <p style="font-size:.84rem;line-height:1.7;color:var(--txt);">Token 9906 → <code style="background:rgba(0,0,0,.5);color:#88c488;padding:2px 6px;border-radius:4px;font-family:var(--fc);">[0.21, -0.87, ...]</code> — a <strong style="color:var(--yellow)">4096-number vector</strong> encoding meaning.<br><em style="color:rgba(255,255,255,.58);">"King" and "Queen" vectors are mathematically similar.</em></p>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;margin-bottom:.45rem;padding-left:51px;">
+    <div style="width:18px;height:2px;background:rgba(255,255,255,.15);"></div>
+    <span style="font-family:var(--ft);font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:1px;margin-left:.35rem;">all tokens talk to each other...</span>
+  </div>
+
+  <!-- Step 3 -->
+  <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.45rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:66px;display:flex;justify-content:center;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3a1a7a,#5a2a9a);border:3px solid #b090e0;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1rem;color:#fff;box-shadow:0 0 10px rgba(100,50,180,.4);">3</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#0d0a20,#160d28);border:2px solid rgba(100,50,180,.3);border-left:4px solid #5a2a9a;border-radius:0 12px 12px 0;padding:.75rem .95rem;">
+      <div style="font-family:var(--ft);font-size:.98rem;letter-spacing:1.5px;color:#b090e0;margin-bottom:.3rem;">👁️ ATTENTION</div>
+      <p style="font-size:.84rem;line-height:1.7;color:var(--txt);"><strong style="color:var(--yellow)">Every token looks at every other simultaneously</strong> across 120 stacked layers.<br><em style="color:rgba(255,255,255,.58);">Figures out "IT" = trophy not bag — that's contextual understanding!</em></p>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;margin-bottom:.45rem;padding-left:51px;">
+    <div style="width:18px;height:2px;background:rgba(255,255,255,.15);"></div>
+    <span style="font-family:var(--ft);font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:1px;margin-left:.35rem;">scores every possible next word...</span>
+  </div>
+
+  <!-- Step 4 -->
+  <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.45rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:66px;display:flex;justify-content:center;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#601030,#a02060);border:3px solid #e090b0;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1rem;color:#fff;box-shadow:0 0 10px rgba(160,32,96,.4);">4</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#180820,#250a28);border:2px solid rgba(160,32,96,.3);border-left:4px solid #a02060;border-radius:0 12px 12px 0;padding:.75rem .95rem;">
+      <div style="font-family:var(--ft);font-size:.98rem;letter-spacing:1.5px;color:#e090b0;margin-bottom:.3rem;">🎲 SAMPLE</div>
+      <p style="font-size:.84rem;line-height:1.7;color:var(--txt);">Final layer scores <strong style="color:var(--yellow)">all ~100K tokens</strong>:&nbsp;
+        <span style="display:inline-flex;gap:.3rem;flex-wrap:wrap;margin-top:.2rem;">
+          <span style="background:rgba(26,158,114,.18);border:1px solid rgba(26,158,114,.35);border-radius:6px;padding:2px 7px;font-size:.74rem;color:#60c8a0;">"Paris" 42%</span>
+          <span style="background:rgba(42,160,184,.15);border:1px solid rgba(42,160,184,.28);border-radius:6px;padding:2px 7px;font-size:.74rem;color:#60c8e0;">"London" 18%</span>
+        </span><br><em style="color:rgba(255,255,255,.58);">Temperature=0: always "Paris". Temperature=1: random. 🎲</em></p>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;margin-bottom:.45rem;padding-left:51px;">
+    <div style="width:18px;height:2px;background:rgba(255,255,255,.15);"></div>
+    <span style="font-family:var(--ft);font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:1px;margin-left:.35rem;">add token → go back to step 1...</span>
+  </div>
+
+  <!-- Step 5 -->
+  <div style="display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.75rem;position:relative;z-index:1;">
+    <div style="flex-shrink:0;width:66px;display:flex;justify-content:center;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#073828,#1a8050);border:3px solid #60c8a0;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:1rem;color:#fff;box-shadow:0 0 10px rgba(26,158,80,.4);">5</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#071a12,#0a2018);border:2px solid rgba(26,158,80,.3);border-left:4px solid #1a9e72;border-radius:0 12px 12px 0;padding:.75rem .95rem;">
+      <div style="font-family:var(--ft);font-size:.98rem;letter-spacing:1.5px;color:#60c8a0;margin-bottom:.3rem;">🔁 REPEAT</div>
+      <p style="font-size:.84rem;line-height:1.7;color:var(--txt);">The picked token <strong style="color:var(--yellow)">joins the input</strong> and the loop runs again. Token by token until a special <code style="background:rgba(0,0,0,.5);color:#88c488;padding:2px 6px;border-radius:4px;font-family:var(--fc);">[END]</code> token appears.<br><em style="color:rgba(255,255,255,.58);">This is <strong style="color:#d8c860;">autoregressive generation</strong>.</em></p>
+    </div>
+  </div>
+
+  <div style="margin-left:66px;background:rgba(212,165,32,.06);border:2px dashed rgba(212,165,32,.28);border-radius:12px;padding:.7rem .9rem;display:flex;align-items:center;gap:.65rem;">
+    <div style="font-size:1.35rem;flex-shrink:0;">🔄</div>
+    <div style="font-size:.82rem;color:rgba(255,255,255,.72);line-height:1.6;">Steps 1→5 repeat for <strong style="color:var(--yellow)">every single token</strong>. A 500-word answer = ~650 loops. GPT-4 runs all of this in ~3 seconds. <strong style="color:var(--yellow)">That's why GPUs matter!</strong></div>
+  </div>
+</div>
+</div>
+
+<!-- KEY CONCEPTS -->
+<div>
+<div class="stitle" style="background:var(--ink);color:#fff">🔤 KEY CONCEPTS — HOVER ANY TERM</div>
+<div class="concept-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.9rem;">
+
+  <div style="background:linear-gradient(135deg,#0a3a58,#1a6a9a);border:2px solid rgba(42,160,184,.3);border-radius:14px;padding:1rem 1.1rem;transition:transform .15s;" onmouseover="this.style.transform='translate(-2px,-2px)'" onmouseout="this.style.transform=''">
+    <div style="font-size:1.5rem;margin-bottom:.45rem;">🔢</div>
+    <div style="font-family:var(--ft);font-size:1.2rem;letter-spacing:2px;color:#fff;margin-bottom:.3rem;border-bottom:2px dashed rgba(212,165,32,.5);padding-bottom:.28rem;display:inline-block;">
+      <span class="tt" data-tip="A chunk of text — roughly 3/4 of a word. 'ChatGPT' = 2 tokens. LLMs don't read words — they read token numbers!">TOKEN</span>
+    </div>
+    <p style="font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.85);margin-top:.35rem;">Text splits into tokens. GPT-4 knows ~100,000 different tokens. Your message = list of numbers the model reads.</p>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#0d3830,#1a7a6a);border:2px solid rgba(26,138,122,.3);border-radius:14px;padding:1rem 1.1rem;transition:transform .15s;" onmouseover="this.style.transform='translate(-2px,-2px)'" onmouseout="this.style.transform=''">
+    <div style="font-size:1.5rem;margin-bottom:.45rem;">🧮</div>
+    <div style="font-family:var(--ft);font-size:1.2rem;letter-spacing:2px;color:#fff;margin-bottom:.3rem;border-bottom:2px dashed rgba(212,165,32,.5);padding-bottom:.28rem;display:inline-block;">
+      <span class="tt" data-tip="Convert a word into 1000+ numbers capturing MEANING. 'King' - 'Man' + 'Woman' ≈ 'Queen' in pure maths!">EMBEDDING</span>
+    </div>
+    <p style="font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.85);margin-top:.35rem;">Each token maps to a vector of numbers encoding its meaning. Similar concepts point the same mathematical direction.</p>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#3a1a7a,#5a2a9a);border:2px solid rgba(100,50,180,.3);border-radius:14px;padding:1rem 1.1rem;transition:transform .15s;" onmouseover="this.style.transform='translate(-2px,-2px)'" onmouseout="this.style.transform=''">
+    <div style="font-size:1.5rem;margin-bottom:.45rem;">👁️</div>
+    <div style="font-family:var(--ft);font-size:1.2rem;letter-spacing:2px;color:#fff;margin-bottom:.3rem;border-bottom:2px dashed rgba(212,165,32,.5);padding-bottom:.28rem;display:inline-block;">
+      <span class="tt" data-tip="Every word looks at every other word simultaneously. 'It bit the man because IT was hungry' — attention figures out IT = dog, not man!">ATTENTION</span>
+    </div>
+    <p style="font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.85);margin-top:.35rem;">The core of Transformers. Every token pays attention to ALL others at once — understands context, not just word order.</p>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#601030,#a02060);border:2px solid rgba(160,32,96,.3);border-radius:14px;padding:1rem 1.1rem;transition:transform .15s;" onmouseover="this.style.transform='translate(-2px,-2px)'" onmouseout="this.style.transform=''">
+    <div style="font-size:1.5rem;margin-bottom:.45rem;">🌡️</div>
+    <div style="font-family:var(--ft);font-size:1.2rem;letter-spacing:2px;color:#fff;margin-bottom:.3rem;border-bottom:2px dashed rgba(212,165,32,.5);padding-bottom:.28rem;display:inline-block;">
+      <span class="tt" data-tip="Controls creativity. 0 = always picks most likely word. 0.7 = balanced. 2 = wild and chaotic. Use 0 for facts!">TEMPERATURE</span>
+    </div>
+    <p style="font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.85);margin-top:.35rem;">0 = deterministic &amp; factual. 0.7 = creative &amp; balanced. 1+ = unpredictable. Use 0 for coding, 0.7 for writing.</p>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#073828,#1a8050);border:2px solid rgba(26,158,80,.3);border-radius:14px;padding:1rem 1.1rem;transition:transform .15s;" onmouseover="this.style.transform='translate(-2px,-2px)'" onmouseout="this.style.transform=''">
+    <div style="font-size:1.5rem;margin-bottom:.45rem;">📏</div>
+    <div style="font-family:var(--ft);font-size:1.2rem;letter-spacing:2px;color:#fff;margin-bottom:.3rem;border-bottom:2px dashed rgba(212,165,32,.5);padding-bottom:.28rem;display:inline-block;">
+      <span class="tt" data-tip="The LLM's short-term memory. GPT-4 = 128K tokens (~100 pages). Claude = 200K. Your ENTIRE conversation counts!">CONTEXT WINDOW</span>
+    </div>
+    <p style="font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.85);margin-top:.35rem;">Max tokens processed at once. Fill it up and the model forgets earlier parts. Bigger = better but costs more.</p>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#582800,#a06818);border:2px solid rgba(160,104,24,.3);border-radius:14px;padding:1rem 1.1rem;transition:transform .15s;" onmouseover="this.style.transform='translate(-2px,-2px)'" onmouseout="this.style.transform=''">
+    <div style="font-size:1.5rem;margin-bottom:.45rem;">🌀</div>
+    <div style="font-family:var(--ft);font-size:1.2rem;letter-spacing:2px;color:#fff;margin-bottom:.3rem;border-bottom:2px dashed rgba(212,165,32,.5);padding-bottom:.28rem;display:inline-block;">
+      <span class="tt" data-tip="When LLM confidently makes things up. Asks for a citation? It invents one. LLMs predict likely text — not truth!">HALLUCINATION</span>
+    </div>
+    <p style="font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.85);margin-top:.35rem;">LLMs predict likely-sounding text, not truth. They can generate fluent, confident, completely wrong answers.</p>
+  </div>
+
+</div>
+</div>
+
+<!-- MODEL CARDS -->
+<div>
+<div class="stitle" style="background:var(--hot);color:#fff">🏆 MAJOR LLMs — PLAIN ENGLISH</div>
+<div class="mgrid">
+  <div class="mc"><div class="mc-icon">💚</div><div class="mc-name">GPT-4o</div><div class="mc-by">by OpenAI</div><div class="mc-strength">The Swiss Army Knife. Best at everything — coding, reasoning, images, voice. Default choice if unsure.</div><span class="mc-tag">128K context</span><span class="mc-tag">Multimodal</span></div>
+  <div class="mc"><div class="mc-icon">🟠</div><div class="mc-name">Claude 3.5</div><div class="mc-by">by Anthropic</div><div class="mc-strength">The careful writer. Best for long documents (200K context!), nuanced writing, and safety.</div><span class="mc-tag">200K context</span><span class="mc-tag">Best writer</span></div>
+  <div class="mc"><div class="mc-icon">💎</div><div class="mc-name">Gemini 1.5</div><div class="mc-by">by Google</div><div class="mc-strength">The librarian. Reads entire books (1M token context!). Best for massive document search.</div><span class="mc-tag">1M context</span><span class="mc-tag">Google Search</span></div>
+  <div class="mc"><div class="mc-icon">🦙</div><div class="mc-name">Llama 3.3</div><div class="mc-by">by Meta (FREE)</div><div class="mc-strength">The open-source rebel. FREE to download. No API costs. No data sent to anyone. Perfect for privacy.</div><span class="mc-tag">Open source</span><span class="mc-tag">Self-hosted</span></div>
+  <div class="mc"><div class="mc-icon">🔮</div><div class="mc-name">Mistral</div><div class="mc-by">by Mistral AI (EU)</div><div class="mc-strength">Half the cost of GPT-4, 80% the quality. GDPR-compliant. Great for startups watching costs.</div><span class="mc-tag">Cost efficient</span><span class="mc-tag">GDPR</span></div>
+  <div class="mc"><div class="mc-icon">🌐</div><div class="mc-name">Qwen 2.5</div><div class="mc-by">by Alibaba (FREE)</div><div class="mc-strength">Incredible at Chinese + English + code + maths. Open weights. Surprisingly powerful for size.</div><span class="mc-tag">Multilingual</span><span class="mc-tag">Open weights</span></div>
+</div>
+</div>
+
+<!-- PROMPT ENGINEERING -->
+<div>
+<div class="stitle" style="background:var(--py);color:#fff">✍️ PROMPT ENGINEERING — LAYMAN STYLE</div>
+<div style="background:linear-gradient(135deg,#181500,#222000);border:2px solid var(--yellow);border-radius:14px;padding:.8rem .95rem;margin-bottom:.9rem;">
+  <div style="font-family:var(--ft);font-size:.82rem;color:var(--yellow);margin-bottom:.25rem;">✍️ Prompt Bot says:</div>
+  <p style="font-size:.88rem;line-height:1.85;color:#d8c860;">
+    Talking to an LLM is like talking to the smartest intern who just started.<br><br>
+    They know EVERYTHING — but they don't know what YOU want.<br><br>
+    <strong>Bad prompt:</strong> "Write about dogs" → 500 generic words 😴<br>
+    <strong>Good prompt:</strong> "You are a vet. Write 3 bullet points about why golden retrievers are good family pets, for a parent with young children. Friendly tone." → Exactly what you wanted! 🎯
+  </p>
+</div>
+<div class="prompt-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;">
+  <div style="background:linear-gradient(135deg,#0a3a58,#1a6a9a);border:2px solid rgba(42,160,184,.25);border-radius:12px;padding:.85rem;">
+    <div style="font-family:var(--ft);font-size:.9rem;color:#fff;margin-bottom:.28rem;">🎯 Zero-Shot</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.6;">Just ask. No examples.<br><br><em style="color:#60c8e0;">"Translate 'Hello' to French"</em></div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d3830,#1a7a6a);border:2px solid rgba(26,138,122,.25);border-radius:12px;padding:.85rem;">
+    <div style="font-family:var(--ft);font-size:.9rem;color:#fff;margin-bottom:.28rem;">📋 Few-Shot</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.6;">Give 2-3 examples first.<br><br><em style="color:#58c8c0;">"Great! → Positive. Terrible → Negative. Okay → ?"</em></div>
+  </div>
+  <div style="background:linear-gradient(135deg,#3a1a7a,#5a2a9a);border:2px solid rgba(100,50,180,.25);border-radius:12px;padding:.85rem;">
+    <div style="font-family:var(--ft);font-size:.9rem;color:#fff;margin-bottom:.28rem;">🧠 Chain-of-Thought</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.6;">Say "think step by step".<br><br><em style="color:#b090e0;">Accuracy jumps 40% on maths!</em></div>
+  </div>
+  <div style="background:linear-gradient(135deg,#601030,#a02060);border:2px solid rgba(160,32,96,.25);border-radius:12px;padding:.85rem;">
+    <div style="font-family:var(--ft);font-size:.9rem;color:#fff;margin-bottom:.28rem;">🎭 Role Assignment</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.6;">Give it a persona.<br><br><em style="color:#e0b0c8;">"You are an expert Python developer..."</em></div>
+  </div>
+  <div style="background:linear-gradient(135deg,#582800,#a06818);border:2px solid rgba(160,104,24,.25);border-radius:12px;padding:.85rem;">
+    <div style="font-family:var(--ft);font-size:.9rem;color:#fff;margin-bottom:.28rem;">📐 Output Format</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.6;">Tell it how to structure.<br><br><em style="color:#d8c860;">"Respond in JSON with keys: name, score, reason"</em></div>
+  </div>
+</div>
+</div>
+
+<!-- WHY RAG -->
+<div>
+<div class="stitle" style="background:linear-gradient(90deg,var(--cyan),var(--teal));color:#fff">🔗 WHY RAG COMES NEXT</div>
+<div style="background:linear-gradient(135deg,#080c10,#0f0f22);border:2px solid var(--border);border-radius:12px;padding:.95rem;">
+  <div style="font-family:var(--ft);font-size:.9rem;color:var(--yellow);letter-spacing:2px;margin-bottom:.65rem;text-align:center;">⚠️ THE LIMIT OF LLMs</div>
+  <div class="rag-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:.65rem;">
+    <div style="background:rgba(196,51,106,.08);border:2px solid rgba(196,51,106,.35);border-radius:10px;padding:.75rem;">
+      <div style="font-family:var(--ft);font-size:.78rem;color:#e090b0;margin-bottom:.3rem;">❌ WHAT LLMs CAN'T DO</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.7;">❌ Know post-training events<br>❌ Access YOUR company docs<br>❌ Give citations<br>❌ Always be accurate</div>
+    </div>
+    <div style="background:rgba(26,158,80,.08);border:2px solid rgba(26,158,80,.35);border-radius:10px;padding:.75rem;">
+      <div style="font-family:var(--ft);font-size:.78rem;color:#60c8a0;margin-bottom:.3rem;">✅ RAG SOLVES THIS</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.7;">✅ Search your docs at query time<br>✅ Inject fresh data into prompt<br>✅ Cite the exact source<br>✅ Accurate on YOUR data</div>
+    </div>
+  </div>
+  <div style="background:rgba(42,160,184,.08);border:2px solid rgba(42,160,184,.25);border-radius:10px;padding:.75rem;text-align:center;">
+    <div style="font-size:.85rem;color:rgba(255,255,255,.82);">💡 RAG = give the LLM access to <strong style="color:var(--yellow)">YOUR documents at question time</strong>. Not fine-tuning. Just search your docs and paste results into the prompt. That's Chapter 5! →</div>
+  </div>
+</div>
+</div>
+
+<div class="cta">
+  <div class="cta-title">💬 READY TO BUILD WITH LLMs?</div>
+  <p>10 missions. OpenAI API + Semantic Kernel side by side. From tokens to deployed app!</p>
+  <button class="cta-btn" onclick="switchMain('p',document.getElementById('btn-tp'))">📚 Open Course → Mission 1</button>
+</div>
+
+</div><!-- /hm -->
+
+<!-- SIDEBAR (desktop only) -->
+<div class="hs">
+  <div class="sbox">
+    <h4>📋 ON THIS PAGE</h4>
+    <a href="#">😮 The 3am Story</a>
+    <a href="#">🤔 What is an LLM?</a>
+    <a href="#">🔤 Key Concepts</a>
+    <a href="#">🏆 Model Comparison</a>
+    <a href="#">✍️ Prompt Engineering</a>
+    <a href="#">🔗 Why RAG follows</a>
+  </div>
+  <div class="sdark">
+    <h4>💡 HOVER TERMS</h4>
+    <dl>
+      <div><dt>Token</dt><dd>~3/4 of a word. LLMs think in tokens</dd></div>
+      <div><dt>Temperature</dt><dd>0=factual, 0.7=balanced, 1+=creative</dd></div>
+      <div><dt>Context Window</dt><dd>LLM's short-term memory</dd></div>
+      <div><dt>Hallucination</dt><dd>LLM confidently making things up</dd></div>
+      <div><dt>RLHF</dt><dd>Humans teach the LLM to be helpful</dd></div>
+    </dl>
+  </div>
+  <div class="sbox">
+    <h4 style="color:var(--cyan)">🔗 ALSO SEE</h4>
+    <a href="#">🧠 Deep Learning →</a>
+    <a href="#">🔍 RAG →</a>
+    <a href="#">⚡ Agentic AI →</a>
+  </div>
+</div>
+</div></div>
+</div><!-- /th -->
+
+<!-- ══════════════════════════════════════
+     CHAPTER NAV
+══════════════════════════════════════ -->
+<div id="qanav">
+  <button class="cnb act-ch" onclick="showCh(0,this)">💬 CH1 WHY</button>
+  <button class="cnb" onclick="showCh(1,this)">🔢 CH2 TOKENS</button>
+  <button class="cnb" onclick="showCh(2,this)">🧮 CH3 EMBED</button>
+  <button class="cnb" onclick="showCh(3,this)">🌐 CH4 API</button>
+  <button class="cnb" onclick="showCh(4,this)">⚡ CH5 CHAIN</button>
+  <button class="cnb" onclick="showCh(5,this)">🎯 CH6 RAG/FT</button>
+  <button class="cnb" onclick="showCh(6,this)">🔧 CH7 FUNC</button>
+  <button class="cnb" onclick="showCh(7,this)">📦 CH8 JSON</button>
+  <button class="cnb" onclick="showCh(8,this)">📊 CH9 EVAL</button>
+  <button class="cnb" onclick="showCh(9,this)">🚀 CH10 SHIP</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     COURSE TAB
+══════════════════════════════════════ -->
+<div id="tp">
+  <!-- Mobile lang switcher -->
+  <div class="mobile-lang-tabs" id="mobileLangTabs">
+    <button class="mlt py-tab active-tab" onclick="switchLang('py',this)">🐍 Python / LangChain</button>
+    <button class="mlt net-tab" onclick="switchLang('net',this)">.NET / Semantic Kernel 🟣</button>
+  </div>
+
+  <div class="cwrap"><div class="sv">
+    <!-- PYTHON PANE -->
+    <div class="sp pyp" id="pyleft">
+      <div class="lbadge pyb"><div class="lbi">🐍</div><div><div class="lbt">Python</div><div class="lbs">OpenAI SDK · LangChain · tiktoken · FAISS · FastAPI</div></div></div>
+
+      <!-- CH 1 PY -->
+      <div class="cc act" id="pyc0">
+        <div class="chero pyh">
+          <div class="chn">💬 MISSION 1/10 · 🐍 PYTHON</div>
+          <div class="cht">WHY LLMs EXIST 💬</div>
+          <div class="chd">Next word prediction at trillion-token scale = intelligence. The insight that changed AI forever.</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#0d0820,#1a0d28);border:2px solid var(--py);border-radius:12px;padding:.9rem 1rem;">
+          <div style="font-family:var(--ft);font-size:.9rem;color:var(--py);margin-bottom:.35rem;">😤 THE PROBLEM</div>
+          <p style="font-size:.87rem;line-height:1.8;color:var(--txt);">Deep Learning predicts the next pixel in an image. What if you applied the SAME idea to text? Predict the next word. Do it with ALL internet text. Train for months on 10,000 GPUs. <strong style='color:var(--yellow)'>The model that predicts text well enough starts to understand the world. That's the LLM insight.</strong></p>
+        </div>
+        <div style="background:linear-gradient(135deg,#181500,#222000);border:2px solid var(--yellow);border-radius:14px;padding:.8rem .95rem;">
+          <div style="font-family:var(--ft);font-size:.82rem;color:var(--yellow);margin-bottom:.25rem;">💬 LLM Bot:</div>
+          <p style="font-size:.87rem;line-height:1.8;color:#d8c860;">Your phone's autocomplete predicts the next word from 10,000 options. Useful but dumb.<br><br>GPT-4 predicts the next token from 100,000 options — trained on ALL human knowledge.<br><br>To predict <em>'The patient has diabetes'</em> correctly, it had to learn medicine. To predict <em>'def fibonacci(n):'</em> correctly, it had to learn programming.<br><br><em>Prediction at scale = emergent intelligence. 🤯</em></p>
+        </div>
+        <div class="cb">
+          <div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 why_llm.py</span></div>
+          <div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div></div><div class="code-content"><span class="pk">from</span> openai <span class="pk">import</span> OpenAI
+
+client = OpenAI()  <span class="pc"># pip install openai</span>
+
+<span class="pc"># 🤯 The whole magic: predict next token, repeatedly</span>
+response = client.chat.completions.create(
+    model=<span class="ps">"gpt-4o"</span>,
+    messages=[
+        {<span class="ps">"role"</span>: <span class="ps">"system"</span>, <span class="ps">"content"</span>: <span class="ps">"You are a helpful assistant."</span>},
+        {<span class="ps">"role"</span>: <span class="ps">"user"</span>,   <span class="ps">"content"</span>: <span class="ps">"What is machine learning in one sentence?"</span>}
+    ]
+)
+print(response.choices[<span class="pn">0</span>].message.content)
+<span class="pc"># ✅ It answers! Just predicting tokens... repeatedly!</span>
+<span class="pc"># The model never "understood" — it just predicted really well</span></div></div>
+        </div>
+        <div class="csum pys">
+          <div class="cst">💬 MISSION 1 COMPLETE!</div>
+          <ul><li>LLMs = predict next token × trillions = emergent intelligence</li><li>OpenAI Python SDK: pip install openai → client.chat.completions.create()</li><li>The model never 'understands' — learned statistical patterns at massive scale</li><li>GPT-4 trained on ~13 trillion tokens = more than a human reads in 1000 lifetimes</li></ul>
+          <button class="nxtch pyn" onclick="showCh(1,document.querySelectorAll('#qanav .cnb')[1])">⚡ Next: Ch2 — Tokenisation →</button>
+        </div>
+      </div>
+
+      <!-- CH 2 PY -->
+      <div class="cc" id="pyc1">
+        <div class="chero pyh">
+          <div class="chn">💬 MISSION 2/10 · 🐍 PYTHON</div>
+          <div class="cht">TOKENISATION 🔢</div>
+          <div class="chd">How text splits into tokens. tiktoken library. Token counting for cost control.</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#0d0820,#1a0d28);border:2px solid var(--py);border-radius:12px;padding:.9rem 1rem;">
+          <div style="font-family:var(--ft);font-size:.9rem;color:var(--py);margin-bottom:.35rem;">😤 THE PROBLEM</div>
+          <p style="font-size:.87rem;line-height:1.8;color:var(--txt);">LLMs don't read letters or words. They read tokens — subword chunks mapped to numbers. <strong style='color:var(--yellow)'>Get tokenisation wrong and you'll over-spend on API calls and hit context limits unexpectedly.</strong></p>
+        </div>
+        <div style="background:linear-gradient(135deg,#181500,#222000);border:2px solid var(--yellow);border-radius:14px;padding:.8rem .95rem;">
+          <div style="font-family:var(--ft);font-size:.82rem;color:var(--yellow);margin-bottom:.25rem;">🔢 Token Bot:</div>
+          <p style="font-size:.87rem;line-height:1.8;color:#d8c860;">'Hello' = 1 token. 'ChatGPT' = 2 tokens. 'pneumonoultramicroscopic...' = 13 tokens 😅<br><br>💰 <strong>Cost</strong>: OpenAI charges per token. 1M tokens ≈ $15.<br>📏 <strong>Limits</strong>: GPT-4 max = 128K tokens. Fill it = model forgets start.<br><br><em>Rule: 1 token ≈ 0.75 English words. 1000 tokens ≈ 1.5 pages. 🎯</em></p>
+        </div>
+        <div class="cb">
+          <div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 tokenisation.py</span></div>
+          <div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div></div><div class="code-content"><span class="pk">import</span> tiktoken
+
+<span class="pc"># 🔢 tiktoken = OpenAI's official tokeniser</span>
+enc = tiktoken.encoding_for_model(<span class="ps">"gpt-4o"</span>)
+
+text = <span class="ps">"ChatGPT changed the world in November 2022"</span>
+tokens = enc.encode(text)
+print(<span class="ps">f"Text: {text}"</span>)
+print(<span class="ps">f"Tokens: {tokens}"</span>)           <span class="pc"># list of ints</span>
+print(<span class="ps">f"Token count: {len(tokens)}"</span>)   <span class="pc"># 9 tokens</span>
+
+<span class="pc"># 💰 Estimate cost before calling API</span>
+<span class="pk">def</span> <span class="pf">estimate_cost</span>(text: str, model=<span class="ps">"gpt-4o"</span>) -> float:
+    enc       = tiktoken.encoding_for_model(model)
+    n_tokens  = len(enc.encode(text))
+    cost_per_m = <span class="pn">15.0</span>  <span class="pc"># $15 per million input tokens</span>
+    <span class="pk">return</span> n_tokens * cost_per_m / <span class="pn">1_000_000</span>
+
+big_doc = <span class="ps">"word " * 10000</span>  <span class="pc"># 10,000 words</span>
+cost = estimate_cost(big_doc)
+print(<span class="ps">f"Estimated cost: ${cost:.4f}"</span>)  <span class="pc"># ~$0.20</span>
+
+<span class="pc"># 🎯 Decode tokens back to text</span>
+<span class="pk">for</span> t <span class="pk">in</span> tokens:
+    print(<span class="ps">f"{t} → '{enc.decode([t])}'"</span>)  <span class="pc"># see each token!</span></div></div>
+        </div>
+        <div class="csum pys">
+          <div class="cst">💬 MISSION 2 COMPLETE!</div>
+          <ul><li>tiktoken counts tokens accurately — use BEFORE sending to API</li><li>1 token ≈ 0.75 words. 1000 tokens ≈ $0.015 for GPT-4o</li><li>Context window = token limit for your WHOLE conversation</li><li>Chunk large documents — don't send 100 pages in one API call</li></ul>
+          <button class="nxtch pyn" onclick="showCh(2,document.querySelectorAll('#qanav .cnb')[2])">⚡ Next: Ch3 — Embeddings →</button>
+        </div>
+      </div>
+
+      <!-- CH 3-10 PY (abbreviated for space, same pattern) -->
+      <div class="cc" id="pyc2">
+        <div class="chero pyh"><div class="chn">💬 MISSION 3/10 · 🐍 PYTHON</div><div class="cht">EMBEDDINGS 🧮</div><div class="chd">Convert text to vectors. Semantic search. Find similar docs without keywords.</div></div>
+        <div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 embeddings.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div></div><div class="code-content"><span class="pk">from</span> openai <span class="pk">import</span> OpenAI
+<span class="pk">import</span> numpy <span class="pk">as</span> np
+
+client = OpenAI()
+
+<span class="pk">def</span> <span class="pf">embed</span>(text: str) -> list[float]:
+    <span class="pk">return</span> client.embeddings.create(
+        model=<span class="ps">"text-embedding-3-small"</span>,
+        input=text
+    ).data[<span class="pn">0</span>].embedding  <span class="pc"># 1536 numbers!</span>
+
+<span class="pk">def</span> <span class="pf">similarity</span>(a: list, b: list) -> float:
+    a, b = np.array(a), np.array(b)
+    <span class="pk">return</span> float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
+
+<span class="pc"># 🧪 Test semantic similarity</span>
+v1 = embed(<span class="ps">"The packaging was terrible, box arrived crushed"</span>)
+v2 = embed(<span class="ps">"bad packaging"</span>)
+v3 = embed(<span class="ps">"great product, love it"</span>)
+
+print(<span class="ps">f"crushed box vs bad packaging: {similarity(v1,v2):.2f}"</span>)  <span class="pc"># ~0.82!</span>
+print(<span class="ps">f"crushed box vs great product: {similarity(v1,v3):.2f}"</span>)  <span class="pc"># ~0.12</span>
+<span class="pc"># 🎯 Finds semantic match even with ZERO common words!</span></div></div></div>
+        <div class="csum pys"><div class="cst">💬 MISSION 3 COMPLETE!</div><ul><li>text-embedding-3-small: 1536-dim vectors, very cheap</li><li>Cosine similarity: 1.0=same meaning, 0=unrelated</li><li>Enables semantic search — find by MEANING not keywords</li><li>Core of RAG (Ch5) — embed your docs, search by question meaning</li></ul><button class="nxtch pyn" onclick="showCh(3,document.querySelectorAll('#qanav .cnb')[3])">⚡ Next: Ch4 — OpenAI API →</button></div>
+      </div>
+
+      <div class="cc" id="pyc3"><div class="chero pyh"><div class="chn">💬 MISSION 4/10 · 🐍 PYTHON</div><div class="cht">OPENAI API — PRODUCTION 🌐</div><div class="chd">Streaming, conversation history, error handling, retry logic.</div></div><div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 openai_prod.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div></div><div class="code-content"><span class="pk">from</span> openai <span class="pk">import</span> OpenAI
+<span class="pk">from</span> tenacity <span class="pk">import</span> retry, stop_after_attempt, wait_exponential
+
+client = OpenAI()
+
+<span class="pc"># ⚡ STREAMING — shows tokens as they arrive</span>
+<span class="pk">def</span> <span class="pf">stream_chat</span>(messages: list) -> str:
+    full = <span class="ps">""</span>
+    <span class="pk">with</span> client.chat.completions.stream(
+        model=<span class="ps">"gpt-4o"</span>, messages=messages
+    ) <span class="pk">as</span> stream:
+        <span class="pk">for</span> chunk <span class="pk">in</span> stream.text_stream:
+            print(chunk, end=<span class="ps">""</span>, flush=<span class="pk">True</span>)
+            full += chunk
+    <span class="pk">return</span> full
+
+<span class="pc"># 💬 CONVERSATION HISTORY</span>
+history = [{<span class="ps">"role"</span>: <span class="ps">"system"</span>, <span class="ps">"content"</span>: <span class="ps">"You are a helpful Python expert."</span>}]
+
+<span class="pk">def</span> <span class="pf">chat</span>(user_msg: str) -> str:
+    history.append({<span class="ps">"role"</span>: <span class="ps">"user"</span>, <span class="ps">"content"</span>: user_msg})
+    reply = stream_chat(history)
+    history.append({<span class="ps">"role"</span>: <span class="ps">"assistant"</span>, <span class="ps">"content"</span>: reply})
+    <span class="pk">if</span> len(history) &gt; <span class="pn">20</span>: history[<span class="pn">1</span>:<span class="pn">3</span>] = []
+    <span class="pk">return</span> reply
+
+<span class="pc"># 🔁 RETRY — handles rate limits automatically</span>
+<span class="pf">@retry</span>(stop=stop_after_attempt(<span class="pn">3</span>), wait=wait_exponential(min=<span class="pn">4</span>, max=<span class="pn">10</span>))
+<span class="pk">def</span> <span class="pf">reliable_chat</span>(msg: str) -> str:
+    <span class="pk">return</span> chat(msg)</div></div></div><div class="csum pys"><div class="cst">💬 MISSION 4 COMPLETE!</div><ul><li>Streaming: tokens appear word by word — same speed, feels faster</li><li>Keep conversation history as messages[] list</li><li>Trim history when len > 20 — prevents context window overflow</li><li>tenacity retry handles rate limits automatically</li></ul><button class="nxtch pyn" onclick="showCh(4,document.querySelectorAll('#qanav .cnb')[4])">⚡ Next: Ch5 — LangChain →</button></div></div>
+
+      <div class="cc" id="pyc4"><div class="chero pyh"><div class="chn">💬 MISSION 5/10 · 🐍 PYTHON</div><div class="cht">LANGCHAIN — 10X FASTER ⚡</div><div class="chd">Chains, prompt templates, output parsers. Stop writing boilerplate.</div></div><div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 langchain_basics.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div></div><div class="code-content"><span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI
+<span class="pk">from</span> langchain_core.prompts <span class="pk">import</span> ChatPromptTemplate
+<span class="pk">from</span> langchain_core.output_parsers <span class="pk">import</span> JsonOutputParser
+<span class="pk">from</span> pydantic <span class="pk">import</span> BaseModel
+
+llm = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>, temperature=<span class="pn">0</span>)
+
+<span class="pc"># 📝 PROMPT TEMPLATE — reusable with variables</span>
+prompt = ChatPromptTemplate.from_messages([
+    (<span class="ps">"system"</span>, <span class="ps">"You are a {role} expert."</span>),
+    (<span class="ps">"user"</span>,   <span class="ps">"Analyse this text: {text}\nRespond in JSON."</span>)
+])
+
+<span class="pc"># 📦 OUTPUT PARSER — enforce JSON structure!</span>
+<span class="pk">class</span> <span class="pcl">Sentiment</span>(BaseModel):
+    sentiment: str
+    score: float
+    reason: str
+
+<span class="pc"># ⚡ CHAIN — pipe operator! prompt → llm → parser</span>
+chain = prompt | llm | JsonOutputParser(pydantic_object=Sentiment)
+
+result = chain.invoke({
+    <span class="ps">"role"</span>: <span class="ps">"sentiment analysis"</span>,
+    <span class="ps">"text"</span>: <span class="ps">"Fast delivery but packaging was terrible!"</span>
+})
+print(result)  <span class="pc"># {"sentiment":"mixed","score":0.4,...} ✅</span></div></div></div><div class="csum pys"><div class="cst">💬 MISSION 5 COMPLETE!</div><ul><li>ChatPromptTemplate = reusable prompt with {variables}</li><li>JsonOutputParser + Pydantic = guaranteed JSON structure</li><li>Pipe operator | chains: prompt → llm → parser</li><li>LangChain wraps ANY LLM — swap OpenAI for Claude in one word</li></ul><button class="nxtch pyn" onclick="showCh(5,document.querySelectorAll('#qanav .cnb')[5])">⚡ Next: Ch6 — RAG vs Fine-tune →</button></div></div>
+
+      <div class="cc" id="pyc5"><div class="chero pyh"><div class="chn">💬 MISSION 6/10 · 🐍 PYTHON</div><div class="cht">FINE-TUNING vs RAG 🎯</div><div class="chd">The most important architectural decision. The $50K question.</div></div><div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 rag_pipeline.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div></div><div class="code-content"><span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI, OpenAIEmbeddings
+<span class="pk">from</span> langchain_community.vectorstores <span class="pk">import</span> FAISS
+<span class="pk">from</span> langchain.chains <span class="pk">import</span> RetrievalQA
+
+<span class="pc"># ✅ RAG — 10 lines, ready in 2 hours!</span>
+docs = [
+    <span class="ps">"Our refund policy: 30 days, no questions asked."</span>,
+    <span class="ps">"Shipping: free over £50, 3-5 business days."</span>,
+    <span class="ps">"Premium members get 2-day delivery and priority support."</span>
+]
+emb  = OpenAIEmbeddings(model=<span class="ps">"text-embedding-3-small"</span>)
+vs   = FAISS.from_texts(docs, emb)
+
+chain = RetrievalQA.from_chain_type(
+    llm=ChatOpenAI(model=<span class="ps">"gpt-4o"</span>),
+    retriever=vs.as_retriever(search_kwargs={<span class="ps">"k"</span>: <span class="pn">2</span>})
+)
+print(chain.invoke(<span class="ps">"What's the refund policy?"</span>)[<span class="ps">"result"</span>])
+<span class="pc"># "30 days, no questions asked." — accurate, cited! 🎯</span></div></div></div><div class="csum pys"><div class="cst">💬 MISSION 6 COMPLETE!</div><ul><li>RAG: search your docs at query time → inject into prompt</li><li>Fine-tune ONLY for style/personality, NOT for knowledge</li><li>RAG: 2 hours setup, always fresh — fine-tuning: months, expensive</li><li>FAISS = free local vector store</li></ul><button class="nxtch pyn" onclick="showCh(6,document.querySelectorAll('#qanav .cnb')[6])">⚡ Next: Ch7 — Function Calling →</button></div></div>
+
+      <div class="cc" id="pyc6"><div class="chero pyh"><div class="chn">💬 MISSION 7/10 · 🐍 PYTHON</div><div class="cht">FUNCTION CALLING 🔧</div><div class="chd">LLM calls YOUR code. Live weather, APIs, databases — all accessible.</div></div><div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 function_calling.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div></div><div class="code-content"><span class="pk">from</span> openai <span class="pk">import</span> OpenAI
+<span class="pk">import</span> json
+
+client = OpenAI()
+
+tools = [{
+    <span class="ps">"type"</span>: <span class="ps">"function"</span>,
+    <span class="ps">"function"</span>: {
+        <span class="ps">"name"</span>: <span class="ps">"get_weather"</span>,
+        <span class="ps">"description"</span>: <span class="ps">"Get current weather for a city."</span>,
+        <span class="ps">"parameters"</span>: {
+            <span class="ps">"type"</span>: <span class="ps">"object"</span>,
+            <span class="ps">"properties"</span>: {<span class="ps">"city"</span>: {<span class="ps">"type"</span>: <span class="ps">"string"</span>}},
+            <span class="ps">"required"</span>: [<span class="ps">"city"</span>]
+        }
+    }
+}]
+
+<span class="pk">def</span> <span class="pf">get_weather</span>(city: str) -> str:
+    <span class="pk">return</span> <span class="ps">f"{city}: 22°C, Sunny"</span>
+
+messages = [{<span class="ps">"role"</span>: <span class="ps">"user"</span>, <span class="ps">"content"</span>: <span class="ps">"What's the weather in London?"</span>}]
+response = client.chat.completions.create(
+    model=<span class="ps">"gpt-4o"</span>, tools=tools, messages=messages)
+
+tool_call = response.choices[<span class="pn">0</span>].message.tool_calls[<span class="pn">0</span>]
+args = json.loads(tool_call.function.arguments)
+result = get_weather(**args)
+print(<span class="ps">f"Result: {result}"</span>)  <span class="pc"># London: 22°C, Sunny ✅</span></div></div></div><div class="csum pys"><div class="cst">💬 MISSION 7 COMPLETE!</div><ul><li>Define tools as JSON schema — description tells LLM WHEN to call</li><li>LLM decides: 'I need weather data → call get_weather(city)'</li><li>Function calling = LLMs grow hands — interact with the real world</li><li>Foundation of AI Agents!</li></ul><button class="nxtch pyn" onclick="showCh(7,document.querySelectorAll('#qanav .cnb')[7])">⚡ Next: Ch8 — Structured Output →</button></div></div>
+
+      <div class="cc" id="pyc7"><div class="chero pyh"><div class="chn">💬 MISSION 8/10 · 🐍 PYTHON</div><div class="cht">STRUCTURED OUTPUT 📦</div><div class="chd">Make LLM always return valid JSON. Pydantic. No more parsing crashes.</div></div><div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 structured_output.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div></div><div class="code-content"><span class="pk">from</span> langchain_openai <span class="pk">import</span> ChatOpenAI
+<span class="pk">from</span> pydantic <span class="pk">import</span> BaseModel, Field
+<span class="pk">from</span> typing <span class="pk">import</span> Literal
+
+<span class="pk">class</span> <span class="pcl">ProductReview</span>(BaseModel):
+    sentiment: Literal[<span class="ps">"positive"</span>, <span class="ps">"negative"</span>, <span class="ps">"neutral"</span>]
+    score:     float = Field(ge=<span class="pn">0</span>, le=<span class="pn">1</span>)
+    issues:    list[str]
+    summary:   str = Field(max_length=<span class="pn">100</span>)
+
+llm    = ChatOpenAI(model=<span class="ps">"gpt-4o"</span>)
+parser = llm.with_structured_output(ProductReview)  <span class="pc"># 🎯 MAGIC LINE!</span>
+
+result = parser.invoke(
+    <span class="ps">"Review: 'Fast delivery but box was crushed and item scratched.'"</span>)
+print(result.sentiment)   <span class="pc"># "negative" — always a string!</span>
+print(result.score)       <span class="pc"># 0.25 — always a float!</span>
+print(result.issues)      <span class="pc"># ["crushed box", "scratched"] — always a list!</span>
+
+<span class="pc"># ✅ No try/except needed for JSON parsing</span>
+<span class="pc"># ✅ Pydantic validates types automatically</span></div></div></div><div class="csum pys"><div class="cst">💬 MISSION 8 COMPLETE!</div><ul><li>with_structured_output(Model) = guaranteed JSON structure</li><li>Pydantic Field(ge=0, le=1) enforces constraints</li><li>Literal type limits to only allowed values</li><li>Frontend teams can rely on this structure</li></ul><button class="nxtch pyn" onclick="showCh(8,document.querySelectorAll('#qanav .cnb')[8])">⚡ Next: Ch9 — Evaluation →</button></div></div>
+
+      <div class="cc" id="pyc8"><div class="chero pyh"><div class="chn">💬 MISSION 9/10 · 🐍 PYTHON</div><div class="cht">LLM EVALUATION 📊</div><div class="chd">RAGAS for RAG quality. LLM-as-judge. Automated eval pipelines.</div></div><div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 evaluation.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div></div><div class="code-content"><span class="pk">from</span> ragas <span class="pk">import</span> evaluate
+<span class="pk">from</span> ragas.metrics <span class="pk">import</span> (faithfulness, answer_relevancy,
+                          context_precision, context_recall)
+<span class="pk">from</span> datasets <span class="pk">import</span> Dataset
+
+<span class="pc"># 📊 Test dataset</span>
+test_data = {
+    <span class="ps">"question"</span>:     [<span class="ps">"What is the refund policy?"</span>],
+    <span class="ps">"answer"</span>:       [<span class="ps">"30 days, no questions asked"</span>],
+    <span class="ps">"contexts"</span>:     [[<span class="ps">"Our refund policy is 30 days..."</span>]],
+    <span class="ps">"ground_truth"</span>: [<span class="ps">"Customers get 30 days for returns"</span>]
+}
+
+<span class="pc"># ⚡ RAGAS evaluates all 4 dimensions!</span>
+result = evaluate(
+    Dataset.from_dict(test_data),
+    metrics=[faithfulness, answer_relevancy,
+             context_precision, context_recall]
+)
+print(result)
+<span class="pc"># faithfulness:      0.95</span>
+<span class="pc"># answer_relevancy:  0.92</span>
+<span class="pc"># context_precision: 0.88</span>
+<span class="pc"># context_recall:    0.91</span></div></div></div><div class="csum pys"><div class="cst">💬 MISSION 9 COMPLETE!</div><ul><li>RAGAS measures: faithfulness, relevancy, precision, recall</li><li>Faithfulness = is LLM answer supported by retrieved docs?</li><li>LLM-as-judge: use GPT-4o to score GPT-4o responses</li><li>Automate in CI/CD — fail build if score drops</li></ul><button class="nxtch pyn" onclick="showCh(9,document.querySelectorAll('#qanav .cnb')[9])">⚡ Next: Ch10 — Deploy! →</button></div></div>
+
+      <div class="cc" id="pyc9"><div class="chero pyh"><div class="chn">💬 MISSION 10/10 · 🐍 PYTHON</div><div class="cht">DEPLOY YOUR APP 🚀</div><div class="chd">FastAPI streaming endpoint + session history. Production in 30 lines.</div></div><div class="cb"><div class="ch2 pyh2"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🐍 llm_api.py</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div></div><div class="code-content"><span class="pk">from</span> fastapi <span class="pk">import</span> FastAPI
+<span class="pk">from</span> fastapi.responses <span class="pk">import</span> StreamingResponse
+<span class="pk">from</span> openai <span class="pk">import</span> OpenAI
+
+app    = FastAPI(title=<span class="ps">"💬 LLM Chat API"</span>)
+client = OpenAI()
+sessions: dict[str, list] = {}
+
+<span class="pf">@app.post</span>(<span class="ps">"/chat/{session_id}"</span>)
+<span class="pk">async def</span> <span class="pf">chat</span>(session_id: str, message: str):
+    <span class="pk">if</span> session_id <span class="pk">not in</span> sessions:
+        sessions[session_id] = [
+            {<span class="ps">"role"</span>: <span class="ps">"system"</span>, <span class="ps">"content"</span>: <span class="ps">"You are a helpful assistant."</span>}
+        ]
+    sessions[session_id].append(
+        {<span class="ps">"role"</span>: <span class="ps">"user"</span>, <span class="ps">"content"</span>: message})
+
+    <span class="pk">def</span> <span class="pf">generate</span>():
+        full = <span class="ps">""</span>
+        <span class="pk">with</span> client.chat.completions.stream(
+            model=<span class="ps">"gpt-4o"</span>, messages=sessions[session_id]
+        ) <span class="pk">as</span> stream:
+            <span class="pk">for</span> chunk <span class="pk">in</span> stream.text_stream:
+                full += chunk
+                <span class="pk">yield</span> <span class="ps">f"data: {chunk}\n\n"</span>
+        sessions[session_id].append(
+            {<span class="ps">"role"</span>:<span class="ps">"assistant"</span>,<span class="ps">"content"</span>:full})
+    <span class="pk">return</span> StreamingResponse(generate(),
+        media_type=<span class="ps">"text/event-stream"</span>)
+<span class="pc"># 🚀 uvicorn llm_api:app → test at /docs</span></div></div></div>
+        <div class="csum pys"><div class="cst">🎓 PYTHON COURSE COMPLETE! 🎉</div><ul><li>✅ Ch1–10: From tokens to deployed streaming FastAPI app</li><li>✅ Embeddings, RAG, Function Calling, Structured Output</li><li>✅ RAGAS evaluation + production-ready architecture</li><li>You're ready to build real LLM products! 🚀</li></ul></div>
+      </div>
+    </div><!-- /pyleft -->
+
+    <div class="spl" id="spl"></div>
+
+    <!-- .NET PANE -->
+    <div class="sp netp" id="netright">
+      <div class="lbadge netb"><div class="lbi">🟣</div><div><div class="lbt">.NET C#</div><div class="lbs">Semantic Kernel · TiktokenSharp · Qdrant · ASP.NET Core · Azure</div></div></div>
+
+      <div class="cc act" id="netc0"><div class="chero neth"><div class="chn">💬 MISSION 1/10 · 🟣 .NET C#</div><div class="cht">WHY LLMs EXIST 💬</div><div class="chd">Semantic Kernel = Microsoft LangChain. 3 lines to GPT-4o. Enterprise .NET LLM apps.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 WhyLlm.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel;
+
+<span class="pc">// Install: dotnet add package Microsoft.SemanticKernel</span>
+
+<span class="pk">var</span> kernel = Kernel.CreateBuilder()
+    .AddOpenAIChatCompletion(
+        modelId: <span class="ps">"gpt-4o"</span>,
+        apiKey:  Environment.GetEnvironmentVariable(
+                   <span class="ps">"OPENAI_API_KEY"</span>)!)
+    .Build();
+
+<span class="pc">// ⚡ First LLM call in C# — 3 lines!</span>
+<span class="pk">var</span> result = <span class="pk">await</span> kernel.InvokePromptAsync(
+    <span class="ps">"What is machine learning in one sentence?"</span>);
+Console.WriteLine(result);  <span class="pc">// ✅ It works!</span>
+
+<span class="pc">// Azure: .AddAzureOpenAIChatCompletion(deploy, endpoint, key)</span></div></div></div><div class="csum nets"><div class="cst">💬 MISSION 1 COMPLETE!</div><ul><li>Semantic Kernel = Microsoft official LLM SDK for .NET</li><li>3 lines: CreateBuilder → AddOpenAIChatCompletion → Build</li><li>Azure OpenAI: swap to AddAzureOpenAIChatCompletion</li><li>Never hardcode API keys — use environment variables</li></ul><button class="nxtch netn" onclick="showCh(1,document.querySelectorAll('#qanav .cnb')[1])">⚡ Next: Ch2 — Tokenisation →</button></div></div>
+
+      <div class="cc" id="netc1"><div class="chero neth"><div class="chn">💬 MISSION 2/10 · 🟣 .NET C#</div><div class="cht">TOKENISATION IN C# 🔢</div><div class="chd">TiktokenSharp counts tokens. Cost estimation. Context management.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 Tokenisation.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div></div><div class="code-content"><span class="pk">using</span> TiktokenSharp;  <span class="pc">// NuGet: TiktokenSharp</span>
+
+<span class="pk">var</span> enc    = TikToken.EncodingForModel(<span class="ps">"gpt-4o"</span>);
+<span class="pk">var</span> text   = <span class="ps">"ChatGPT changed the world in November 2022"</span>;
+<span class="pk">var</span> tokens = enc.Encode(text);
+Console.WriteLine(<span class="ps">$"Token count: {tokens.Count}"</span>);  <span class="pc">// 9</span>
+
+<span class="pc">// 💰 Cost estimator</span>
+<span class="pk">static float</span> EstimateCost(<span class="pk">string</span> text, <span class="pk">float</span> costPerM = <span class="pn">15f</span>)
+{
+    <span class="pk">var</span> n = TikToken.EncodingForModel(<span class="ps">"gpt-4o"</span>)
+                    .Encode(text).Count;
+    <span class="pk">return</span> n * costPerM / <span class="pn">1_000_000f</span>;
+}
+
+<span class="pc">// 📏 Trim history when approaching context limit</span>
+<span class="pk">void</span> TrimHistory(List&lt;ChatMessageContent&gt; history,
+                 <span class="pk">int</span> maxTok = <span class="pn">100_000</span>)
+{
+    <span class="pk">var</span> total = history.Sum(
+        m => enc.Encode(m.Content ?? <span class="ps">""</span>).Count);
+    <span class="pk">while</span> (total > maxTok && history.Count > <span class="pn">2</span>)
+    { total -= enc.Encode(history[<span class="pn">1</span>].Content ?? <span class="ps">""</span>).Count;
+      history.RemoveAt(<span class="pn">1</span>); }
+}</div></div></div><div class="csum nets"><div class="cst">💬 MISSION 2 COMPLETE!</div><ul><li>TiktokenSharp = Python tiktoken ported to .NET, same token IDs</li><li>Encode(text).Count = exact token count before API call</li><li>EstimateCost prevents surprise bills</li><li>TrimHistory keeps conversation under context limit</li></ul><button class="nxtch netn" onclick="showCh(2,document.querySelectorAll('#qanav .cnb')[2])">⚡ Next: Ch3 — Embeddings →</button></div></div>
+
+      <div class="cc" id="netc2"><div class="chero neth"><div class="chn">💬 MISSION 3/10 · 🟣 .NET C#</div><div class="cht">EMBEDDINGS IN C# 🧮</div><div class="chd">SK embedding service. Cosine similarity. Semantic search in .NET.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 Embeddings.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel;
+<span class="pk">using</span> Microsoft.SemanticKernel.Embeddings;
+
+<span class="pk">var</span> kernel = Kernel.CreateBuilder()
+    .AddOpenAITextEmbeddingGeneration(
+        modelId: <span class="ps">"text-embedding-3-small"</span>,
+        apiKey:  Environment.GetEnvironmentVariable(
+                   <span class="ps">"OPENAI_API_KEY"</span>)!)
+    .Build();
+
+<span class="pk">var</span> svc = kernel
+    .GetRequiredService&lt;ITextEmbeddingGenerationService&gt;();
+
+<span class="pc">// 🧮 Generate embeddings</span>
+<span class="pk">var</span> v1 = <span class="pk">await</span> svc.GenerateEmbeddingAsync(
+    <span class="ps">"Box arrived crushed and damaged"</span>);
+<span class="pk">var</span> v2 = <span class="pk">await</span> svc.GenerateEmbeddingAsync(<span class="ps">"bad packaging"</span>);
+
+<span class="pc">// 📐 Cosine similarity in C#</span>
+<span class="pk">static float</span> Cosine(ReadOnlyMemory&lt;<span class="pk">float</span>&gt; a,
+                    ReadOnlyMemory&lt;<span class="pk">float</span>&gt; b)
+{
+    <span class="pk">var</span> (sa, sb) = (a.Span, b.Span);
+    <span class="pk">float</span> dot=<span class="pn">0</span>,na=<span class="pn">0</span>,nb=<span class="pn">0</span>;
+    <span class="pk">for</span>(<span class="pk">int</span> i=<span class="pn">0</span>;i&lt;sa.Length;i++)
+      {dot+=sa[i]*sb[i];na+=sa[i]*sa[i];nb+=sb[i]*sb[i];}
+    <span class="pk">return</span> dot/(MathF.Sqrt(na)*MathF.Sqrt(nb));
+}
+Console.WriteLine(<span class="ps">$"Sim: {Cosine(v1,v2):F2}"</span>); <span class="pc">// ~0.82!</span></div></div></div><div class="csum nets"><div class="cst">💬 MISSION 3 COMPLETE!</div><ul><li>ITextEmbeddingGenerationService = SK embedding interface</li><li>ReadOnlyMemory&lt;float&gt; = SK vector type</li><li>Cosine similarity: dot / (|a| * |b|)</li><li>Powers RAG, semantic search, recommendations</li></ul><button class="nxtch netn" onclick="showCh(3,document.querySelectorAll('#qanav .cnb')[3])">⚡ Next: Ch4 — SK Deep Dive →</button></div></div>
+
+      <!-- Missions 4-10 .NET abbreviated -->
+      <div class="cc" id="netc3"><div class="chero neth"><div class="chn">💬 MISSION 4/10 · 🟣 .NET C#</div><div class="cht">SK DEEP DIVE 🌐</div><div class="chd">ChatHistory, streaming, prompt templates. Full SK toolkit.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 SkDeepDive.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel;
+<span class="pk">using</span> Microsoft.SemanticKernel.ChatCompletion;
+
+<span class="pk">var</span> kernel = Kernel.CreateBuilder()
+    .AddOpenAIChatCompletion(<span class="ps">"gpt-4o"</span>, apiKey)
+    .Build();
+<span class="pk">var</span> chat    = kernel.GetRequiredService&lt;IChatCompletionService&gt;();
+<span class="pk">var</span> history = <span class="pk">new</span> ChatHistory(
+    <span class="ps">"You are a helpful Python expert."</span>);
+
+history.AddUserMessage(
+    <span class="ps">"Explain async/await in one paragraph."</span>);
+<span class="pk">var</span> sb = <span class="pk">new</span> StringBuilder();
+<span class="pk">await foreach</span> (<span class="pk">var</span> chunk <span class="pk">in</span>
+    chat.GetStreamingChatMessageContentsAsync(history))
+{
+    Console.Write(chunk.Content);  <span class="pc">// ⚡ live tokens!</span>
+    sb.Append(chunk.Content);
+}
+history.AddAssistantMessage(sb.ToString());
+
+<span class="pc">// 📝 Prompt template with variables</span>
+<span class="pk">var</span> fn = kernel.CreateFunctionFromPrompt(
+    <span class="ps">"You are a {$role} expert. Analyse: {$text}"</span>);
+<span class="pk">var</span> result = <span class="pk">await</span> kernel.InvokeAsync(fn,
+    <span class="pk">new</span> KernelArguments {
+        [<span class="ps">"role"</span>] = <span class="ps">"sentiment"</span>, [<span class="ps">"text"</span>] = <span class="ps">"Box crushed!"</span>
+    });
+Console.WriteLine(result);</div></div></div><div class="csum nets"><div class="cst">💬 MISSION 4 COMPLETE!</div><ul><li>ChatHistory = conversation memory</li><li>GetStreamingChatMessageContentsAsync = streaming as IAsyncEnumerable</li><li>CreateFunctionFromPrompt = reusable prompt with variables</li><li>Register as ASP.NET Core singleton</li></ul><button class="nxtch netn" onclick="showCh(4,document.querySelectorAll('#qanav .cnb')[4])">⚡ Next: Ch5 — Plugins →</button></div></div>
+
+      <div class="cc" id="netc4"><div class="chero neth"><div class="chn">💬 MISSION 5/10 · 🟣 .NET C#</div><div class="cht">SK PLUGINS 🔧</div><div class="chd">[KernelFunction] exposes C# as LLM tools. Live data accessible.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 BusinessPlugin.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel;
+<span class="pk">using</span> System.ComponentModel;
+
+<span class="pk">public class</span> <span class="pcl">BusinessPlugin</span>
+{
+    <span class="pc">// [KernelFunction] = LLM can call this method!</span>
+    [KernelFunction, Description(
+        <span class="ps">"Get current weather. Use when user asks about weather."</span>)]
+    <span class="pk">public async Task</span>&lt;<span class="pk">string</span>&gt; GetWeather(
+        [Description(<span class="ps">"The city name"</span>)] <span class="pk">string</span> city)
+    {
+        <span class="pk">return</span> <span class="ps">$"{city}: 22°C, Sunny ☀️"</span>;
+    }
+
+    [KernelFunction, Description(
+        <span class="ps">"Search company documents for policies."</span>)]
+    <span class="pk">public async Task</span>&lt;<span class="pk">string</span>&gt; SearchDocs(
+        [Description(<span class="ps">"The search query"</span>)] <span class="pk">string</span> query)
+    {
+        <span class="pk">return</span> <span class="ps">"Refund policy: 30 days, no questions asked."</span>;
+    }
+}
+kernel.Plugins.AddFromObject(<span class="pk">new</span> BusinessPlugin(), <span class="ps">"business"</span>);
+<span class="pc">// LLM auto-calls GetWeather when asked about weather! 🎯</span></div></div></div><div class="csum nets"><div class="cst">💬 MISSION 5 COMPLETE!</div><ul><li>[KernelFunction] + [Description] = LLM tool in 2 attributes</li><li>Description = LLM reads this to decide WHEN to call</li><li>kernel.Plugins.AddFromObject() = register all methods</li><li>Add EF queries, REST clients as LLM tools!</li></ul><button class="nxtch netn" onclick="showCh(5,document.querySelectorAll('#qanav .cnb')[5])">⚡ Next: Ch6 — Planner →</button></div></div>
+
+      <div class="cc" id="netc5"><div class="chero neth"><div class="chn">💬 MISSION 6/10 · 🟣 .NET C#</div><div class="cht">SK PLANNER — AGENT 🤖</div><div class="chd">FunctionCallingStepwisePlanner chains plugins for multi-step goals.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 SkPlanner.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel.Planning;
+
+kernel.Plugins.AddFromObject(<span class="pk">new</span> BusinessPlugin(), <span class="ps">"business"</span>);
+kernel.Plugins.AddFromObject(<span class="pk">new</span> WeatherPlugin(),  <span class="ps">"weather"</span>);
+kernel.Plugins.AddFromObject(<span class="pk">new</span> EmailPlugin(),    <span class="ps">"email"</span>);
+
+<span class="pc">// 🤖 Planner = autonomous agent</span>
+<span class="pk">var</span> planner = <span class="pk">new</span> FunctionCallingStepwisePlanner();
+
+<span class="pc">// Give it a GOAL — it figures out the steps!</span>
+<span class="pk">var</span> result = <span class="pk">await</span> planner.ExecuteAsync(kernel,
+    <span class="ps">"Check London weather, search outdoor event policy, "</span> +
+    <span class="ps">"tell me if we should do tomorrow's team outdoor lunch."</span>);
+
+Console.WriteLine(result.FinalAnswer);
+<span class="pc">// Planner automatically:</span>
+<span class="pc">// 1. Called GetWeather("London") → 22°C sunny</span>
+<span class="pc">// 2. Called SearchDocs("outdoor policy") → found</span>
+<span class="pc">// 3. "Proceed! Perfect weather + policy allows it." ✅</span></div></div></div><div class="csum nets"><div class="cst">💬 MISSION 6 COMPLETE!</div><ul><li>FunctionCallingStepwisePlanner = autonomous ReAct agent</li><li>ExecuteAsync(kernel, goal) = plain English goal</li><li>Reads [Description] to plan which plugins to call</li><li>Add new plugin → planner discovers it automatically</li></ul><button class="nxtch netn" onclick="showCh(6,document.querySelectorAll('#qanav .cnb')[6])">⚡ Next: Ch7 — Structured Output →</button></div></div>
+
+      <div class="cc" id="netc6"><div class="chero neth"><div class="chn">💬 MISSION 7/10 · 🟣 .NET C#</div><div class="cht">STRUCTURED OUTPUT 📦</div><div class="chd">Force JSON output. C# records. Zero parsing crashes.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 StructuredOutput.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div></div><div class="code-content"><span class="pk">using</span> System.Text.Json;
+<span class="pk">using</span> System.Text.Json.Serialization;
+
+<span class="pk">public record</span> <span class="pcl">ReviewAnalysis</span>(
+    [property: JsonPropertyName(<span class="ps">"sentiment"</span>)] <span class="pk">string</span>   Sentiment,
+    [property: JsonPropertyName(<span class="ps">"score"</span>)]     <span class="pk">float</span>    Score,
+    [property: JsonPropertyName(<span class="ps">"issues"</span>)]    <span class="pk">string</span>[] Issues,
+    [property: JsonPropertyName(<span class="ps">"summary"</span>)]   <span class="pk">string</span>   Summary
+);
+
+<span class="pk">var</span> prompt = <span class="ps">@"Analyse this review. ONLY valid JSON:
+{""sentiment"":""positive|negative|neutral"",
+ ""score"":0.0-1.0,""issues"":[...],""summary"":""...""}
+Review: "</span> + review;
+
+<span class="pk">var</span> result   = <span class="pk">await</span> kernel.InvokePromptAsync(prompt);
+<span class="pk">var</span> analysis = JsonSerializer
+    .Deserialize&lt;ReviewAnalysis&gt;(result.ToString()!)!;
+
+Console.WriteLine(<span class="ps">$"Sentiment: {analysis.Sentiment}"</span>);
+Console.WriteLine(<span class="ps">$"Score: {analysis.Score}"</span>);
+Console.WriteLine(<span class="ps">$"Issues: {string.Join(", ", analysis.Issues)}"</span>);</div></div></div><div class="csum nets"><div class="cst">💬 MISSION 7 COMPLETE!</div><ul><li>C# records = clean immutable DTOs for LLM responses</li><li>Include exact JSON schema in prompt</li><li>JsonPropertyName ensures exact field naming</li><li>Add try-catch + retry for rare malformed responses</li></ul><button class="nxtch netn" onclick="showCh(7,document.querySelectorAll('#qanav .cnb')[7])">⚡ Next: Ch8 — Evaluation →</button></div></div>
+
+      <div class="cc" id="netc7"><div class="chero neth"><div class="chn">💬 MISSION 8/10 · 🟣 .NET C#</div><div class="cht">EVALUATION IN C# 📊</div><div class="chd">GPT-4o as judge. xUnit quality gates. CI/CD automated eval.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 LlmEval.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div></div><div class="code-content"><span class="pk">using</span> System.Text.Json;
+
+<span class="pk">public record</span> <span class="pcl">EvalScore</span>(
+    <span class="pk">float</span> Faithfulness, <span class="pk">float</span> Relevancy, <span class="pk">string</span> Reasoning);
+
+<span class="pk">async Task</span>&lt;EvalScore&gt; EvaluateAsync(
+    <span class="pk">string</span> question, <span class="pk">string</span> answer, <span class="pk">string</span> source)
+{
+    <span class="pk">var</span> prompt = <span class="ps">$@"Evaluate. ONLY JSON:
+{{""faithfulness"":0.0-1.0,""relevancy"":0.0-1.0,
+  ""reasoning"":""brief""}}
+Q: {question}  A: {answer}  Source: {source}"</span>;
+    <span class="pk">var</span> result = <span class="pk">await</span> kernel.InvokePromptAsync(prompt);
+    <span class="pk">return</span> JsonSerializer
+        .Deserialize&lt;EvalScore&gt;(result.ToString()!)!;
+}
+
+<span class="pc">// 🧪 xUnit — fail CI if quality drops!</span>
+<span class="pk">var</span> score = <span class="pk">await</span> EvaluateAsync(
+    <span class="ps">"What is the refund policy?"</span>,
+    <span class="ps">"30 days, no questions asked."</span>,
+    <span class="ps">"Our refund policy is 30 days from purchase."</span>);
+Assert.True(score.Faithfulness > <span class="pn">0.8f</span>);  <span class="pc">// ✅ CI gate!</span>
+Assert.True(score.Relevancy    > <span class="pn">0.8f</span>);</div></div></div><div class="csum nets"><div class="cst">💬 MISSION 8 COMPLETE!</div><ul><li>LLM-as-judge: GPT-4o evaluates GPT-4o responses</li><li>Structured output returns consistent float scores</li><li>Assert.True(score.Faithfulness > 0.8f) = xUnit quality gate</li><li>Run in CI — fail build on quality regression</li></ul><button class="nxtch netn" onclick="showCh(8,document.querySelectorAll('#qanav .cnb')[8])">⚡ Next: Ch9 — RAG Pipeline →</button></div></div>
+
+      <div class="cc" id="netc8"><div class="chero neth"><div class="chn">💬 MISSION 9/10 · 🟣 .NET C#</div><div class="cht">RAG PIPELINE IN C# 🔍</div><div class="chd">Qdrant + SK embeddings + [KernelFunction]. Enterprise KB in 2 hours.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 RagPipeline.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div></div><div class="code-content"><span class="pk">using</span> Microsoft.SemanticKernel.Memory;
+<span class="pk">using</span> Microsoft.SemanticKernel.Connectors.Qdrant;
+
+<span class="pc">// docker run -p 6333:6333 qdrant/qdrant</span>
+<span class="pk">var</span> memory = <span class="pk">new</span> SemanticTextMemory(
+    <span class="pk">new</span> QdrantMemoryStore(
+        <span class="ps">"http://localhost:6333"</span>, vectorSize: <span class="pn">1536</span>),
+    kernel.GetRequiredService&lt;ITextEmbeddingGenerationService&gt;());
+
+<span class="pc">// 📚 Index docs</span>
+<span class="pk">string</span>[] docs = [
+    <span class="ps">"Refund policy: 30 days."</span>,
+    <span class="ps">"Free shipping over £50."</span>];
+<span class="pk">for</span> (<span class="pk">int</span> i=<span class="pn">0</span>; i&lt;docs.Length; i++)
+    <span class="pk">await</span> memory.SaveInformationAsync(
+        <span class="ps">"company"</span>, id: <span class="ps">$"doc-{i}"</span>, text: docs[i]);
+
+<span class="pc">// 🔧 RAG plugin</span>
+<span class="pk">public class</span> <span class="pcl">RagPlugin</span>(ISemanticTextMemory mem)
+{
+    [KernelFunction, Description(<span class="ps">"Search company docs."</span>)]
+    <span class="pk">public async Task</span>&lt;<span class="pk">string</span>&gt; SearchDocs(<span class="pk">string</span> query)
+    { <span class="pk">var</span> sb = <span class="pk">new</span> StringBuilder();
+      <span class="pk">await foreach</span> (<span class="pk">var</span> r <span class="pk">in</span> mem.SearchAsync(<span class="ps">"company"</span>,query,<span class="pn">3</span>))
+          sb.AppendLine(r.Metadata.Text); <span class="pk">return</span> sb.ToString();}
+}
+kernel.Plugins.AddFromObject(<span class="pk">new</span> RagPlugin(memory),<span class="ps">"rag"</span>);</div></div></div><div class="csum nets"><div class="cst">💬 MISSION 9 COMPLETE!</div><ul><li>QdrantMemoryStore = production vector store</li><li>SaveInformationAsync = index docs (run when docs change)</li><li>RagPlugin auto-called by Planner when user asks company questions</li><li>Update docs instantly — no retraining needed</li></ul><button class="nxtch netn" onclick="showCh(9,document.querySelectorAll('#qanav .cnb')[9])">⚡ Next: Ch10 — Azure Deploy →</button></div></div>
+
+      <div class="cc" id="netc9"><div class="chero neth"><div class="chn">💬 MISSION 10/10 · 🟣 .NET C#</div><div class="cht">DEPLOY TO AZURE 🚀</div><div class="chd">ASP.NET Core + SK singleton DI + streaming + App Insights.</div></div><div class="cb"><div class="ch2 nethc"><span class="dot" style="background:#d85050"></span><span class="dot" style="background:#d8a030"></span><span class="dot" style="background:#40a840"></span><span class="vsc-tab">🟣 Program.cs</span></div><div class="cbody"><div class="lnums"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div><div>32</div></div><div class="code-content"><span class="pk">var</span> builder = WebApplication.CreateBuilder(args);
+
+<span class="pc">// 🧠 Register SK as singleton</span>
+builder.Services.AddSingleton(_ =>
+    Kernel.CreateBuilder()
+        .AddAzureOpenAIChatCompletion(
+            builder.Configuration[<span class="ps">"Azure:Deployment"</span>]!,
+            builder.Configuration[<span class="ps">"Azure:Endpoint"</span>]!,
+            builder.Configuration[<span class="ps">"Azure:ApiKey"</span>]!)
+        .Build());
+
+<span class="pc">// 📊 App Insights traces every LLM call + cost!</span>
+builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddControllers();
+
+[ApiController, Route(<span class="ps">"api/chat"</span>)]
+<span class="pk">public class</span> <span class="pcl">ChatController</span>(Kernel kernel) : ControllerBase
+{
+    [HttpPost]
+    <span class="pk">public async</span> IAsyncEnumerable&lt;<span class="pk">string</span>&gt; Chat(
+        [FromBody] ChatRequest req)
+    {
+        <span class="pk">var</span> history = <span class="pk">new</span> ChatHistory(
+            <span class="ps">"You are a helpful assistant."</span>);
+        history.AddUserMessage(req.Message);
+        <span class="pk">var</span> svc = kernel
+            .GetRequiredService&lt;IChatCompletionService&gt;();
+        <span class="pk">await foreach</span> (<span class="pk">var</span> chunk <span class="pk">in</span>
+            svc.GetStreamingChatMessageContentsAsync(history))
+            <span class="pk">yield return</span> chunk.Content ?? <span class="ps">""</span>;
+    }
+    <span class="pk">private readonly</span> Kernel _kernel = kernel;
+}</div></div></div>
+        <div class="csum nets"><div class="cst">🎓 .NET COURSE COMPLETE! 🎉</div><ul><li>✅ Ch1–10: From SK setup to Azure streaming API</li><li>✅ Plugins, Planner, RAG with Qdrant</li><li>✅ Structured output, xUnit evaluation</li><li>You're ready to ship enterprise .NET LLM apps! 🚀</li></ul></div>
+      </div>
+    </div><!-- /netright -->
+  </div></div>
+</div><!-- /tp -->
+
+<script>
+/* ── MAIN TAB SWITCH ── */
+function switchMain(t,btn){
+  var th=document.getElementById('th'),tp=document.getElementById('tp'),
+      qn=document.getElementById('qanav'),
+      bth=document.getElementById('btn-th'),btp=document.getElementById('btn-tp');
+  if(t==='h'){
+    th.style.display='block';tp.style.display='none';qn.style.display='none';
+    bth.classList.add('act');btp.classList.remove('act');
+  } else {
+    th.style.display='none';tp.style.display='flex';qn.style.display='flex';
+    bth.classList.remove('act');btp.classList.add('act');
+    showCh(0,document.querySelectorAll('#qanav .cnb')[0]);
+    // Default mobile tab
+    if(window.innerWidth<=900) switchLang('py',document.querySelector('.mlt.py-tab'));
+  }
+}
+
+/* ── CHAPTER SWITCH ── */
+function showCh(idx,btn){
+  document.querySelectorAll('#qanav .cnb').forEach(b=>b.classList.remove('act-ch'));
+  if(btn)btn.classList.add('act-ch');
+  for(var i=0;i<10;i++){
+    var p=document.getElementById('pyc'+i),n=document.getElementById('netc'+i);
+    if(p)p.classList.toggle('act',i===idx);
+    if(n)n.classList.toggle('act',i===idx);
+  }
+  var pl=document.getElementById('pyleft'),nr=document.getElementById('netright');
+  if(pl)pl.scrollTop=0;
+  if(nr)nr.scrollTop=0;
+  // Scroll qanav to show active btn
+  if(btn){
+    var qn=document.getElementById('qanav');
+    if(qn)qn.scrollLeft=btn.offsetLeft-60;
+  }
+}
+
+/* ── MOBILE LANG SWITCH ── */
+function switchLang(lang,btn){
+  document.querySelectorAll('.mlt').forEach(b=>b.classList.remove('active-tab'));
+  if(btn)btn.classList.add('active-tab');
+  var pl=document.getElementById('pyleft'),nr=document.getElementById('netright');
+  if(!pl||!nr)return;
+  if(lang==='py'){
+    pl.classList.remove('hidden-mobile');
+    nr.classList.add('hidden-mobile');
+  } else {
+    nr.classList.remove('hidden-mobile');
+    pl.classList.add('hidden-mobile');
+  }
+}
+
+/* ── SCROLL SYNC (desktop) ── */
+(function(){
+  var py=document.getElementById('pyleft'),net=document.getElementById('netright');
+  if(!py||!net)return;
+  var lock=false,pyL=0,netL=0;
+  py.addEventListener('scroll',function(){
+    if(lock||window.innerWidth<=900)return;
+    lock=true;var d=py.scrollTop-pyL;
+    net.scrollTop+=d;pyL=py.scrollTop;netL=net.scrollTop;
+    requestAnimationFrame(function(){lock=false;});
+  });
+  net.addEventListener('scroll',function(){
+    if(lock||window.innerWidth<=900)return;
+    lock=true;var d=net.scrollTop-netL;
+    py.scrollTop+=d;netL=net.scrollTop;pyL=py.scrollTop;
+    requestAnimationFrame(function(){lock=false;});
+  });
+})();
+
+/* ── DRAG SPLITTER (desktop only) ── */
+(function(){
+  var spl=document.getElementById('spl'),drag=false;
+  if(!spl)return;
+  spl.addEventListener('mousedown',function(e){
+    if(window.innerWidth<=900)return;
+    drag=true;document.body.style.cursor='col-resize';e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!drag||window.innerWidth<=900)return;
+    var sv=document.querySelector('.sv');if(!sv)return;
+    var r=sv.getBoundingClientRect();
+    var lw=Math.max(240,Math.min(e.clientX-r.left,r.width-240));
+    var rw=r.width-lw-12;
+    var lp=document.getElementById('pyleft'),rp=document.getElementById('netright');
+    if(lp){lp.style.flex='none';lp.style.width=lw+'px';}
+    if(rp){rp.style.flex='none';rp.style.width=rw+'px';}
+  });
+  document.addEventListener('mouseup',function(){drag=false;document.body.style.cursor='';});
+})();
+
+/* ── MOBILE: hide net pane by default in course ── */
+(function(){
+  function applyMobile(){
+    if(window.innerWidth<=900){
+      var nr=document.getElementById('netright');
+      if(nr && !nr.classList.contains('hidden-mobile')){
+        nr.classList.add('hidden-mobile');
+      }
+    } else {
+      var nr=document.getElementById('netright');
+      if(nr) nr.classList.remove('hidden-mobile');
+    }
+  }
+  applyMobile();
+  window.addEventListener('resize',applyMobile);
+})();
+</script>
 </body>
 </html>
